@@ -17,7 +17,11 @@
     <StackPanel Orientation="Horizontal">
         <StackPanel Orientation="Vertical">
             <Label Content="{Binding LabelText}" />
-            <TextBox Text="{Binding TextBoxText}" TextWrapping="Wrap" Width="100" Height="50"/>
+            <TextBox
+                Width="100"
+                Height="50"
+                Text="{Binding TextBoxText}"
+                TextWrapping="Wrap" />
         </StackPanel>
         <Button
             x:Name="ChangeLabelButton"
@@ -25,6 +29,5 @@
             Height="20"
             Command="{Binding ChangeLabelButtonCommand}"
             Content="Przycisk" />
-        
     </StackPanel>
 </Window>
