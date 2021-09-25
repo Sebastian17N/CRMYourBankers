@@ -14,13 +14,17 @@
         <viewmodels:MainWindowViewModel />
     </Window.DataContext>
 
-    <DockPanel>
-        <Label Content="{Binding LabelText}" />
+    <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Vertical">
+            <Label Content="{Binding LabelText}" />
+            <TextBox Text="{Binding TextBoxText}" TextWrapping="Wrap" Width="100" Height="50"/>
+        </StackPanel>
         <Button
             x:Name="ChangeLabelButton"
             Width="200"
             Height="20"
             Command="{Binding ChangeLabelButtonCommand}"
             Content="Przycisk" />
-    </DockPanel>
+        
+    </StackPanel>
 </Window>

@@ -15,6 +15,7 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("LabelText");
             }
         }
+        public string TextBoxText { get; set; }
 
         private string _labelText = "Wciśnij Przycisk i zobaczysz!";
 
@@ -31,8 +32,9 @@ namespace CRMYourBankers.ViewModels
             // danego Command.
             ChangeLabelButtonCommand = new RelayCommand(() =>
             {
-                LabelText = "Zmieniłem tekst!";
+                LabelText = TextBoxText;
             });
         }
+        
     }
 }
