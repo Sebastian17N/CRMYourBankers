@@ -19,12 +19,35 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("LabelText");
             }
         }
+        public string LabelText2
+        {
+            get => _labelText2;
+            set
+            {
+                _labelText2 = value;
+                NotifyPropertyChanged("LabelText2");
+            }
+        }
+        public string LabelText3
+        {
+            get => _labelText3;
+            set
+            {
+                _labelText3 = value;
+                NotifyPropertyChanged("LabelText3");
+            }
+        }
 
         public string TextBoxText { get; set; }
 
         private string _labelText = "Wciśnij Przycisk i zobaczysz!";
+        private string _labelText2 = "Nowe informacje";
+        private string _labelText3 = "Nie uwierzysz co sie stanie!";
 
         public ICommand ChangeLabelButtonCommand { get; set; }
+        public ICommand ChangeLabelButtonCommand2 { get; set; }
+        public ICommand ChangeLabelButtonCommand3 { get; set; }
+        public ICommand ChangeLabelButtonCommand4 { get; set; }
 
         public MainWindowViewModel()
         {
@@ -38,8 +61,21 @@ namespace CRMYourBankers.ViewModels
             ChangeLabelButtonCommand = new RelayCommand(() =>
             {
                 LabelText = TextBoxText;
+                LabelText2 = "";
             });
-        }
-        
+            ChangeLabelButtonCommand2 = new RelayCommand(() =>
+            {               
+                LabelText2 = TextBoxText;
+                LabelText = "";
+            });
+            ChangeLabelButtonCommand3 = new RelayCommand(() =>
+            {
+                LabelText3 = TextBoxText;
+            });
+            ChangeLabelButtonCommand4 = new RelayCommand(() =>
+            {              
+                LabelText3 = "CheckBox zaznaczony";
+            });            
+        }        
     }
 }
