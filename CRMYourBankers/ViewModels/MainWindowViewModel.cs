@@ -1,81 +1,98 @@
-﻿using CRMYourBankers.ViewModels.Base;
+﻿using CRMYourBankers.Messages;
+using CRMYourBankers.Models;
+using CRMYourBankers.ViewModels.Base;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class MainWindowViewModel : NotifyPropertyChangedBase
-    {
-        //TODO: 1. Stwórz dwa przyciski, zmieniające tekst w dwóch różnych Label na widoku głównym.
-        //TODO: 2. Jeśli jeden text pojawi się w Label1, to Label2 powienien być wyczyszczony i odwrotnie.
-        //TODO: 3. Dodaj CheckBox, który będzie wyświetlał w Label3, informację tekstową, czy jest zaznaczony.
+    public class MainWindowViewModel : TabBaseViewModel
+    { 
+        //TODO: 1. Dodaj 3 nowe pola dla Client: nr telefonu, pesel, mail.
+        //TODO: 2. Użytkownik może dodawać te pola z interfaceu.
+        //TODO: 3. Użytkownik może zobaczyć nowe pola jako kolumny na ClientSearch.
+        //TODO: 4. Za każdym wejściem w 'AddNewClient' pola powinny być puste.
+        //TODO: 5. Przycisk Save na ClientDetails powinien wyświetlić MessageBox (zrobione) i przejśc do ClientSearch.
+        //TODO: 6. Nie można kliknąć Save jeśli pola są puste ALBO istnieje już użytkownik o tym samym nr PESEL.
+        //TODO: 7. Pozostałe walidacje na użytkowniku - rozwiązanie systemowe. Metoda "bool Validate()" w Client.
 
-        public string LabelText
+        public ICommand AddNewClientButtonCommand { get; set; }
+
+        public ObservableCollection<object> ItemTabs => _itemTabs;
+
+        public ObservableCollection<object> _itemTabs = new ObservableCollection<object>();
+
+        public ClientSearchViewModel _ClientSearchViewModel;
+        public ClientDetailsViewModel _clientDetailsViewModel;
+
+        public List<Client> Clients { get; set; }
+
+        private object _selectedTab;
+        public object SelectedTab
         {
-            get => _labelText;
+            get => _selectedTab;
             set
             {
-                _labelText = value;
-                NotifyPropertyChanged("LabelText");
+                _selectedTab = value;
+                NotifyPropertyChanged("SelectedTab");
             }
         }
-        public string LabelText2
-        {
-            get => _labelText2;
-            set
-            {
-                _labelText2 = value;
-                NotifyPropertyChanged("LabelText2");
-            }
-        }
-        public string LabelText3
-        {
-            get => _labelText3;
-            set
-            {
-                _labelText3 = value;
-                NotifyPropertyChanged("LabelText3");
-            }
-        }
-
-        public string TextBoxText { get; set; }
-
-        private string _labelText = "Wciśnij Przycisk i zobaczysz!";
-        private string _labelText2 = "Nowe informacje";
-        private string _labelText3 = "Nie uwierzysz co sie stanie!";
-
-        public ICommand ChangeLabelButtonCommand { get; set; }
-        public ICommand ChangeLabelButtonCommand2 { get; set; }
-        public ICommand ChangeLabelButtonCommand3 { get; set; }
-        public ICommand ChangeLabelButtonCommand4 { get; set; }
 
         public MainWindowViewModel()
         {
+            TabMessenger = new Messenger();
+
+            Clients = new List<Client>
+            {
+                new Client {FirstName = "Piotr", LastName="Zieliński"},
+                new Client {FirstName = "Jan", LastName="Kowalski"}
+            };
+
             RegisterCommands();
+            RegisterMessages();
+
+            _ClientSearchViewModel = new ClientSearchViewModel(Clients);
+            _itemTabs.Add(_ClientSearchViewModel);
+
+            _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients);
+            _itemTabs.Add(_clientDetailsViewModel);
+
+            SelectedTab = _ClientSearchViewModel;
         }
 
         protected void RegisterCommands()
         {
-            // Definicja funkcja anonimowej, która jest zasilona do tego co wykona się po wywołaniu 
-            // danego Command.
-            ChangeLabelButtonCommand = new RelayCommand(() =>
+            AddNewClientButtonCommand = new RelayCommand(() =>
             {
-                LabelText = TextBoxText;
-                LabelText2 = "";
+                TabMessenger.Send(new TabChangeMessage {TabName = "ClientDetails" });
             });
-            ChangeLabelButtonCommand2 = new RelayCommand(() =>
-            {               
-                LabelText2 = TextBoxText;
-                LabelText = "";
-            });
-            ChangeLabelButtonCommand3 = new RelayCommand(() =>
-            {
-                LabelText3 = TextBoxText;
-            });
-            ChangeLabelButtonCommand4 = new RelayCommand(() =>
-            {              
-                LabelText3 = "CheckBox zaznaczony";
-            });            
         }        
+
+        public void RegisterMessages()
+        {
+            TabMessenger.Register<TabChangeMessage>(this, 
+                message =>
+            {
+                _ClientSearchViewModel.TabVisibility = Visibility.Collapsed;
+                _clientDetailsViewModel.TabVisibility = Visibility.Collapsed;
+
+                switch (message.TabName)
+                {
+                    case "ClientDetails":
+                        _clientDetailsViewModel.TabVisibility = Visibility.Visible;
+                        SelectedTab = _clientDetailsViewModel;
+                        break;
+
+                    case "ClientSearchTab":
+                        _ClientSearchViewModel.TabVisibility = Visibility.Visible;
+                        SelectedTab = _ClientSearchViewModel;
+                        break;
+                }
+            });
+        }
     }
 }
