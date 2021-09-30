@@ -4,6 +4,7 @@ using CRMYourBankers.ViewModels.Base;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -48,7 +49,9 @@ namespace CRMYourBankers.ViewModels
                 LastNameText != "" &&
                 PhoneNumberText != null &&
                 EmailText != "" &&
-                PersonalIdText != null
+                PersonalIdText != null 
+                //&&
+                //Clients.SingleOrDefault(item => item.PersonalId != PersonalIdText)
                 )
                 {                    
                     Clients.Add(newClient);

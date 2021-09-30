@@ -10,6 +10,6 @@
 
     <StackPanel Orientation="Vertical">
         <Button Command="{Binding SearchButtonCommand}" Content="Search" />
-        <DataGrid Height="400" ItemsSource="{Binding Clients}" />
+        <DataGrid Height="400" ItemsSource="{Binding Clients}" Width="200" />
     </StackPanel>
 </UserControl>

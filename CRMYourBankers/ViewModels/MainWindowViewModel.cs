@@ -23,9 +23,7 @@ namespace CRMYourBankers.ViewModels
         // powtórzyć Invoke, co dokładnie robi?
         // co oznacza PropertyChangedEventHandler
         // dokładne zastosowanie klas base i interfaces
-        //
-        //
-        //
+        // 
 
         public ICommand AddNewClientButtonCommand { get; set; }
 
