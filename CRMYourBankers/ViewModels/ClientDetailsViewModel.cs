@@ -42,8 +42,15 @@ namespace CRMYourBankers.ViewModels
                     PersonalId = PersonalIdText
                 };
 
-                if (newClient.Validate())
-                {
+            if (
+                newClient.Validate() &&
+                FirstNameText != "" &&
+                LastNameText != "" &&
+                PhoneNumberText != null &&
+                EmailText != "" &&
+                PersonalIdText != null
+                )
+                {                    
                     Clients.Add(newClient);
                     MessageBox.Show($"Zapisano: {FirstNameText} {LastNameText}");
                     TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearchTab" });
@@ -55,7 +62,7 @@ namespace CRMYourBankers.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("$Niepoprawnie wypełnione dane");
+                    MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola");
                 }
             });
 

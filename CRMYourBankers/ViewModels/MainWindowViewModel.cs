@@ -11,7 +11,7 @@ using System.Windows.Input;
 namespace CRMYourBankers.ViewModels
 {
     public class MainWindowViewModel : TabBaseViewModel
-    { 
+    {
         //TODO: 1. Dodaj 3 nowe pola dla Client: nr telefonu, pesel, mail.
         //TODO: 2. Użytkownik może dodawać te pola z interfaceu.
         //TODO: 3. Użytkownik może zobaczyć nowe pola jako kolumny na ClientSearch.
@@ -19,6 +19,13 @@ namespace CRMYourBankers.ViewModels
         //TODO: 5. Przycisk Save na ClientDetails powinien wyświetlić MessageBox (zrobione) i przejśc do ClientSearch.
         //TODO: 6. Nie można kliknąć Save jeśli pola są puste ALBO istnieje już użytkownik o tym samym nr PESEL.
         //TODO: 7. Pozostałe walidacje na użytkowniku - rozwiązanie systemowe. Metoda "bool Validate()" w Client.
+        // powtórzyć walidację Validate, co dokładnie robi?
+        // powtórzyć Invoke, co dokładnie robi?
+        // co oznacza PropertyChangedEventHandler
+        // dokładne zastosowanie klas base i interfaces
+        //
+        //
+        //
 
         public ICommand AddNewClientButtonCommand { get; set; }
 
