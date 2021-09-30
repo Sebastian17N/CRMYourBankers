@@ -5,11 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="200"
-    d:DesignWidth="200"
+    d:DesignWidth="400"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical">
-        <StackPanel           
+        <StackPanel
             Margin="5"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
@@ -23,28 +23,34 @@
             <Label Content="Nazwisko:" />
             <TextBox Width="200" Text="{Binding LastNameText}" />
         </StackPanel>
-        <StackPanel           
+        <StackPanel
             Margin="5"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Label Content="Numer Telefonu:" />
             <TextBox Width="200" Text="{Binding PhoneNumberText}" />
         </StackPanel>
-        <StackPanel           
+        <StackPanel
             Margin="5"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Label Content="E-mail:" />
             <TextBox Width="200" Text="{Binding EmailText}" />
         </StackPanel>
-        <StackPanel           
+        <StackPanel
             Margin="5"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Label Content="Pesel:" />
             <TextBox Width="200" Text="{Binding PersonalIdText}" />
         </StackPanel>
-        <Button Command="{Binding SaveButtonCommand}" Width="200" Content="Save" />
-        <Button Command="{Binding CancelButtonCommand}" Width="200" Content="Cancel" />
+        <Button
+            Width="200"
+            Command="{Binding SaveButtonCommand}"
+            Content="Save" />
+        <Button
+            Width="200"
+            Command="{Binding CancelButtonCommand}"
+            Content="Cancel" />
     </StackPanel>
 </UserControl>

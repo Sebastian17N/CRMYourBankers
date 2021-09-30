@@ -14,6 +14,21 @@ namespace CRMYourBankers.ViewModels
     {
         public List<Client> Clients { get; set; }
 
+        private Client _client;
+        public Client SelectedClient 
+        { 
+            get => _client; 
+            set
+            {
+                _client = value;
+                FirstNameText = _client.FirstName;
+                LastNameText = _client.LastName;
+                EmailText = _client.Email;
+                PhoneNumberText = _client.PhoneNumber;
+                PersonalIdText = _client.PersonalId;
+            }
+        }
+
         public string FirstNameText { get; set; }
         public string LastNameText { get; set; }
         public string EmailText { get; set; }
@@ -66,14 +81,14 @@ namespace CRMYourBankers.ViewModels
                     "Dodano Klienta",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
-                TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearchTab" });
+                TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearch" });
                 ClearAllFields();
                               
             });
 
             CancelButtonCommand = new RelayCommand(() =>
             {
-                TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearchTab" });
+                TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearch" });
             });
 
         }
