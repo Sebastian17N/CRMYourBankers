@@ -31,6 +31,9 @@
                     </Style>
                 </TabControl.ItemContainerStyle>
                 <TabControl.Resources>
+                    <DataTemplate DataType="{x:Type viewmodels:MainMenuViewModel}">
+                        <views:MainMenuView />
+                    </DataTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:ClientSearchViewModel}">
                         <views:ClientSearchView />
                     </DataTemplate>
@@ -39,7 +42,6 @@
                     </DataTemplate>
                 </TabControl.Resources>
             </TabControl>
-
         </StackPanel>
     </StackPanel>
 </Window>
