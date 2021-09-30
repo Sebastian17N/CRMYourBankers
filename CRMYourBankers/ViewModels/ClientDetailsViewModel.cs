@@ -42,37 +42,48 @@ namespace CRMYourBankers.ViewModels
                     Email = EmailText,
                     PersonalId = PersonalIdText
                 };
-
-            if (
-                newClient.Validate() &&
-                FirstNameText != "" &&
-                LastNameText != "" &&
-                PhoneNumberText != null &&
-                EmailText != "" &&
-                PersonalIdText != null 
-                //&&
-                //Clients.SingleOrDefault(item => item.PersonalId != PersonalIdText)
-                )
-                {                    
-                    Clients.Add(newClient);
-                    MessageBox.Show($"Zapisano: {FirstNameText} {LastNameText}");
-                    TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearchTab" });
-                    FirstNameText = "";
-                    LastNameText = "";
-                    PhoneNumberText = null;
-                    EmailText = "";
-                    PersonalIdText = null;
-                }
-                else
+                
+                if (!newClient.Validate())
                 {
-                    MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola");
+                    MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola", 
+                        "Błędy w formularzu", 
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
                 }
+
+                if (Clients.Any(item => item.PersonalId == PersonalIdText))
+                {
+                    MessageBox.Show("Klient o podanym nr Pesel już istnieje",
+                        "Błędy w formularzu",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;
+                }
+
+                Clients.Add(newClient);
+                MessageBox.Show($"Zapisano: {FirstNameText} {LastNameText}", 
+                    "Dodano Klienta",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearchTab" });
+                ClearAllFields();
+                              
             });
 
             CancelButtonCommand = new RelayCommand(() =>
             {
                 TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearchTab" });
             });
+
+        }
+        public void ClearAllFields()
+        {
+            FirstNameText = "";
+            LastNameText = "";
+            PhoneNumberText = null;
+            EmailText = "";
+            PersonalIdText = null;
         }
     }
 }

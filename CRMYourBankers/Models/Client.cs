@@ -10,8 +10,14 @@
 
 
         public bool Validate()
+            //validate sprawdza poprawność 
         {
-            return true;
-        }
+            return
+            FirstName != "" &&
+            LastName != "" &&
+            PhoneNumber != null &&
+            Email != "" &&
+            PersonalId != null;
+        }       
     }
 }
