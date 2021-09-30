@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical">
-        <StackPanel
+        <StackPanel           
             Margin="5"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
@@ -23,7 +23,28 @@
             <Label Content="Nazwisko:" />
             <TextBox Width="200" Text="{Binding LastNameText}" />
         </StackPanel>
-        <Button Command="{Binding SaveButtonCommand}" Content="Save" />
-        <Button Command="{Binding CancelButtonCommand}" Content="Cancel" />
+        <StackPanel           
+            Margin="5"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Label Content="Numer Telefonu:" />
+            <TextBox Width="200" Text="{Binding PhoneNumberText}" />
+        </StackPanel>
+        <StackPanel           
+            Margin="5"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Label Content="E-mail:" />
+            <TextBox Width="200" Text="{Binding EmailText}" />
+        </StackPanel>
+        <StackPanel           
+            Margin="5"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Label Content="Pesel:" />
+            <TextBox Width="200" Text="{Binding PersonalIdText}" />
+        </StackPanel>
+        <Button Command="{Binding SaveButtonCommand}" Width="200" Content="Save" />
+        <Button Command="{Binding CancelButtonCommand}" Width="200" Content="Cancel" />
     </StackPanel>
 </UserControl>

@@ -48,8 +48,22 @@ namespace CRMYourBankers.ViewModels
 
             Clients = new List<Client>
             {
-                new Client {FirstName = "Piotr", LastName="Zieliński"},
-                new Client {FirstName = "Jan", LastName="Kowalski"}
+                new Client 
+                {
+                    FirstName = "Piotr", 
+                    LastName ="Zieliński", 
+                    PhoneNumber = 888777999, 
+                    Email = "zielinski@wp.pl", 
+                    PersonalId = 12121212345
+                },
+                new Client 
+                {
+                    FirstName = "Jan", 
+                    LastName ="Kowalski",
+                    PhoneNumber = 555444666,
+                    Email = "kowalski@onet.pl",
+                    PersonalId = 55443312345
+                }
             };
 
             RegisterCommands();
