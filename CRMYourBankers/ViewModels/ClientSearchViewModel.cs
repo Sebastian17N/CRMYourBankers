@@ -20,7 +20,6 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("Clients");
             }
         }
-
         public ClientSearchViewModel(List<Client> clients)
         {
             Clients = clients;
