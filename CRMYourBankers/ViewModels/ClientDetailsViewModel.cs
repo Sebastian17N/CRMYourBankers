@@ -16,8 +16,8 @@ namespace CRMYourBankers.ViewModels
         public string FirstNameText { get; set; }
         public string LastNameText { get; set; }
         public string EmailText { get; set; }
-        public int PhoneNumberText { get; set; }
-        public long PersonalIdText { get; set; }
+        public int? PhoneNumberText { get; set; }
+        public long? PersonalIdText { get; set; }
 
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
@@ -47,6 +47,11 @@ namespace CRMYourBankers.ViewModels
                     Clients.Add(newClient);
                     MessageBox.Show($"Zapisano: {FirstNameText} {LastNameText}");
                     TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearchTab" });
+                    FirstNameText = "";
+                    LastNameText = "";
+                    PhoneNumberText = null;
+                    EmailText = "";
+                    PersonalIdText = null;
                 }
                 else
                 {
