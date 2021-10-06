@@ -28,7 +28,9 @@ namespace CRMYourBankers.ViewModels
         //         klientem, to walidacja peselu musi nie brać pod uwagę, wpisu który edytujesz (LINQ).
         //TODO: 2. Dodać nowy ekran do tworzenia/ edytowania wniosków, do którego można przejść
         //         z ekranu edycji klienta.
-        
+        // ObservableCollection co dokłądnie robi cała ta właściwość i druga tez?
+        // dlaczego piszesz _costam?
+
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand AddNewClientButtonCommand { get; set; }
 

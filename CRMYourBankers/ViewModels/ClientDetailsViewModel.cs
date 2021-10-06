@@ -21,11 +21,14 @@ namespace CRMYourBankers.ViewModels
             set
             {
                 _client = value;
-                FirstNameText = _client.FirstName;
-                LastNameText = _client.LastName;
-                EmailText = _client.Email;
-                PhoneNumberText = _client.PhoneNumber;
-                PersonalIdText = _client.PersonalId;
+                if (_client != null)
+                {
+                    FirstNameText = _client.FirstName;
+                    LastNameText = _client.LastName;
+                    EmailText = _client.Email;
+                    PhoneNumberText = _client.PhoneNumber;
+                    PersonalIdText = _client.PersonalId;
+                }                
             }
         }
 
