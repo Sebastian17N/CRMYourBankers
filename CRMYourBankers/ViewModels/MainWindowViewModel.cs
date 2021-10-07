@@ -36,6 +36,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand AddNewLoanApplicationCommand { get; set; }
 
         public ObservableCollection<object> ItemTabs => _itemTabs;
+        private ObservableCollection<object> _itemTabs = new ObservableCollection<object>();
         //można wymiennie pisać z NotifyPropertyChanged
 
         private MainMenuViewModel _mainMenuViewModel;
