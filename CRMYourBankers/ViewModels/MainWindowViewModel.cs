@@ -38,11 +38,9 @@ namespace CRMYourBankers.ViewModels
         public ObservableCollection<object> ItemTabs => _itemTabs;
         //można wymiennie pisać z NotifyPropertyChanged
 
-        public ObservableCollection<object> _itemTabs = new ObservableCollection<object>();
-
-        public MainMenuViewModel _mainMenuViewModel;
-        public ClientSearchViewModel _clientSearchViewModel;
-        public ClientDetailsViewModel _clientDetailsViewModel;
+        private MainMenuViewModel _mainMenuViewModel;
+        private ClientSearchViewModel _clientSearchViewModel;
+        private ClientDetailsViewModel _clientDetailsViewModel;
 
         public List<Client> Clients { get; set; }
 
