@@ -36,12 +36,11 @@ namespace CRMYourBankers.ViewModels
         public ICommand AddNewLoanApplicationCommand { get; set; }
 
         public ObservableCollection<object> ItemTabs => _itemTabs;
+        private ObservableCollection<object> _itemTabs = new ObservableCollection<object>();
 
-        public ObservableCollection<object> _itemTabs = new ObservableCollection<object>();
-
-        public MainMenuViewModel _mainMenuViewModel;
-        public ClientSearchViewModel _clientSearchViewModel;
-        public ClientDetailsViewModel _clientDetailsViewModel;
+        private MainMenuViewModel _mainMenuViewModel;
+        private ClientSearchViewModel _clientSearchViewModel;
+        private ClientDetailsViewModel _clientDetailsViewModel;
 
         public List<Client> Clients { get; set; }
 

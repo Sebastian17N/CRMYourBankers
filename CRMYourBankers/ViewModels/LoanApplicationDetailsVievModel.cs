@@ -26,7 +26,7 @@ namespace CRMYourBankers.ViewModels
 
         public LoanApplicationDetailsVievModel(Messenger tabMessenger, List<LoanApplication> loanApplications) : base(tabMessenger)
         {
-            LoanApplication = loanApplications;
+            LoanApplications = loanApplications;
 
         }
 

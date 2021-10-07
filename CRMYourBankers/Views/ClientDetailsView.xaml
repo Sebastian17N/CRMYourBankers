@@ -42,7 +42,10 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Label Content="Pesel:" />
-            <TextBox Width="200" Text="{Binding PersonalIdText}" />
+            <TextBox
+                Width="200"
+                IsReadOnly="{Binding EditingClient}"
+                Text="{Binding PersonalIdText}" />
         </StackPanel>
         <Button
             Width="200"
