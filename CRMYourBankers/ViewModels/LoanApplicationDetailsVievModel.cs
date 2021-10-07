@@ -24,9 +24,10 @@ namespace CRMYourBankers.ViewModels
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
 
-        public LoanApplicationDetailsVievModel(Messenger tabMessenger, List<LoanApplication> loanApplications) : base(tabMessenger)
+        public LoanApplicationDetailsVievModel(Messenger tabMessenger, List<LoanApplication> loanApplications) 
+            : base(tabMessenger)
         {
-            LoanApplication = loanApplications;
+            LoanApplications = loanApplications;
 
         }
 
