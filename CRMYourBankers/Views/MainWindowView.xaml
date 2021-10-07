@@ -17,8 +17,10 @@
 
     <StackPanel Orientation="Vertical">
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Command="{Binding AddNewClientButtonCommand}" Content="Dodaj nowego klienta" />
+            <Button Command="{Binding AddNewClientButtonCommand}" Content="Dodaj nowego klienta" Margin="5"/>
+            <Button Command="{Binding AddNewClientButtonCommand}" Content="Dodaj nowy wniosek" Margin="5"/>
         </StackPanel>
+
         <StackPanel>
             <TabControl
                 x:Name="MainTabControl"

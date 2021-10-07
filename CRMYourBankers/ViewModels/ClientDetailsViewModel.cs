@@ -95,6 +95,10 @@ namespace CRMYourBankers.ViewModels
             });
 
         }
+        public void EditClient()
+        {
+                    
+        }
         public void ClearAllFields()
         {
             FirstNameText = "";
