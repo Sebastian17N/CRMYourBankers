@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CRMYourBankers.Models
 {
-    class Bank
+    public class Bank
     {
         public string Name { get; set; }
     }
