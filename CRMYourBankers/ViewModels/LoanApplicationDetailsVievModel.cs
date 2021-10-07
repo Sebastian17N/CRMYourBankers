@@ -11,10 +11,11 @@ using System.Windows.Input;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class LoanApplicationDetailsVievModel : TabBaseViewModel
+    public class LoanApplicationDetailsViewModel : TabBaseViewModel
     {
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
+        public List<Client> Clients { get; set; }
 
         public int AmountRequestedText { get; set; }
         public int AmountReceivedText { get; set; }
@@ -24,12 +25,19 @@ namespace CRMYourBankers.ViewModels
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
 
-        public LoanApplicationDetailsVievModel(Messenger tabMessenger, List<LoanApplication> loanApplications) 
+        public LoanApplicationDetailsViewModel(Messenger tabMessenger, List<LoanApplication> loanApplications, List<Client> clients) 
             : base(tabMessenger)
         {
             LoanApplications = loanApplications;
+            Clients = clients;
+            RegisterCommands();
+        }
+
+        public void RegisterCommands()
+        {
 
         }
+
 
     }
 }

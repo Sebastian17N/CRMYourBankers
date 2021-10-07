@@ -13,6 +13,7 @@ namespace CRMYourBankers.Models
         public int ClientCommission { get; set; }
         public string TasksToDo { get; set; }
 
-
+        public int ClientId { get; set; }
+        public int BankId { get; set; }
     }
 }

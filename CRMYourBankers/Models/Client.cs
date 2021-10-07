@@ -7,6 +7,9 @@
         public int? PhoneNumber { get; set; }
         public string Email { get; set; }        
         public long? PersonalId { get; set; }
+        public int Id { get; set; }
+
+        public string FullName => $"{FirstName} {LastName} {Email}";
 
 
         public bool Validate()

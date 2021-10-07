@@ -18,9 +18,9 @@ namespace CRMYourBankers.Views
     /// <summary>
     /// Interaction logic for LoanApplicationDetails.xaml
     /// </summary>
-    public partial class LoanApplicationDetailsViev : UserControl
+    public partial class LoanApplicationDetailsView : UserControl
     {
-        public LoanApplicationDetailsViev()
+        public LoanApplicationDetailsView()
         {
             InitializeComponent();
         }

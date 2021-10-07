@@ -24,13 +24,13 @@ namespace CRMYourBankers.ViewModels
         // co oznacza PropertyChangedEventHandler
         // dokładne zastosowanie klas base i interfaces
         //
-        //TODO: 1. Dodać logikę edycji klienta. Czyli jeśli ekran jest otwarty z już istniejącym
+        // 8. Dodać logikę edycji klienta. Czyli jeśli ekran jest otwarty z już istniejącym
         //         klientem, to walidacja peselu musi nie brać pod uwagę, wpisu który edytujesz (LINQ).
-        //TODO: 2. Dodać nowy ekran do tworzenia/ edytowania wniosków, do którego można przejść
-        //         z ekranu edycji klienta.
-        // ObservableCollection co dokłądnie robi cała ta właściwość i druga tez?
-        // dlaczego piszesz _costam?
-
+        //TODO: 1. Dodać nowy ekran do tworzenia/ edytowania wniosków, do którego można przejść
+        //         z ekranu edycji klienta. Ma działać Bank lista, po dodaniu dodaniu nowej LoanApplication, powinno mieć przypisane
+        //            BankId i ClientId,
+        //          w widoku klineta poniżej ma wyświetlać się lista aktuanych wniosków
+        
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand AddNewClientButtonCommand { get; set; }
         public ICommand AddNewLoanApplicationCommand { get; set; }
@@ -42,8 +42,10 @@ namespace CRMYourBankers.ViewModels
         private MainMenuViewModel _mainMenuViewModel;
         private ClientSearchViewModel _clientSearchViewModel;
         private ClientDetailsViewModel _clientDetailsViewModel;
+        private LoanApplicationDetailsViewModel _LoanApplicationDetailsViewModel;
 
         public List<Client> Clients { get; set; }
+        public List<LoanApplication> LoanApplications { get; set;}
 
         private object _selectedTab;
         public object SelectedTab
@@ -92,6 +94,9 @@ namespace CRMYourBankers.ViewModels
             _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients);
             _itemTabs.Add(_clientDetailsViewModel);
 
+            _LoanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients);
+            _itemTabs.Add(_LoanApplicationDetailsViewModel);
+
             SelectedTab = _mainMenuViewModel;
         }
 
@@ -127,6 +132,10 @@ namespace CRMYourBankers.ViewModels
                     case "ClientSearch":
                         _clientSearchViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _clientSearchViewModel;
+                        break;
+                    case "LoanApplicationDetails":
+                        _LoanApplicationDetailsViewModel.TabVisibility = Visibility.Visible;
+                        SelectedTab = _LoanApplicationDetailsViewModel;
                         break;
                 }
             });

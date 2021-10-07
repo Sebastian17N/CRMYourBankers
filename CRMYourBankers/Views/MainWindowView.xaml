@@ -17,14 +17,20 @@
 
     <StackPanel Orientation="Vertical">
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Command="{Binding AddNewClientButtonCommand}" Content="Dodaj nowego klienta" Margin="5"/>
-            <Button Command="{Binding AddNewLoanApplicationCommand}" Content="Dodaj nowy wniosek" Margin="5"/>
+            <Button
+                Margin="5"
+                Command="{Binding AddNewClientButtonCommand}"
+                Content="Dodaj nowego klienta" />
+            <Button
+                Margin="5"
+                Command="{Binding AddNewLoanApplicationCommand}"
+                Content="Dodaj nowy wniosek" />
         </StackPanel>
 
         <StackPanel>
             <TabControl
                 x:Name="MainTabControl"
-                Height="250"
+                Height="350"
                 ItemsSource="{Binding ItemTabs}"
                 SelectedItem="{Binding SelectedTab}">
                 <TabControl.ItemContainerStyle>
@@ -41,6 +47,9 @@
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:ClientDetailsViewModel}">
                         <views:ClientDetailsView />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:LoanApplicationDetailsViewModel}">
+                        <views:LoanApplicationDetailsView />
                     </DataTemplate>
                 </TabControl.Resources>
             </TabControl>
