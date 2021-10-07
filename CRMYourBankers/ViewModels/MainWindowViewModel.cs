@@ -33,6 +33,7 @@ namespace CRMYourBankers.ViewModels
 
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand AddNewClientButtonCommand { get; set; }
+        public ICommand AddNewLoanApplicationCommand { get; set; }
 
         public ObservableCollection<object> ItemTabs => _itemTabs;
 
@@ -99,6 +100,10 @@ namespace CRMYourBankers.ViewModels
             AddNewClientButtonCommand = new RelayCommand(() =>
             {
                 TabMessenger.Send(new TabChangeMessage {TabName = "ClientDetails" });
+            });
+            AddNewLoanApplicationCommand = new RelayCommand(() =>
+            {
+                TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationDetails" });
             });
         }        
 
