@@ -30,7 +30,7 @@ namespace CRMYourBankers.ViewModels
         //         z ekranu edycji klienta. Ma działać Bank lista, po dodaniu dodaniu nowej LoanApplication, powinno mieć przypisane
         //            BankId i ClientId,
         //          w widoku klineta poniżej ma wyświetlać się lista aktuanych wniosków
-        
+
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand AddNewClientButtonCommand { get; set; }
         public ICommand AddNewLoanApplicationCommand { get; set; }
@@ -43,9 +43,10 @@ namespace CRMYourBankers.ViewModels
         private ClientSearchViewModel _clientSearchViewModel;
         private ClientDetailsViewModel _clientDetailsViewModel;
         private LoanApplicationDetailsViewModel _LoanApplicationDetailsViewModel;
-
+        private LoanApplicationSearchViewModel _loanApplicationSearcgViewModel;
         public List<Client> Clients { get; set; }
-        public List<LoanApplication> LoanApplications { get; set;}
+        public List<LoanApplication> LoanApplications { get; set; }
+        public List<Bank> Banks { get; set; }
 
         private object _selectedTab;
         public object SelectedTab
@@ -64,24 +65,47 @@ namespace CRMYourBankers.ViewModels
 
             Clients = new List<Client>
             {
-                new Client 
+                new Client
                 {
-                    FirstName = "Piotr", 
-                    LastName ="Zieliński", 
-                    PhoneNumber = 888777999, 
-                    Email = "zielinski@wp.pl", 
+                    FirstName = "Piotr",
+                    LastName ="Zieliński",
+                    PhoneNumber = 888777999,
+                    Email = "zielinski@wp.pl",
                     PersonalId = 12121212345
                 },
-                new Client 
+                new Client
                 {
-                    FirstName = "Jan", 
+                    FirstName = "Jan",
                     LastName ="Kowalski",
                     PhoneNumber = 555444666,
                     Email = "kowalski@onet.pl",
                     PersonalId = 55443312345
                 }
             };
-
+            LoanApplications = new List<LoanApplication>
+            {
+                new LoanApplication
+                {
+                    AmountRequested = 100000,
+                    AmountReceived = 100000,
+                    ClientCommission = 5000,
+                    TasksToDo = ""
+                },
+                new LoanApplication
+                {
+                    AmountRequested = 200000,
+                    AmountReceived = 200000,
+                    ClientCommission = 10000,
+                    TasksToDo = ""
+                }
+            };
+            Banks = new List<Bank>
+            {
+                new Bank{Name = "Santander"},
+                new Bank{Name = "Alior"},
+                new Bank{Name = "BNP"},
+                new Bank{Name = "mBank"},
+            };
             RegisterCommands();
             RegisterMessages();
 
@@ -94,7 +118,7 @@ namespace CRMYourBankers.ViewModels
             _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients);
             _itemTabs.Add(_clientDetailsViewModel);
 
-            _LoanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients);
+            _LoanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks);
             _itemTabs.Add(_LoanApplicationDetailsViewModel);
 
             SelectedTab = _mainMenuViewModel;
@@ -104,17 +128,17 @@ namespace CRMYourBankers.ViewModels
         {
             AddNewClientButtonCommand = new RelayCommand(() =>
             {
-                TabMessenger.Send(new TabChangeMessage {TabName = "ClientDetails" });
+                TabMessenger.Send(new TabChangeMessage { TabName = "ClientDetails" });
             });
             AddNewLoanApplicationCommand = new RelayCommand(() =>
             {
                 TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationDetails" });
             });
-        }        
+        }
 
         public void RegisterMessages()
         {
-            TabMessenger.Register<TabChangeMessage>(this, 
+            TabMessenger.Register<TabChangeMessage>(this,
                 message =>
             {
                 _clientSearchViewModel.TabVisibility = Visibility.Collapsed;

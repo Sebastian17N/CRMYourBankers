@@ -25,7 +25,11 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Label Content="Wybierz Bank:" />
-            <ComboBox Width="300" />
+            <ComboBox
+                Width="300"
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding Banks}"
+                SelectedValue="Name" />
         </StackPanel>
         <StackPanel
             Margin="5"
