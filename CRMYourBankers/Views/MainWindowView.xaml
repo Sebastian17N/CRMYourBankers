@@ -30,7 +30,7 @@
         <StackPanel>
             <TabControl
                 x:Name="MainTabControl"
-                Height="350"
+                Height="500"
                 ItemsSource="{Binding ItemTabs}"
                 SelectedItem="{Binding SelectedTab}">
                 <TabControl.ItemContainerStyle>
@@ -52,6 +52,7 @@
                         <views:LoanApplicationDetailsView />
                     </DataTemplate>
                 </TabControl.Resources>
+
             </TabControl>
         </StackPanel>
     </StackPanel>

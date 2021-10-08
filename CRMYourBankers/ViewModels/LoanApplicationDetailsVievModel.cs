@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CRMYourBankers.Messages;
 
 namespace CRMYourBankers.ViewModels
 {
@@ -21,9 +22,27 @@ namespace CRMYourBankers.ViewModels
         public int AmountReceivedText { get; set; }
         public int ClientCommissionText { get; set; }
         public string TasksToDoText { get; set; }
+        private LoanApplication _selectedLoanApplication;
+        public LoanApplication SelectedloanApplication
+        {
+            get => _selectedLoanApplication;
+            set
+            {
+                _selectedLoanApplication = value;
+                if (_selectedLoanApplication != null)
+                {
+                    AmountRequestedText = _selectedLoanApplication.AmountRequested;
+                    AmountReceivedText = _selectedLoanApplication.AmountReceived;
+                    ClientCommissionText = _selectedLoanApplication.ClientCommission;
+                    TasksToDoText = _selectedLoanApplication.TasksToDo;
+                }
+
+            }
+        }
 
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
+        public ICommand DetailsScreenOpenHandler { get; set; }
 
         public LoanApplicationDetailsViewModel(Messenger tabMessenger, List<LoanApplication> loanApplications, List<Client> clients, List<Bank> banks) 
             : base(tabMessenger)
@@ -36,7 +55,14 @@ namespace CRMYourBankers.ViewModels
 
         public void RegisterCommands()
         {
-
+            DetailsScreenOpenHandler = new RelayCommand(() =>
+            {
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    TabName = "LoanApplicationDetails",
+                    LoanApplication = SelectedloanApplication
+                });
+            });
         }
 
 

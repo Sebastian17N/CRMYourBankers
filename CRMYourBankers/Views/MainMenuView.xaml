@@ -15,5 +15,41 @@
             Margin="10"
             Command="{Binding OpenClientsSearchScreenCommand}"
             Content="Klienci" />
-    </StackPanel>
+        <StackPanel>
+            <DataGrid
+                Height="400"
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding LoanApplications}"
+                SelectedItem="{Binding LoanApplications}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Width="Auto"
+                                    Command="{Binding Path=DataContext.DetailsScreenOpenHandler, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                    Content="Szczegóły" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn
+                        Width="80"
+                        Binding="{Binding FirstName}"
+                        Header="Imię"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="80"
+                        Binding="{Binding LastName}"
+                        Header="Nazwisko"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding BankId}"
+                        Header="Bank"
+                        IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
+            
+        </StackPanel>
+    </StackPanel>        
 </UserControl>

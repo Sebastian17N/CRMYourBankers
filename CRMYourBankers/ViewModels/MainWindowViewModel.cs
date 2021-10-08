@@ -43,7 +43,7 @@ namespace CRMYourBankers.ViewModels
         private ClientSearchViewModel _clientSearchViewModel;
         private ClientDetailsViewModel _clientDetailsViewModel;
         private LoanApplicationDetailsViewModel _LoanApplicationDetailsViewModel;
-        private LoanApplicationSearchViewModel _loanApplicationSearcgViewModel;
+        private LoanApplicationSearchViewModel _loanApplicationSearchViewModel;
         public List<Client> Clients { get; set; }
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
