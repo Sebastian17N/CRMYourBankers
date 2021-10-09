@@ -36,7 +36,7 @@ namespace CRMYourBankers.ViewModels
                     ClientCommissionText = _selectedLoanApplication.ClientCommission;
                     TasksToDoText = _selectedLoanApplication.TasksToDo;
                 }
-
+                NotifyPropertyChanged("LoanApplications");
             }
         }
 

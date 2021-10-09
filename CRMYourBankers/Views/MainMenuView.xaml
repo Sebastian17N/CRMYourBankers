@@ -19,8 +19,8 @@
             <DataGrid
                 Height="400"
                 AutoGenerateColumns="False"
-                ItemsSource="{Binding LoanApplications}"
-                SelectedItem="{Binding LoanApplications}">
+                ItemsSource="{Binding LoanApplication}"
+                SelectedItem="{Binding SelectedLoanApplication}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
@@ -31,25 +31,15 @@
                                     Content="Szczegóły" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn
-                        Width="80"
-                        Binding="{Binding FirstName}"
-                        Header="Imię"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="80"
-                        Binding="{Binding LastName}"
-                        Header="Nazwisko"
-                        IsReadOnly="True" />
+                    </DataGridTemplateColumn>                    
                     <DataGridTextColumn
                         Width="120"
-                        Binding="{Binding BankId}"
-                        Header="Bank"
+                        Binding="{Binding AmountRequested}"
+                        Header="Wnioskowana Kwota"
                         IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
-            
+
         </StackPanel>
-    </StackPanel>        
+    </StackPanel>
 </UserControl>
