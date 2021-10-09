@@ -32,6 +32,7 @@ namespace CRMYourBankers.ViewModels
         //          w widoku klineta poniżej ma wyświetlać się lista aktuanych wniosków
 
         public ICommand OpenClientsSearchScreenCommand { get; set; }
+        public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }
         public ICommand AddNewClientButtonCommand { get; set; }
         public ICommand AddNewLoanApplicationCommand { get; set; }
 
@@ -39,11 +40,11 @@ namespace CRMYourBankers.ViewModels
         private ObservableCollection<object> _itemTabs = new ObservableCollection<object>();
         //można wymiennie pisać z NotifyPropertyChanged
 
-        private MainMenuViewModel _mainMenuViewModel;
+        private LoanApplicationSearchViewModel _loanApplicationSearchViewModel;
         private ClientSearchViewModel _clientSearchViewModel;
         private ClientDetailsViewModel _clientDetailsViewModel;
-        private LoanApplicationDetailsViewModel _LoanApplicationDetailsViewModel;
-        private LoanApplicationSearchViewModel _loanApplicationSearchViewModel;
+        private LoanApplicationDetailsViewModel _loanApplicationDetailsViewModel;
+        
         public List<Client> Clients { get; set; }
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
@@ -109,8 +110,8 @@ namespace CRMYourBankers.ViewModels
             RegisterCommands();
             RegisterMessages();
 
-            _mainMenuViewModel = new MainMenuViewModel(TabMessenger);
-            _itemTabs.Add(_mainMenuViewModel);
+            _loanApplicationSearchViewModel = new LoanApplicationSearchViewModel(TabMessenger);
+            _itemTabs.Add(_loanApplicationSearchViewModel);
 
             _clientSearchViewModel = new ClientSearchViewModel(Clients, TabMessenger);
             _itemTabs.Add(_clientSearchViewModel);
@@ -118,10 +119,10 @@ namespace CRMYourBankers.ViewModels
             _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients);
             _itemTabs.Add(_clientDetailsViewModel);
 
-            _LoanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks);
-            _itemTabs.Add(_LoanApplicationDetailsViewModel);
+            _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks);
+            _itemTabs.Add(_loanApplicationDetailsViewModel);
 
-            SelectedTab = _mainMenuViewModel;
+            SelectedTab = _loanApplicationSearchViewModel;
         }
 
         protected void RegisterCommands()
@@ -133,6 +134,14 @@ namespace CRMYourBankers.ViewModels
             AddNewLoanApplicationCommand = new RelayCommand(() =>
             {
                 TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationDetails" });
+            });
+            OpenClientsSearchScreenCommand = new RelayCommand(() =>
+            {
+                TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearch" });
+            });
+            OpenLoanApplicationsSearchScreenCommand = new RelayCommand(() =>
+            {
+                TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationsSearch" });
             });
         }
 
@@ -149,17 +158,19 @@ namespace CRMYourBankers.ViewModels
                     case "ClientDetails":
                         _clientDetailsViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _clientDetailsViewModel;
-
                         _clientDetailsViewModel.SelectedClient = message.Client;
                         break;
-
                     case "ClientSearch":
                         _clientSearchViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _clientSearchViewModel;
                         break;
                     case "LoanApplicationDetails":
-                        _LoanApplicationDetailsViewModel.TabVisibility = Visibility.Visible;
-                        SelectedTab = _LoanApplicationDetailsViewModel;
+                        _loanApplicationDetailsViewModel.TabVisibility = Visibility.Visible;
+                        SelectedTab = _loanApplicationDetailsViewModel;
+                        break;
+                    case "LoanApplicationsSearch":
+                        _loanApplicationSearchViewModel.TabVisibility = Visibility.Visible;
+                        SelectedTab = _loanApplicationSearchViewModel;
                         break;
                 }
             });

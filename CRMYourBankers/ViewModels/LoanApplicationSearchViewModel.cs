@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CRMYourBankers.Messages;
+using CRMYourBankers.ViewModels.Base;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using System.Windows.Input;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class LoanApplicationSearchViewModel
-    {
+    public class LoanApplicationSearchViewModel : TabBaseViewModel
+    {     
+        public LoanApplicationSearchViewModel(Messenger messenger) : base(messenger)
+        {
+            RegisterCommands();
+        }
+
+        public void RegisterCommands()
+        {
+           
+        }
     }
 }

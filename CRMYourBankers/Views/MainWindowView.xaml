@@ -16,17 +16,32 @@
     </Window.DataContext>
 
     <StackPanel Orientation="Vertical">
-        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button
-                Margin="5"
-                Command="{Binding AddNewClientButtonCommand}"
-                Content="Dodaj nowego klienta" />
-            <Button
-                Margin="5"
-                Command="{Binding AddNewLoanApplicationCommand}"
-                Content="Dodaj nowy wniosek" />
-        </StackPanel>
-
+        <DockPanel>
+            <StackPanel HorizontalAlignment="Left" DockPanel.Dock="Left" Orientation="Horizontal">
+                <Button
+                    Width="150 "
+                    Margin="10"
+                    Command="{Binding OpenClientsSearchScreenCommand}"
+                    Content="Klienci" />
+                <Button
+                    Width="150 "
+                    Margin="10"
+                    Command="{Binding OpenLoanApplicationsSearchScreenCommand}"
+                    Content="Wnioski" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button
+                    Width="150 "
+                    Margin="10"
+                    Command="{Binding AddNewClientButtonCommand}"
+                    Content="Dodaj nowego klienta" />
+                <Button
+                    Width="150 "
+                    Margin="10"
+                    Command="{Binding AddNewLoanApplicationCommand}"
+                    Content="Dodaj nowy wniosek" />
+            </StackPanel>
+        </DockPanel>
         <StackPanel>
             <TabControl
                 x:Name="MainTabControl"
@@ -39,8 +54,8 @@
                     </Style>
                 </TabControl.ItemContainerStyle>
                 <TabControl.Resources>
-                    <DataTemplate DataType="{x:Type viewmodels:MainMenuViewModel}">
-                        <views:MainMenuView />
+                    <DataTemplate DataType="{x:Type viewmodels:LoanApplicationSearchViewModel}">
+                        <views:LoanApplicationSearchView />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:ClientSearchViewModel}">
                         <views:ClientSearchView />
