@@ -68,6 +68,7 @@ namespace CRMYourBankers.ViewModels
             {
                 new Client
                 {
+                    Id = 1,
                     FirstName = "Piotr",
                     LastName ="Zieliński",
                     PhoneNumber = 888777999,
@@ -76,6 +77,7 @@ namespace CRMYourBankers.ViewModels
                 },
                 new Client
                 {
+                    Id = 2,
                     FirstName = "Jan",
                     LastName ="Kowalski",
                     PhoneNumber = 555444666,
@@ -87,6 +89,8 @@ namespace CRMYourBankers.ViewModels
             {
                 new LoanApplication
                 {
+                    ClientId = 1,
+                    BankId = 3,
                     AmountRequested = 100000,
                     AmountReceived = 100000,
                     ClientCommission = 5000,
@@ -94,6 +98,8 @@ namespace CRMYourBankers.ViewModels
                 },
                 new LoanApplication
                 {
+                    ClientId = 2,
+                    BankId = 4,
                     AmountRequested = 200000,
                     AmountReceived = 200000,
                     ClientCommission = 10000,
@@ -102,15 +108,16 @@ namespace CRMYourBankers.ViewModels
             };
             Banks = new List<Bank>
             {
-                new Bank{Name = "Santander"},
-                new Bank{Name = "Alior"},
-                new Bank{Name = "BNP"},
-                new Bank{Name = "mBank"},
+                new Bank{Id = 1, Name = "Santander"},
+                new Bank{Id = 2, Name = "Alior"},
+                new Bank{Id = 3, Name = "BNP"},
+                new Bank{Id = 4, Name = "mBank"},
             };
             RegisterCommands();
             RegisterMessages();
 
-            _loanApplicationSearchViewModel = new LoanApplicationSearchViewModel(TabMessenger);
+            _loanApplicationSearchViewModel = new LoanApplicationSearchViewModel(TabMessenger,
+                LoanApplications, Banks, Clients);
             _itemTabs.Add(_loanApplicationSearchViewModel);
 
             _clientSearchViewModel = new ClientSearchViewModel(Clients, TabMessenger);

@@ -9,12 +9,12 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <StackPanel>        
+    <StackPanel>
         <StackPanel>
             <DataGrid
                 Height="400"
                 AutoGenerateColumns="False"
-                ItemsSource="{Binding LoanApplication}"
+                ItemsSource="{Binding LoanApplications}"
                 SelectedItem="{Binding SelectedLoanApplication}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
@@ -26,11 +26,26 @@
                                     Content="Szczegóły" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>                    
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding FullName}"
+                        Header="Klient"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding BankName}"
+                        Header="Bank"
+                        IsReadOnly="True" />
                     <DataGridTextColumn
                         Width="120"
                         Binding="{Binding AmountRequested}"
                         Header="Wnioskowana Kwota"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding TasksToDo}"
+                        Header="Zadania"
                         IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
