@@ -8,11 +8,15 @@ namespace CRMYourBankers.Models
 {
     public class LoanApplication
     {        
-        public int AmountRequested { get; set; }
-        public int AmountReceived { get; set; }
-        public int ClientCommission { get; set; }
+        public int? AmountRequested { get; set; }
+        public int? AmountReceived { get; set; }
+        public int? ClientCommission { get; set; }
         public string TasksToDo { get; set; }        
         public int ClientId { get; set; }
         public int BankId { get; set; }
+        public bool Validate()
+        {
+            return true;
+        }
     }
 }

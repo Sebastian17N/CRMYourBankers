@@ -29,8 +29,12 @@ namespace CRMYourBankers.ViewModels
         //TODO: 1. Dodać nowy ekran do tworzenia/ edytowania wniosków, do którego można przejść
         //         z ekranu edycji klienta. Ma działać Bank lista, po dodaniu dodaniu nowej LoanApplication, powinno mieć przypisane
         //            BankId i ClientId,
-        //          w widoku klineta poniżej ma wyświetlać się lista aktuanych wniosków
-
+        //         w widoku klineta poniżej ma wyświetlać się lista aktuanych wniosków
+        //         możesz otworzyć istniejący wniosek i go edytować/zapisać
+        //         dodać validację wniosku
+        //         dodaj przycisk, który wywoła linię 23 w LoanApplications = PrepareData(loanApplications, banks, clients);
+        //         czyli ponownie przeładuje zbiór danych (odświeży)
+        
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }
         public ICommand AddNewClientButtonCommand { get; set; }
@@ -148,7 +152,7 @@ namespace CRMYourBankers.ViewModels
             });
             OpenLoanApplicationsSearchScreenCommand = new RelayCommand(() =>
             {
-                TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationsSearch" });
+                TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationSearch" });
             });
         }
 
@@ -175,7 +179,7 @@ namespace CRMYourBankers.ViewModels
                         _loanApplicationDetailsViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _loanApplicationDetailsViewModel;
                         break;
-                    case "LoanApplicationsSearch":
+                    case "LoanApplicationSearch":
                         _loanApplicationSearchViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _loanApplicationSearchViewModel;
                         break;

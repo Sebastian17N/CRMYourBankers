@@ -17,8 +17,11 @@
             <ComboBox
                 Width="300"
                 DisplayMemberPath="FullName"
-                ItemsSource="{Binding Clients}"
-                SelectedValue="PersonalId" />
+                SelectedValuePath="Id"
+                ItemsSource="{Binding Clients}"                
+                SelectedValue="{Binding ClientId}" />
+            <!--ItemSource to pobiera dane, SelectedValue wiąże konkretną properte
+            z SelectedValuePath, DisplayMemberPath to co się wyświetla-->
         </StackPanel>
         <StackPanel
             Margin="5"
@@ -28,8 +31,9 @@
             <ComboBox
                 Width="300"
                 DisplayMemberPath="Name"
+                SelectedValuePath="Id"
                 ItemsSource="{Binding Banks}"
-                SelectedValue="Name" />
+                SelectedValue="{Binding BankId}" />
         </StackPanel>
         <StackPanel
             Margin="5"

@@ -11,7 +11,11 @@ namespace CRMYourBankers.ViewModels
 {
     public class LoanApplicationSearchViewModel : TabBaseViewModel
     {     
+        public ICommand SearchButtonCommand { get; set; }
+        public ICommand DetailsScreenOpenHandler { get; set; }
+        
         public dynamic LoanApplications { get; set; }
+        public LoanApplication SelectedloanApplication { get; set; }
 
         public LoanApplicationSearchViewModel(Messenger messenger,
             List<LoanApplication> loanApplications, List<Bank> banks, List<Client> clients) 
@@ -20,6 +24,7 @@ namespace CRMYourBankers.ViewModels
             RegisterCommands();
 
             LoanApplications = PrepareData(loanApplications, banks, clients);
+            NotifyPropertyChanged("LoanApplications");
         }
 
         private dynamic PrepareData(List<LoanApplication> loanApplications, List<Bank> banks, List<Client> clients)
@@ -53,7 +58,14 @@ namespace CRMYourBankers.ViewModels
 
         public void RegisterCommands()
         {
-           
+            DetailsScreenOpenHandler = new RelayCommand(() =>
+            {
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    TabName = "LoanApplicationDetails",
+                    LoanApplication = SelectedloanApplication
+                });
+            });
         }
     }
 }
