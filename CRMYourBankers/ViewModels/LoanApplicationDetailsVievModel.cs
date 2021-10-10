@@ -18,7 +18,8 @@ namespace CRMYourBankers.ViewModels
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
         public List<Client> Clients { get; set; }
-
+        public int BankText { get; set; }
+        public int ClientText { get; set; }
         public int? AmountRequestedText { get; set; }
         public int? AmountReceivedText { get; set; }
         public int? ClientCommissionText { get; set; }
@@ -34,18 +35,19 @@ namespace CRMYourBankers.ViewModels
                 _selectedLoanApplication = value;
                 if (_selectedLoanApplication != null)
                 {
+                    BankText = _selectedLoanApplication.BankId;
+                    ClientText = _selectedLoanApplication.ClientId;
                     AmountRequestedText = _selectedLoanApplication.AmountRequested;
                     AmountReceivedText = _selectedLoanApplication.AmountReceived;
                     ClientCommissionText = _selectedLoanApplication.ClientCommission;
                     TasksToDoText = _selectedLoanApplication.TasksToDo;
                 }
-                NotifyPropertyChanged("LoanApplications");
+                NotifyPropertyChanged("LoanApplication");
             }
         }
 
         public ICommand SaveButtonCommand { get; set; }
-        public ICommand CancelButtonCommand { get; set; }
-        public ICommand DetailsScreenOpenHandler { get; set; }
+        public ICommand CancelButtonCommand { get; set; }        
 
         public LoanApplicationDetailsViewModel(Messenger tabMessenger, List<LoanApplication> loanApplications, List<Client> clients, List<Bank> banks) 
             : base(tabMessenger)
@@ -108,6 +110,11 @@ namespace CRMYourBankers.ViewModels
                     MessageBoxImage.Information);
                 TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationSearch" });
                 ClearAllFields();
+            });
+            CancelButtonCommand = new RelayCommand(() =>
+            {
+                ClearAllFields();
+                TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationSearch" });
             });
         }
         public void ClearAllFields()

@@ -29,12 +29,12 @@ namespace CRMYourBankers.ViewModels
         //TODO: 1. Dodać nowy ekran do tworzenia/ edytowania wniosków, do którego można przejść
         //         z ekranu edycji klienta. Ma działać Bank lista, po dodaniu dodaniu nowej LoanApplication, powinno mieć przypisane
         //            BankId i ClientId,
-        //         w widoku klineta poniżej ma wyświetlać się lista aktuanych wniosków
-        //         możesz otworzyć istniejący wniosek i go edytować/zapisać
+        //         w widoku klineta poniżej ma wyświetlać się lista aktuanych wniosków        //         
         //         dodać validację wniosku
         //         dodaj przycisk, który wywoła linię 23 w LoanApplications = PrepareData(loanApplications, banks, clients);
         //         czyli ponownie przeładuje zbiór danych (odświeży)
-        
+        //         możesz otworzyć istniejący wniosek i go edytować/zapisać => jak przekazać w SelectedLoanApplication do p
+
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }
         public ICommand AddNewClientButtonCommand { get; set; }

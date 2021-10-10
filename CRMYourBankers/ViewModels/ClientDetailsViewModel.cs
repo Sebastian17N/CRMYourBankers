@@ -33,7 +33,7 @@ namespace CRMYourBankers.ViewModels
             }
         }
 
-        public bool EditingClient => SelectedClient != null;
+        //public bool EditingClient => SelectedClient != null;
 
         //public bool EditingClinetFunction()
         //{

@@ -35,16 +35,16 @@ namespace CRMYourBankers.ViewModels
 
         public void RegisterCommands()
         {
-            SearchButtonCommand = new RelayCommand(() =>
-            {
-                NotifyPropertyChanged("Clients");
-            });
+            //SearchButtonCommand = new RelayCommand(() =>
+            //{
+            //    NotifyPropertyChanged("Clients");
+            //});
 
             DetailsScreenOpenHandler = new RelayCommand(() =>
             {
-                TabMessenger.Send(new TabChangeMessage 
-                { 
-                    TabName = "ClientDetails",  
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    TabName = "ClientDetails",
                     Client = SelectedClient
                 });
             });

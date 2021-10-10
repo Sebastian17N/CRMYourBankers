@@ -16,7 +16,7 @@ namespace CRMYourBankers.ViewModels
         
         public dynamic LoanApplications { get; set; }
         public LoanApplication SelectedloanApplication { get; set; }
-
+       
         public LoanApplicationSearchViewModel(Messenger messenger,
             List<LoanApplication> loanApplications, List<Bank> banks, List<Client> clients) 
             : base(messenger)
@@ -64,8 +64,8 @@ namespace CRMYourBankers.ViewModels
                 {
                     TabName = "LoanApplicationDetails",
                     LoanApplication = SelectedloanApplication
-                });
-            });
+                });                
+            });            
         }
     }
 }
