@@ -23,17 +23,16 @@ namespace CRMYourBankers.ViewModels
         // powtórzyć Invoke, co dokładnie robi?
         // co oznacza PropertyChangedEventHandler
         // dokładne zastosowanie klas base i interfaces
-        //
         // 8. Dodać logikę edycji klienta. Czyli jeśli ekran jest otwarty z już istniejącym
         //         klientem, to walidacja peselu musi nie brać pod uwagę, wpisu który edytujesz (LINQ).
         //TODO: 1. Dodać nowy ekran do tworzenia/ edytowania wniosków, do którego można przejść
         //         z ekranu edycji klienta. Ma działać Bank lista, po dodaniu dodaniu nowej LoanApplication, powinno mieć przypisane
         //            BankId i ClientId,
-        //         w widoku klineta poniżej ma wyświetlać się lista aktuanych wniosków        //         
+        //         w widoku klineta poniżej ma wyświetlać się lista aktuanych wniosków    
         //         dodać validację wniosku
         //         dodaj przycisk, który wywoła linię 23 w LoanApplications = PrepareData(loanApplications, banks, clients);
         //         czyli ponownie przeładuje zbiór danych (odświeży)
-        //         możesz otworzyć istniejący wniosek i go edytować/zapisać => jak przekazać w SelectedLoanApplication do p
+        //         możesz otworzyć istniejący wniosek i go edytować/zapisać => jak przekazać w SelectedLoanApplication do bombobox liste banków i klientów???
 
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }

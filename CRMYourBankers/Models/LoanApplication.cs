@@ -16,7 +16,10 @@ namespace CRMYourBankers.Models
         public int BankId { get; set; }
         public bool Validate()
         {
-            return true;
+            return
+                AmountRequested != null&&
+                ClientId != null&&
+                BankId != null;
         }
     }
 }
