@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="230"
+    d:DesignHeight="400"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
@@ -49,11 +49,37 @@
         </StackPanel>
         <Button
             Width="200"
+            
             Command="{Binding SaveButtonCommand}"
             Content="Save" />
         <Button
             Width="200"
             Command="{Binding CancelButtonCommand}"
             Content="Cancel" />
+        <StackPanel>
+            <DataGrid
+                Height="400"
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding LoanApplications}"
+                SelectedItem="{Binding SelectedLoanApplication}">
+                <DataGrid.Columns>                                        
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding BankName}"
+                        Header="Bank"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding AmountRequested}"
+                        Header="Wnioskowana Kwota"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding TasksToDo}"
+                        Header="Zadania"
+                        IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </StackPanel>
 </UserControl>
