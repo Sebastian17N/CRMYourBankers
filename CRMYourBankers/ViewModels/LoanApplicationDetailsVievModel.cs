@@ -75,8 +75,7 @@ namespace CRMYourBankers.ViewModels
                         BankId = BankId ??0,
                         AmountRequested = AmountRequestedText,
                         AmountReceived = AmountReceivedText,
-                        ClientCommission  = ClientCommissionText,
-                        TasksToDo = TasksToDoText
+                        ClientCommission  = ClientCommissionText,                       
                     };
 
                     if (!newLoanApplication.Validate())
@@ -95,8 +94,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedLoanApplication.ClientId = ClientId ??0;
                     SelectedLoanApplication.BankId = BankId ??0;
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
-                    SelectedLoanApplication.AmountRequested = AmountRequestedText;
-                    SelectedLoanApplication.TasksToDo = TasksToDoText;
+                    SelectedLoanApplication.AmountRequested = AmountRequestedText;                    
 
                     if (!SelectedLoanApplication.Validate())
                     {

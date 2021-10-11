@@ -35,6 +35,9 @@ namespace CRMYourBankers.ViewModels
         //         czyli ponownie przeładuje zbiór danych (odświeży)
         //         możesz otworzyć istniejący wniosek i go edytować/zapisać => jak przekazać w SelectedLoanApplication do bombobox liste banków i klientów???
 
+        //   Dlaczego w klientach jest puste pole a w wnioskach nie?
+        //   Zadania w widoku wniosków powinny być w formie tabelki i powinny być edytowalne tak jak w szczegóły klienta, nie ustawiać kolumn jako readonly
+
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }
         public ICommand AddNewClientButtonCommand { get; set; }
@@ -99,7 +102,23 @@ namespace CRMYourBankers.ViewModels
                     AmountRequested = 100000,
                     AmountReceived = 100000,
                     ClientCommission = 5000,
-                    TasksToDo = ""
+                    LoanTasks = new List<LoanTask>
+                    {
+                        new LoanTask
+                        {
+                            Id = 1,
+                            Text = "Zadzwoń do klienta",
+                            Done = false,
+                            LoanApplicationId = 1
+                        },
+                        new LoanTask
+                        {
+                            Id = 2,
+                            Text = "Wyślij wniosek do Banku",
+                            Done = false,
+                            LoanApplicationId = 1
+                        }
+                    }
                 },
                 new LoanApplication
                 {
@@ -108,8 +127,7 @@ namespace CRMYourBankers.ViewModels
                     BankId = 4,
                     AmountRequested = 200000,
                     AmountReceived = 200000,
-                    ClientCommission = 10000,
-                    TasksToDo = ""
+                    ClientCommission = 10000,                    
                 }
             };
             Banks = new List<Bank>
