@@ -18,14 +18,13 @@ namespace CRMYourBankers.ViewModels
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
         public List<Client> Clients { get; set; }
-        public int BankText { get; set; }
-        public int ClientText { get; set; }
         public int? AmountRequestedText { get; set; }
         public int? AmountReceivedText { get; set; }
         public int? ClientCommissionText { get; set; }
         public string TasksToDoText { get; set; }
         public int? BankId { get; set; }
         public int? ClientId { get; set; }
+
         private LoanApplication _selectedLoanApplication;
         public LoanApplication SelectedloanApplication
         {
@@ -35,8 +34,8 @@ namespace CRMYourBankers.ViewModels
                 _selectedLoanApplication = value;
                 if (_selectedLoanApplication != null)
                 {
-                    BankText = _selectedLoanApplication.BankId;
-                    ClientText = _selectedLoanApplication.ClientId;
+                    BankId = _selectedLoanApplication.BankId;
+                    ClientId = _selectedLoanApplication.ClientId;
                     AmountRequestedText = _selectedLoanApplication.AmountRequested;
                     AmountReceivedText = _selectedLoanApplication.AmountReceived;
                     ClientCommissionText = _selectedLoanApplication.ClientCommission;
@@ -66,9 +65,9 @@ namespace CRMYourBankers.ViewModels
                 {
                     var newLoanApplication = new LoanApplication
                     {
-                        ClientId = ClientId ??0, //do pustej property z clasy LoanApplication wstaw wartość z property z LoanApplicationDetailsView
+                        ClientId = ClientId ?? 0, //do pustej property z clasy LoanApplication wstaw wartość z property z LoanApplicationDetailsView
                                             //??0 oznacza, że ClientId z prawej będzie null to wstawi O
-                        BankId = BankId ??0,
+                        BankId = BankId ?? 0,
                         AmountRequested = AmountRequestedText,
                         AmountReceived = AmountReceivedText,
                         ClientCommission  = ClientCommissionText,

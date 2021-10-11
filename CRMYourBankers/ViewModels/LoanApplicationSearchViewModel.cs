@@ -15,7 +15,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand DetailsScreenOpenHandler { get; set; }
         
         public dynamic LoanApplications { get; set; }
-        public LoanApplication SelectedloanApplication { get; set; }
+        public LoanApplication SelectedLoanApplication { get; set; }
        
         public LoanApplicationSearchViewModel(Messenger messenger,
             List<LoanApplication> loanApplications, List<Bank> banks, List<Client> clients) 
@@ -63,7 +63,7 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = "LoanApplicationDetails",
-                    LoanApplication = SelectedloanApplication
+                    LoanApplication = SelectedLoanApplication
                 });                
             });            
         }

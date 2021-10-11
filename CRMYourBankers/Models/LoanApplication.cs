@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CRMYourBankers.Models
+﻿namespace CRMYourBankers.Models
 {
     public class LoanApplication
     {        
@@ -14,12 +8,13 @@ namespace CRMYourBankers.Models
         public string TasksToDo { get; set; }        
         public int ClientId { get; set; }
         public int BankId { get; set; }
+        
         public bool Validate()
         {
             return
-                AmountRequested != null&&
-                ClientId != null&&
-                BankId != null;
+                AmountRequested != null &&
+                ClientId != 0 && // Jeśli ClientId lub BankId = 0 to oznacza, że nie wybrano ich z combo.
+                BankId != 0;
         }
     }
 }

@@ -1,10 +1,12 @@
-﻿using CRMYourBankers.Messages;
+﻿using CRMYourBankers.Database;
+using CRMYourBankers.Messages;
 using CRMYourBankers.Models;
 using CRMYourBankers.ViewModels.Base;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -67,27 +69,13 @@ namespace CRMYourBankers.ViewModels
         {
             TabMessenger = new Messenger();
 
-            Clients = new List<Client>
+            using (var dbcontext = new DbContext())
             {
-                new Client
-                {
-                    Id = 1,
-                    FirstName = "Piotr",
-                    LastName ="Zieliński",
-                    PhoneNumber = 888777999,
-                    Email = "zielinski@wp.pl",
-                    PersonalId = 12121212345
-                },
-                new Client
-                {
-                    Id = 2,
-                    FirstName = "Jan",
-                    LastName ="Kowalski",
-                    PhoneNumber = 555444666,
-                    Email = "kowalski@onet.pl",
-                    PersonalId = 55443312345
-                }
-            };
+                dbcontext.DataSeeds();
+                Clients = dbcontext.Clients.ToList();
+            }
+
+
             LoanApplications = new List<LoanApplication>
             {
                 new LoanApplication

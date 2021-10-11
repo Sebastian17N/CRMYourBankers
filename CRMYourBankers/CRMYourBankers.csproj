@@ -4,10 +4,17 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <StartupObject>CRMYourBankers.App</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.10" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.115" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.115" />
+    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.115" />
+    <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.115" />
   </ItemGroup>
 
 </Project>
