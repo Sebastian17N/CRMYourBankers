@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -92,6 +93,7 @@ namespace CRMYourBankers.ViewModels
             {
                 new LoanApplication
                 {
+                    Id = 1,
                     ClientId = 1,
                     BankId = 3,
                     AmountRequested = 100000,
@@ -101,6 +103,7 @@ namespace CRMYourBankers.ViewModels
                 },
                 new LoanApplication
                 {
+                    Id = 2,
                     ClientId = 2,
                     BankId = 4,
                     AmountRequested = 200000,
@@ -126,7 +129,7 @@ namespace CRMYourBankers.ViewModels
             _clientSearchViewModel = new ClientSearchViewModel(Clients, TabMessenger);
             _itemTabs.Add(_clientSearchViewModel);
 
-            _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients);
+            _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients, LoanApplications, Banks);
             _itemTabs.Add(_clientDetailsViewModel);
 
             _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks);
@@ -170,14 +173,23 @@ namespace CRMYourBankers.ViewModels
                         SelectedTab = _clientDetailsViewModel;
                         _clientDetailsViewModel.SelectedClient = message.Client;
                         break;
+
                     case "ClientSearch":
                         _clientSearchViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _clientSearchViewModel;
                         break;
+
                     case "LoanApplicationDetails":
                         _loanApplicationDetailsViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _loanApplicationDetailsViewModel;
+
+                        if (message.ObjectId > 0)
+                        {
+                            _loanApplicationDetailsViewModel.SelectedLoanApplication =
+                                LoanApplications.Single(loan => loan.Id == message.ObjectId);
+                        }
                         break;
+
                     case "LoanApplicationSearch":
                         _loanApplicationSearchViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _loanApplicationSearchViewModel;

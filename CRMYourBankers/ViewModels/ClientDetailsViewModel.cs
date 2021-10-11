@@ -13,6 +13,8 @@ namespace CRMYourBankers.ViewModels
     public class ClientDetailsViewModel : TabBaseViewModel
     {
         public List<Client> Clients { get; set; }
+        public List<LoanApplication> LoanApplications { get; set; }
+        public List<Bank> Banks { get; set; }
 
         private Client _selectedClients;
         public Client SelectedClient 
@@ -29,6 +31,8 @@ namespace CRMYourBankers.ViewModels
                     EmailText = _selectedClients.Email;
                     PhoneNumberText = _selectedClients.PhoneNumber;
                     PersonalIdText = _selectedClients.PersonalId;
+
+                    PrepareLoanApplicationDataForClient();
                 }
             }
         }
@@ -57,15 +61,49 @@ namespace CRMYourBankers.ViewModels
         public int? PhoneNumberText { get; set; }
         public long? PersonalIdText { get; set; }
 
+        public dynamic LoanApplicationsForClient { get; set; }
+
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
 
-        public ClientDetailsViewModel(Messenger tabMessenger, List<Client> clients)
+        public ClientDetailsViewModel(Messenger tabMessenger, List<Client> clients,
+            List<LoanApplication> loanApplications, List<Bank> banks)
             : base(tabMessenger)
         {
             Clients = clients;
+            LoanApplications = loanApplications;
+            Banks = banks;
+
             RegisterCommands();
         }
+
+        private void PrepareLoanApplicationDataForClient()
+        {
+            LoanApplicationsForClient =
+                LoanApplications
+                    .Where(loan => loan.ClientId == SelectedClient.Id)
+                    .Join(
+                    Banks,
+                    loan => loan.BankId,
+                    bank => bank.Id,
+                    (loan, bank) => new
+                    {
+                        loan.ClientId,
+                        loan.AmountRequested,
+                        loan.TasksToDo,
+                        BankName = bank.Name
+                    })
+                .Join(
+                    Clients,
+                    loan => loan.ClientId,
+                    client => client.Id,
+                    (loan, client) => new
+                    {
+                        loan.BankName,
+                        loan.AmountRequested,
+                        loan.TasksToDo
+                    });
+        }    
 
         public void RegisterCommands()
         {
@@ -75,6 +113,7 @@ namespace CRMYourBankers.ViewModels
                 {
                     var newClient = new Client
                     {
+                        Id = Clients.Max(client => client.Id) + 1,
                         FirstName = FirstNameText,
                         LastName = LastNameText,
                         PhoneNumber = PhoneNumberText,
@@ -133,7 +172,6 @@ namespace CRMYourBankers.ViewModels
                 ClearAllFields();
                 TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearch" });
             });
-
         }
 
         public void ClearAllFields()

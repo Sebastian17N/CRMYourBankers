@@ -11,7 +11,6 @@
 
         public string FullName => $"{FirstName} {LastName} {Email}";
 
-
         public bool Validate()
             //validate sprawdza poprawność 
         {

@@ -15,7 +15,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand DetailsScreenOpenHandler { get; set; }
         
         public dynamic LoanApplications { get; set; }
-        public LoanApplication SelectedloanApplication { get; set; }
+        public dynamic SelectedLoanApplication { get; set; }
        
         public LoanApplicationSearchViewModel(Messenger messenger,
             List<LoanApplication> loanApplications, List<Bank> banks, List<Client> clients) 
@@ -36,6 +36,7 @@ namespace CRMYourBankers.ViewModels
                     bank => bank.Id,
                     (loan, bank) => new
                     {
+                        loan.Id,
                         loan.ClientId,
                         loan.AmountRequested,
                         loan.AmountReceived,
@@ -48,6 +49,7 @@ namespace CRMYourBankers.ViewModels
                     client => client.Id,
                     (loan, client) => new
                     {
+                        loan.Id,
                         client.FullName,
                         loan.BankName,
                         loan.AmountRequested,
@@ -63,7 +65,7 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = "LoanApplicationDetails",
-                    LoanApplication = SelectedloanApplication
+                    ObjectId = SelectedLoanApplication.Id
                 });                
             });            
         }

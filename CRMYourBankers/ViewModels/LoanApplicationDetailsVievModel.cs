@@ -18,16 +18,18 @@ namespace CRMYourBankers.ViewModels
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
         public List<Client> Clients { get; set; }
-        public int BankText { get; set; }
-        public int ClientText { get; set; }
+
+        #region UI property fields
         public int? AmountRequestedText { get; set; }
         public int? AmountReceivedText { get; set; }
         public int? ClientCommissionText { get; set; }
         public string TasksToDoText { get; set; }
         public int? BankId { get; set; }
         public int? ClientId { get; set; }
+        #endregion
+
         private LoanApplication _selectedLoanApplication;
-        public LoanApplication SelectedloanApplication
+        public LoanApplication SelectedLoanApplication
         {
             get => _selectedLoanApplication;
             set
@@ -35,8 +37,8 @@ namespace CRMYourBankers.ViewModels
                 _selectedLoanApplication = value;
                 if (_selectedLoanApplication != null)
                 {
-                    BankText = _selectedLoanApplication.BankId;
-                    ClientText = _selectedLoanApplication.ClientId;
+                    BankId = _selectedLoanApplication.BankId;
+                    ClientId = _selectedLoanApplication.ClientId;
                     AmountRequestedText = _selectedLoanApplication.AmountRequested;
                     AmountReceivedText = _selectedLoanApplication.AmountReceived;
                     ClientCommissionText = _selectedLoanApplication.ClientCommission;
@@ -49,7 +51,8 @@ namespace CRMYourBankers.ViewModels
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }        
 
-        public LoanApplicationDetailsViewModel(Messenger tabMessenger, List<LoanApplication> loanApplications, List<Client> clients, List<Bank> banks) 
+        public LoanApplicationDetailsViewModel(Messenger tabMessenger, 
+            List<LoanApplication> loanApplications, List<Client> clients, List<Bank> banks) 
             : base(tabMessenger)
         {
             LoanApplications = loanApplications;
@@ -62,10 +65,11 @@ namespace CRMYourBankers.ViewModels
         {
             SaveButtonCommand = new RelayCommand(() =>
             {
-                if (SelectedloanApplication == null)
+                if (SelectedLoanApplication == null)
                 {
                     var newLoanApplication = new LoanApplication
                     {
+                        Id = LoanApplications.Max(loan => loan.Id) + 1,
                         ClientId = ClientId ??0, //do pustej property z clasy LoanApplication wstaw wartość z property z LoanApplicationDetailsView
                                             //??0 oznacza, że ClientId z prawej będzie null to wstawi O
                         BankId = BankId ??0,
@@ -88,13 +92,13 @@ namespace CRMYourBankers.ViewModels
                 }
                 else
                 {
-                    SelectedloanApplication.ClientId = ClientId ??0;
-                    SelectedloanApplication.BankId = BankId ??0;
-                    SelectedloanApplication.AmountRequested = AmountRequestedText;
-                    SelectedloanApplication.AmountRequested = AmountRequestedText;
-                    SelectedloanApplication.TasksToDo = TasksToDoText;
+                    SelectedLoanApplication.ClientId = ClientId ??0;
+                    SelectedLoanApplication.BankId = BankId ??0;
+                    SelectedLoanApplication.AmountRequested = AmountRequestedText;
+                    SelectedLoanApplication.AmountRequested = AmountRequestedText;
+                    SelectedLoanApplication.TasksToDo = TasksToDoText;
 
-                    if (!SelectedloanApplication.Validate())
+                    if (!SelectedLoanApplication.Validate())
                     {
                         MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
                             "Błędy w formularzu",
