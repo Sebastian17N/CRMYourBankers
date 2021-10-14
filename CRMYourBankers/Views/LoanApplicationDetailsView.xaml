@@ -79,6 +79,9 @@
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 ItemsSource="{Binding SelectedLoanApplication.LoanTasks}">
+                <!--
+                    liste zadań mamy zadeklarowaną w LoanApplications, wiec nie musimy dodawać tego w ModelView
+                -->
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="300"
