@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using CRMYourBankers.Messages;
 using System.Windows;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CRMYourBankers.ViewModels
 {
@@ -18,7 +19,7 @@ namespace CRMYourBankers.ViewModels
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
         public List<Client> Clients { get; set; }
-
+        
         #region UI property fields
         public int? AmountRequestedText { get; set; }
         public int? AmountReceivedText { get; set; }
@@ -48,16 +49,42 @@ namespace CRMYourBankers.ViewModels
             }
         }
 
+        private List<LoanTask> _loanTasks;
+        public List<LoanTask> LoanTasks 
+        { 
+            get => _loanTasks;
+            set
+            {
+                _loanTasks = value;                
+                NotifyPropertyChanged("LoanTasks");
+            }
+        }
+        private LoanTask _selectedLoanTasks;
+        public LoanTask SelectedLoanTasks
+        {
+            get => _selectedLoanTasks;
+            set
+            {
+                _selectedLoanTasks = value;
+                if (_selectedLoanTasks != null)
+                {
+                    TasksToDoText = _selectedLoanTasks.Text;
+                }
+                NotifyPropertyChanged("LoanTask");
+            }
+            
+        }
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }        
 
         public LoanApplicationDetailsViewModel(Messenger tabMessenger, 
-            List<LoanApplication> loanApplications, List<Client> clients, List<Bank> banks) 
+            List<LoanApplication> loanApplications, List<Client> clients, List<Bank> banks, List<LoanTask> loanTasks) 
             : base(tabMessenger)
         {
             LoanApplications = loanApplications;
             Clients = clients;
             Banks = banks;
+            LoanTasks = loanTasks;
             RegisterCommands();
         }
 

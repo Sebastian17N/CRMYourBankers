@@ -75,21 +75,34 @@
             Content="Cancel" />
         <StackPanel>
             <DataGrid
-                Height="400"
+                Height="100"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding LoanApplications}"
-                SelectedItem="{Binding SelectedLoanApplication}">
+                SelectedItem="{Binding LoanTasks}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                        Width= "800"                      
+                        Width="300"
                         Binding="{Binding TasksToDo}"
                         Header="Zadania"
                         IsReadOnly="False" />
                     <DataGridTextColumn
-                        Width= "800"                      
-                        Binding="{Binding LoanTasks}"
+                        Width="300"
+                        Binding="{Binding Text}"
                         Header="Zadania"
                         IsReadOnly="False" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid
+                Height="400"
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding LoanTasks}"
+                SelectedItem="{Binding SelectedLoanTasks}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="300"
+                        Binding="{Binding Text}"
+                        Header="Zadania"
+                        IsReadOnly="False" />                    
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

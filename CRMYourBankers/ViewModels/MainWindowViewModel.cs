@@ -55,6 +55,7 @@ namespace CRMYourBankers.ViewModels
         public List<Client> Clients { get; set; }
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
+        public List<LoanTask> LoanTasks { get; set; }
 
         private object _selectedTab;
         public object SelectedTab
@@ -150,7 +151,7 @@ namespace CRMYourBankers.ViewModels
             _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients, LoanApplications, Banks);
             _itemTabs.Add(_clientDetailsViewModel);
 
-            _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks);
+            _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks, LoanTasks);
             _itemTabs.Add(_loanApplicationDetailsViewModel);
 
             SelectedTab = _loanApplicationSearchViewModel;
@@ -206,6 +207,9 @@ namespace CRMYourBankers.ViewModels
                             _loanApplicationDetailsViewModel.SelectedLoanApplication =
                                 LoanApplications.Single(loan => loan.Id == message.ObjectId);
                         }
+                        
+                        _loanApplicationDetailsViewModel.SelectedLoanTasks = message.LoanTask;
+                                               
                         break;
 
                     case "LoanApplicationSearch":

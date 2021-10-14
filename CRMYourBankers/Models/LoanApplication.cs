@@ -17,7 +17,7 @@ namespace CRMYourBankers.Models
         public List<LoanTask> LoanTasks { get; set; }
         //public string TasksToDo => LoanTasks.LastOrDefault()?.Text;//wyciągnij ostatni z danej kolekcji
         //? zabezpiecza, że jeśli obiekt będzie pusty to nie odwołasz się do jego wnętrza
-        public string TasksToDo => string.Join(Environment.NewLine, LoanTasks.Select(loan => loan.Text));
+        public string TasksToDo => string.Join(Environment.NewLine, LoanTasks.Select(loan => loan.Text));       
         public LoanApplication()
         {
             LoanTasks = new List<LoanTask>();//dodając wniosek automatycznie tworzy sie pusta lista zadań

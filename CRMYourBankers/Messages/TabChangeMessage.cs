@@ -10,5 +10,6 @@ namespace CRMYourBankers.Messages
         public Client Client { get; set; }
         //public LoanApplication LoanApplication { get; set; }
         public Bank Bank { get; set; }
+        public LoanTask LoanTask { get; set; }
     }
 }
