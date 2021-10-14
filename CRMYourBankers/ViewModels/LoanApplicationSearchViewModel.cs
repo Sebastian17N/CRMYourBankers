@@ -14,17 +14,22 @@ namespace CRMYourBankers.ViewModels
         public ICommand SearchButtonCommand { get; set; }
         public ICommand DetailsScreenOpenHandler { get; set; }
         
-        public dynamic LoanApplications { get; set; }
+        public dynamic DataGridData { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
-       
+
+        public List<Client> Clients { get; set; }
+        public List<LoanApplication> LoanApplications { get; set; }
+        public List<Bank> Banks { get; set; }
+
         public LoanApplicationSearchViewModel(Messenger messenger,
             List<LoanApplication> loanApplications, List<Bank> banks, List<Client> clients) 
             : base(messenger)
         {
             RegisterCommands();
 
-            LoanApplications = PrepareData(loanApplications, banks, clients);
-            NotifyPropertyChanged("LoanApplications");
+            LoanApplications = loanApplications;
+            Clients = clients;
+            Banks = banks;
         }
 
         private dynamic PrepareData(List<LoanApplication> loanApplications, List<Bank> banks, List<Client> clients)
@@ -68,6 +73,12 @@ namespace CRMYourBankers.ViewModels
                     ObjectId = SelectedLoanApplication.Id
                 });                
             });            
+        }
+
+        protected override void RefreshData()
+        {
+            DataGridData = PrepareData(LoanApplications, Banks, Clients);
+            NotifyPropertyChanged("LoanApplications");
         }
     }
 }

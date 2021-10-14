@@ -85,6 +85,7 @@ namespace CRMYourBankers.ViewModels
             Clients = clients;
             Banks = banks;
             LoanTasks = loanTasks;
+
             RegisterCommands();
         }
 
@@ -146,6 +147,7 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationSearch" });
             });
         }
+
         public void ClearAllFields()
         {
             ClientId = null;
@@ -154,8 +156,9 @@ namespace CRMYourBankers.ViewModels
             AmountReceivedText = null;
             ClientCommissionText = null;
             TasksToDoText = null;
-        }
 
+            SelectedLoanApplication = null;
+        }
     }
 }
 

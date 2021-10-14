@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
     d:DesignHeight="400"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -28,7 +29,7 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Label Content="Numer Telefonu:" />
-            <TextBox Width="200" Text="{Binding PhoneNumberText}" />
+            <toolkit:MaskedTextBox Mask="000-000-000" Text="{Binding PhoneNumberText}" />
         </StackPanel>
         <StackPanel
             Margin="5"

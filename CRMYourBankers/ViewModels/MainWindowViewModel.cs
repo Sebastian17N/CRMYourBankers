@@ -57,14 +57,24 @@ namespace CRMYourBankers.ViewModels
         public List<Bank> Banks { get; set; }
         public List<LoanTask> LoanTasks { get; set; }
 
-        private object _selectedTab;
-        public object SelectedTab
+        private TabBaseViewModel _selectedTab;
+        public TabBaseViewModel SelectedTab
         {
             get => _selectedTab;
             set
             {
                 _selectedTab = value;
+                _selectedTab.TabVisibility = Visibility.Visible;
                 NotifyPropertyChanged("SelectedTab");
+
+                // Rzutowanie
+                //var text = "Jakiś tekst";
+                //var otherText = 29.8;
+                // Potraktuj to co jest w otherText jak int (więc utnij część po przecinku i zostaw 29)
+                //var number = (int)otherText;
+
+                // Traktuj _selectedTab jak obiekt typu TabBaseViewModel
+                //((TabBaseViewModel)_selectedTab)
             }
         }
 
@@ -188,18 +198,15 @@ namespace CRMYourBankers.ViewModels
                 switch (message.TabName)
                 {
                     case "ClientDetails":
-                        _clientDetailsViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _clientDetailsViewModel;
                         _clientDetailsViewModel.SelectedClient = message.Client;
                         break;
 
                     case "ClientSearch":
-                        _clientSearchViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _clientSearchViewModel;
                         break;
 
                     case "LoanApplicationDetails":
-                        _loanApplicationDetailsViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _loanApplicationDetailsViewModel;
 
                         if (message.ObjectId > 0)
@@ -213,7 +220,6 @@ namespace CRMYourBankers.ViewModels
                         break;
 
                     case "LoanApplicationSearch":
-                        _loanApplicationSearchViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _loanApplicationSearchViewModel;
                         break;
                 }

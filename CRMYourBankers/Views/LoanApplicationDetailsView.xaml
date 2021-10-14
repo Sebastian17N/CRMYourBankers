@@ -75,34 +75,16 @@
             Content="Cancel" />
         <StackPanel>
             <DataGrid
-                Height="100"
-                AutoGenerateColumns="False"
-                ItemsSource="{Binding LoanApplications}"
-                SelectedItem="{Binding LoanTasks}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn
-                        Width="300"
-                        Binding="{Binding TasksToDo}"
-                        Header="Zadania"
-                        IsReadOnly="False" />
-                    <DataGridTextColumn
-                        Width="300"
-                        Binding="{Binding Text}"
-                        Header="Zadania"
-                        IsReadOnly="False" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <DataGrid
                 Height="400"
                 AutoGenerateColumns="False"
-                ItemsSource="{Binding LoanTasks}"
-                SelectedItem="{Binding SelectedLoanTasks}">
+                CanUserAddRows="False"
+                ItemsSource="{Binding SelectedLoanApplication.LoanTasks}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="300"
                         Binding="{Binding Text}"
-                        Header="Zadania"
-                        IsReadOnly="False" />                    
+                        Header="Zadania" />
+                    <DataGridCheckBoxColumn Binding="{Binding Done}" Header="Zrobione" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
