@@ -34,9 +34,12 @@ namespace CRMYourBankers.ViewModels
         //         dodaj przycisk, który wywoła linię 23 w LoanApplications = PrepareData(loanApplications, banks, clients);
         //         czyli ponownie przeładuje zbiór danych (odświeży)
         //         możesz otworzyć istniejący wniosek i go edytować/zapisać => jak przekazać w SelectedLoanApplication do bombobox liste banków i klientów???
-
         //   Dlaczego w klientach jest puste pole a w wnioskach nie?
         //   Zadania w widoku wniosków powinny być w formie tabelki i powinny być edytowalne tak jak w szczegóły klienta, nie ustawiać kolumn jako readonly
+
+        //  Co chcesz mieć na Summary i w jakiej formie
+        //  Stworzyć ClientTask i dodać jego wyświetlanie na ClientDetails
+        //  Kontrolki => dodawanie dowych tasków???
 
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }
@@ -164,7 +167,7 @@ namespace CRMYourBankers.ViewModels
             _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks, LoanTasks);
             _itemTabs.Add(_loanApplicationDetailsViewModel);
 
-            SelectedTab = _loanApplicationSearchViewModel;
+            SelectedTab = _loanApplicationSearchViewModel; //to okno wyświetla się jako pierwsze
         }
 
         protected void RegisterCommands()
