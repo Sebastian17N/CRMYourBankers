@@ -206,10 +206,7 @@ namespace CRMYourBankers.ViewModels
                         {
                             _loanApplicationDetailsViewModel.SelectedLoanApplication =
                                 LoanApplications.Single(loan => loan.Id == message.ObjectId);
-                        }
-                        
-                        _loanApplicationDetailsViewModel.SelectedLoanTasks = message.LoanTask;
-                                               
+                        }                                                                                             
                         break;
 
                     case "LoanApplicationSearch":
