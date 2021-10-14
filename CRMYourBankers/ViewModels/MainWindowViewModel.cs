@@ -69,7 +69,7 @@ namespace CRMYourBankers.ViewModels
         {
             TabMessenger = new Messenger();
 
-            using (var dbcontext = new DbContext())
+            using (var dbcontext = new YourBankersDbContext())
             {
                 dbcontext.DataSeeds();
                 Clients = dbcontext.Clients.ToList();

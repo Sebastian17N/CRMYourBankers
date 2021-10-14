@@ -1,25 +1,22 @@
 ﻿using CRMYourBankers.Models;
-using CRMYourBankers.Models.Maps;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace CRMYourBankers.Database
 {
-    public class DbContext : System.Data.Entity.DbContext
+    public class YourBankersDbContext : DbContext
     {
-        public DbContext() : base("name=YourBankersConnection") { }
-
         public DbSet<Client> Clients { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            modelBuilder.Configurations.Add(new ClientMap());
-            base.OnModelCreating(modelBuilder);
+            optionsBuilder.UseSqlite("Data Source=YourBankersConnection.sqlite");
         }
 
         public void DataSeeds()
         {
+            this.Database
             if (!Clients.Any())
             {
                 Clients.AddRange(
