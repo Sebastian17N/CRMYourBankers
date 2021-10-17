@@ -39,7 +39,7 @@ namespace CRMYourBankers.ViewModels
 
         //  Co chcesz mieć na Summary i w jakiej formie
         //  Stworzyć ClientTask i dodać jego wyświetlanie na ClientDetails
-        //  Kontrolki => dodawanie dowych tasków???
+        //  Kontrolki => dodawanie dowych tasków??? może być poprzez TextBox oraz kliknięcie myszką w listę zadań, pojawi się pytanie czy chce dodać nowe zadanie
         // Problemy: dlaczego w Client Details na początki wyświetla się tylko jedna lista zadań, a po odświeżeniu 2
 
 
@@ -56,7 +56,7 @@ namespace CRMYourBankers.ViewModels
         private ClientSearchViewModel _clientSearchViewModel;
         private ClientDetailsViewModel _clientDetailsViewModel;
         private LoanApplicationDetailsViewModel _loanApplicationDetailsViewModel;
-        
+        private SummaryViewModel _summaryViewModel;
         public List<Client> Clients { get; set; }
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
@@ -186,8 +186,11 @@ namespace CRMYourBankers.ViewModels
 
             _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks, LoanTasks);
             _itemTabs.Add(_loanApplicationDetailsViewModel);
+            
+            _summaryViewModel = new SummaryViewModel(TabMessenger, LoanApplications, Banks, Clients);
+            _itemTabs.Add(_summaryViewModel);
 
-            SelectedTab = _loanApplicationSearchViewModel; //to okno wyświetla się jako pierwsze
+            SelectedTab = _summaryViewModel; //to okno wyświetla się jako pierwsze
         }
 
         protected void RegisterCommands()
@@ -241,6 +244,9 @@ namespace CRMYourBankers.ViewModels
 
                     case "LoanApplicationSearch":
                         SelectedTab = _loanApplicationSearchViewModel;
+                        break;
+                    case "SummaryViewModel":
+                        SelectedTab = _summaryViewModel;
                         break;
                 }
             });

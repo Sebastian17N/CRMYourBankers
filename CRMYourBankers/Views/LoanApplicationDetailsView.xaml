@@ -42,7 +42,14 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Label Content="Wnioskowana Kwota:" />
-            <TextBox Width="300" Text="{Binding AmountRequestedText}" />
+            <TextBox
+                Width="300"
+                Text="{Binding AmountRequestedText}"
+                TextChanged="TextBox_TextChanged" />
+            <!--
+                <toolkit:MaskedTextBox Mask="000 000 000" Text="{Binding AmountRequestedText}" />
+                dlaczego nie działa?
+            -->
         </StackPanel>
         <StackPanel
             Margin="5"
