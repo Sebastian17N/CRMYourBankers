@@ -58,7 +58,7 @@
             Content="Cancel" />
         <StackPanel>
             <DataGrid
-                Height="400"
+                Height="150"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding LoanApplicationsForClient}">
                 <DataGrid.Columns>
@@ -77,6 +77,21 @@
                         Binding="{Binding TasksToDo}"
                         Header="Zadania"
                         IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel>
+            <DataGrid
+                Height="200"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                ItemsSource="{Binding SelectedClient.ClientTasks}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="300"
+                        Binding="{Binding Text}"
+                        Header="Zadania" />
+                    <DataGridCheckBoxColumn Binding="{Binding Done}" Header="Zrobione" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

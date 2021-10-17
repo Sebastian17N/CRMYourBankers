@@ -59,21 +59,7 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("LoanTasks");
             }
         }
-        private LoanTask _selectedLoanTasks;
-        public LoanTask SelectedLoanTasks
-        {
-            get => _selectedLoanTasks;
-            set
-            {
-                _selectedLoanTasks = value;
-                if (_selectedLoanTasks != null)
-                {
-                    TasksToDoText = _selectedLoanTasks.Text;
-                }
-                NotifyPropertyChanged("LoanTask");
-            }
-            
-        }
+
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }        
 

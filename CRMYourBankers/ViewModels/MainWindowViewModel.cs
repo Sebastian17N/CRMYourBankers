@@ -59,6 +59,7 @@ namespace CRMYourBankers.ViewModels
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
         public List<LoanTask> LoanTasks { get; set; }
+        public List<ClientTask> ClientTasks { get; set; }
 
         private TabBaseViewModel _selectedTab;
         public TabBaseViewModel SelectedTab
@@ -94,7 +95,24 @@ namespace CRMYourBankers.ViewModels
                     LastName ="Zieliński",
                     PhoneNumber = 888777999,
                     Email = "zielinski@wp.pl",
-                    PersonalId = 12121212345
+                    PersonalId = 12121212345,
+                    ClientTasks = new List<ClientTask>
+                    {
+                        new ClientTask
+                        {
+                            Id = 1,
+                            Text = "Zadzwoń w piątek",
+                            Done = false,
+                            ClientId = 1
+                        },
+                        new ClientTask
+                        {
+                            Id = 1,
+                            Text = "Wyślij maila z ofertą",
+                            Done = false,
+                            ClientId = 1
+                        }
+                    }
                 },
                 new Client
                 {
@@ -161,7 +179,7 @@ namespace CRMYourBankers.ViewModels
             _clientSearchViewModel = new ClientSearchViewModel(Clients, TabMessenger);
             _itemTabs.Add(_clientSearchViewModel);
 
-            _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients, LoanApplications, Banks);
+            _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients, LoanApplications, Banks, ClientTasks);
             _itemTabs.Add(_clientDetailsViewModel);
 
             _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks, LoanTasks);
