@@ -40,6 +40,8 @@ namespace CRMYourBankers.ViewModels
         //  Co chcesz mieć na Summary i w jakiej formie
         //  Stworzyć ClientTask i dodać jego wyświetlanie na ClientDetails
         //  Kontrolki => dodawanie dowych tasków???
+        // Problemy: dlaczego w Client Details na początki wyświetla się tylko jedna lista zadań, a po odświeżeniu 2
+
 
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }

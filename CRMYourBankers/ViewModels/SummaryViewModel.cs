@@ -9,5 +9,6 @@ namespace CRMYourBankers.ViewModels
 {
     public class SummaryViewModel : TabBaseViewModel
     {
+
     }
 }

@@ -15,7 +15,7 @@ namespace CRMYourBankers.Models
         public List<ClientTask> ClientTasks { get; set; }
 
         public string FullName => $"{FirstName} {LastName} {Email}";
-        public string TaskToDo => string.Join(Environment.NewLine,
+        public string TasksToDo => string.Join(Environment.NewLine,
             ClientTasks.Where(task => !task.Done).Select(task => task.Text));
         
         public Client()

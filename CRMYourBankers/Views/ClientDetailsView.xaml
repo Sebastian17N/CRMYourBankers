@@ -73,7 +73,7 @@
                         Header="Wnioskowana Kwota"
                         IsReadOnly="True" />
                     <DataGridTextColumn
-                        Width="120"
+                        Width="200"
                         Binding="{Binding TasksToDo}"
                         Header="Zadania"
                         IsReadOnly="True" />

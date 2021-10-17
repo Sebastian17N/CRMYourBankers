@@ -25,7 +25,7 @@ namespace CRMYourBankers.ViewModels
         }
 
         public Client SelectedClient { get; set; }
-
+        
         public ClientSearchViewModel(List<Client> clients, Messenger messenger)
             : base(messenger)
         {
