@@ -1,4 +1,5 @@
-﻿using CRMYourBankers.Messages;
+﻿using CRMYourBankers.Database;
+using CRMYourBankers.Messages;
 using CRMYourBankers.Models;
 using CRMYourBankers.ViewModels.Base;
 using GalaSoft.MvvmLight.Command;
@@ -63,6 +64,8 @@ namespace CRMYourBankers.ViewModels
         public List<LoanTask> LoanTasks { get; set; }
         public List<ClientTask> ClientTasks { get; set; }
 
+        public YourBankersContext Context { get; set; }
+
         private TabBaseViewModel _selectedTab;
         public TabBaseViewModel SelectedTab
         {
@@ -88,94 +91,18 @@ namespace CRMYourBankers.ViewModels
         {
             TabMessenger = new Messenger();
 
-            Clients = new List<Client>
-            {
-                new Client
-                {
-                    Id = 1,
-                    FirstName = "Piotr",
-                    LastName ="Zieliński",
-                    PhoneNumber = 888777999,
-                    Email = "zielinski@wp.pl",
-                    PersonalId = 12121212345,
-                    ClientTasks = new List<ClientTask>
-                    {
-                        new ClientTask
-                        {
-                            Id = 1,
-                            Text = "Zadzwoń w piątek",
-                            Done = false,
-                            ClientId = 1
-                        },
-                        new ClientTask
-                        {
-                            Id = 1,
-                            Text = "Wyślij maila z ofertą",
-                            Done = false,
-                            ClientId = 1
-                        }
-                    }
-                },
-                new Client
-                {
-                    Id = 2,
-                    FirstName = "Jan",
-                    LastName ="Kowalski",
-                    PhoneNumber = 555444666,
-                    Email = "kowalski@onet.pl",
-                    PersonalId = 55443312345
-                }
-            };
-            LoanApplications = new List<LoanApplication>
-            {
-                new LoanApplication
-                {
-                    Id = 1,
-                    ClientId = 1,
-                    BankId = 3,
-                    AmountRequested = 100000,
-                    AmountReceived = 100000,
-                    ClientCommission = 5000,
-                    LoanTasks = new List<LoanTask>
-                    {
-                        new LoanTask
-                        {
-                            Id = 1,
-                            Text = "Zadzwoń do klienta",
-                            Done = false,
-                            LoanApplicationId = 1
-                        },
-                        new LoanTask
-                        {
-                            Id = 2,
-                            Text = "Wyślij wniosek do Banku",
-                            Done = false,
-                            LoanApplicationId = 1
-                        }
-                    }
-                },
-                new LoanApplication
-                {
-                    Id = 2,
-                    ClientId = 2,
-                    BankId = 4,
-                    AmountRequested = 200000,
-                    AmountReceived = 200000,
-                    ClientCommission = 10000,                    
-                }
-            };
-            Banks = new List<Bank>
-            {
-                new Bank{Id = 1, Name = "Santander"},
-                new Bank{Id = 2, Name = "Alior"},
-                new Bank{Id = 3, Name = "BNP"},
-                new Bank{Id = 4, Name = "mBank"},
-            };
+            Context = new YourBankersContext();
+            Context.DataSeeds();
+
+            // TODO: Pozbyć się tych przypisań.
+            Clients = Context.Clients.ToList();
+            LoanApplications = Context.LoanApplications.ToList();
+            Banks = Context.Banks.ToList();            
+
             RegisterCommands();
             RegisterMessages();
 
-            _loanApplicationSearchViewModel = new LoanApplicationSearchViewModel(TabMessenger,
-                LoanApplications, Banks, Clients);
+            _loanApplicationSearchViewModel = new LoanApplicationSearchViewModel(TabMessenger, Context);
             _itemTabs.Add(_loanApplicationSearchViewModel);
 
             _clientSearchViewModel = new ClientSearchViewModel(Clients, TabMessenger);
@@ -218,18 +145,19 @@ namespace CRMYourBankers.ViewModels
             TabMessenger.Register<TabChangeMessage>(this,
                 message =>
             {
-                _clientSearchViewModel.TabVisibility = Visibility.Collapsed;
-                _clientDetailsViewModel.TabVisibility = Visibility.Collapsed;
-
                 switch (message.TabName)
                 {
+                    case "ClientSearch":
+                        SelectedTab = _clientSearchViewModel;
+                        break;
+
+                    case "LoanApplicationSearch":
+                        SelectedTab = _loanApplicationSearchViewModel;
+                        break;
+
                     case "ClientDetails":
                         SelectedTab = _clientDetailsViewModel;
                         _clientDetailsViewModel.SelectedClient = message.Client;
-                        break;
-
-                    case "ClientSearch":
-                        SelectedTab = _clientSearchViewModel;
                         break;
 
                     case "LoanApplicationDetails":
@@ -242,9 +170,6 @@ namespace CRMYourBankers.ViewModels
                         }                                                                                             
                         break;
 
-                    case "LoanApplicationSearch":
-                        SelectedTab = _loanApplicationSearchViewModel;
-                        break;
                     case "SummaryViewModel":
                         SelectedTab = _summaryViewModel;
                         break;

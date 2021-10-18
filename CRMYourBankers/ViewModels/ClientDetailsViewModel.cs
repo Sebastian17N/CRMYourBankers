@@ -34,6 +34,10 @@ namespace CRMYourBankers.ViewModels
 
                     PrepareLoanApplicationDataForClient();
                 }
+                else
+                {
+                    ClearAllFields();
+                }
             }
         }
 
@@ -55,7 +59,17 @@ namespace CRMYourBankers.ViewModels
         //    }
         //}
 
-        public string FirstNameText { get; set; }
+        private string _firstNameText { get; set; }
+        public string FirstNameText 
+        { 
+            get => _firstNameText; 
+            set
+            {
+                _firstNameText = value;
+                NotifyPropertyChanged("FirstNameText");
+            }
+        }
+
         public string LastNameText { get; set; }
         public string EmailText { get; set; }
         public int? PhoneNumberText { get; set; }

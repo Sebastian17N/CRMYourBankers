@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CRMYourBankers.Models
 {
@@ -32,8 +30,8 @@ namespace CRMYourBankers.Models
         public bool Validate()
         {
             return
-                AmountRequested != null&&
-                ClientId != 0 &&
+                AmountRequested != null &&
+                ClientId != 0 && // Jeśli ClientId lub BankId = 0 to oznacza, że nie wybrano ich z combo.
                 BankId != 0;
         }
     }

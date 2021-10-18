@@ -1,9 +1,8 @@
-﻿using CRMYourBankers.Messages;
-using CRMYourBankers.Models;
+﻿using CRMYourBankers.Database;
+using CRMYourBankers.Messages;
 using CRMYourBankers.ViewModels.Base;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 
@@ -17,27 +16,23 @@ namespace CRMYourBankers.ViewModels
         public dynamic DataGridData { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
 
-        public List<Client> Clients { get; set; }
-        public List<LoanApplication> LoanApplications { get; set; }
-        public List<Bank> Banks { get; set; }
-
-
-        public LoanApplicationSearchViewModel(Messenger messenger,
-            List<LoanApplication> loanApplications, List<Bank> banks, List<Client> clients) 
+        public YourBankersContext Context { get; set; }
+       
+        public LoanApplicationSearchViewModel(Messenger messenger, YourBankersContext context) 
             : base(messenger)
         {
             RegisterCommands();
+            Context = context;
 
-            LoanApplications = loanApplications;
-            Clients = clients;
-            Banks = banks;
+            DataGridData = PrepareData();
+            NotifyPropertyChanged("DataGridData");
         }
 
-        private dynamic PrepareData(List<LoanApplication> loanApplications, List<Bank> banks, List<Client> clients)
+        private dynamic PrepareData()
         {
             return
-                loanApplications.Join(
-                    banks,
+                Context.LoanApplications.Join(
+                    Context.Banks,
                     loan => loan.BankId,
                     bank => bank.Id,
                     (loan, bank) => new
@@ -50,7 +45,7 @@ namespace CRMYourBankers.ViewModels
                         BankName = bank.Name
                     })
                 .Join(
-                    clients,
+                    Context.Clients,
                     loan => loan.ClientId,
                     client => client.Id,
                     (loan, client) => new
@@ -61,7 +56,8 @@ namespace CRMYourBankers.ViewModels
                         loan.AmountRequested,
                         loan.AmountReceived,
                         loan.TasksToDo
-                    });
+                    })
+                .ToList();
         }
 
         public void RegisterCommands()
@@ -78,8 +74,8 @@ namespace CRMYourBankers.ViewModels
 
         protected override void RefreshData()
         {
-            DataGridData = PrepareData(LoanApplications, Banks, Clients);
-            NotifyPropertyChanged("LoanApplications");
+            DataGridData = PrepareData();
+            NotifyPropertyChanged("DataGridData");
         }
     }
 }
