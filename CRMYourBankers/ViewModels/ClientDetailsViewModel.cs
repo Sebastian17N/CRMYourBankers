@@ -103,7 +103,7 @@ namespace CRMYourBankers.ViewModels
         {
             LoanApplicationsForClient =
                 LoanApplications
-                    .Where(loan => loan.ClientId == SelectedClient.Id)
+                    .Where(loan => loan.ClientId == SelectedClient?.Id)
                     .Join(
                     Banks,
                     loan => loan.BankId,

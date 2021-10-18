@@ -11,6 +11,8 @@ namespace CRMYourBankers.Database
         public DbSet<Client> Clients { get; set; }
         public DbSet<LoanApplication> LoanApplications { get; set; }
         public DbSet<Bank> Banks { get; set; }
+        public DbSet<LoanTask> LoanTasks { get; set; }
+        public DbSet<ClientTask> ClientTasks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -25,6 +27,7 @@ namespace CRMYourBankers.Database
         {
             AddClients();
             AddLoanApplications();
+            AddLoanTasks();
             AddBanks();
         }
 
@@ -73,7 +76,27 @@ namespace CRMYourBankers.Database
                         AmountRequested = 100000,
                         AmountReceived = 100000,
                         ClientCommission = 5000,
-                        LoanTasks = new List<LoanTask>
+                    },
+                    new LoanApplication
+                    {
+                        Id = 2,
+                        ClientId = 2,
+                        BankId = 4,
+                        AmountRequested = 200000,
+                        AmountReceived = 200000,
+                        ClientCommission = 10000,
+                    });
+
+                SaveChanges();
+            }
+        }
+
+        private void AddLoanTasks()
+        {
+            if (!LoanTasks.Any())
+            {
+                LoanTasks.AddRange(
+                    new List<LoanTask>
                         {
                             new LoanTask
                             {
@@ -89,17 +112,7 @@ namespace CRMYourBankers.Database
                                 Done = false,
                                 LoanApplicationId = 1
                             }
-                        }
-                    },
-                    new LoanApplication
-                    {
-                        Id = 2,
-                        ClientId = 2,
-                        BankId = 4,
-                        AmountRequested = 200000,
-                        AmountReceived = 200000,
-                        ClientCommission = 10000,
-                    });
+                        });
 
                 SaveChanges();
             }

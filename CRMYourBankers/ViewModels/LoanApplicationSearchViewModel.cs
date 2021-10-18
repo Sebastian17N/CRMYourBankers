@@ -3,6 +3,7 @@ using CRMYourBankers.Messages;
 using CRMYourBankers.ViewModels.Base;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Windows.Input;
 
@@ -31,7 +32,10 @@ namespace CRMYourBankers.ViewModels
         private dynamic PrepareData()
         {
             return
-                Context.LoanApplications.Join(
+                Context
+                .LoanApplications
+                .Include(loan => loan.LoanTasks)
+                .Join(
                     Context.Banks,
                     loan => loan.BankId,
                     bank => bank.Id,

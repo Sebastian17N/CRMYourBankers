@@ -41,11 +41,6 @@ namespace CRMYourBankers.ViewModels
                     ClientCommissionText = _selectedLoanApplication.ClientCommission;
                     TasksToDoText = _selectedLoanApplication.TasksToDo;
                 }
-                else
-                {
-                    ClearAllFields();
-                }
-
                 NotifyPropertyChanged("LoanApplication");
             }
         }
@@ -85,9 +80,9 @@ namespace CRMYourBankers.ViewModels
                     var newLoanApplication = new LoanApplication
                     {
                         Id = LoanApplications.Max(loan => loan.Id) + 1,
-                        ClientId = ClientId ?? 0, //do pustej property z clasy LoanApplication wstaw wartość z property z LoanApplicationDetailsView
+                        ClientId = ClientId ??0, //do pustej property z clasy LoanApplication wstaw wartość z property z LoanApplicationDetailsView
                                             //??0 oznacza, że ClientId z prawej będzie null to wstawi O
-                        BankId = BankId ?? 0,
+                        BankId = BankId ??0,
                         AmountRequested = AmountRequestedText,
                         AmountReceived = AmountReceivedText,
                         ClientCommission  = ClientCommissionText,                       
