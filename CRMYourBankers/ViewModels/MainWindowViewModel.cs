@@ -35,9 +35,14 @@ namespace CRMYourBankers.ViewModels
         //         dodaj przycisk, który wywoła linię 23 w LoanApplications = PrepareData(loanApplications, banks, clients);
         //         czyli ponownie przeładuje zbiór danych (odświeży)
         //         możesz otworzyć istniejący wniosek i go edytować/zapisać => jak przekazać w SelectedLoanApplication do bombobox liste banków i klientów???
-
         //   Dlaczego w klientach jest puste pole a w wnioskach nie?
         //   Zadania w widoku wniosków powinny być w formie tabelki i powinny być edytowalne tak jak w szczegóły klienta, nie ustawiać kolumn jako readonly
+
+        //  Co chcesz mieć na Summary i w jakiej formie
+        //  Stworzyć ClientTask i dodać jego wyświetlanie na ClientDetails
+        //  Kontrolki => dodawanie dowych tasków??? może być poprzez TextBox oraz kliknięcie myszką w listę zadań, pojawi się pytanie czy chce dodać nowe zadanie
+        // Problemy: dlaczego w Client Details na początki wyświetla się tylko jedna lista zadań, a po odświeżeniu 2
+
 
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }
@@ -52,11 +57,12 @@ namespace CRMYourBankers.ViewModels
         private ClientSearchViewModel _clientSearchViewModel;
         private ClientDetailsViewModel _clientDetailsViewModel;
         private LoanApplicationDetailsViewModel _loanApplicationDetailsViewModel;
-        
+        private SummaryViewModel _summaryViewModel;
         public List<Client> Clients { get; set; }
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
         public List<LoanTask> LoanTasks { get; set; }
+        public List<ClientTask> ClientTasks { get; set; }
 
         public YourBankersContext Context { get; set; }
 
@@ -102,13 +108,16 @@ namespace CRMYourBankers.ViewModels
             _clientSearchViewModel = new ClientSearchViewModel(Clients, TabMessenger);
             _itemTabs.Add(_clientSearchViewModel);
 
-            _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients, LoanApplications, Banks);
+            _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients, LoanApplications, Banks, ClientTasks);
             _itemTabs.Add(_clientDetailsViewModel);
 
             _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks, LoanTasks);
             _itemTabs.Add(_loanApplicationDetailsViewModel);
+            
+            _summaryViewModel = new SummaryViewModel(TabMessenger, LoanApplications, Banks, Clients);
+            _itemTabs.Add(_summaryViewModel);
 
-            SelectedTab = _loanApplicationSearchViewModel;
+            SelectedTab = _summaryViewModel; //to okno wyświetla się jako pierwsze
         }
 
         protected void RegisterCommands()
@@ -159,6 +168,10 @@ namespace CRMYourBankers.ViewModels
                             _loanApplicationDetailsViewModel.SelectedLoanApplication =
                                 LoanApplications.Single(loan => loan.Id == message.ObjectId);
                         }                                                                                             
+                        break;
+
+                    case "SummaryViewModel":
+                        SelectedTab = _summaryViewModel;
                         break;
                 }
             });

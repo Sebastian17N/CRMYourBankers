@@ -76,17 +76,25 @@ namespace CRMYourBankers.ViewModels
         public long? PersonalIdText { get; set; }
 
         public dynamic LoanApplicationsForClient { get; set; }
-
+        private List<ClientTask> _clientTasks;
+        public List<ClientTask> ClientTasks
+        {
+            get => _clientTasks;
+            set { _clientTasks = value;
+                NotifyPropertyChanged("ClientTask");
+            }
+        }        
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
 
         public ClientDetailsViewModel(Messenger tabMessenger, List<Client> clients,
-            List<LoanApplication> loanApplications, List<Bank> banks)
+            List<LoanApplication> loanApplications, List<Bank> banks, List<ClientTask> clientTasks)
             : base(tabMessenger)
         {
             Clients = clients;
             LoanApplications = loanApplications;
             Banks = banks;
+            ClientTasks = clientTasks;
 
             RegisterCommands();
         }

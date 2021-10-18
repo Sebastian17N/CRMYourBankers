@@ -42,7 +42,14 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Label Content="Wnioskowana Kwota:" />
-            <TextBox Width="300" Text="{Binding AmountRequestedText}" />
+            <TextBox
+                Width="300"
+                Text="{Binding AmountRequestedText}"
+                TextChanged="TextBox_TextChanged" />
+            <!--
+                <toolkit:MaskedTextBox Mask="000 000 000" Text="{Binding AmountRequestedText}" />
+                dlaczego nie działa?
+            -->
         </StackPanel>
         <StackPanel
             Margin="5"
@@ -78,10 +85,8 @@
                 Height="400"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
-                ItemsSource="{Binding SelectedLoanApplication.LoanTasks}">
-                <!--
-                    liste zadań mamy zadeklarowaną w LoanApplications, wiec nie musimy dodawać tego w ModelView
-                -->
+                ItemsSource="{Binding SelectedLoanApplication.LoanTasks}"
+                SelectionChanged="DataGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="300"

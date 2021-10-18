@@ -46,6 +46,11 @@
                     Binding="{Binding Email}"
                     Header="Mail"
                     IsReadOnly="True" />
+                <DataGridTextColumn
+                    Width="200"
+                    Binding="{Binding TasksToDo}"
+                    Header="Zadania"
+                    IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>
