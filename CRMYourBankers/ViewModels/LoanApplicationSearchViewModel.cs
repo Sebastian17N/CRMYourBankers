@@ -23,15 +23,12 @@ namespace CRMYourBankers.ViewModels
             : base(messenger)
         {
             RegisterCommands();
-            Context = context;
-
-            DataGridData = PrepareData();
-            NotifyPropertyChanged("DataGridData");
+            Context = context;                      
         }
-
-        private dynamic PrepareData()
+        
+        protected override void RefreshData()
         {
-            return
+            DataGridData =           
                 Context
                 .LoanApplications
                 .Include(loan => loan.LoanTasks)
@@ -62,6 +59,7 @@ namespace CRMYourBankers.ViewModels
                         loan.TasksToDo
                     })
                 .ToList();
+            NotifyPropertyChanged("DataGridData");
         }
 
         public void RegisterCommands()
@@ -74,12 +72,6 @@ namespace CRMYourBankers.ViewModels
                     ObjectId = SelectedLoanApplication.Id
                 });                
             });            
-        }
-
-        protected override void RefreshData()
-        {
-            DataGridData = PrepareData();
-            NotifyPropertyChanged("DataGridData");
-        }
+        }               
     }
 }

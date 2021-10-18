@@ -42,7 +42,7 @@ namespace CRMYourBankers.ViewModels
         //  Stworzyć ClientTask i dodać jego wyświetlanie na ClientDetails
         //  Kontrolki => dodawanie dowych tasków??? może być poprzez TextBox oraz kliknięcie myszką w listę zadań, pojawi się pytanie czy chce dodać nowe zadanie
         // Problemy: dlaczego w Client Details na początki wyświetla się tylko jedna lista zadań, a po odświeżeniu 2
-
+        // Uzupełnij wszystkie widoki w context
 
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }
@@ -109,7 +109,7 @@ namespace CRMYourBankers.ViewModels
             _clientSearchViewModel = new ClientSearchViewModel(TabMessenger, Context);
             _itemTabs.Add(_clientSearchViewModel);
 
-            _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients, LoanApplications, Banks, ClientTasks);
+            _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Context);
             _itemTabs.Add(_clientDetailsViewModel);
 
             _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks, LoanTasks);
@@ -153,9 +153,12 @@ namespace CRMYourBankers.ViewModels
                         break;
 
                     case "ClientDetails":
-                        SelectedTab = _clientDetailsViewModel;
-                        _clientDetailsViewModel.SelectedClient = 
-                            Context.Clients.Single(client => client.Id == message.ObjectId);
+                        if (message.ObjectId>0)
+                        {
+                            _clientDetailsViewModel.SelectedClient =
+                           Context.Clients.Single(client => client.Id == message.ObjectId);
+                        }                        
+                        SelectedTab = _clientDetailsViewModel;                       
                         break;
 
                     case "LoanApplicationSearch":
@@ -163,13 +166,12 @@ namespace CRMYourBankers.ViewModels
                         break;
 
                     case "LoanApplicationDetails":
-                        SelectedTab = _loanApplicationDetailsViewModel;
-
                         if (message.ObjectId > 0)
                         {
                             _loanApplicationDetailsViewModel.SelectedLoanApplication =
                                 LoanApplications.Single(loan => loan.Id == message.ObjectId);
-                        }                                                                                             
+                        }
+                        SelectedTab = _loanApplicationDetailsViewModel;                                                                                                                                          
                         break;
 
                     case "SummaryViewModel":

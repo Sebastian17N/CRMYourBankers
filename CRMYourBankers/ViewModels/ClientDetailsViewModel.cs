@@ -1,8 +1,10 @@
-﻿using CRMYourBankers.Messages;
+﻿using CRMYourBankers.Database;
+using CRMYourBankers.Messages;
 using CRMYourBankers.Models;
 using CRMYourBankers.ViewModels.Base;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -12,10 +14,6 @@ namespace CRMYourBankers.ViewModels
 {
     public class ClientDetailsViewModel : TabBaseViewModel
     {
-        public List<Client> Clients { get; set; }
-        public List<LoanApplication> LoanApplications { get; set; }
-        public List<Bank> Banks { get; set; }
-
         private Client _selectedClients;
         public Client SelectedClient 
         { 
@@ -31,8 +29,6 @@ namespace CRMYourBankers.ViewModels
                     EmailText = _selectedClients.Email;
                     PhoneNumberText = _selectedClients.PhoneNumber;
                     PersonalIdText = _selectedClients.PersonalId;
-
-                    PrepareLoanApplicationDataForClient();
                 }
                 else
                 {
@@ -86,26 +82,27 @@ namespace CRMYourBankers.ViewModels
         }        
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
+        public YourBankersContext Context { get; set; }
 
-        public ClientDetailsViewModel(Messenger tabMessenger, List<Client> clients,
-            List<LoanApplication> loanApplications, List<Bank> banks, List<ClientTask> clientTasks)
+        public ClientDetailsViewModel(Messenger tabMessenger, YourBankersContext context)
             : base(tabMessenger)
         {
-            Clients = clients;
-            LoanApplications = loanApplications;
-            Banks = banks;
-            ClientTasks = clientTasks;
-
+            Context = context;
             RegisterCommands();
         }
 
-        private void PrepareLoanApplicationDataForClient()
+        protected override void RefreshData()
         {
+            if (SelectedClient == null)
+            {
+                return;
+            }
             LoanApplicationsForClient =
-                LoanApplications
-                    .Where(loan => loan.ClientId == SelectedClient?.Id)
+                Context.LoanApplications
+                    .Include(loan=>loan.LoanTasks)
+                    .Where(loan => loan.ClientId == SelectedClient.Id) //w linq nie używa się ?
                     .Join(
-                    Banks,
+                    Context.Banks,
                     loan => loan.BankId,
                     bank => bank.Id,
                     (loan, bank) => new
@@ -116,7 +113,7 @@ namespace CRMYourBankers.ViewModels
                         BankName = bank.Name
                     })
                 .Join(
-                    Clients,
+                    Context.Clients,
                     loan => loan.ClientId,
                     client => client.Id,
                     (loan, client) => new
@@ -124,7 +121,7 @@ namespace CRMYourBankers.ViewModels
                         loan.BankName,
                         loan.AmountRequested,
                         loan.TasksToDo
-                    });
+                    }).ToList(); 
         }    
 
         public void RegisterCommands()
@@ -135,7 +132,7 @@ namespace CRMYourBankers.ViewModels
                 {
                     var newClient = new Client
                     {
-                        Id = Clients.Max(client => client.Id) + 1,
+                        Id = Context.Clients.Max(client => client.Id) + 1,
                         FirstName = FirstNameText,
                         LastName = LastNameText,
                         PhoneNumber = PhoneNumberText,
@@ -152,7 +149,7 @@ namespace CRMYourBankers.ViewModels
                         return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
                     }
 
-                    if (Clients.Any(item => item.PersonalId == PersonalIdText))
+                    if (Context.Clients.Any(item => item.PersonalId == PersonalIdText))
                     {
                         MessageBox.Show("Klient o podanym nr Pesel już istnieje",
                             "Błędy w formularzu",
@@ -161,7 +158,7 @@ namespace CRMYourBankers.ViewModels
                         return;
                     }
 
-                    Clients.Add(newClient);
+                    Context.Clients.Add(newClient);                    
                 }
                 else
                 {
@@ -180,6 +177,7 @@ namespace CRMYourBankers.ViewModels
                         return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
                     }
                 }
+                Context.SaveChanges();
 
                 MessageBox.Show($"Zapisano: {FirstNameText} {LastNameText}", 
                     "Dodano Klienta",

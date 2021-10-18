@@ -17,7 +17,10 @@
 
     <StackPanel Orientation="Vertical">
         <DockPanel>
-            <StackPanel HorizontalAlignment="Left" DockPanel.Dock="Left" Orientation="Horizontal">
+            <StackPanel
+                HorizontalAlignment="Left"
+                DockPanel.Dock="Left"
+                Orientation="Horizontal">
                 <Button
                     Width="150 "
                     Margin="10"
@@ -29,7 +32,10 @@
                     Command="{Binding OpenLoanApplicationsSearchScreenCommand}"
                     Content="Wnioski" />
             </StackPanel>
-            <StackPanel HorizontalAlignment="Right" DockPanel.Dock="Right" Orientation="Horizontal">
+            <StackPanel
+                HorizontalAlignment="Right"
+                DockPanel.Dock="Right"
+                Orientation="Horizontal">
                 <Button
                     Width="150 "
                     Margin="10"
@@ -65,6 +71,9 @@
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:LoanApplicationDetailsViewModel}">
                         <views:LoanApplicationDetailsView />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:SummaryViewModel}">
+                        <views:SummaryView />
                     </DataTemplate>
                 </TabControl.Resources>
 
