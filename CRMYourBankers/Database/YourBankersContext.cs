@@ -17,7 +17,7 @@ namespace CRMYourBankers.Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var connectionString = "DataSource=" +
-                (File.Exists("YourBankersConnection.db") ? "YourBankersConnection.db" : "./../../../YourBankersConnection.db");
+                (File.Exists("CRMYourBankers.csproj") ? "YourBankersConnection.db" : "./../../../YourBankersConnection.db");
 
             optionsBuilder.UseSqlite(connectionString);
             base.OnConfiguring(optionsBuilder);
@@ -26,6 +26,7 @@ namespace CRMYourBankers.Database
         public void DataSeeds()
         {
             AddClients();
+            AddClientTasks();
             AddLoanApplications();
             AddLoanTasks();
             AddBanks();
@@ -58,6 +59,33 @@ namespace CRMYourBankers.Database
                         }
                     }
                 );
+
+                SaveChanges();
+            }
+        }
+
+        private void AddClientTasks()
+        {
+            if (!ClientTasks.Any())
+            {
+                ClientTasks.AddRange(
+                    new List<ClientTask>
+                    {
+                        new ClientTask
+                        {
+                            Id = 1,
+                            Text = "Zadzwoń w piątek",
+                            Done = false,
+                            ClientId = 1
+                        },
+                        new ClientTask
+                        {
+                            Id = 2,
+                            Text = "Wyślij maila z ofertą",
+                            Done = false,
+                            ClientId = 1
+                        }
+                    });
 
                 SaveChanges();
             }

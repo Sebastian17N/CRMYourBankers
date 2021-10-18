@@ -1,9 +1,12 @@
-﻿using CRMYourBankers.Messages;
+﻿using CRMYourBankers.Database;
+using CRMYourBankers.Messages;
 using CRMYourBankers.Models;
 using CRMYourBankers.ViewModels.Base;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 
 namespace CRMYourBankers.ViewModels
@@ -24,28 +27,34 @@ namespace CRMYourBankers.ViewModels
             }
         }
 
+        public YourBankersContext Context { get; set; }
+
         public Client SelectedClient { get; set; }
         
-        public ClientSearchViewModel(List<Client> clients, Messenger messenger)
+        public ClientSearchViewModel(Messenger messenger, YourBankersContext context)
             : base(messenger)
         {
-            Clients = clients;
+            Context = context;
             RegisterCommands();
+        }
+
+        protected override void RefreshData()
+        {
+            Clients =
+                Context
+                    .Clients
+                    .Include(client => client.ClientTasks)
+                    .ToList();
         }
 
         public void RegisterCommands()
         {
-            //SearchButtonCommand = new RelayCommand(() =>
-            //{
-            //    NotifyPropertyChanged("Clients");
-            //});
-
             DetailsScreenOpenHandler = new RelayCommand(() =>
             {
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = "ClientDetails",
-                    Client = SelectedClient
+                    ObjectId = SelectedClient.Id
                 });
             });
         }

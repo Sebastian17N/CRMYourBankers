@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRMYourBankers.Migrations
 {
     [DbContext(typeof(YourBankersContext))]
-    partial class YourBankersDbContextModelSnapshot : ModelSnapshot
+    partial class YourBankersContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -75,7 +75,7 @@ namespace CRMYourBankers.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("ClientTask");
+                    b.ToTable("ClientTasks");
                 });
 
             modelBuilder.Entity("CRMYourBankers.Models.LoanApplication", b =>
@@ -128,20 +128,24 @@ namespace CRMYourBankers.Migrations
 
             modelBuilder.Entity("CRMYourBankers.Models.ClientTask", b =>
                 {
-                    b.HasOne("CRMYourBankers.Models.Client", null)
+                    b.HasOne("CRMYourBankers.Models.Client", "Client")
                         .WithMany("ClientTasks")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("CRMYourBankers.Models.LoanTask", b =>
                 {
-                    b.HasOne("CRMYourBankers.Models.LoanApplication", null)
+                    b.HasOne("CRMYourBankers.Models.LoanApplication", "LoanApplication")
                         .WithMany("LoanTasks")
                         .HasForeignKey("LoanApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("LoanApplication");
                 });
 
             modelBuilder.Entity("CRMYourBankers.Models.Client", b =>

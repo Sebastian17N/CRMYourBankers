@@ -22,6 +22,7 @@ namespace CRMYourBankers.Models
         {
             ClientTasks = new List<ClientTask>();
         }
+
         public bool Validate()
             //validate sprawdza poprawność 
         {
