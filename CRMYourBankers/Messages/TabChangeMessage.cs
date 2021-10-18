@@ -8,7 +8,8 @@ namespace CRMYourBankers.Messages
         public int ObjectId { get; set; }
 
         public Client Client { get; set; }
-        public LoanApplication LoanApplication { get; set; }
+        //public LoanApplication LoanApplication { get; set; }
         public Bank Bank { get; set; }
+        public LoanTask LoanTask { get; set; }
     }
 }

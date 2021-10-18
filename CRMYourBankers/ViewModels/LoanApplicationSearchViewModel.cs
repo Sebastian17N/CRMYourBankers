@@ -1,10 +1,8 @@
 ﻿using CRMYourBankers.Database;
 using CRMYourBankers.Messages;
-using CRMYourBankers.Models;
 using CRMYourBankers.ViewModels.Base;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 
@@ -15,7 +13,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand SearchButtonCommand { get; set; }
         public ICommand DetailsScreenOpenHandler { get; set; }
         
-        public dynamic LoanApplications { get; set; }
+        public dynamic DataGridData { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
 
         public YourBankersContext Context { get; set; }
@@ -26,8 +24,8 @@ namespace CRMYourBankers.ViewModels
             RegisterCommands();
             Context = context;
 
-            LoanApplications = PrepareData();
-            NotifyPropertyChanged("LoanApplications");
+            DataGridData = PrepareData();
+            NotifyPropertyChanged("DataGridData");
         }
 
         private dynamic PrepareData()
@@ -72,6 +70,12 @@ namespace CRMYourBankers.ViewModels
                     ObjectId = SelectedLoanApplication.Id
                 });                
             });            
+        }
+
+        protected override void RefreshData()
+        {
+            DataGridData = PrepareData();
+            NotifyPropertyChanged("DataGridData");
         }
     }
 }

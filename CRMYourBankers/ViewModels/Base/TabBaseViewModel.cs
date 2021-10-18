@@ -9,9 +9,26 @@ namespace CRMYourBankers.ViewModels.Base
     public class TabBaseViewModel : NotifyPropertyChangedBase, ITabMessengerOwner
     {
         public Messenger TabMessenger { get; set; }
-        public Visibility TabVisibility { get; set; } = Visibility.Collapsed;
 
-        public TabBaseViewModel() { }
+        private Visibility _tabVisibility;
+        public Visibility TabVisibility 
+        {
+            get => _tabVisibility; 
+            set
+            {
+                _tabVisibility = value;
+
+                if (_tabVisibility == Visibility.Visible)
+                    RefreshData();
+            }
+        }
+
+        public TabBaseViewModel() 
+        {
+            _tabVisibility = Visibility.Collapsed;
+        }
+
+        protected virtual void RefreshData() { }
 
         public TabBaseViewModel(Messenger messenger)
         {

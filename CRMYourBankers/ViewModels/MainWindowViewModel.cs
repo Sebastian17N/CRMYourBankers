@@ -36,6 +36,9 @@ namespace CRMYourBankers.ViewModels
         //         czyli ponownie przeładuje zbiór danych (odświeży)
         //         możesz otworzyć istniejący wniosek i go edytować/zapisać => jak przekazać w SelectedLoanApplication do bombobox liste banków i klientów???
 
+        //   Dlaczego w klientach jest puste pole a w wnioskach nie?
+        //   Zadania w widoku wniosków powinny być w formie tabelki i powinny być edytowalne tak jak w szczegóły klienta, nie ustawiać kolumn jako readonly
+
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }
         public ICommand AddNewClientButtonCommand { get; set; }
@@ -53,17 +56,28 @@ namespace CRMYourBankers.ViewModels
         public List<Client> Clients { get; set; }
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
+        public List<LoanTask> LoanTasks { get; set; }
 
         public YourBankersContext Context { get; set; }
 
-        private object _selectedTab;
-        public object SelectedTab
+        private TabBaseViewModel _selectedTab;
+        public TabBaseViewModel SelectedTab
         {
             get => _selectedTab;
             set
             {
                 _selectedTab = value;
+                _selectedTab.TabVisibility = Visibility.Visible;
                 NotifyPropertyChanged("SelectedTab");
+
+                // Rzutowanie
+                //var text = "Jakiś tekst";
+                //var otherText = 29.8;
+                // Potraktuj to co jest w otherText jak int (więc utnij część po przecinku i zostaw 29)
+                //var number = (int)otherText;
+
+                // Traktuj _selectedTab jak obiekt typu TabBaseViewModel
+                //((TabBaseViewModel)_selectedTab)
             }
         }
 
@@ -88,10 +102,10 @@ namespace CRMYourBankers.ViewModels
             _clientSearchViewModel = new ClientSearchViewModel(Clients, TabMessenger);
             _itemTabs.Add(_clientSearchViewModel);
 
-            _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients);
+            _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Clients, LoanApplications, Banks);
             _itemTabs.Add(_clientDetailsViewModel);
 
-            _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks);
+            _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks, LoanTasks);
             _itemTabs.Add(_loanApplicationDetailsViewModel);
 
             SelectedTab = _loanApplicationSearchViewModel;
@@ -122,30 +136,29 @@ namespace CRMYourBankers.ViewModels
             TabMessenger.Register<TabChangeMessage>(this,
                 message =>
             {
-                _clientSearchViewModel.TabVisibility = Visibility.Collapsed;
-                _clientDetailsViewModel.TabVisibility = Visibility.Collapsed;
-
                 switch (message.TabName)
                 {
                     case "ClientSearch":
-                        _clientSearchViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _clientSearchViewModel;
                         break;
 
-                    case "ClientDetails":
-                        _clientDetailsViewModel.TabVisibility = Visibility.Visible;
-                        SelectedTab = _clientDetailsViewModel;
-                        _clientDetailsViewModel.SelectedClient = message.Client;
-                        break;
-                    
                     case "LoanApplicationSearch":
-                        _loanApplicationSearchViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _loanApplicationSearchViewModel;
                         break;
 
+                    case "ClientDetails":
+                        SelectedTab = _clientDetailsViewModel;
+                        _clientDetailsViewModel.SelectedClient = message.Client;
+                        break;
+
                     case "LoanApplicationDetails":
-                        _loanApplicationDetailsViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _loanApplicationDetailsViewModel;
+
+                        if (message.ObjectId > 0)
+                        {
+                            _loanApplicationDetailsViewModel.SelectedLoanApplication =
+                                LoanApplications.Single(loan => loan.Id == message.ObjectId);
+                        }                                                                                             
                         break;
                 }
             });

@@ -65,26 +65,40 @@ namespace CRMYourBankers.Database
             if (!LoanApplications.Any())
             {
                 LoanApplications.AddRange(
-                    new List<LoanApplication>
+                    new LoanApplication
                     {
-                        new LoanApplication
+                        Id = 1,
+                        ClientId = 1,
+                        BankId = 3,
+                        AmountRequested = 100000,
+                        AmountReceived = 100000,
+                        ClientCommission = 5000,
+                        LoanTasks = new List<LoanTask>
                         {
-                            ClientId = 1,
-                            BankId = 3,
-                            AmountRequested = 100000,
-                            AmountReceived = 100000,
-                            ClientCommission = 5000,
-                            TasksToDo = ""
-                        },
-                        new LoanApplication
-                        {
-                            ClientId = 2,
-                            BankId = 4,
-                            AmountRequested = 200000,
-                            AmountReceived = 200000,
-                            ClientCommission = 10000,
-                            TasksToDo = ""
+                            new LoanTask
+                            {
+                                Id = 1,
+                                Text = "Zadzwoń do klienta",
+                                Done = false,
+                                LoanApplicationId = 1
+                            },
+                            new LoanTask
+                            {
+                                Id = 2,
+                                Text = "Wyślij wniosek do Banku",
+                                Done = false,
+                                LoanApplicationId = 1
+                            }
                         }
+                    },
+                    new LoanApplication
+                    {
+                        Id = 2,
+                        ClientId = 2,
+                        BankId = 4,
+                        AmountRequested = 200000,
+                        AmountReceived = 200000,
+                        ClientCommission = 10000,
                     });
 
                 SaveChanges();

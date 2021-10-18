@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="260"
+    d:DesignHeight="500"
     d:DesignWidth="500"
     mc:Ignorable="d">
 
@@ -17,11 +17,13 @@
             <ComboBox
                 Width="300"
                 DisplayMemberPath="FullName"
-                SelectedValuePath="Id"
-                ItemsSource="{Binding Clients}"                
-                SelectedValue="{Binding ClientId}" />
-            <!--ItemSource to pobiera dane, SelectedValue wiąże konkretną properte
-            z SelectedValuePath, DisplayMemberPath to co się wyświetla-->
+                ItemsSource="{Binding Clients}"
+                SelectedValue="{Binding ClientId}"
+                SelectedValuePath="Id" />
+            <!--
+                ItemSource to pobiera dane, SelectedValue wiąże konkretną properte
+                z SelectedValuePath, DisplayMemberPath to co się wyświetla
+            -->
         </StackPanel>
         <StackPanel
             Margin="5"
@@ -31,9 +33,9 @@
             <ComboBox
                 Width="300"
                 DisplayMemberPath="Name"
-                SelectedValuePath="Id"
                 ItemsSource="{Binding Banks}"
-                SelectedValue="{Binding BankId}" />
+                SelectedValue="{Binding BankId}"
+                SelectedValuePath="Id" />
         </StackPanel>
         <StackPanel
             Margin="5"
@@ -71,5 +73,23 @@
             Width="200"
             Command="{Binding CancelButtonCommand}"
             Content="Cancel" />
+        <StackPanel>
+            <DataGrid
+                Height="400"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                ItemsSource="{Binding SelectedLoanApplication.LoanTasks}">
+                <!--
+                    liste zadań mamy zadeklarowaną w LoanApplications, wiec nie musimy dodawać tego w ModelView
+                -->
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="300"
+                        Binding="{Binding Text}"
+                        Header="Zadania" />
+                    <DataGridCheckBoxColumn Binding="{Binding Done}" Header="Zrobione" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </StackPanel>
 </UserControl>
