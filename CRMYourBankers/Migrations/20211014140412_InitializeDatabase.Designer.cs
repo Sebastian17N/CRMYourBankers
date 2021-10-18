@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRMYourBankers.Migrations
 {
-    [DbContext(typeof(YourBankersDbContext))]
+    [DbContext(typeof(YourBankersContext))]
     [Migration("20211014140412_InitializeDatabase")]
     partial class InitializeDatabase
     {

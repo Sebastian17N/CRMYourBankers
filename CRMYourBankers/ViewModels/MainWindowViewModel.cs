@@ -54,6 +54,8 @@ namespace CRMYourBankers.ViewModels
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
 
+        public YourBankersContext Context { get; set; }
+
         private object _selectedTab;
         public object SelectedTab
         {
@@ -69,46 +71,18 @@ namespace CRMYourBankers.ViewModels
         {
             TabMessenger = new Messenger();
 
-            using (var dbcontext = new YourBankersDbContext())
-            {
-                dbcontext.DataSeeds();
-                Clients = dbcontext.Clients.ToList();
-            }
+            Context = new YourBankersContext();
+            Context.DataSeeds();
 
+            // TODO: Pozbyć się tych przypisań.
+            Clients = Context.Clients.ToList();
+            LoanApplications = Context.LoanApplications.ToList();
+            Banks = Context.Banks.ToList();            
 
-            LoanApplications = new List<LoanApplication>
-            {
-                new LoanApplication
-                {
-                    ClientId = 1,
-                    BankId = 3,
-                    AmountRequested = 100000,
-                    AmountReceived = 100000,
-                    ClientCommission = 5000,
-                    TasksToDo = ""
-                },
-                new LoanApplication
-                {
-                    ClientId = 2,
-                    BankId = 4,
-                    AmountRequested = 200000,
-                    AmountReceived = 200000,
-                    ClientCommission = 10000,
-                    TasksToDo = ""
-                }
-            };
-            Banks = new List<Bank>
-            {
-                new Bank{Id = 1, Name = "Santander"},
-                new Bank{Id = 2, Name = "Alior"},
-                new Bank{Id = 3, Name = "BNP"},
-                new Bank{Id = 4, Name = "mBank"},
-            };
             RegisterCommands();
             RegisterMessages();
 
-            _loanApplicationSearchViewModel = new LoanApplicationSearchViewModel(TabMessenger,
-                LoanApplications, Banks, Clients);
+            _loanApplicationSearchViewModel = new LoanApplicationSearchViewModel(TabMessenger, Context);
             _itemTabs.Add(_loanApplicationSearchViewModel);
 
             _clientSearchViewModel = new ClientSearchViewModel(Clients, TabMessenger);
@@ -153,22 +127,25 @@ namespace CRMYourBankers.ViewModels
 
                 switch (message.TabName)
                 {
+                    case "ClientSearch":
+                        _clientSearchViewModel.TabVisibility = Visibility.Visible;
+                        SelectedTab = _clientSearchViewModel;
+                        break;
+
                     case "ClientDetails":
                         _clientDetailsViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _clientDetailsViewModel;
                         _clientDetailsViewModel.SelectedClient = message.Client;
                         break;
-                    case "ClientSearch":
-                        _clientSearchViewModel.TabVisibility = Visibility.Visible;
-                        SelectedTab = _clientSearchViewModel;
-                        break;
-                    case "LoanApplicationDetails":
-                        _loanApplicationDetailsViewModel.TabVisibility = Visibility.Visible;
-                        SelectedTab = _loanApplicationDetailsViewModel;
-                        break;
+                    
                     case "LoanApplicationSearch":
                         _loanApplicationSearchViewModel.TabVisibility = Visibility.Visible;
                         SelectedTab = _loanApplicationSearchViewModel;
+                        break;
+
+                    case "LoanApplicationDetails":
+                        _loanApplicationDetailsViewModel.TabVisibility = Visibility.Visible;
+                        SelectedTab = _loanApplicationDetailsViewModel;
                         break;
                 }
             });

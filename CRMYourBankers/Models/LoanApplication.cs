@@ -2,6 +2,7 @@
 {
     public class LoanApplication
     {        
+        public int Id { get; set; }
         public int? AmountRequested { get; set; }
         public int? AmountReceived { get; set; }
         public int? ClientCommission { get; set; }

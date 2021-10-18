@@ -1,4 +1,5 @@
-﻿using CRMYourBankers.Messages;
+﻿using CRMYourBankers.Database;
+using CRMYourBankers.Messages;
 using CRMYourBankers.Models;
 using CRMYourBankers.ViewModels.Base;
 using GalaSoft.MvvmLight.Command;
@@ -15,27 +16,30 @@ namespace CRMYourBankers.ViewModels
         public ICommand DetailsScreenOpenHandler { get; set; }
         
         public dynamic LoanApplications { get; set; }
-        public LoanApplication SelectedLoanApplication { get; set; }
+        public dynamic SelectedLoanApplication { get; set; }
+
+        public YourBankersContext Context { get; set; }
        
-        public LoanApplicationSearchViewModel(Messenger messenger,
-            List<LoanApplication> loanApplications, List<Bank> banks, List<Client> clients) 
+        public LoanApplicationSearchViewModel(Messenger messenger, YourBankersContext context) 
             : base(messenger)
         {
             RegisterCommands();
+            Context = context;
 
-            LoanApplications = PrepareData(loanApplications, banks, clients);
+            LoanApplications = PrepareData();
             NotifyPropertyChanged("LoanApplications");
         }
 
-        private dynamic PrepareData(List<LoanApplication> loanApplications, List<Bank> banks, List<Client> clients)
+        private dynamic PrepareData()
         {
             return
-                loanApplications.Join(
-                    banks,
+                Context.LoanApplications.Join(
+                    Context.Banks,
                     loan => loan.BankId,
                     bank => bank.Id,
                     (loan, bank) => new
                     {
+                        loan.Id,
                         loan.ClientId,
                         loan.AmountRequested,
                         loan.AmountReceived,
@@ -43,17 +47,19 @@ namespace CRMYourBankers.ViewModels
                         BankName = bank.Name
                     })
                 .Join(
-                    clients,
+                    Context.Clients,
                     loan => loan.ClientId,
                     client => client.Id,
                     (loan, client) => new
                     {
+                        loan.Id,
                         client.FullName,
                         loan.BankName,
                         loan.AmountRequested,
                         loan.AmountReceived,
                         loan.TasksToDo
-                    });
+                    })
+                .ToList();
         }
 
         public void RegisterCommands()
@@ -63,7 +69,7 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = "LoanApplicationDetails",
-                    LoanApplication = SelectedLoanApplication
+                    ObjectId = SelectedLoanApplication.Id
                 });                
             });            
         }
