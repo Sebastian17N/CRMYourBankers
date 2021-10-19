@@ -1,4 +1,5 @@
-﻿using CRMYourBankers.Models;
+﻿using CRMYourBankers.Database;
+using CRMYourBankers.Models;
 using CRMYourBankers.ViewModels.Base;
 using GalaSoft.MvvmLight.Messaging;
 using System;
@@ -14,12 +15,10 @@ namespace CRMYourBankers.ViewModels
         public List<Client> Clients { get; set; }
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
-        public SummaryViewModel(Messenger messenger, 
-            List<LoanApplication> loanApplications, List<Bank> banks, List<Client> clients) : base(messenger)
+        public YourBankersContext Context { get; set; }
+        public SummaryViewModel(Messenger messenger, YourBankersContext context) : base(messenger)
         {
-            Clients = clients;
-            LoanApplications = loanApplications;
-            Banks = banks;
+            Context = context;
         }
     }
 }

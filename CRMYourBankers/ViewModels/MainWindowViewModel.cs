@@ -116,7 +116,7 @@ namespace CRMYourBankers.ViewModels
             _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, Context);
             _itemTabs.Add(_loanApplicationDetailsViewModel);
             
-            _summaryViewModel = new SummaryViewModel(TabMessenger, LoanApplications, Banks, Clients);
+            _summaryViewModel = new SummaryViewModel(TabMessenger, Context);
             _itemTabs.Add(_summaryViewModel);
 
             SelectedTab = _summaryViewModel; //to okno wyświetla się jako pierwsze
@@ -171,6 +171,8 @@ namespace CRMYourBankers.ViewModels
                         {
                             _loanApplicationDetailsViewModel.SelectedLoanApplication =
                             Context.LoanApplications.Single(loan => loan.Id == message.ObjectId);
+                            //_loanApplicationDetailsViewModel.SelectedLoanApplication =
+                            //Context.LoanApplications.Single(bank => bank.BankId == message.ObjectId);
                         }
                         SelectedTab = _loanApplicationDetailsViewModel;                                                                                                                                          
                         break;

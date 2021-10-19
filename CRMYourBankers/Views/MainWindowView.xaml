@@ -76,7 +76,6 @@
                         <views:SummaryView />
                     </DataTemplate>
                 </TabControl.Resources>
-
             </TabControl>
         </StackPanel>
     </StackPanel>
