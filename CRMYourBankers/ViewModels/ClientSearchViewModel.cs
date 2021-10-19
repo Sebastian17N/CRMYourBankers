@@ -28,7 +28,6 @@ namespace CRMYourBankers.ViewModels
         }
 
         public YourBankersContext Context { get; set; }
-
         public Client SelectedClient { get; set; }
         
         public ClientSearchViewModel(Messenger messenger, YourBankersContext context)

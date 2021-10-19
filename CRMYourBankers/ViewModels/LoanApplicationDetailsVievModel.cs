@@ -7,15 +7,12 @@ using System.Linq;
 using System.Windows.Input;
 using CRMYourBankers.Messages;
 using System.Windows;
+using CRMYourBankers.Database;
 
 namespace CRMYourBankers.ViewModels
 {
     public class LoanApplicationDetailsViewModel : TabBaseViewModel
-    {
-        public List<LoanApplication> LoanApplications { get; set; }
-        public List<Bank> Banks { get; set; }
-        public List<Client> Clients { get; set; }
-        
+    {                
         #region UI property fields
         public int? AmountRequestedText { get; set; }
         public int? AmountReceivedText { get; set; }
@@ -57,17 +54,13 @@ namespace CRMYourBankers.ViewModels
         }
 
         public ICommand SaveButtonCommand { get; set; }
-        public ICommand CancelButtonCommand { get; set; }        
+        public ICommand CancelButtonCommand { get; set; }
+        public YourBankersContext Context { get; set; }
 
-        public LoanApplicationDetailsViewModel(Messenger tabMessenger, 
-            List<LoanApplication> loanApplications, List<Client> clients, List<Bank> banks, List<LoanTask> loanTasks) 
+        public LoanApplicationDetailsViewModel(Messenger tabMessenger, YourBankersContext context) 
             : base(tabMessenger)
         {
-            LoanApplications = loanApplications;
-            Clients = clients;
-            Banks = banks;
-            LoanTasks = loanTasks;
-
+            Context = context;
             RegisterCommands();
         }
 
@@ -79,7 +72,7 @@ namespace CRMYourBankers.ViewModels
                 {
                     var newLoanApplication = new LoanApplication
                     {
-                        Id = LoanApplications.Max(loan => loan.Id) + 1,
+                        Id = Context.LoanApplications.Max(loan => loan.Id) + 1,
                         ClientId = ClientId ??0, //do pustej property z clasy LoanApplication wstaw wartość z property z LoanApplicationDetailsView
                                             //??0 oznacza, że ClientId z prawej będzie null to wstawi O
                         BankId = BankId ??0,
@@ -97,7 +90,7 @@ namespace CRMYourBankers.ViewModels
                         return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
                     }
 
-                    LoanApplications.Add(newLoanApplication);
+                    Context.LoanApplications.Add(newLoanApplication);
                 }
                 else
                 {

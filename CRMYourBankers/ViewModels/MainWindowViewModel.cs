@@ -43,6 +43,7 @@ namespace CRMYourBankers.ViewModels
         //  Kontrolki => dodawanie dowych tasków??? może być poprzez TextBox oraz kliknięcie myszką w listę zadań, pojawi się pytanie czy chce dodać nowe zadanie
         // Problemy: dlaczego w Client Details na początki wyświetla się tylko jedna lista zadań, a po odświeżeniu 2
         // Uzupełnij wszystkie widoki w context
+        // Problemy:Dlaczego we wniosku nie wyświetla się lista banków i klientów?
 
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }
@@ -112,7 +113,7 @@ namespace CRMYourBankers.ViewModels
             _clientDetailsViewModel = new ClientDetailsViewModel(TabMessenger, Context);
             _itemTabs.Add(_clientDetailsViewModel);
 
-            _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, LoanApplications, Clients, Banks, LoanTasks);
+            _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, Context);
             _itemTabs.Add(_loanApplicationDetailsViewModel);
             
             _summaryViewModel = new SummaryViewModel(TabMessenger, LoanApplications, Banks, Clients);
@@ -169,7 +170,7 @@ namespace CRMYourBankers.ViewModels
                         if (message.ObjectId > 0)
                         {
                             _loanApplicationDetailsViewModel.SelectedLoanApplication =
-                                LoanApplications.Single(loan => loan.Id == message.ObjectId);
+                            Context.LoanApplications.Single(loan => loan.Id == message.ObjectId);
                         }
                         SelectedTab = _loanApplicationDetailsViewModel;                                                                                                                                          
                         break;
