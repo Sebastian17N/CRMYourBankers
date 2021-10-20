@@ -12,7 +12,7 @@ namespace CRMYourBankers.Models
         public int? ClientCommission { get; set; }             
         public int ClientId { get; set; }
         public int BankId { get; set; }
-
+        
         public List<LoanTask> LoanTasks { get; set; }
         //public string TasksToDo => LoanTasks.LastOrDefault()?.Text;//wyciągnij ostatni z danej kolekcji
         //? zabezpiecza, że jeśli obiekt będzie pusty to nie odwołasz się do jego wnętrza
