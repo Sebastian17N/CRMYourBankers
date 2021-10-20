@@ -51,7 +51,7 @@
         <StackPanel>
             <TabControl
                 x:Name="MainTabControl"
-                Height="500"
+                Height="800"
                 ItemsSource="{Binding ItemTabs}"
                 SelectedItem="{Binding SelectedTab}">
                 <TabControl.ItemContainerStyle>

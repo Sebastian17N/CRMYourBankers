@@ -56,6 +56,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
         public YourBankersContext Context { get; set; }
+        public dynamic BankList { get; set; }
 
         public LoanApplicationDetailsViewModel(Messenger tabMessenger, YourBankersContext context) 
             : base(tabMessenger)
@@ -63,40 +64,7 @@ namespace CRMYourBankers.ViewModels
             Context = context;
             RegisterCommands();
         }
-        //protected override void RefreshData()
-        //{
-        //    if (SelectedLoanApplication ==null)
-        //    {
-        //        return;
-        //    }
-            
-        //    LoanApplicationsForClient =
-        //        Context.LoanApplications
-        //            .Include(loan => loan.LoanTasks)
-        //            .Where(loan => loan.ClientId == SelectedClient.Id)
-        //            .Join(
-        //            Context.Banks,
-        //            loan => loan.BankId,
-        //            bank => bank.Id,
-        //            (loan, bank) => new
-        //            {
-        //                loan.ClientId,
-        //                loan.AmountRequested,
-        //                loan.TasksToDo,
-        //                BankName = bank.Name
-        //            })
-        //        .Join(
-        //            Context.Clients,
-        //            loan => loan.ClientId,
-        //            client => client.Id,
-        //            (loan, client) => new
-        //            {
-        //                loan.BankName,
-        //                loan.AmountRequested,
-        //                loan.TasksToDo
-        //            }).ToList();
-        //}
-
+       
         public void RegisterCommands()
         {
             SaveButtonCommand = new RelayCommand(() =>

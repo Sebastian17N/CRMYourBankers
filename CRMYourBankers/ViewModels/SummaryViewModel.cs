@@ -20,9 +20,19 @@ namespace CRMYourBankers.ViewModels
         public dynamic SelectedLoanApplication { get; set; }
 
         public dynamic DataGridData { get; set; }
-
+        private List<Client> _clients;
+        public List<Client> Clients
+        {
+            get => _clients;
+            set
+            {
+                _clients = value;
+                NotifyPropertyChanged("Clients");
+            }
+        }
         public YourBankersContext Context { get; set; }
-              
+        public Client SelectedClient { get; set; }
+
         public SummaryViewModel(Messenger messenger, YourBankersContext context) : base(messenger)
         {
             RegisterCommands();
@@ -59,7 +69,14 @@ namespace CRMYourBankers.ViewModels
                         loan.TasksToDo
                     })
                 .ToList();
-            NotifyPropertyChanged("DataGridData");              
+            
+            
+            Clients =
+                Context
+                    .Clients
+                    .Include(client => client.ClientTasks)
+                    .ToList();
+            NotifyPropertyChanged("DataGridData");
         }
 
 
@@ -71,6 +88,14 @@ namespace CRMYourBankers.ViewModels
                 {
                     TabName = "LoanApplicationDetails",
                     ObjectId = SelectedLoanApplication.Id
+                });
+            });
+            DetailsScreenOpenHandler = new RelayCommand(() =>
+            {
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    TabName = "ClientDetails",
+                    ObjectId = SelectedClient.Id
                 });
             });
         }
