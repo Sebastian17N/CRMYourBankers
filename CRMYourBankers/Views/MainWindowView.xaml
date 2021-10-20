@@ -8,8 +8,8 @@
     xmlns:viewmodels="clr-namespace:CRMYourBankers.ViewModels"
     xmlns:views="clr-namespace:CRMYourBankers.Views"
     Title="MainWindow"
-    Width="800"
-    Height="450"
+    Width="1000"
+    Height="700"
     mc:Ignorable="d">
     <Window.DataContext>
         <viewmodels:MainWindowViewModel />
@@ -21,6 +21,11 @@
                 HorizontalAlignment="Left"
                 DockPanel.Dock="Left"
                 Orientation="Horizontal">
+                <Button
+                    Width="150 "
+                    Margin="10"
+                    Command="{Binding OpenMainWindowSearchScreenCommand}"
+                    Content="Główne Menu" />
                 <Button
                     Width="150 "
                     Margin="10"
@@ -74,7 +79,7 @@
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:SummaryViewModel}">
                         <views:SummaryView />
-                    </DataTemplate>
+                    </DataTemplate>                    
                 </TabControl.Resources>
             </TabControl>
         </StackPanel>

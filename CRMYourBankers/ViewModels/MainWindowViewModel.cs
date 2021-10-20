@@ -49,6 +49,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }
         public ICommand AddNewClientButtonCommand { get; set; }
         public ICommand AddNewLoanApplicationCommand { get; set; }
+        public ICommand OpenMainWindowSearchScreenCommand { get; set; }
 
         public ObservableCollection<object> ItemTabs => _itemTabs;
         private ObservableCollection<object> _itemTabs = new ObservableCollection<object>();
@@ -59,7 +60,7 @@ namespace CRMYourBankers.ViewModels
         private ClientDetailsViewModel _clientDetailsViewModel;
         private LoanApplicationDetailsViewModel _loanApplicationDetailsViewModel;
         private SummaryViewModel _summaryViewModel;
-        
+
         public List<Client> Clients { get; set; }
         public List<LoanApplication> LoanApplications { get; set; }
         public List<Bank> Banks { get; set; }
@@ -99,7 +100,7 @@ namespace CRMYourBankers.ViewModels
             // TODO: Pozbyć się tych przypisań.
             Clients = Context.Clients.ToList();
             LoanApplications = Context.LoanApplications.ToList();
-            Banks = Context.Banks.ToList();            
+            Banks = Context.Banks.ToList();
 
             RegisterCommands();
             RegisterMessages();
@@ -115,13 +116,13 @@ namespace CRMYourBankers.ViewModels
 
             _loanApplicationDetailsViewModel = new LoanApplicationDetailsViewModel(TabMessenger, Context);
             _itemTabs.Add(_loanApplicationDetailsViewModel);
-            
+
             _summaryViewModel = new SummaryViewModel(TabMessenger, Context);
             _itemTabs.Add(_summaryViewModel);
-
+              
             SelectedTab = _summaryViewModel; //to okno wyświetla się jako pierwsze
         }
-
+        
         protected void RegisterCommands()
         {
             AddNewClientButtonCommand = new RelayCommand(() =>
@@ -139,6 +140,10 @@ namespace CRMYourBankers.ViewModels
             OpenLoanApplicationsSearchScreenCommand = new RelayCommand(() =>
             {
                 TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationSearch" });
+            });
+            OpenMainWindowSearchScreenCommand = new RelayCommand(() =>
+            {
+                TabMessenger.Send(new TabChangeMessage { TabName = "SummaryView" });
             });
         }
 
@@ -171,15 +176,12 @@ namespace CRMYourBankers.ViewModels
                         {
                             _loanApplicationDetailsViewModel.SelectedLoanApplication =
                             Context.LoanApplications.Single(loan => loan.Id == message.ObjectId);
-                            //_loanApplicationDetailsViewModel.SelectedLoanApplication =
-                            //Context.LoanApplications.Single(bank => bank.BankId == message.ObjectId);
                         }
                         SelectedTab = _loanApplicationDetailsViewModel;                                                                                                                                          
                         break;
-
-                    case "SummaryViewModel":
+                    case "SummaryView":
                         SelectedTab = _summaryViewModel;
-                        break;
+                        break;                    
                 }
             });
         }
