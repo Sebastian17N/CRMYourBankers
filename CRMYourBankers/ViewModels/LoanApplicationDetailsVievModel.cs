@@ -9,10 +9,12 @@ using CRMYourBankers.Messages;
 using System.Windows;
 using CRMYourBankers.Database;
 using System.Collections.ObjectModel;
+using CRMYourBankers.ViewModels.Interfaces;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class LoanApplicationDetailsViewModel : TabBaseViewModel
+    public class LoanApplicationDetailsViewModel : TabBaseViewModel, IRefreshReferenceDataOwner, 
+        IClearAllFieldsOwner, IRefreshDataOwner
     {
         #region UI property fields
         public int? AmountRequestedText { get; set; }
@@ -33,16 +35,6 @@ namespace CRMYourBankers.ViewModels
             set
             {
                 _selectedLoanApplication = value;
-                if (_selectedLoanApplication != null)
-                {
-                    BankId = _selectedLoanApplication.BankId;
-                    ClientId = _selectedLoanApplication.ClientId;
-                    AmountRequestedText = _selectedLoanApplication.AmountRequested;
-                    AmountReceivedText = _selectedLoanApplication.AmountReceived;
-                    ClientCommissionText = _selectedLoanApplication.ClientCommission;
-                    TasksToDoText = _selectedLoanApplication.TasksToDo;
-                }
-                NotifyPropertyChanged("LoanApplication");
             }
         }
 
@@ -128,13 +120,14 @@ namespace CRMYourBankers.ViewModels
             });
         }
 
-        protected override void RefreshReferenceData()
+        public void RefreshReferenceData()
         {
             Clients = new ObservableCollection<Client>(Context.Clients.ToList());
             //specjalny rodzaj listy, który który sam powiadamia widok, że się zmienił bez potrzeby 
             //wywoływania NotifyPropertyChanged
             Banks = new ObservableCollection<Bank>(Context.Banks.ToList());
         }
+
         public void ClearAllFields()
         {
             ClientId = null;
@@ -143,8 +136,20 @@ namespace CRMYourBankers.ViewModels
             AmountReceivedText = null;
             ClientCommissionText = null;
             TasksToDoText = null;
+        }
 
-            SelectedLoanApplication = null;
+        public void RefreshData()
+        {
+            if (SelectedLoanApplication != null)
+            {
+                BankId = _selectedLoanApplication.BankId;
+                ClientId = _selectedLoanApplication.ClientId;
+                AmountRequestedText = _selectedLoanApplication.AmountRequested;
+                AmountReceivedText = _selectedLoanApplication.AmountReceived;
+                ClientCommissionText = _selectedLoanApplication.ClientCommission;
+                TasksToDoText = _selectedLoanApplication.TasksToDo;
+            }
+            NotifyPropertyChanged("LoanApplication");
         }
     }
 }

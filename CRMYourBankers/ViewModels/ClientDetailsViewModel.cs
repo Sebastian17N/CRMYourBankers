@@ -2,6 +2,7 @@
 using CRMYourBankers.Messages;
 using CRMYourBankers.Models;
 using CRMYourBankers.ViewModels.Base;
+using CRMYourBankers.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ using System.Windows.Input;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class ClientDetailsViewModel : TabBaseViewModel
+    public class ClientDetailsViewModel : TabBaseViewModel, IRefreshDataOwner
     {
         private Client _selectedClients;
         public Client SelectedClient 
@@ -91,7 +92,7 @@ namespace CRMYourBankers.ViewModels
             RegisterCommands();
         }
 
-        protected override void RefreshData()
+        public void RefreshData()
         {
             if (SelectedClient == null)
             {

@@ -63,12 +63,6 @@ namespace CRMYourBankers.ViewModels
         private SummaryViewModel _summaryViewModel;
         private ResultViewModel _resultViewModel;
 
-        public List<Client> Clients { get; set; }
-        public List<LoanApplication> LoanApplications { get; set; }
-        public List<Bank> Banks { get; set; }
-        public List<LoanTask> LoanTasks { get; set; }
-        public List<ClientTask> ClientTasks { get; set; }
-
         public YourBankersContext Context { get; set; }
 
         private TabBaseViewModel _selectedTab;
@@ -78,8 +72,12 @@ namespace CRMYourBankers.ViewModels
             set
             {
                 _selectedTab = value;
-                _selectedTab.TabVisibility = Visibility.Visible;
-                NotifyPropertyChanged("SelectedTab");
+
+                if (value != null)
+                { 
+                    _selectedTab.TabVisibility = Visibility.Visible;
+                    NotifyPropertyChanged("SelectedTab");
+                }
 
                 // Rzutowanie
                 //var text = "Jakiś tekst";
@@ -98,11 +96,6 @@ namespace CRMYourBankers.ViewModels
 
             Context = new YourBankersContext();
             Context.DataSeeds();
-
-            // TODO: Pozbyć się tych przypisań.
-            Clients = Context.Clients.ToList();
-            LoanApplications = Context.LoanApplications.ToList();
-            Banks = Context.Banks.ToList();
 
             RegisterCommands();
             RegisterMessages();
@@ -161,6 +154,7 @@ namespace CRMYourBankers.ViewModels
             TabMessenger.Register<TabChangeMessage>(this,
                 message =>
             {
+                // TODO: Check why we cannot change from already fill up loan application to new loan application view.
                 switch (message.TabName)
                 {
                     case "ClientSearch":
@@ -168,11 +162,11 @@ namespace CRMYourBankers.ViewModels
                         break;
 
                     case "ClientDetails":
-                        if (message.ObjectId>0)
+                        if (message.ObjectId > 0)
                         {
                             _clientDetailsViewModel.SelectedClient =
                            Context.Clients.Single(client => client.Id == message.ObjectId);
-                        }                        
+                        }
                         SelectedTab = _clientDetailsViewModel;                       
                         break;
 
@@ -181,11 +175,10 @@ namespace CRMYourBankers.ViewModels
                         break;
 
                     case "LoanApplicationDetails":
-                        if (message.ObjectId > 0)
-                        {
-                            _loanApplicationDetailsViewModel.SelectedLoanApplication =
-                            Context.LoanApplications.Single(loan => loan.Id == message.ObjectId);
-                        }
+                        _loanApplicationDetailsViewModel.SelectedLoanApplication =
+                            message.ObjectId > 0 ?
+                            Context.LoanApplications.Single(loan => loan.Id == message.ObjectId) :
+                            null;
                         SelectedTab = _loanApplicationDetailsViewModel;                                                                                                                                          
                         break;
                     case "Summary":

@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,14 @@ namespace CRMYourBankers.ViewModels
     {
         public ICommand DetailsScreenOpenHandler { get; set; }
         public YourBankersContext Context { get; set; }
+
+        public List<string> YesNoList = new()
+        {
+            "Tak",
+            "Nie"
+        };
+
+        public ObservableCollection<dynamic> DataGridData { get; set; }
 
         public ResultViewModel(Messenger messenger, YourBankersContext context) : base(messenger)
         {

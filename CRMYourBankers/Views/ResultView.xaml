@@ -10,38 +10,56 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <StackPanel Orientation="Vertical">
-        <StackPanel
-            Margin="5"
-            HorizontalAlignment="Left"
-            Orientation="Horizontal">
-            <Label Content="Miesiąc" />
-            <ComboBox
-                Width="200"
-                DisplayMemberPath="Name"
-                ItemsSource="{Binding DataGridData}"
-                SelectedValue="{Binding BankId}"
-                SelectedValuePath="Id" />
-        </StackPanel>
-        <StackPanel
-            Margin="5"
-            HorizontalAlignment="Left"
-            Orientation="Horizontal">
-            <Label Content="Zrealizowany wynik:" />
-            <TextBox Width="200" Text="Wynik to 200 000" />
-        </StackPanel>
-        <StackPanel
-            Margin="5"
-            HorizontalAlignment="Left"
-            Orientation="Horizontal">
-            <Label Content="Cel na ten miesiąc to:" />
-            <TextBox Width="200" Text="Wynik to 1 000 000" />
-        </StackPanel>
-        <StackPanel
-            Margin="5"
-            HorizontalAlignment="Left"
-            Orientation="Horizontal">
-            <Label Content="Wynik zrealizowany w (%):" />
-            <TextBox Width="200" Text="20" />
+        <StackPanel Orientation="Horizontal">
+            <StackPanel
+                MaxWidth="400"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center">
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Label Content="Miesiąc" />
+                    <ComboBox
+                        Width="200"
+                        DisplayMemberPath="Name"
+                        ItemsSource="{Binding DataGridData}"
+                        SelectedValue="{Binding BankId}"
+                        SelectedValuePath="Id" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Label Content="Zrealizowany wynik:" />
+                    <TextBox
+                        Width="200"
+                        IsReadOnly="True"
+                        Text="200 000" />
+                </StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Label Content="Cel na ten miesiąc to:" />
+                    <TextBox
+                        Width="200"
+                        IsReadOnly="True"
+                        Text="1 000 000" />
+                </StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Label Content="Wynik zrealizowany w (%):" />
+                    <TextBox
+                        Width="200"
+                        IsReadOnly="True"
+                        Text="20" />
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
         <StackPanel>
             <DataGrid
@@ -89,6 +107,7 @@
                         Width="120"
                         Binding="{Binding ClientCommission}"
                         Header="Czy opłacona? LISTA ROZWIJALNA" />
+                    <DataGridComboBoxColumn Header="Czy opłacona?" ItemsSource="{Binding YesNoList}" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

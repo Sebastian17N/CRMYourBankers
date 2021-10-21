@@ -1,6 +1,7 @@
 ﻿using CRMYourBankers.Database;
 using CRMYourBankers.Messages;
 using CRMYourBankers.ViewModels.Base;
+using CRMYourBankers.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class LoanApplicationSearchViewModel : TabBaseViewModel
+    public class LoanApplicationSearchViewModel : TabBaseViewModel, IRefreshDataOwner
     {     
         public ICommand SearchButtonCommand { get; set; }
         public ICommand DetailsScreenOpenHandler { get; set; }
@@ -26,7 +27,7 @@ namespace CRMYourBankers.ViewModels
             Context = context;                      
         }
         
-        protected override void RefreshData()
+        public void RefreshData()
         {
             DataGridData =           
                 Context

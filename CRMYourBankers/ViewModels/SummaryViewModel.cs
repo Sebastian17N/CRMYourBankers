@@ -2,6 +2,7 @@
 using CRMYourBankers.Messages;
 using CRMYourBankers.Models;
 using CRMYourBankers.ViewModels.Base;
+using CRMYourBankers.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +15,10 @@ using System.Windows.Input;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class SummaryViewModel : TabBaseViewModel
+    public class SummaryViewModel : TabBaseViewModel, IRefreshDataOwner
     {        
-        public ICommand DetailsScreenOpenHandler { get; set; }
+        public ICommand LoanApplicationDetailsScreenOpenHandler { get; set; }
+        public ICommand ClientDetailsScreenOpenHandler { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
 
         public dynamic DataGridData { get; set; }
@@ -39,7 +41,7 @@ namespace CRMYourBankers.ViewModels
             Context = context;
         }
 
-        protected override void RefreshData()
+        public void RefreshData()
         {
             DataGridData =
                 Context.LoanApplications
@@ -82,7 +84,7 @@ namespace CRMYourBankers.ViewModels
 
         public void RegisterCommands()
         {
-            DetailsScreenOpenHandler = new RelayCommand(() =>
+            LoanApplicationDetailsScreenOpenHandler = new RelayCommand(() =>
             {
                 TabMessenger.Send(new TabChangeMessage
                 {
@@ -90,7 +92,8 @@ namespace CRMYourBankers.ViewModels
                     ObjectId = SelectedLoanApplication.Id
                 });
             });
-            DetailsScreenOpenHandler = new RelayCommand(() =>
+
+            ClientDetailsScreenOpenHandler = new RelayCommand(() =>
             {
                 TabMessenger.Send(new TabChangeMessage
                 {

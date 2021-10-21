@@ -20,8 +20,17 @@ namespace CRMYourBankers.ViewModels.Base
 
                 if (_tabVisibility == Visibility.Visible)
                 {
-                    RefreshData();
-                    RefreshReferenceData();
+                    if (this is IClearAllFieldsOwner)
+                        ((IClearAllFieldsOwner)this).ClearAllFields();
+
+                    if (this is IRefreshReferenceDataOwner)
+                        ((IRefreshReferenceDataOwner)this).RefreshReferenceData();
+                    // Sprawdź czy dany obiekt (widokmodel, np. LoadApplicationDetailsViewModel) implementuje interface
+                    // IRefreshReferenceDataOwner, JEŚLI TAK to powiedz mu, żeby zachowywał się jak on i wywołał
+                    // RefreshReferenceData, którego to deklaracja jest zawarta w tym interface.
+
+                    if (this is IRefreshDataOwner)
+                        ((IRefreshDataOwner)this).RefreshData();
                 }
             }
         }
@@ -29,10 +38,7 @@ namespace CRMYourBankers.ViewModels.Base
         public TabBaseViewModel() 
         {
             _tabVisibility = Visibility.Collapsed;
-        }
-
-        protected virtual void RefreshData() { }
-        protected virtual void RefreshReferenceData() { }
+        }   
 
         public TabBaseViewModel(Messenger messenger)
         {
