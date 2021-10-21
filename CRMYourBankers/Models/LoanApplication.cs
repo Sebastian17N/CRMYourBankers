@@ -11,7 +11,10 @@ namespace CRMYourBankers.Models
         public int? AmountReceived { get; set; }
         public int? ClientCommission { get; set; }             
         public int ClientId { get; set; }
+        public Client Client { get; set; }
+
         public int BankId { get; set; }
+        public DateTime LoanStartDate { get; set; }
         
         public List<LoanTask> LoanTasks { get; set; }
         //public string TasksToDo => LoanTasks.LastOrDefault()?.Text;//wyciągnij ostatni z danej kolekcji

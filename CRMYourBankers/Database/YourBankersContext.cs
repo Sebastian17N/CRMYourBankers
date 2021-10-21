@@ -1,5 +1,6 @@
 ﻿using CRMYourBankers.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace CRMYourBankers.Database
         public DbSet<Bank> Banks { get; set; }
         public DbSet<LoanTask> LoanTasks { get; set; }
         public DbSet<ClientTask> ClientTasks { get; set; }
+        public DbSet<MonthSummary> MonthSummaries { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,6 +32,7 @@ namespace CRMYourBankers.Database
             AddLoanApplications();
             AddLoanTasks();
             AddBanks();
+            AddMonthSummaries();
         }
 
         private void AddClients()
@@ -158,6 +161,20 @@ namespace CRMYourBankers.Database
                         new Bank{Id = 3, Name = "BNP"},
                         new Bank{Id = 4, Name = "mBank"},
                     });
+
+                SaveChanges();
+            }
+        }
+
+        private void AddMonthSummaries()
+        {
+            if (!MonthSummaries.Any())
+            {
+                MonthSummaries.AddRange(
+                    new MonthSummary { Month = DateTime.Parse("2021/09/01"), EstimatedTarget = 1024000 },
+                    new MonthSummary { Month = DateTime.Parse("2021/10/01"), EstimatedTarget = 2024000 },
+                    new MonthSummary { Month = DateTime.Parse("2021/11/01"), EstimatedTarget = 3024000 }
+                    );
 
                 SaveChanges();
             }

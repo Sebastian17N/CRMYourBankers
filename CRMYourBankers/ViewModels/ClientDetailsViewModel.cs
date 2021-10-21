@@ -56,17 +56,7 @@ namespace CRMYourBankers.ViewModels
         //    }
         //}
 
-        private string _firstNameText { get; set; }
-        public string FirstNameText 
-        { 
-            get => _firstNameText; 
-            set
-            {
-                _firstNameText = value;
-                NotifyPropertyChanged("FirstNameText");
-            }
-        }
-
+        public string FirstNameText { get; set; }
         public string LastNameText { get; set; }
         public string EmailText { get; set; }
         public int? PhoneNumberText { get; set; }
@@ -77,7 +67,9 @@ namespace CRMYourBankers.ViewModels
         public List<ClientTask> ClientTasks
         {
             get => _clientTasks;
-            set { _clientTasks = value;
+            set 
+            { 
+                _clientTasks = value;
                 NotifyPropertyChanged("ClientTask");
             }
         }        

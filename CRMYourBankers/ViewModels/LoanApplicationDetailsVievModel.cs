@@ -10,6 +10,7 @@ using System.Windows;
 using CRMYourBankers.Database;
 using System.Collections.ObjectModel;
 using CRMYourBankers.ViewModels.Interfaces;
+using System;
 
 namespace CRMYourBankers.ViewModels
 {
@@ -23,8 +24,9 @@ namespace CRMYourBankers.ViewModels
         public string TasksToDoText { get; set; }
         public int? BankId { get; set; }
         public int? ClientId { get; set; }
+        public DateTime LoanStartDate { get; set; }
         #endregion
-        
+
         public ObservableCollection<Client> Clients { get; set; }
         public ObservableCollection<Bank> Banks { get; set; }
         
@@ -75,7 +77,8 @@ namespace CRMYourBankers.ViewModels
                         BankId = BankId ??0,
                         AmountRequested = AmountRequestedText,
                         AmountReceived = AmountReceivedText,
-                        ClientCommission  = ClientCommissionText,                       
+                        ClientCommission  = ClientCommissionText,
+                        LoanStartDate = LoanStartDate                
                     };
 
                     if (!newLoanApplication.Validate())
@@ -91,10 +94,11 @@ namespace CRMYourBankers.ViewModels
                 }
                 else
                 {
-                    SelectedLoanApplication.ClientId = ClientId ??0;
-                    SelectedLoanApplication.BankId = BankId ??0;
+                    SelectedLoanApplication.ClientId = ClientId ?? 0;
+                    SelectedLoanApplication.BankId = BankId ?? 0;
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
-                    SelectedLoanApplication.AmountRequested = AmountRequestedText;                    
+                    SelectedLoanApplication.AmountRequested = AmountRequestedText;
+                    SelectedLoanApplication.LoanStartDate = LoanStartDate;
 
                     if (!SelectedLoanApplication.Validate())
                     {
@@ -106,6 +110,7 @@ namespace CRMYourBankers.ViewModels
                     }
                 }
 
+                Context.SaveChanges();
                 MessageBox.Show($"Zapisano: {ClientId} {BankId} {AmountRequestedText}",
                     "Dodano Nowy Wniosek",
                     MessageBoxButton.OK,
@@ -136,6 +141,7 @@ namespace CRMYourBankers.ViewModels
             AmountReceivedText = null;
             ClientCommissionText = null;
             TasksToDoText = null;
+            LoanStartDate = DateTime.MinValue;   
         }
 
         public void RefreshData()
@@ -148,6 +154,7 @@ namespace CRMYourBankers.ViewModels
                 AmountReceivedText = _selectedLoanApplication.AmountReceived;
                 ClientCommissionText = _selectedLoanApplication.ClientCommission;
                 TasksToDoText = _selectedLoanApplication.TasksToDo;
+                LoanStartDate = _selectedLoanApplication.LoanStartDate;
             }
             NotifyPropertyChanged("LoanApplication");
         }

@@ -69,6 +69,18 @@
             <Label Content="Uwagi / Zadania" />
             <TextBox Width="300" Text="{Binding TasksToDoText}" />
         </StackPanel>
+        <StackPanel
+            Margin="5"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Label Content="Data uruchomienia kredytu" />
+            <DatePicker
+                FirstDayOfWeek="Monday"
+                IsTodayHighlighted="True"
+                SelectedDate="{Binding LoanStartDate}"
+                SelectedDateFormat="Short"
+                Visibility="Visible" />
+        </StackPanel>
         <Button
             Width="200"
             Command="{Binding SaveButtonCommand}"
