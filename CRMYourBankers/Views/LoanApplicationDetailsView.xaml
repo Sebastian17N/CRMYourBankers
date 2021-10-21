@@ -18,7 +18,7 @@
             <ComboBox
                 Width="300"
                 DisplayMemberPath="FullName"
-                ItemsSource="{Binding DataGridData}"
+                ItemsSource="{Binding Clients}"
                 SelectedValue="{Binding ClientId}"
                 SelectedValuePath="Id" />
             <!--
@@ -34,7 +34,7 @@
             <ComboBox
                 Width="300"
                 DisplayMemberPath="Name"
-                ItemsSource="{Binding DataGridData}"
+                ItemsSource="{Binding Banks}"
                 SelectedValue="{Binding BankId}"
                 SelectedValuePath="Id" />
         </StackPanel>

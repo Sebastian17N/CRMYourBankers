@@ -8,11 +8,12 @@ using System.Windows.Input;
 using CRMYourBankers.Messages;
 using System.Windows;
 using CRMYourBankers.Database;
+using System.Collections.ObjectModel;
 
 namespace CRMYourBankers.ViewModels
 {
     public class LoanApplicationDetailsViewModel : TabBaseViewModel
-    {                
+    {
         #region UI property fields
         public int? AmountRequestedText { get; set; }
         public int? AmountReceivedText { get; set; }
@@ -21,7 +22,10 @@ namespace CRMYourBankers.ViewModels
         public int? BankId { get; set; }
         public int? ClientId { get; set; }
         #endregion
-
+        
+        public ObservableCollection<Client> Clients { get; set; }
+        public ObservableCollection<Bank> Banks { get; set; }
+        
         private LoanApplication _selectedLoanApplication;
         public LoanApplication SelectedLoanApplication
         {
@@ -124,6 +128,13 @@ namespace CRMYourBankers.ViewModels
             });
         }
 
+        protected override void RefreshReferenceData()
+        {
+            Clients = new ObservableCollection<Client>(Context.Clients.ToList());
+            //specjalny rodzaj listy, który który sam powiadamia widok, że się zmienił bez potrzeby 
+            //wywoływania NotifyPropertyChanged
+            Banks = new ObservableCollection<Bank>(Context.Banks.ToList());
+        }
         public void ClearAllFields()
         {
             ClientId = null;

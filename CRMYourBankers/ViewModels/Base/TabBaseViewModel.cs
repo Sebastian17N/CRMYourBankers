@@ -19,7 +19,10 @@ namespace CRMYourBankers.ViewModels.Base
                 _tabVisibility = value;
 
                 if (_tabVisibility == Visibility.Visible)
+                {
                     RefreshData();
+                    RefreshReferenceData();
+                }
             }
         }
 
@@ -29,6 +32,7 @@ namespace CRMYourBankers.ViewModels.Base
         }
 
         protected virtual void RefreshData() { }
+        protected virtual void RefreshReferenceData() { }
 
         public TabBaseViewModel(Messenger messenger)
         {
