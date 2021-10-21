@@ -84,7 +84,10 @@
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:SummaryViewModel}">
                         <views:SummaryView />
-                    </DataTemplate>                    
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:ResultViewModel}">
+                        <views:SummaryView />
+                    </DataTemplate>
                 </TabControl.Resources>
             </TabControl>
         </StackPanel>
