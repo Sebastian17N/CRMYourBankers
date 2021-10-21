@@ -50,6 +50,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand AddNewClientButtonCommand { get; set; }
         public ICommand AddNewLoanApplicationCommand { get; set; }
         public ICommand OpenMainWindowSearchScreenCommand { get; set; }
+        public ICommand OpenResultScreenCommand { get; set; }
 
         public ObservableCollection<object> ItemTabs => _itemTabs;
         private ObservableCollection<object> _itemTabs = new ObservableCollection<object>();
@@ -60,6 +61,7 @@ namespace CRMYourBankers.ViewModels
         private ClientDetailsViewModel _clientDetailsViewModel;
         private LoanApplicationDetailsViewModel _loanApplicationDetailsViewModel;
         private SummaryViewModel _summaryViewModel;
+        private ResultViewModel _resultViewModel;
 
         public List<Client> Clients { get; set; }
         public List<LoanApplication> LoanApplications { get; set; }
@@ -119,6 +121,9 @@ namespace CRMYourBankers.ViewModels
 
             _summaryViewModel = new SummaryViewModel(TabMessenger, Context);
             _itemTabs.Add(_summaryViewModel);
+
+            _resultViewModel = new ResultViewModel(TabMessenger, Context);
+            _itemTabs.Add(_resultViewModel);
               
             SelectedTab = _summaryViewModel; //to okno wyświetla się jako pierwsze
         }
@@ -143,7 +148,11 @@ namespace CRMYourBankers.ViewModels
             });
             OpenMainWindowSearchScreenCommand = new RelayCommand(() =>
             {
-                TabMessenger.Send(new TabChangeMessage { TabName = "SummaryView" });
+                TabMessenger.Send(new TabChangeMessage { TabName = "Summary" });
+            });
+            OpenResultScreenCommand = new RelayCommand(() =>
+            {
+                TabMessenger.Send(new TabChangeMessage { TabName = "Result" });
             });
         }
 
@@ -179,9 +188,12 @@ namespace CRMYourBankers.ViewModels
                         }
                         SelectedTab = _loanApplicationDetailsViewModel;                                                                                                                                          
                         break;
-                    case "SummaryView":
+                    case "Summary":
                         SelectedTab = _summaryViewModel;
-                        break;                    
+                        break;
+                    case "Result":
+                        SelectedTab = _resultViewModel;
+                        break;
                 }
             });
         }

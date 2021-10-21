@@ -36,6 +36,11 @@
                     Margin="10"
                     Command="{Binding OpenLoanApplicationsSearchScreenCommand}"
                     Content="Wnioski" />
+                <Button
+                    Width="150 "
+                    Margin="10"
+                    Command="{Binding OpenResultScreenCommand}"
+                    Content="Wyniki" />
             </StackPanel>
             <StackPanel
                 HorizontalAlignment="Right"
