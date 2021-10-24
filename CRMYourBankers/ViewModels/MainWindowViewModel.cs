@@ -44,6 +44,9 @@ namespace CRMYourBankers.ViewModels
         // Problemy: dlaczego w Client Details na początki wyświetla się tylko jedna lista zadań, a po odświeżeniu 2
         // Uzupełnij wszystkie widoki w context
         // Problemy:Dlaczego we wniosku nie wyświetla się lista banków i klientów?
+        // nowy klient/wniosek ma być pusty i logika otwierania aktualnego klienta
+        // Result View mają się wyświetlać wszystkie pola
+        // Summary View ma działać przechodzenie do innych widoków z gridów
 
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }
@@ -162,11 +165,8 @@ namespace CRMYourBankers.ViewModels
                         break;
 
                     case "ClientDetails":
-                        if (message.ObjectId > 0)
-                        {
-                            _clientDetailsViewModel.SelectedClient =
-                           Context.Clients.Single(client => client.Id == message.ObjectId);
-                        }
+                        _clientDetailsViewModel.SelectedClient = message.ObjectId > 0 ?
+                           Context.Clients.Single(client => client.Id == message.ObjectId) : null;
                         SelectedTab = _clientDetailsViewModel;                       
                         break;
 

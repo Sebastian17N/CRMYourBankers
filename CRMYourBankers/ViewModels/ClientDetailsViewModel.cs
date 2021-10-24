@@ -194,6 +194,7 @@ namespace CRMYourBankers.ViewModels
             PhoneNumberText = null;
             EmailText = "";
             PersonalIdText = null;
+            LoanApplicationsForClient = null;
         }
     }
 }
