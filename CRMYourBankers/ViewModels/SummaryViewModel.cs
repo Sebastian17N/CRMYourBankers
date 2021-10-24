@@ -100,7 +100,7 @@ namespace CRMYourBankers.ViewModels
                     TabName = "ClientDetails",
                     ObjectId = SelectedClient.Id
                 });
-            });
+            });            
         }
 
     }

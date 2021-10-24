@@ -102,11 +102,10 @@
                         Binding="{Binding ClientCommission}"
                         Header="Prowizja"
                         IsReadOnly="False" />
-                    <DataGridTextColumn
-                        Width="120"
-                        Binding="{Binding ClientCommission}"
-                        Header="Czy opłacona? LISTA ROZWIJALNA" />
-                    <DataGridComboBoxColumn Header="Czy opłacona?" ItemsSource="{Binding YesNoList}" />
+                    <DataGridComboBoxColumn
+                        Width="Auto"
+                        Header="Czy opłacona?"
+                        ItemsSource="{Binding YesNoList}" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

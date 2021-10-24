@@ -37,7 +37,6 @@ namespace CRMYourBankers.ViewModels
         //         możesz otworzyć istniejący wniosek i go edytować/zapisać => jak przekazać w SelectedLoanApplication do bombobox liste banków i klientów???
         //   Dlaczego w klientach jest puste pole a w wnioskach nie?
         //   Zadania w widoku wniosków powinny być w formie tabelki i powinny być edytowalne tak jak w szczegóły klienta, nie ustawiać kolumn jako readonly
-
         //  Co chcesz mieć na Summary i w jakiej formie
         //  Stworzyć ClientTask i dodać jego wyświetlanie na ClientDetails
         //  Kontrolki => dodawanie dowych tasków??? może być poprzez TextBox oraz kliknięcie myszką w listę zadań, pojawi się pytanie czy chce dodać nowe zadanie

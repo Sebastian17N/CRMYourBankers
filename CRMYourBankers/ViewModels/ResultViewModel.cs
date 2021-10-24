@@ -40,7 +40,7 @@ namespace CRMYourBankers.ViewModels
                 _selectedMonthSummary = value;
                 NotifyPropertyChanged("SelectedMonthSummary");
                 NotifyPropertyChanged("ActualScore");
-
+               
                 RefreshData();
             }
         }
@@ -73,6 +73,7 @@ namespace CRMYourBankers.ViewModels
         public void RefreshReferenceData()
         {
             MonthSummaries = new ObservableCollection<MonthSummary>(Context.MonthSummaries.ToList());
+            
         }
 
         public void RefreshData()
@@ -88,11 +89,15 @@ namespace CRMYourBankers.ViewModels
                             new
                             {
                                 ClientFullName = loan.Client.FullName,
-                                loan.AmountReceived
+                                loan.AmountReceived,
+                                BankName = loan.Bank.Name,
+                                ClientCommission = loan.ClientCommission,
+                                YesNoList
                             }
                         ).ToList();
 
                 NotifyPropertyChanged("DataGridData");
+                NotifyPropertyChanged("YesNoList");
             }
         }
     }

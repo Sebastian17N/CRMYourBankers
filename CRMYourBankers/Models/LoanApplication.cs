@@ -12,7 +12,7 @@ namespace CRMYourBankers.Models
         public int? ClientCommission { get; set; }             
         public int ClientId { get; set; }
         public Client Client { get; set; }
-
+        public Bank Bank { get; set; }
         public int BankId { get; set; }
         public DateTime LoanStartDate { get; set; }
         
