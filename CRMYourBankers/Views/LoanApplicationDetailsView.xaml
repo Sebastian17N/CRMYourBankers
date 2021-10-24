@@ -79,7 +79,8 @@
                 IsTodayHighlighted="True"
                 SelectedDate="{Binding LoanStartDate}"
                 SelectedDateFormat="Short"
-                Visibility="Visible" />
+                Visibility="Visible"
+                />
         </StackPanel>
         <Button
             Width="200"

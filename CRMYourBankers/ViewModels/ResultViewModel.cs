@@ -20,6 +20,7 @@ namespace CRMYourBankers.ViewModels
     {
         public ICommand DetailsScreenOpenHandler { get; set; }
         public YourBankersContext Context { get; set; }
+        public LoanApplication SelectedLoanApplication { get; set; }
 
         public List<string> YesNoList = new()
         {
@@ -57,19 +58,8 @@ namespace CRMYourBankers.ViewModels
         {
             Context = context;
             RegisterCommands();
-        }
+        }     
         
-        public void RegisterCommands()
-        {
-            DetailsScreenOpenHandler = new RelayCommand(() =>
-            {
-                TabMessenger.Send(new TabChangeMessage
-                {
-                    TabName = "Result"
-                });
-            });
-        }
-
         public void RefreshReferenceData()
         {
             MonthSummaries = new ObservableCollection<MonthSummary>(Context.MonthSummaries.ToList());
@@ -80,7 +70,7 @@ namespace CRMYourBankers.ViewModels
         {
             if (SelectedMonthSummary != null)
             {
-                DataGridData =
+                DataGridData = 
                     Context
                         .LoanApplications
                         .Where(loan =>
@@ -92,13 +82,25 @@ namespace CRMYourBankers.ViewModels
                                 loan.AmountReceived,
                                 BankName = loan.Bank.Name,
                                 ClientCommission = loan.ClientCommission,
-                                YesNoList
+                                Id = loan.Id
                             }
                         ).ToList();
 
                 NotifyPropertyChanged("DataGridData");
                 NotifyPropertyChanged("YesNoList");
             }
+        }
+        public void RegisterCommands()
+        {
+            DetailsScreenOpenHandler = new RelayCommand(() =>
+            {
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    TabName = "LoanApplicationDetails", 
+                    ObjectId = SelectedLoanApplication.Id  
+                    //dlaczego to nie działa?
+                });
+            });
         }
     }
 }
