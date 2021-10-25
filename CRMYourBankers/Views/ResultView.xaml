@@ -105,7 +105,7 @@
                     <DataGridComboBoxColumn
                         Width="Auto"
                         Header="Czy opłacona?"
-                        ItemsSource="{Binding YesNoList}" />
+                        ItemsSource="{Binding YesNoList, Mode=OneWay}" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
