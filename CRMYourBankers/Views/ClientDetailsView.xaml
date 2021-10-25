@@ -79,7 +79,7 @@
             <StackPanel
                 MaxWidth="1000"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center">
+                VerticalAlignment="Top">
                 <StackPanel
                     Margin="5"
                     HorizontalAlignment="Right"
