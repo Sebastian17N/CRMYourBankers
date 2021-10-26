@@ -15,7 +15,10 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Label Content="Zrealizowany wynik w tym miesiącu:" />
-            <TextBox Width="200" Text="Wynik to 200 000" />
+            <TextBox
+                Width="200"
+                IsReadOnly="True"
+                Text="{Binding ActualScoreValue, Mode=OneWay}" />
         </StackPanel>
         <StackPanel
             Margin="5"
@@ -62,6 +65,11 @@
                         Width="120"
                         Binding="{Binding AmountRequested}"
                         Header="Wnioskowana Kwota"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding AmountReceived}"
+                        Header="Przyznana Kwota"
                         IsReadOnly="True" />
                     <DataGridTextColumn
                         Width="200"

@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,13 +16,15 @@ using System.Windows.Input;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class SummaryViewModel : TabBaseViewModel, IRefreshDataOwner
+    public class SummaryViewModel : TabBaseViewModel, IRefreshReferenceDataOwner, IRefreshDataOwner
     {        
         public ICommand LoanApplicationDetailsScreenOpenHandler { get; set; }
         public ICommand ClientDetailsScreenOpenHandler { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
+        public ObservableCollection<MonthSummary> MonthSummaries { get; set; }
 
         public dynamic DataGridData { get; set; }
+        public dynamic DataGridScore { get; set; }
         private List<Client> _clients;
         public List<Client> Clients
         {
@@ -34,6 +37,23 @@ namespace CRMYourBankers.ViewModels
         }
         public YourBankersContext Context { get; set; }
         public Client SelectedClient { get; set; }
+       
+        private MonthSummary _selectedMonthSummary;
+        public MonthSummary SelectedMonthSummary
+        {
+            get => _selectedMonthSummary; 
+            set
+            {
+                _selectedMonthSummary = value;
+                NotifyPropertyChanged("ActualScoreValue");
+                RefreshData();
+            }
+        }
+        public int ActualScoreValue =>
+            Context
+                .LoanApplications
+                .Where(loan => loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
+                .Sum(loan => loan.AmountReceived).Value;
 
         public SummaryViewModel(Messenger messenger, YourBankersContext context) : base(messenger)
         {
@@ -70,8 +90,7 @@ namespace CRMYourBankers.ViewModels
                         loan.AmountReceived,
                         loan.TasksToDo
                     })
-                .ToList();
-            
+                .ToList();            
             
             Clients =
                 Context
@@ -79,8 +98,25 @@ namespace CRMYourBankers.ViewModels
                     .Include(client => client.ClientTasks)
                     .ToList();
             NotifyPropertyChanged("DataGridData");
-        }
 
+            DataGridScore =
+                Context
+                    .LoanApplications
+                    .Where(loan =>
+                        loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
+                    .Select(loan =>
+                        new
+                        {
+                            ClientFullName = loan.Client.FullName,
+                            loan.AmountReceived,
+                            BankName = loan.Bank.Name,
+                            ClientCommission = loan.ClientCommission,
+                            Id = loan.Id
+                        }
+                    ).ToList();
+            NotifyPropertyChanged("DataGridScore");
+
+        }
 
         public void RegisterCommands()
         {
@@ -103,5 +139,9 @@ namespace CRMYourBankers.ViewModels
             });            
         }
 
+        public void RefreshReferenceData()
+        {
+            MonthSummaries = new ObservableCollection<MonthSummary>(Context.MonthSummaries.ToList());
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace CRMYourBankers.Models
         public int Id { get; set; }
         public DateTime Month { get; set; }
         public int EstimatedTarget { get; set; }
-
+        public DateTime PresentMonth { get; set; } = DateTime.Now;
         public string MonthDisplay 
             => Month.ToString("yyyy/MM");
     }
