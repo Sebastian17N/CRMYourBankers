@@ -52,7 +52,9 @@ namespace CRMYourBankers.ViewModels
         public int ActualScoreValue =>
             Context
                 .LoanApplications
-                .Where(loan => loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
+                .Where(loan => 
+                        loan.LoanStartDate.Year == DateTime.Today.Year &&
+                        loan.LoanStartDate.Month == DateTime.Today.Month)
                 .Sum(loan => loan.AmountReceived).Value;
 
         public SummaryViewModel(Messenger messenger, YourBankersContext context) : base(messenger)
@@ -98,12 +100,13 @@ namespace CRMYourBankers.ViewModels
                     .Include(client => client.ClientTasks)
                     .ToList();
             NotifyPropertyChanged("DataGridData");
-
+                      
             DataGridScore =
                 Context
                     .LoanApplications
                     .Where(loan =>
-                        loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
+                        loan.LoanStartDate.Year == DateTime.Today.Year &&
+                        loan.LoanStartDate.Month == DateTime.Today.Month)
                     .Select(loan =>
                         new
                         {
