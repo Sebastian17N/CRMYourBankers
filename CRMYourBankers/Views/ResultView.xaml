@@ -103,10 +103,11 @@
                         Binding="{Binding ClientCommission}"
                         Header="Prowizja"
                         IsReadOnly="False" />
-                    <DataGridComboBoxColumn
+                    <DataGridCheckBoxColumn
                         Width="Auto"
                         Header="Czy opłacona?"
-                        ItemsSource="{Binding YesNoList, Mode=OneWay}" />
+                        Selector.IsSelected="{Binding Paid}" 
+                        IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

@@ -142,7 +142,7 @@ namespace CRMYourBankers.ViewModels
             AmountReceivedText = null;
             ClientCommissionText = null;
             TasksToDoText = null;
-            LoanStartDate = DateTime.MinValue;   
+            LoanStartDate = DateTime.Now;   
         }
 
         public void RefreshData()

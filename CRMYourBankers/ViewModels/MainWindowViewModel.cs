@@ -47,6 +47,11 @@ namespace CRMYourBankers.ViewModels
         // Result View mają się wyświetlać wszystkie pola
         // Summary View ma działać przechodzenie do innych widoków z gridów
 
+        //Główne menu zaprogramować kontorlki te same co w Result (żeby wybrać aktualny miesiąc wybierz DateTime.Today(można użyć do dodaj nowy wniosek i zamiast null to data dzisiejsza(zmien dateTime.minvalue)))
+        //jaką informację potrzebujesz żeby po kliknięcu cancel wracało do vidoku w którym przed chwilą byłeś, pomyś nie musisz robić
+        //Stwórz przycisz na wynikach, który pozwoli na dodawanie nowego mc
+        //zasatanów się gdzie będzie edytowany cel na dany mc
+        //Dla zus i us stwórz enum, oddzielny folder => class, 
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }
         public ICommand AddNewClientButtonCommand { get; set; }
