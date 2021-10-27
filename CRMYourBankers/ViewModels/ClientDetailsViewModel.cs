@@ -115,8 +115,8 @@ namespace CRMYourBankers.ViewModels
                         loan.AmountRequested,
                         loan.TasksToDo
                     }).ToList(); 
-        }    
-
+        }
+        
         public void RegisterCommands()
         {
             SaveButtonCommand = new RelayCommand(() =>
