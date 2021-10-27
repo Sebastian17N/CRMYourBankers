@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CRMYourBankers.ViewModels
@@ -19,9 +20,12 @@ namespace CRMYourBankers.ViewModels
     public class ResultViewModel : TabBaseViewModel, IRefreshReferenceDataOwner, IRefreshDataOwner
     {
         public ICommand DetailsScreenOpenHandler { get; set; }
+        public ICommand SaveTargetButtonComand { get; set; }
         public YourBankersContext Context { get; set; }
         public LoanApplication SelectedLoanApplication { get; set; }
-                
+        public int EstimatedTargetText { get; set; }
+
+
         public dynamic DataGridData { get; set; }
         public ObservableCollection<MonthSummary> MonthSummaries { get; set; }
 
@@ -40,7 +44,7 @@ namespace CRMYourBankers.ViewModels
                 RefreshData();
             }
         }
-
+    
         public string ActualScore =>
             SelectedMonthSummary != null ? ActualScoreValue.ToString() : "wybierz miesiąc";
         public int ActualScoreValue =>
@@ -98,6 +102,26 @@ namespace CRMYourBankers.ViewModels
                     ObjectId = SelectedLoanApplication.Id
                 });
             });
+            SaveTargetButtonComand = new RelayCommand(() =>
+            {                
+                if (!SelectedMonthSummary.Validate())
+                {
+                    MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
+                        "Błędy w formularzu",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;
+                }
+                else
+                {
+                    EstimatedTargetText = SelectedMonthSummary.EstimatedTarget;
+                    MessageBox.Show($"Zapisano Target: {EstimatedTargetText}",
+                    "Dodano Target",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);                    
+                }
+                Context.SaveChanges();
+            });            
         }
     }
 }

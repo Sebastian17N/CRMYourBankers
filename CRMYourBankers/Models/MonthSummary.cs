@@ -10,5 +10,10 @@ namespace CRMYourBankers.Models
         public DateTime PresentMonth { get; set; } = DateTime.Now;
         public string MonthDisplay 
             => Month.ToString("yyyy/MM");
+        public bool Validate()
+        {
+            return
+            EstimatedTarget != null;
+        }
     }
 }

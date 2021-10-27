@@ -46,9 +46,11 @@ namespace CRMYourBankers.ViewModels
             {
                 _selectedMonthSummary = value;
                 NotifyPropertyChanged("ActualScoreValue");
+                NotifyPropertyChanged("SelectedMonthSummary");
                 RefreshData();
             }
         }
+        
         public int ActualScoreValue =>
             Context
                 .LoanApplications
@@ -56,6 +58,11 @@ namespace CRMYourBankers.ViewModels
                         loan.LoanStartDate.Year == DateTime.Today.Year &&
                         loan.LoanStartDate.Month == DateTime.Today.Month)
                 .Sum(loan => loan.AmountReceived).Value;
+        //public int ActualTarget =>
+        //    Context
+        //        .MonthSummaries
+        //        .Where(target => target.Month = SelectedMonthSummary.Month.Month)
+        //        .Select(target => target.EstimatedTarget);
 
         public SummaryViewModel(Messenger messenger, YourBankersContext context) : base(messenger)
         {
@@ -118,7 +125,6 @@ namespace CRMYourBankers.ViewModels
                         }
                     ).ToList();
             NotifyPropertyChanged("DataGridScore");
-
         }
 
         public void RegisterCommands()

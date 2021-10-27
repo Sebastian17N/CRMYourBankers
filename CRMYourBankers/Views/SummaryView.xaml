@@ -25,7 +25,10 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Label Content="Cel na ten miesiąc to:" />
-            <TextBox Width="200" Text="Wynik to 1 000 000" />
+            <TextBox
+                Width="200"
+                IsReadOnly="True"
+                Text="{Binding ActualTarget}" />
         </StackPanel>
         <StackPanel
             Margin="5"
