@@ -100,6 +100,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
                     SelectedLoanApplication.LoanStartDate = LoanStartDate;
+                    //SelectedLoanApplication.TasksToDo = TasksToDoText;
 
                     if (!SelectedLoanApplication.Validate())
                     {

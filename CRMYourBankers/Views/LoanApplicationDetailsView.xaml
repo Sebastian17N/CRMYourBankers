@@ -66,7 +66,31 @@
             Margin="5"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
-            <Label Content="Uwagi / Zadania" />
+            <Label Content="Wybierz Pośrednika:" />
+            <ComboBox
+                Width="300"
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding Banks}"
+                SelectedValue="{Binding BankId}"
+                SelectedValuePath="Id" />
+        </StackPanel>
+        <StackPanel
+            Margin="5"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Label Content="Wybierz Multibrokera:" />
+            <ComboBox
+                Width="300"
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding Banks}"
+                SelectedValue="{Binding BankId}"
+                SelectedValuePath="Id" />
+        </StackPanel>
+        <StackPanel
+            Margin="5"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Label Content="Dodaj nowe zadanie:" />
             <TextBox Width="300" Text="{Binding TasksToDoText}" />
         </StackPanel>
         <StackPanel
@@ -79,8 +103,7 @@
                 IsTodayHighlighted="True"
                 SelectedDate="{Binding LoanStartDate}"
                 SelectedDateFormat="Short"
-                Visibility="Visible"
-                />
+                Visibility="Visible" />
         </StackPanel>
         <Button
             Width="200"
