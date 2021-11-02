@@ -67,8 +67,7 @@ namespace CRMYourBankers.ViewModels
         
         public void RefreshReferenceData()
         {
-            MonthSummaries = new ObservableCollection<MonthSummary>(Context.MonthSummaries.ToList());
-            
+            MonthSummaries = new ObservableCollection<MonthSummary>(Context.MonthSummaries.ToList());            
         }
 
         public void RefreshData()

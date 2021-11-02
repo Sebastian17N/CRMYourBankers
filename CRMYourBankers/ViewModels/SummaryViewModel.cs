@@ -67,7 +67,8 @@ namespace CRMYourBankers.ViewModels
                         target.Month.Year == DateTime.Today.Year)
                 .Select(target => target.EstimatedTarget)
                 .SingleOrDefault();//wyciągnij pojedynczą wartość albo domyślną jeśli nei znajdziesz wartości
-
+        public double RealizedScore => ActualScoreValue != 0 ? 
+            Math.Round(ActualScoreValue * 100 / (double)ActualTarget, 2) : 0;
         public SummaryViewModel(Messenger messenger, YourBankersContext context) : 
             base(messenger, TabName.Summary)
         {

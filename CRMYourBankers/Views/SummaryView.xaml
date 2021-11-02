@@ -35,7 +35,7 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Label Content="Wynik zrealizowany w (%):" />
-            <TextBox Width="200" Text="20" />
+            <TextBox Width="200" Text="{Binding RealizedScore, Mode=OneWay}" />
         </StackPanel>
         <StackPanel>
             <DataGrid
