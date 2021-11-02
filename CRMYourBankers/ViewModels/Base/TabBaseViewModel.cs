@@ -1,4 +1,5 @@
-﻿using CRMYourBankers.ViewModels.Interfaces;
+﻿using CRMYourBankers.Enum;
+using CRMYourBankers.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
 
@@ -9,6 +10,7 @@ namespace CRMYourBankers.ViewModels.Base
     public class TabBaseViewModel : NotifyPropertyChangedBase, ITabMessengerOwner
     {
         public Messenger TabMessenger { get; set; }
+        public TabName TabName { get; }
 
         private Visibility _tabVisibility;
         public Visibility TabVisibility 
@@ -38,11 +40,13 @@ namespace CRMYourBankers.ViewModels.Base
         public TabBaseViewModel() 
         {
             _tabVisibility = Visibility.Collapsed;
+
         }   
 
-        public TabBaseViewModel(Messenger messenger)
+        public TabBaseViewModel(Messenger messenger, TabName tabName)
         {
             TabMessenger = messenger;
+            TabName = tabName;
         }        
     }
 }

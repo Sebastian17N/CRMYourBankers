@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using CRMYourBankers.Enum;
 
 namespace CRMYourBankers.ViewModels
 {
@@ -57,7 +58,8 @@ namespace CRMYourBankers.ViewModels
         public double RealizedScore => SelectedMonthSummary != null ?
             Math.Round(ActualScoreValue*100 / (double)SelectedMonthSummary.EstimatedTarget, 2) : 0;
 
-        public ResultViewModel(Messenger messenger, YourBankersContext context) : base(messenger)
+        public ResultViewModel(Messenger messenger, YourBankersContext context) : 
+            base(messenger, TabName.Result)
         {
             Context = context;
             RegisterCommands();

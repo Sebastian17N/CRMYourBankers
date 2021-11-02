@@ -28,7 +28,7 @@
             <TextBox
                 Width="200"
                 IsReadOnly="True"
-                Text="{Binding ActualTarget}" />
+                Text="{Binding ActualTarget, Mode=OneWay}" />
         </StackPanel>
         <StackPanel
             Margin="5"

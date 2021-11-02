@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace CRMYourBankers.Enum
 {
-    public enum ZusUs
+    public enum TabName
     {
-        NieZalega,
-        Zalega,
-        UkładRatalny
+        ClientDetails, 
+        LoanApplicationDetails,
+        ClientSearch,
+        LoanApplicationSearch,
+        Summary,
+        Result
     }
 }

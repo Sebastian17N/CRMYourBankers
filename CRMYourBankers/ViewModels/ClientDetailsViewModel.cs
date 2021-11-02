@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using CRMYourBankers.Enum;
+
 
 namespace CRMYourBankers.ViewModels
 {
@@ -76,9 +78,10 @@ namespace CRMYourBankers.ViewModels
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
         public YourBankersContext Context { get; set; }
+        public ZusUs ZusUs { get; set; }
 
         public ClientDetailsViewModel(Messenger tabMessenger, YourBankersContext context)
-            : base(tabMessenger)
+            : base(tabMessenger, TabName.ClientDetails)
         {
             Context = context;
             RegisterCommands();
@@ -93,7 +96,7 @@ namespace CRMYourBankers.ViewModels
             LoanApplicationsForClient =
                 Context.LoanApplications
                     .Include(loan=>loan.LoanTasks)
-                    .Where(loan => loan.ClientId == SelectedClient.Id) //w linq nie używa się ?
+                    .Where(loan => loan.ClientId == SelectedClient.Id) 
                     .Join(
                     Context.Banks,
                     loan => loan.BankId,

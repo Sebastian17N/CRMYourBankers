@@ -1,4 +1,5 @@
 ﻿using CRMYourBankers.Database;
+using CRMYourBankers.Enum;
 using CRMYourBankers.Messages;
 using CRMYourBankers.Models;
 using CRMYourBankers.ViewModels.Base;
@@ -58,13 +59,17 @@ namespace CRMYourBankers.ViewModels
                         loan.LoanStartDate.Year == DateTime.Today.Year &&
                         loan.LoanStartDate.Month == DateTime.Today.Month)
                 .Sum(loan => loan.AmountReceived).Value;
-        //public int ActualTarget =>
-        //    Context
-        //        .MonthSummaries
-        //        .Where(target => target.Month = SelectedMonthSummary.Month.Month)
-        //        .Select(target => target.EstimatedTarget);
+        public int ActualTarget =>
+            Context
+                .MonthSummaries
+                .Where(target => 
+                        target.Month.Month == DateTime.Today.Month &&
+                        target.Month.Year == DateTime.Today.Year)
+                .Select(target => target.EstimatedTarget)
+                .SingleOrDefault();//wyciągnij pojedynczą wartość albo domyślną jeśli nei znajdziesz wartości
 
-        public SummaryViewModel(Messenger messenger, YourBankersContext context) : base(messenger)
+        public SummaryViewModel(Messenger messenger, YourBankersContext context) : 
+            base(messenger, TabName.Summary)
         {
             RegisterCommands();
             Context = context;
@@ -134,7 +139,8 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = "LoanApplicationDetails",
-                    ObjectId = SelectedLoanApplication.Id
+                    ObjectId = SelectedLoanApplication.Id,
+                    LastTabName = TabName.Summary
                 });
             });
 
@@ -143,7 +149,8 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = "ClientDetails",
-                    ObjectId = SelectedClient.Id
+                    ObjectId = SelectedClient.Id,
+                    LastTabName = TabName.Summary                    
                 });
             });            
         }

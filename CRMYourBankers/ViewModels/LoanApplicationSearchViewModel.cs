@@ -1,4 +1,5 @@
 ﻿using CRMYourBankers.Database;
+using CRMYourBankers.Enum;
 using CRMYourBankers.Messages;
 using CRMYourBankers.ViewModels.Base;
 using CRMYourBankers.ViewModels.Interfaces;
@@ -21,7 +22,7 @@ namespace CRMYourBankers.ViewModels
         public YourBankersContext Context { get; set; }
        
         public LoanApplicationSearchViewModel(Messenger messenger, YourBankersContext context) 
-            : base(messenger)
+            : base(messenger, TabName.LoanApplicationSearch)
         {
             RegisterCommands();
             Context = context;                      
@@ -70,7 +71,8 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = "LoanApplicationDetails",
-                    ObjectId = SelectedLoanApplication.Id
+                    ObjectId = SelectedLoanApplication.Id,
+                    LastTabName = TabName.LoanApplicationSearch
                 });                
             });            
         }               

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using CRMYourBankers.Enum;
 
 namespace CRMYourBankers.ViewModels
 {
@@ -32,7 +33,7 @@ namespace CRMYourBankers.ViewModels
         public Client SelectedClient { get; set; }
         
         public ClientSearchViewModel(Messenger messenger, YourBankersContext context)
-            : base(messenger)
+            : base(messenger, TabName.ClientSearch)
         {
             Context = context;
             RegisterCommands();

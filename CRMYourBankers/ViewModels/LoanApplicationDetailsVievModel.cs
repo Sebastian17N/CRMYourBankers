@@ -11,11 +11,12 @@ using CRMYourBankers.Database;
 using System.Collections.ObjectModel;
 using CRMYourBankers.ViewModels.Interfaces;
 using System;
+using CRMYourBankers.Enum;
 
 namespace CRMYourBankers.ViewModels
 {
     public class LoanApplicationDetailsViewModel : TabBaseViewModel, IRefreshReferenceDataOwner, 
-        IClearAllFieldsOwner, IRefreshDataOwner
+        IClearAllFieldsOwner, IRefreshDataOwner, ILastTabNameOwner
     {
         #region UI property fields
         public int? AmountRequestedText { get; set; }
@@ -26,6 +27,7 @@ namespace CRMYourBankers.ViewModels
         public int? ClientId { get; set; }
         public Client Client { get; set; }
         public DateTime LoanStartDate { get; set; }
+        public TabName LastTabName { get; set; }
         #endregion
 
         public ObservableCollection<Client> Clients { get; set; }
@@ -58,7 +60,7 @@ namespace CRMYourBankers.ViewModels
         public dynamic BankList { get; set; }
 
         public LoanApplicationDetailsViewModel(Messenger tabMessenger, YourBankersContext context) 
-            : base(tabMessenger)
+            : base(tabMessenger, TabName.LoanApplicationDetails)
         {
             Context = context;
             RegisterCommands();
@@ -74,7 +76,7 @@ namespace CRMYourBankers.ViewModels
                     {
                         Id = Context.LoanApplications.Max(loan => loan.Id) + 1,
                         ClientId = ClientId ??0, //do pustej property z clasy LoanApplication wstaw wartość z property z LoanApplicationDetailsView
-                                            //??0 oznacza, że ClientId z prawej będzie null to wstawi O
+                                            //??0 oznacza, że jeśli ClientId z prawej będzie null to wstawi O
                         BankId = BankId ??0,
                         AmountRequested = AmountRequestedText,
                         AmountReceived = AmountReceivedText,
@@ -123,7 +125,7 @@ namespace CRMYourBankers.ViewModels
             CancelButtonCommand = new RelayCommand(() =>
             {
                 ClearAllFields();
-                TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationSearch" });
+                TabMessenger.Send(new TabChangeMessage { TabName = LastTabName.ToString()});
             });
         }
 
