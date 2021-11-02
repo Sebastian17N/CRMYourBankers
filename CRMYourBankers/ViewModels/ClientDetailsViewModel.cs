@@ -78,7 +78,9 @@ namespace CRMYourBankers.ViewModels
         }        
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
+        public ICommand DetailsScreenOpenHandler { get; set; }
         public YourBankersContext Context { get; set; }
+        public dynamic SelectedLoanApplication { get; set; }
         public ZusUs ZusUs { get; set; }
 
         public ClientDetailsViewModel(Messenger tabMessenger, YourBankersContext context)
@@ -104,6 +106,7 @@ namespace CRMYourBankers.ViewModels
                     bank => bank.Id,
                     (loan, bank) => new
                     {
+                        loan.Id,
                         loan.ClientId,
                         loan.AmountRequested,
                         loan.TasksToDo,
@@ -115,6 +118,7 @@ namespace CRMYourBankers.ViewModels
                     client => client.Id,
                     (loan, client) => new
                     {
+                        loan.Id,
                         loan.BankName,
                         loan.AmountRequested,
                         loan.TasksToDo
@@ -188,6 +192,15 @@ namespace CRMYourBankers.ViewModels
             {
                 ClearAllFields();
                 TabMessenger.Send(new TabChangeMessage { TabName = LastTabName.ToString() });
+            });
+            DetailsScreenOpenHandler = new RelayCommand(() =>
+            {
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    TabName = "LoanApplicationDetails",
+                    ObjectId = SelectedLoanApplication.Id,
+                    LastTabName = TabName.ClientDetails
+                });
             });
         }
 

@@ -133,8 +133,19 @@
             <DataGrid
                 Height="150"
                 AutoGenerateColumns="False"
-                ItemsSource="{Binding LoanApplicationsForClient}">
+                ItemsSource="{Binding LoanApplicationsForClient}"
+                SelectedItem="{Binding SelectedLoanApplication}">
                 <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Width="Auto"
+                                    Command="{Binding Path=DataContext.DetailsScreenOpenHandler, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                    Content="Szczegóły" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn
                         Width="120"
                         Binding="{Binding BankName}"
