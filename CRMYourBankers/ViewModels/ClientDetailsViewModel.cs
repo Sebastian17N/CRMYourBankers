@@ -15,7 +15,7 @@ using CRMYourBankers.Enum;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class ClientDetailsViewModel : TabBaseViewModel, IRefreshDataOwner
+    public class ClientDetailsViewModel : TabBaseViewModel, IRefreshDataOwner, ILastTabNameOwner
     {
         private Client _selectedClients;
         public Client SelectedClient 
@@ -63,6 +63,7 @@ namespace CRMYourBankers.ViewModels
         public string EmailText { get; set; }
         public int? PhoneNumberText { get; set; }
         public long? PersonalIdText { get; set; }
+        public TabName LastTabName { get; set; }
 
         public dynamic LoanApplicationsForClient { get; set; }
         private List<ClientTask> _clientTasks;
@@ -186,7 +187,7 @@ namespace CRMYourBankers.ViewModels
             CancelButtonCommand = new RelayCommand(() =>
             {
                 ClearAllFields();
-                TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearch" });
+                TabMessenger.Send(new TabChangeMessage { TabName = LastTabName.ToString() });
             });
         }
 

@@ -55,7 +55,8 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = "ClientDetails",
-                    ObjectId = SelectedClient.Id
+                    ObjectId = SelectedClient.Id,
+                    LastTabName = TabName.ClientSearch
                 });
             });
         }
