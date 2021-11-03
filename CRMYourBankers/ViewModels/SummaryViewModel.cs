@@ -69,6 +69,30 @@ namespace CRMYourBankers.ViewModels
                 .SingleOrDefault();//wyciągnij pojedynczą wartość albo domyślną jeśli nei znajdziesz wartości
         public double RealizedScore => ActualScoreValue != 0 ? 
             Math.Round(ActualScoreValue * 100 / (double)ActualTarget, 2) : 0;
+
+        // Przykłady innego napisania RealizedScore w postaci property z widocznym get i funkcji.
+        //public double Costam => ActualScoreValue != 0 ?
+        //    ActualScoreValue * 100 / ActualTarget : 0;
+
+        //public double RealizedScoreProperty
+        //{
+        //    get
+        //    {
+        //        if (ActualScoreValue != 0)
+        //            return Math.Round(ActualScoreValue * 100 / (double)ActualTarget, 2);
+        //        else
+        //            return 0;
+        //    }
+        //}
+
+        //public double RealizedScoreFunction()
+        //{
+        //    if (ActualScoreValue != 0)
+        //        return Math.Round(ActualScoreValue * 100 / (double)ActualTarget, 2);
+        //    else
+        //        return 0;
+        //}
+
         public SummaryViewModel(Messenger messenger, YourBankersContext context) : 
             base(messenger, TabName.Summary)
         {

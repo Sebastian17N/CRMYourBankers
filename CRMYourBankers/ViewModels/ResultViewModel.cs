@@ -23,7 +23,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand DetailsScreenOpenHandler { get; set; }
         public ICommand SaveTargetButtonComand { get; set; }
         public YourBankersContext Context { get; set; }
-        public LoanApplication SelectedLoanApplication { get; set; }
+        public dynamic SelectedLoanApplication { get; set; }
         public int EstimatedTargetText { get; set; }
 
 
