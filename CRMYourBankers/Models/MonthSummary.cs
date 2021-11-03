@@ -6,14 +6,13 @@ namespace CRMYourBankers.Models
     {
         public int Id { get; set; }
         public DateTime Month { get; set; }
-        public int EstimatedTarget { get; set; }
-        public DateTime PresentMonth { get; set; } = DateTime.Now;
+        public int EstimatedTarget { get; set; }        
         public string MonthDisplay 
             => Month.ToString("yyyy/MM");
         public bool Validate()
-        {
+        {            
             return
-            EstimatedTarget != null;
+            EstimatedTarget >= 0;
         }
     }
 }
