@@ -1,5 +1,5 @@
 ﻿using CRMYourBankers.Database;
-using CRMYourBankers.Enum;
+using CRMYourBankers.Enums;
 using CRMYourBankers.Messages;
 using CRMYourBankers.ViewModels.Base;
 using CRMYourBankers.ViewModels.Interfaces;

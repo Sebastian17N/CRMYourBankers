@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CRMYourBankers.Enum
+namespace CRMYourBankers.Enums
 {
     public enum TabName
     {

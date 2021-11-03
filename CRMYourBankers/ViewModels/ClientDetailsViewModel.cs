@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using CRMYourBankers.Enum;
+using CRMYourBankers.Enums;
 
 
 namespace CRMYourBankers.ViewModels
@@ -64,6 +64,7 @@ namespace CRMYourBankers.ViewModels
         public int? PhoneNumberText { get; set; }
         public long? PersonalIdText { get; set; }
         public TabName LastTabName { get; set; }
+        public ZusUs SelectedZusUs { get; set; }
 
         public dynamic LoanApplicationsForClient { get; set; }
         private List<ClientTask> _clientTasks;
@@ -81,7 +82,6 @@ namespace CRMYourBankers.ViewModels
         public ICommand DetailsScreenOpenHandler { get; set; }
         public YourBankersContext Context { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
-        public ZusUs ZusUs { get; set; }
 
         public ClientDetailsViewModel(Messenger tabMessenger, YourBankersContext context)
             : base(tabMessenger, TabName.ClientDetails)

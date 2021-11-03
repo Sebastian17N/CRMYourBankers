@@ -1,4 +1,4 @@
-﻿using CRMYourBankers.Enum;
+﻿using CRMYourBankers.Enums;
 using CRMYourBankers.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
