@@ -122,10 +122,24 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationSearch" });
                 ClearAllFields();
             });
-            CancelButtonCommand = new RelayCommand(() =>
-            {
-                ClearAllFields();
-                TabMessenger.Send(new TabChangeMessage { TabName = LastTabName.ToString()});
+            
+            //CancelButtonCommand = new RelayCommand(() =>
+            //{
+            //    ClearAllFields();
+            //    TabMessenger.Send(new TabChangeMessage { TabName = LastTabName.ToString()});
+            //});
+
+            // Przykład napisania zwykłej funkcji, którą możesz zastąpić funkcją anonimową - patrz komentarz wyżej.
+            CancelButtonCommand = new RelayCommand(CancelButtonCommandHandler);
+        }
+
+        private void CancelButtonCommandHandler ()
+        {
+            ClearAllFields();
+            TabMessenger.Send(new TabChangeMessage 
+            { 
+                TabName = LastTabName.ToString(),
+                ObjectId = LastTabName == TabName.ClientDetails ? SelectedLoanApplication.ClientId : 0
             });
         }
 

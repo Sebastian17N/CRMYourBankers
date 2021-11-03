@@ -34,7 +34,7 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <Label Content="Numer Telefonu:" />
-                    <toolkit:MaskedTextBox Mask="000-000-000" Text="{Binding PhoneNumberText}" />
+                    <TextBox Text="{Binding PhoneNumberText}" />
                 </StackPanel>
                 <StackPanel
                     Margin="5"
@@ -99,9 +99,7 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
                     <Label Content="ZUS:" />
-                    <ComboBox
-                        Width="200"
-                        ItemsSource="{Binding ZusUs}" />                    
+                    <ComboBox Width="200" ItemsSource="{Binding ZusUs}" />
                 </StackPanel>
                 <StackPanel
                     Margin="5"
