@@ -93,6 +93,8 @@ namespace CRMYourBankers.ViewModels
         //        return 0;
         //}
 
+        //strzałka to lambda, można powiedzieć, że to funkcja a nawet properta
+        //funkcja anonimowa to funkcja, która nie ma nazwy i nie możesz się do niej odwołać
         public SummaryViewModel(Messenger messenger, YourBankersContext context) : 
             base(messenger, TabName.Summary)
         {

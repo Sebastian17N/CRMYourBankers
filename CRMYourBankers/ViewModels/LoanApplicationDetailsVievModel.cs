@@ -28,6 +28,7 @@ namespace CRMYourBankers.ViewModels
         public Client Client { get; set; }
         public DateTime LoanStartDate { get; set; }
         public TabName LastTabName { get; set; }
+        public bool IsPaid { get; set; }
         #endregion
 
         public ObservableCollection<Client> Clients { get; set; }
@@ -81,7 +82,8 @@ namespace CRMYourBankers.ViewModels
                         AmountRequested = AmountRequestedText,
                         AmountReceived = AmountReceivedText,
                         ClientCommission  = ClientCommissionText,
-                        LoanStartDate = LoanStartDate                
+                        LoanStartDate = LoanStartDate,     
+                        Paid = IsPaid
                     };
 
                     if (!newLoanApplication.Validate())
@@ -102,7 +104,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
                     SelectedLoanApplication.LoanStartDate = LoanStartDate;
-                    //SelectedLoanApplication.TasksToDo = TasksToDoText;
+                    SelectedLoanApplication.Paid = IsPaid;
 
                     if (!SelectedLoanApplication.Validate())
                     {
@@ -159,7 +161,8 @@ namespace CRMYourBankers.ViewModels
             AmountReceivedText = null;
             ClientCommissionText = null;
             TasksToDoText = null;
-            LoanStartDate = DateTime.Now;   
+            LoanStartDate = DateTime.Now;
+            IsPaid = false;
         }
 
         public void RefreshData()
@@ -173,6 +176,7 @@ namespace CRMYourBankers.ViewModels
                 ClientCommissionText = _selectedLoanApplication.ClientCommission;
                 TasksToDoText = _selectedLoanApplication.TasksToDo;
                 LoanStartDate = _selectedLoanApplication.LoanStartDate;
+                IsPaid = _selectedLoanApplication.Paid;
             }
             NotifyPropertyChanged("LoanApplication");
         }
