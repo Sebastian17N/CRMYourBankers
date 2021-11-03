@@ -135,11 +135,17 @@
                         Binding="{Binding ClientCommission}"
                         Header="Prowizja"
                         IsReadOnly="False" />
-                    <DataGridCheckBoxColumn
-                        Width="Auto"
-                        Header="Czy opłacona?"
-                        IsReadOnly="True"
-                        Selector.IsSelected="{Binding Paid}" />
+                    <DataGridTemplateColumn Header="Zapłacono">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox
+                                    Width="Auto"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    IsChecked="{Binding Paid, Mode=OneWay}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

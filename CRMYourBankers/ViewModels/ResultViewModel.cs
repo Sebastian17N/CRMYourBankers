@@ -25,8 +25,7 @@ namespace CRMYourBankers.ViewModels
         public YourBankersContext Context { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
         public int EstimatedTargetText { get; set; }
-
-
+        
         public dynamic DataGridData { get; set; }
         public ObservableCollection<MonthSummary> MonthSummaries { get; set; }
 
@@ -86,7 +85,8 @@ namespace CRMYourBankers.ViewModels
                                 loan.AmountReceived,
                                 BankName = loan.Bank.Name,
                                 ClientCommission = loan.ClientCommission,
-                                Id = loan.Id
+                                Id = loan.Id,
+                                Paid = loan.Paid
                             }
                         ).ToList();
 
