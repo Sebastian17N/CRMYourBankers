@@ -86,7 +86,8 @@ namespace CRMYourBankers.ViewModels
                                 loan.AmountReceived,
                                 BankName = loan.Bank.Name,
                                 ClientCommission = loan.ClientCommission,
-                                Id = loan.Id
+                                Id = loan.Id,
+                                Paid = loan.Paid
                             }
                         ).ToList();
 

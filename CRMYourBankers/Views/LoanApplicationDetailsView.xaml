@@ -104,6 +104,11 @@
                 SelectedDate="{Binding LoanStartDate}"
                 SelectedDateFormat="Short"
                 Visibility="Visible" />
+            <CheckBox
+                Margin="10"
+                HorizontalContentAlignment="Right"
+                Content="Czy zapłacono"
+                IsChecked="{Binding IsPaid}" />
         </StackPanel>
         <Button
             Width="200"
