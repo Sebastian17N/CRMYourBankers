@@ -69,6 +69,8 @@ namespace CRMYourBankers.ViewModels
                 .SingleOrDefault();//wyciągnij pojedynczą wartość albo domyślną jeśli nei znajdziesz wartości
         public double RealizedScore => ActualScoreValue != 0 ? 
             Math.Round(ActualScoreValue * 100 / (double)ActualTarget, 2) : 0;
+        //strzałka to lambda, można powiedzieć, że to funkcja a nawet properta
+        //funkcja anonimowa to funkcja, która nie ma nazwy i nie możesz się do niej odwołać
         public SummaryViewModel(Messenger messenger, YourBankersContext context) : 
             base(messenger, TabName.Summary)
         {
