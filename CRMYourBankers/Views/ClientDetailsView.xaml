@@ -34,7 +34,7 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <Label Content="Numer Telefonu:" />
-                    <TextBox Text="{Binding PhoneNumberText}" />
+                    <TextBox Width="200" Text="{Binding PhoneNumberText}" />
                 </StackPanel>
                 <StackPanel
                     Margin="5"
@@ -67,14 +67,19 @@
                     <Label Content="Brokerka:" />
                     <TextBox Width="200" Text="{Binding ClientCommissionText}" />
                 </StackPanel>
-                <Button
-                    Width="200"
-                    Command="{Binding SaveButtonCommand}"
-                    Content="Save" />
-                <Button
-                    Width="200"
-                    Command="{Binding CancelButtonCommand}"
-                    Content="Cancel" />
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical">
+                    <Button
+                        Width="200"
+                        Command="{Binding SaveButtonCommand}"
+                        Content="Zapisz" />
+                    <Button
+                        Width="200"
+                        Command="{Binding CancelButtonCommand}"
+                        Content="Anuluj" />
+                </StackPanel>
             </StackPanel>
             <StackPanel
                 MaxWidth="1000"
@@ -105,13 +110,6 @@
                     Margin="5"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-                    <Label Content="Uwagi:" />
-                    <TextBox Width="200" Text="" />
-                </StackPanel>
-                <StackPanel
-                    Margin="5"
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal">
                     <Label Content="US:" />
                     <ComboBox
                         Width="200"
@@ -122,8 +120,32 @@
                     Margin="5"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-                    <Label Content="Uwagi:" />
-                    <TextBox Width="200" Text="" />
+                    <Label Content="Małżonek:" />
+                    <ComboBox Width="200" ItemsSource="{Binding SpouseList}" />
+                </StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Label Content="Ogólna notatka:" />
+                    <TextBox
+                        Width="200"
+                        Height="60"
+                        Text=""
+                        TextAlignment="Justify" />
+                </StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical">
+                    <TextBox
+                        Width="300"
+                        Height="20"
+                        Text="" />
+                    <Button
+                        Width="300"
+                        Command="{Binding AddNewClientTaskButtonCommand}"
+                        Content="Dodaj Nowe Zadanie" />
                 </StackPanel>
             </StackPanel>
         </StackPanel>
