@@ -165,7 +165,7 @@ namespace CRMYourBankers.ViewModels
             {
                 TabMessenger.Send(new TabChangeMessage
                 {
-                    TabName = "LoanApplicationDetails",
+                    TabName = TabName.LoanApplicationDetails,
                     ObjectId = SelectedLoanApplication.Id,
                     LastTabName = TabName.Summary
                 });
@@ -175,7 +175,7 @@ namespace CRMYourBankers.ViewModels
             {
                 TabMessenger.Send(new TabChangeMessage
                 {
-                    TabName = "ClientDetails",
+                    TabName = TabName.ClientDetails,
                     ObjectId = SelectedClient.Id,
                     LastTabName = TabName.Summary                    
                 });

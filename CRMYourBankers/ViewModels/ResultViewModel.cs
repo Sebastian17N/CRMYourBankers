@@ -101,7 +101,7 @@ namespace CRMYourBankers.ViewModels
             {
                 TabMessenger.Send(new TabChangeMessage
                 {
-                    TabName = "LoanApplicationDetails", 
+                    TabName = TabName.LoanApplicationDetails, 
                     ObjectId = SelectedLoanApplication.Id
                 });
             });

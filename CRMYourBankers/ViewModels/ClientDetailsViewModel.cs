@@ -184,20 +184,20 @@ namespace CRMYourBankers.ViewModels
                     "Dodano Klienta",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
-                TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearch" });
+                TabMessenger.Send(new TabChangeMessage { TabName = TabName.ClientSearch });
                 ClearAllFields();                              
             });
 
             CancelButtonCommand = new RelayCommand(() =>
             {
                 ClearAllFields();
-                TabMessenger.Send(new TabChangeMessage { TabName = LastTabName.ToString() });
+                TabMessenger.Send(new TabChangeMessage { TabName = LastTabName });
             });
             DetailsScreenOpenHandler = new RelayCommand(() =>
             {
                 TabMessenger.Send(new TabChangeMessage
                 {
-                    TabName = "LoanApplicationDetails",
+                    TabName = TabName.LoanApplicationDetails,
                     ObjectId = SelectedLoanApplication.Id,
                     LastTabName = TabName.ClientDetails
                 });

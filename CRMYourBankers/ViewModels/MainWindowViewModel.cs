@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using CRMYourBankers.Enum;
 
 namespace CRMYourBankers.ViewModels
 {
@@ -136,7 +137,7 @@ namespace CRMYourBankers.ViewModels
             {
                 TabMessenger.Send(new TabChangeMessage 
                 { 
-                    TabName = "ClientDetails",
+                    TabName = TabName.ClientDetails,
                     LastTabName = SelectedTab.TabName
                 });
             });
@@ -144,25 +145,25 @@ namespace CRMYourBankers.ViewModels
             {
                 TabMessenger.Send(new TabChangeMessage
                 { 
-                    TabName = "LoanApplicationDetails",
+                    TabName = TabName.LoanApplicationDetails,
                     LastTabName = SelectedTab.TabName
                 });
             });
             OpenClientsSearchScreenCommand = new RelayCommand(() =>
             {
-                TabMessenger.Send(new TabChangeMessage { TabName = "ClientSearch" });
+                TabMessenger.Send(new TabChangeMessage { TabName = TabName.ClientSearch });
             });
             OpenLoanApplicationsSearchScreenCommand = new RelayCommand(() =>
             {
-                TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationSearch" });
+                TabMessenger.Send(new TabChangeMessage { TabName = TabName.LoanApplicationSearch });
             });
             OpenMainWindowSearchScreenCommand = new RelayCommand(() =>
             {
-                TabMessenger.Send(new TabChangeMessage { TabName = "Summary" });
+                TabMessenger.Send(new TabChangeMessage { TabName = TabName.Summary });
             });
             OpenResultScreenCommand = new RelayCommand(() =>
             {
-                TabMessenger.Send(new TabChangeMessage { TabName = "Result" });
+                TabMessenger.Send(new TabChangeMessage { TabName = TabName.Result });
             });
         }
 
@@ -173,30 +174,30 @@ namespace CRMYourBankers.ViewModels
             {                
                 switch (message.TabName)
                 {
-                    case "ClientSearch":
+                    case TabName.ClientSearch:
                         SelectedTab = _clientSearchViewModel;
                         break;
 
-                    case "ClientDetails":
+                    case TabName.ClientDetails:
                         _clientDetailsViewModel.SelectedClient = message.ObjectId > 0 ?
                            Context.Clients.Single(client => client.Id == message.ObjectId) : null;
                         SelectedTab = _clientDetailsViewModel;                       
                         break;
 
-                    case "LoanApplicationSearch":
+                    case TabName.LoanApplicationSearch:
                         SelectedTab = _loanApplicationSearchViewModel;
                         break;
-                    case "LoanApplicationDetails":
+                    case TabName.LoanApplicationDetails:
                         _loanApplicationDetailsViewModel.SelectedLoanApplication =
                             message.ObjectId > 0 ?
                             Context.LoanApplications.Single(loan => loan.Id == message.ObjectId) :
                             null;
                         SelectedTab = _loanApplicationDetailsViewModel;
                             break;
-                    case "Summary":
+                    case TabName.Summary:
                         SelectedTab = _summaryViewModel;
                         break;
-                    case "Result":
+                    case TabName.Result:
                         SelectedTab = _resultViewModel;
                         break;
                 }
