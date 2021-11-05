@@ -184,7 +184,7 @@ namespace CRMYourBankers.ViewModels
                     "Dodano Klienta",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
-                TabMessenger.Send(new TabChangeMessage { TabName = TabName.ClientSearch });
+                TabMessenger.Send(new TabChangeMessage { TabName = LastTabName });
                 ClearAllFields();                              
             });
 
@@ -193,6 +193,7 @@ namespace CRMYourBankers.ViewModels
                 ClearAllFields();
                 TabMessenger.Send(new TabChangeMessage { TabName = LastTabName });
             });
+
             DetailsScreenOpenHandler = new RelayCommand(() =>
             {
                 TabMessenger.Send(new TabChangeMessage

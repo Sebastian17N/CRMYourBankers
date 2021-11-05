@@ -121,7 +121,7 @@ namespace CRMYourBankers.ViewModels
                     "Dodano Nowy Wniosek",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
-                TabMessenger.Send(new TabChangeMessage { TabName = TabName.LoanApplicationSearch });
+                TabMessenger.Send(new TabChangeMessage { TabName = LastTabName });
                 ClearAllFields();
             });
             
