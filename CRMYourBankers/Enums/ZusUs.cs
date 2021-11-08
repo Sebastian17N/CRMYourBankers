@@ -1,14 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
 
 namespace CRMYourBankers.Enums
 {
     public enum ZusUs
     {
-        [Display(Name="Nie zalega")]
+        [Description("Nie zalega")]
         NieZalega,
-        [Display(Name = "Zalega")]
+        [Description("Zalega")]
         Zalega,
-        [Display(Name = "Układ ratalny")]
+        [Description("Układ ratalny")]
         UkładRatalny
     }
 }
