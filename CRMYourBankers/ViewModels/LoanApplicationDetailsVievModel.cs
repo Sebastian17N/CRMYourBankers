@@ -11,7 +11,7 @@ using CRMYourBankers.Database;
 using System.Collections.ObjectModel;
 using CRMYourBankers.ViewModels.Interfaces;
 using System;
-using CRMYourBankers.Enum;
+using CRMYourBankers.Enums;
 
 namespace CRMYourBankers.ViewModels
 {

@@ -5,16 +5,12 @@ using CRMYourBankers.ViewModels.Base;
 using CRMYourBankers.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using CRMYourBankers.Enum;
+using CRMYourBankers.Enums;
 
 namespace CRMYourBankers.ViewModels
 {

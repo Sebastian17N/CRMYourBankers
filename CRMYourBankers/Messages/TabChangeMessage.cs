@@ -1,5 +1,4 @@
-﻿using CRMYourBankers.Enum;
-using CRMYourBankers.Models;
+﻿using CRMYourBankers.Enums;
 
 namespace CRMYourBankers.Messages
 {

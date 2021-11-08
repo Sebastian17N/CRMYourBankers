@@ -1,5 +1,5 @@
 ﻿using CRMYourBankers.Database;
-using CRMYourBankers.Enum;
+using CRMYourBankers.Enums;
 using CRMYourBankers.Messages;
 using CRMYourBankers.Models;
 using CRMYourBankers.ViewModels.Base;
@@ -11,8 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CRMYourBankers.ViewModels
