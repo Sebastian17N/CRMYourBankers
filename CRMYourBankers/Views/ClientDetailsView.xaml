@@ -132,7 +132,8 @@
                         Width="200"
                         Height="60"
                         Text=""
-                        TextAlignment="Justify" />
+                        TextAlignment="Justify"
+                        TextWrapping="Wrap" />
                 </StackPanel>
                 <StackPanel
                     Margin="5"
