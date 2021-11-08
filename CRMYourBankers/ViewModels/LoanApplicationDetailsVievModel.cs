@@ -121,7 +121,7 @@ namespace CRMYourBankers.ViewModels
                     "Dodano Nowy Wniosek",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
-                TabMessenger.Send(new TabChangeMessage { TabName = "LoanApplicationSearch" });
+                TabMessenger.Send(new TabChangeMessage { TabName = LastTabName });
                 ClearAllFields();
             });
             
@@ -140,7 +140,7 @@ namespace CRMYourBankers.ViewModels
             ClearAllFields();
             TabMessenger.Send(new TabChangeMessage 
             { 
-                TabName = LastTabName.ToString(),
+                TabName = LastTabName,
                 ObjectId = LastTabName == TabName.ClientDetails ? SelectedLoanApplication.ClientId : 0
             });
         }

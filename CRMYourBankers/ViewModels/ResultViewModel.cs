@@ -22,6 +22,7 @@ namespace CRMYourBankers.ViewModels
     {
         public ICommand DetailsScreenOpenHandler { get; set; }
         public ICommand SaveTargetButtonComand { get; set; }
+        public ICommand AddNewMonthCommand { get; set; }
         public YourBankersContext Context { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
         public int EstimatedTargetText { get; set; }
@@ -99,7 +100,7 @@ namespace CRMYourBankers.ViewModels
             {
                 TabMessenger.Send(new TabChangeMessage
                 {
-                    TabName = "LoanApplicationDetails", 
+                    TabName = TabName.LoanApplicationDetails, 
                     ObjectId = SelectedLoanApplication.Id
                 });
             });
@@ -122,7 +123,31 @@ namespace CRMYourBankers.ViewModels
                     MessageBoxImage.Information);                    
                 }
                 Context.SaveChanges();
-            });            
+            });
+            AddNewMonthCommand = new RelayCommand(() =>
+            {
+                if (Context.MonthSummaries.Any(month => 
+                        month.Month.Year == DateTime.Today.Year &&
+                        month.Month.Month == DateTime.Today.Month))
+                {
+                    MessageBox.Show("Obecny miesiąc już istnieje",
+                       "Błędy w formularzu",
+                       MessageBoxButton.OK,
+                       MessageBoxImage.Warning);
+                    return;
+                }                
+                var newMonthSummary = new MonthSummary
+                {
+                    Month = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1)
+
+                };
+                Context.MonthSummaries.Add(newMonthSummary);
+                Context.SaveChanges();
+                MessageBox.Show($"Dodano nowy miesiąc: {newMonthSummary.Month: yyyy.MM}",
+                    "Dodano Target",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            });
         }
     }
 }
