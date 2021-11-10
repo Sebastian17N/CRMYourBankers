@@ -157,9 +157,10 @@ namespace CRMYourBankers.Database
                     new List<Bank>
                     {
                         new Bank{Id = 1, Name = "Santander"},
-                        new Bank{Id = 2, Name = "Alior"},
-                        new Bank{Id = 3, Name = "BNP"},
-                        new Bank{Id = 4, Name = "mBank"},
+                        new Bank{Id = 2, Name = "Santander Firmowy"},
+                        new Bank{Id = 3, Name = "Alior"},
+                        new Bank{Id = 4, Name = "BNP"},
+                        new Bank{Id = 5, Name = "mBank"},
                     });
 
                 SaveChanges();

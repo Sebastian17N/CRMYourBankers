@@ -60,6 +60,8 @@ namespace CRMYourBankers.ViewModels
         {
             Context = context;
             RegisterCommands();
+            NotifyPropertyChanged("SelectedMonthSummary");
+            NotifyPropertyChanged("MonthSummaries");
         }     
         
         public void RefreshReferenceData()

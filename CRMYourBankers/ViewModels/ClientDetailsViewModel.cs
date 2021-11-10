@@ -63,7 +63,10 @@ namespace CRMYourBankers.ViewModels
         public string EmailText { get; set; }
         public int? PhoneNumberText { get; set; }
         public long? PersonalIdText { get; set; }
+        public string NewTaskText { get; set; }
         public TabName LastTabName { get; set; }
+        public ZusUs ZusUs { get; set; }
+        public Spouse Spouse { get; set; }
 
         public dynamic LoanApplicationsForClient { get; set; }
         private List<ClientTask> _clientTasks;
@@ -79,9 +82,9 @@ namespace CRMYourBankers.ViewModels
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
         public ICommand DetailsScreenOpenHandler { get; set; }
+        public ICommand AddNewClientTaskButtonCommand { get; set; }
         public YourBankersContext Context { get; set; }
-        public dynamic SelectedLoanApplication { get; set; }
-        public ZusUs ZusUs { get; set; }
+        public dynamic SelectedLoanApplication { get; set; }        
 
         public ClientDetailsViewModel(Messenger tabMessenger, YourBankersContext context)
             : base(tabMessenger, TabName.ClientDetails)
@@ -202,6 +205,14 @@ namespace CRMYourBankers.ViewModels
                     ObjectId = SelectedLoanApplication.Id,
                     LastTabName = TabName.ClientDetails
                 });
+            });
+            AddNewClientTaskButtonCommand = new RelayCommand(() =>
+            {
+                var newClientTask = new ClientTask
+                {
+                    Text = NewTaskText
+                };
+                NewTaskText = "";
             });
         }
 
