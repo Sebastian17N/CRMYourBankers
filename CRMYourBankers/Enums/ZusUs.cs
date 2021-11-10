@@ -5,10 +5,10 @@ namespace CRMYourBankers.Enums
     public enum ZusUs
     {
         [Description("Nie zalega")]
-        NieZalega,
+        DontArrear,
         [Description("Zalega")]
-        Zalega,
+        Arrear,
         [Description("Układ ratalny")]
-        UkładRatalny
+        InstallmentPlan
     }
 }

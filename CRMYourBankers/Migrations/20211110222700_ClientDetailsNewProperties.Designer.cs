@@ -3,14 +3,16 @@ using System;
 using CRMYourBankers.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRMYourBankers.Migrations
 {
     [DbContext(typeof(YourBankersContext))]
-    partial class YourBankersContextModelSnapshot : ModelSnapshot
+    [Migration("20211110222700_ClientDetailsNewProperties")]
+    partial class ClientDetailsNewProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,8 +44,8 @@ namespace CRMYourBankers.Migrations
                     b.Property<string>("ClientCommission")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ContactPerson")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("ContactPerson")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
@@ -51,8 +53,8 @@ namespace CRMYourBankers.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("GeneralNote")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("GeneralNote")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
                         .HasColumnType("TEXT");
@@ -63,8 +65,8 @@ namespace CRMYourBankers.Migrations
                     b.Property<int?>("PhoneNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("WhatHesJob")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("WhatHesJob")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ZusUs")
                         .HasColumnType("INTEGER");

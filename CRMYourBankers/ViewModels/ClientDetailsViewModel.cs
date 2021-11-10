@@ -32,6 +32,12 @@ namespace CRMYourBankers.ViewModels
                     EmailText = _selectedClients.Email;
                     PhoneNumberText = _selectedClients.PhoneNumber;
                     PersonalIdText = _selectedClients.PersonalId;
+                    AmountRequestedText = _selectedClients.AmountRequested;
+                    ClientCommissionText = _selectedClients.ClientCommission;
+                    ContactPersonText = _selectedClients.ContactPerson;
+                    WhatHesJobText = _selectedClients.WhatHesJob;
+                    ZusUs = _selectedClients.ZusUs;
+                    GeneralNoteText = _selectedClients.GeneralNote;
                 }
                 else
                 {
@@ -63,6 +69,11 @@ namespace CRMYourBankers.ViewModels
         public string EmailText { get; set; }
         public int? PhoneNumberText { get; set; }
         public long? PersonalIdText { get; set; }
+        public long AmountRequestedText { get; set; }
+        public string ClientCommissionText { get; set; }
+        public string ContactPersonText { get; set; }
+        public string WhatHesJobText { get; set; }
+        public string GeneralNoteText { get; set; }
         public string NewTaskText { get; set; }
         public TabName LastTabName { get; set; }
         public ZusUs ZusUs { get; set; }
@@ -141,7 +152,14 @@ namespace CRMYourBankers.ViewModels
                         LastName = LastNameText,
                         PhoneNumber = PhoneNumberText,
                         Email = EmailText,
-                        PersonalId = PersonalIdText,                        
+                        PersonalId = PersonalIdText,
+                        AmountRequested = AmountRequestedText,
+                        ClientCommission = ClientCommissionText,
+                        ContactPerson = ContactPersonText,
+                        WhatHesJob = WhatHesJobText,
+                        ZusUs = ZusUs,
+                        GeneralNote = GeneralNoteText
+                        
                     };
 
                     if (!newClient.Validate())
@@ -171,6 +189,12 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.PhoneNumber = PhoneNumberText;
                     SelectedClient.Email = EmailText;
                     SelectedClient.PersonalId = PersonalIdText;
+                    SelectedClient.AmountRequested = AmountRequestedText;
+                    SelectedClient.ClientCommission = ClientCommissionText;
+                    SelectedClient.ContactPerson = ContactPersonText;
+                    SelectedClient.WhatHesJob = WhatHesJobText;
+                    SelectedClient.ZusUs = ZusUs;
+                    SelectedClient.GeneralNote = GeneralNoteText;
 
                     if (!SelectedClient.Validate())
                     {

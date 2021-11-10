@@ -13,6 +13,8 @@ namespace CRMYourBankers.Enums
         [Description("Rozwód")]
         Divorced,
         [Description("Wdowa / Wdowiec")]
-        Widower
+        Widower,
+        [Description("Wdowiec, ale ma małżonke")]
+        FakeWidower
     }
 }
