@@ -98,7 +98,8 @@
                 Height="300"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding DataGridData}"
-                SelectedItem="{Binding SelectedLoanApplication}">
+                SelectedItem="{Binding SelectedLoanApplication}"
+                SelectionChanged="DataGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
@@ -111,7 +112,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn
-                        Width="120"
+                        Width="200"
                         Binding="{Binding ClientFullName}"
                         Header="Klient"
                         IsReadOnly="True" />

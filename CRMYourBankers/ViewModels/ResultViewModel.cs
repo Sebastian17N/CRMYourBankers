@@ -41,6 +41,7 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("SelectedMonthSummary");
                 NotifyPropertyChanged("ActualScore");
                 NotifyPropertyChanged("RealizedScore");
+                NotifyPropertyChanged("MonthSummaries");
                 // jeśli kliknę w view w miesiąc to on wypełnia Value, potem SelectedMonthSummary
                 // potem _selectedMonthSummary a NotifyPropertyChanged odświeża watości na view
                 RefreshData();
@@ -68,7 +69,9 @@ namespace CRMYourBankers.ViewModels
         
         public void RefreshReferenceData()
         {
-            MonthSummaries = new ObservableCollection<MonthSummary>(Context.MonthSummaries.ToList());            
+            MonthSummaries = new ObservableCollection<MonthSummary>(Context.MonthSummaries.ToList());
+            NotifyPropertyChanged("SelectedMonthSummary");
+            NotifyPropertyChanged("MonthSummaries");
         }
 
         public void RefreshData()
@@ -140,7 +143,6 @@ namespace CRMYourBankers.ViewModels
                 var newMonthSummary = new MonthSummary
                 {
                     Month = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1)
-
                 };
                 Context.MonthSummaries.Add(newMonthSummary);
                 Context.SaveChanges();
@@ -148,6 +150,9 @@ namespace CRMYourBankers.ViewModels
                     "Dodano Target",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
+
+                NotifyPropertyChanged("SelectedMonthSummary");
+                NotifyPropertyChanged("MonthSummaries");
             });
         }
     }
