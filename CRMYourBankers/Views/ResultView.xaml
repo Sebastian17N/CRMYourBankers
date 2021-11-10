@@ -47,7 +47,7 @@
                     <TextBox
                         Width="200"
                         IsReadOnly="False"
-                        Text="{Binding SelectedMonthSummary.EstimatedTarget}" />
+                        Text="{Binding EstimatedTargetText}" />
                 </StackPanel>
                 <StackPanel
                     Margin="5"
