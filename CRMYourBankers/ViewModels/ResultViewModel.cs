@@ -5,16 +5,12 @@ using CRMYourBankers.ViewModels.Base;
 using CRMYourBankers.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using CRMYourBankers.Enum;
+using CRMYourBankers.Enums;
 
 namespace CRMYourBankers.ViewModels
 {
@@ -26,8 +22,7 @@ namespace CRMYourBankers.ViewModels
         public YourBankersContext Context { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
         public int EstimatedTargetText { get; set; }
-
-
+        
         public dynamic DataGridData { get; set; }
         public ObservableCollection<MonthSummary> MonthSummaries { get; set; }
 
