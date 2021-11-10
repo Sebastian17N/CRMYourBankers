@@ -60,8 +60,6 @@ namespace CRMYourBankers.ViewModels
         {
             Context = context;
             RegisterCommands();
-            NotifyPropertyChanged("SelectedMonthSummary");
-            NotifyPropertyChanged("MonthSummaries");
         }     
         
         public void RefreshReferenceData()
@@ -70,7 +68,8 @@ namespace CRMYourBankers.ViewModels
             NotifyPropertyChanged("SelectedMonthSummary");
             NotifyPropertyChanged("MonthSummaries");
         }
-
+        //to odświeża się tylko gdy zmienia się TAB, jeśli chce to wywołać podczas pracy na konkretnej zakładki musze to dodać
+        //tak jak w funkcji AddNewMonthCommand
         public void RefreshData()
         {
             if (SelectedMonthSummary != null)
@@ -148,8 +147,7 @@ namespace CRMYourBankers.ViewModels
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
 
-                NotifyPropertyChanged("SelectedMonthSummary");
-                NotifyPropertyChanged("MonthSummaries");
+                RefreshReferenceData();
             });
         }
     }
