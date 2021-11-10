@@ -106,7 +106,8 @@
             <CheckBox
                 Margin="10"
                 HorizontalContentAlignment="Right"
-                Content="Czy zapłacono"
+                Content="Czy zapłacono  "
+                FlowDirection="RightToLeft"
                 IsChecked="{Binding IsPaid}" />
         </StackPanel>
         <Button
