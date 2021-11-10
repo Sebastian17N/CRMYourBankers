@@ -37,6 +37,7 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("ActualScore");
                 NotifyPropertyChanged("RealizedScore");
                 NotifyPropertyChanged("MonthSummaries");
+                NotifyPropertyChanged("CommissionPaid");
                 // jeśli kliknę w view w miesiąc to on wypełnia Value, potem SelectedMonthSummary
                 // potem _selectedMonthSummary a NotifyPropertyChanged odświeża watości na view
                 RefreshData();
@@ -49,11 +50,19 @@ namespace CRMYourBankers.ViewModels
             Context
                 .LoanApplications
                 .Where(loan => loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
+                .Where(loan => loan.LoanStartDate.Year == SelectedMonthSummary.Month.Year)
                 .Sum(loan => loan.AmountReceived).Value;
         //to jest tylko getter, jeśli nie ma settera to na view musi być ustalone mode = one 
         //ponieważ dzięki temu kontrolki wiedzą, że to jest kmunikacja jednokierunkowa, view model na view
         public double RealizedScore => SelectedMonthSummary != null ?
             Math.Round(ActualScoreValue*100 / (double)SelectedMonthSummary.EstimatedTarget, 2) : 0;
+
+        public double CommissionPaid => SelectedMonthSummary != null ?
+            Context.LoanApplications
+            .Where(loan => loan.Paid)
+            .Where(loan => loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
+            .Where(loan => loan.LoanStartDate.Year == SelectedMonthSummary.Month.Year)
+            .Sum(loan => loan.ClientCommission).Value : 0;//value jest ponieważ clientCommision może być null i to zabezpiecza
 
         public ResultViewModel(Messenger messenger, YourBankersContext context) : 
             base(messenger, TabName.Result)
@@ -103,7 +112,8 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = TabName.LoanApplicationDetails, 
-                    ObjectId = SelectedLoanApplication.Id
+                    ObjectId = SelectedLoanApplication.Id,
+                    LastTabName = TabName.Result
                 });
             });
             SaveTargetButtonComand = new RelayCommand(() =>
@@ -124,11 +134,12 @@ namespace CRMYourBankers.ViewModels
 
                 SelectedMonthSummary.EstimatedTarget = estimatedTargetValue;
                 Context.SaveChanges();
+                NotifyPropertyChanged("RealizedScore");
 
                 MessageBox.Show($"Zapisano Target: {estimatedTargetValue}",
                     "Dodano Target",
                     MessageBoxButton.OK,
-                    MessageBoxImage.Information);                
+                    MessageBoxImage.Information);                   
             });
             AddNewMonthCommand = new RelayCommand(() =>
             {

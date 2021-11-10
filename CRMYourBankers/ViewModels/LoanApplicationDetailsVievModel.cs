@@ -103,6 +103,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedLoanApplication.BankId = BankId ?? 0;
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
+                    SelectedLoanApplication.ClientCommission = ClientCommissionText;
                     SelectedLoanApplication.LoanStartDate = LoanStartDate;
                     SelectedLoanApplication.Paid = IsPaid;
 

@@ -141,7 +141,7 @@ namespace CRMYourBankers.ViewModels
                         LastName = LastNameText,
                         PhoneNumber = PhoneNumberText,
                         Email = EmailText,
-                        PersonalId = PersonalIdText
+                        PersonalId = PersonalIdText,                        
                     };
 
                     if (!newClient.Validate())
