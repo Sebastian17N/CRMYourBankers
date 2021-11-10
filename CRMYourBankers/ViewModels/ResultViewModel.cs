@@ -21,7 +21,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand AddNewMonthCommand { get; set; }
         public YourBankersContext Context { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
-        public int EstimatedTargetText { get; set; }
+        public string EstimatedTargetText { get; set; }
         
         public dynamic DataGridData { get; set; }
         public ObservableCollection<MonthSummary> MonthSummaries { get; set; }
@@ -90,8 +90,10 @@ namespace CRMYourBankers.ViewModels
                                 Paid = loan.Paid
                             }
                         ).ToList();
-
                 NotifyPropertyChanged("DataGridData");
+
+                EstimatedTargetText = SelectedMonthSummary.EstimatedTarget.ToString();
+                NotifyPropertyChanged("EstimatedTargetText");
             }
         }
         public void RegisterCommands()
@@ -106,23 +108,27 @@ namespace CRMYourBankers.ViewModels
             });
             SaveTargetButtonComand = new RelayCommand(() =>
             {                
-                if (!SelectedMonthSummary.Validate())
+                if (!int.TryParse(EstimatedTargetText, out var estimatedTargetValue) 
+                    || estimatedTargetValue < 0)
                 {
                     MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
                         "Błędy w formularzu",
                         MessageBoxButton.OK,
                         MessageBoxImage.Warning);
+
+                    EstimatedTargetText = SelectedMonthSummary.EstimatedTarget.ToString();
+                    NotifyPropertyChanged("EstimatedTargetText");
+
                     return;
                 }
-                else
-                {
-                    EstimatedTargetText = SelectedMonthSummary.EstimatedTarget;
-                    MessageBox.Show($"Zapisano Target: {EstimatedTargetText}",
+
+                SelectedMonthSummary.EstimatedTarget = estimatedTargetValue;
+                Context.SaveChanges();
+
+                MessageBox.Show($"Zapisano Target: {estimatedTargetValue}",
                     "Dodano Target",
                     MessageBoxButton.OK,
-                    MessageBoxImage.Information);                    
-                }
-                Context.SaveChanges();
+                    MessageBoxImage.Information);                
             });
             AddNewMonthCommand = new RelayCommand(() =>
             {
