@@ -77,6 +77,7 @@ namespace CRMYourBankers.ViewModels
         public TabName LastTabName { get; set; }
         public ZusUs ZusUs { get; set; }
         public Spouse Spouse { get; set; }
+        public ClientStatus ClientStatus { get; set; }
 
         public dynamic LoanApplicationsForClient { get; set; }
         private List<ClientTask> _clientTasks;

@@ -28,10 +28,31 @@
                 <x:Type TypeName="enums:Spouse" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
+        <ObjectDataProvider
+            x:Key="ClientStatusEnumList"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:ClientStatus" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />        
     </UserControl.Resources>
 
     <StackPanel Orientation="Vertical">
+        <StackPanel
+            Margin="10"
+            HorizontalAlignment="Left"
+            Orientation="Horizontal">
+            <Label Content="STATUS KLIENTA :   " />
+            <ComboBox Width="200" ItemsSource="{Binding Source={StaticResource ClientStatusEnumList}}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
         <StackPanel Orientation="Horizontal">
             <StackPanel
                 MaxWidth="1000"
