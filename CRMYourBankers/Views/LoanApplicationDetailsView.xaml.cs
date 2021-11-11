@@ -10,6 +10,11 @@ namespace CRMYourBankers.Views
         public LoanApplicationDetailsView()
         {
             InitializeComponent();
-        }       
+        }
+
+        private void CheckBox_Collapsed(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }

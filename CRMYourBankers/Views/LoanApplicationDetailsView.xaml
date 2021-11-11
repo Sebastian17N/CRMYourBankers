@@ -98,14 +98,18 @@
             Orientation="Horizontal">
             <Label Content="Data uruchomienia kredytu" />
             <DatePicker
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
                 FirstDayOfWeek="Monday"
                 IsTodayHighlighted="True"
                 SelectedDate="{Binding LoanStartDate}"
                 SelectedDateFormat="Short"
                 Visibility="Visible" />
             <CheckBox
-                Margin="10"
-                HorizontalContentAlignment="Right"
+                Margin="5,5,5,5"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                BorderThickness="5,5,5,5"
                 Content="Czy zapłacono  "
                 FlowDirection="RightToLeft"
                 IsChecked="{Binding IsPaid}" />

@@ -74,7 +74,6 @@ namespace CRMYourBankers.ViewModels
         public string ContactPersonText { get; set; }
         public string WhatHesJobText { get; set; }
         public string GeneralNoteText { get; set; }
-        public string NewTaskText { get; set; }
         public TabName LastTabName { get; set; }
         public ZusUs ZusUs { get; set; }
         public Spouse Spouse { get; set; }
@@ -232,11 +231,14 @@ namespace CRMYourBankers.ViewModels
             });
             AddNewClientTaskButtonCommand = new RelayCommand(() =>
             {
-                var newClientTask = new ClientTask
+                if (SelectedClient != null)
                 {
-                    Text = NewTaskText
-                };
-                NewTaskText = "";
+                    var newClientTask = new ClientTask
+                    {
+                        
+                    };
+                    Context.ClientTasks.Add(newClientTask);
+                }                
             });
         }
 
