@@ -11,10 +11,5 @@ namespace CRMYourBankers.Views
         {
             InitializeComponent();
         }
-
-        private void CheckBox_Collapsed(object sender, System.Windows.RoutedEventArgs e)
-        {
-
-        }
     }
 }

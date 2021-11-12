@@ -20,6 +20,8 @@ namespace CRMYourBankers.Models
         public string WhatHesJob { get; set; }
         public string GeneralNote { get; set; }
         public ZusUs ZusUs { get; set; }
+        //public Bank Bank { get; set; }
+        //public int BankId { get; set; }
         public List<ClientTask> ClientTasks { get; set; }
 
         public string FullName => $"{FirstName} {LastName} {Email}";

@@ -11,11 +11,11 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using CRMYourBankers.Enums;
-
+using System.Collections.ObjectModel;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class ClientDetailsViewModel : TabBaseViewModel, IRefreshDataOwner, ILastTabNameOwner
+    public class ClientDetailsViewModel : TabBaseViewModel, IRefreshDataOwner, ILastTabNameOwner, IRefreshReferenceDataOwner
     {
         private Client _selectedClients;
         public Client SelectedClient 
@@ -38,6 +38,7 @@ namespace CRMYourBankers.ViewModels
                     WhatHesJobText = _selectedClients.WhatHesJob;
                     ZusUs = _selectedClients.ZusUs;
                     GeneralNoteText = _selectedClients.GeneralNote;
+
                 }
                 else
                 {
@@ -74,6 +75,7 @@ namespace CRMYourBankers.ViewModels
         public string ContactPersonText { get; set; }
         public string WhatHesJobText { get; set; }
         public string GeneralNoteText { get; set; }
+        //public int? BankId { get; set; }
         public TabName LastTabName { get; set; }
         public ZusUs ZusUs { get; set; }
         public Spouse Spouse { get; set; }
@@ -95,7 +97,8 @@ namespace CRMYourBankers.ViewModels
         public ICommand DetailsScreenOpenHandler { get; set; }
         public ICommand AddNewClientTaskButtonCommand { get; set; }
         public YourBankersContext Context { get; set; }
-        public dynamic SelectedLoanApplication { get; set; }        
+        public dynamic SelectedLoanApplication { get; set; }
+        public ObservableCollection<Bank> Banks { get; set; }
 
         public ClientDetailsViewModel(Messenger tabMessenger, YourBankersContext context)
             : base(tabMessenger, TabName.ClientDetails)
@@ -103,7 +106,11 @@ namespace CRMYourBankers.ViewModels
             Context = context;
             RegisterCommands();
         }
-
+        public void RefreshReferenceData()
+        {
+            Banks = new ObservableCollection<Bank>(Context.Banks.ToList());
+        }
+        
         public void RefreshData()
         {
             if (SelectedClient == null)
@@ -158,8 +165,8 @@ namespace CRMYourBankers.ViewModels
                         ContactPerson = ContactPersonText,
                         WhatHesJob = WhatHesJobText,
                         ZusUs = ZusUs,
-                        GeneralNote = GeneralNoteText
-                        
+                        GeneralNote = GeneralNoteText,
+                        //BankId = BankId ?? 0
                     };
 
                     if (!newClient.Validate())

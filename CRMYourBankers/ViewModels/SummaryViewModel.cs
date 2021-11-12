@@ -127,7 +127,8 @@ namespace CRMYourBankers.ViewModels
                         loan.BankName,
                         loan.AmountRequested,
                         loan.AmountReceived,
-                        loan.TasksToDo
+                        loan.TasksToDo,
+                        //client.BankId
                     })
                 .ToList();            
             
