@@ -36,6 +36,14 @@
                 <x:Type TypeName="enums:ClientStatus" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <ObjectDataProvider
+            x:Key="BrokerEnumList"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Broker" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
         <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
     </UserControl.Resources>
 
@@ -126,7 +134,20 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
                     <Label Content="Brokerka:" />
-                    <TextBox Width="200" Text="{Binding ClientCommissionText}" />
+                    <TextBox Width="200" Text="{Binding ClientCommissionText}" TextChanged="TextBox_TextChanged" />
+                </StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Label Content="Pośrednik:" />
+                    <ComboBox Width="200" ItemsSource="{Binding Source={StaticResource BrokerEnumList}}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </StackPanel>
                 <StackPanel
                     Margin="5"
