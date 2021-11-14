@@ -29,6 +29,7 @@ namespace CRMYourBankers.ViewModels
         public DateTime LoanStartDate { get; set; }
         public TabName LastTabName { get; set; }
         public bool IsPaid { get; set; }
+        public string FullName { get; set; }
         #endregion
 
         public ObservableCollection<Client> Clients { get; set; }
@@ -118,7 +119,10 @@ namespace CRMYourBankers.ViewModels
                 }
 
                 Context.SaveChanges();
-                MessageBox.Show($"Zapisano: {ClientId} {BankId} {AmountRequestedText}",
+                MessageBox.Show($"Zapisano: {SelectedLoanApplication.Client.FirstName} " +
+                                  $"{SelectedLoanApplication.Client.LastName} " +
+                                  $"{SelectedLoanApplication.Bank.Name} " +
+                                  $"{AmountRequestedText}",
                     "Dodano Nowy Wniosek",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
