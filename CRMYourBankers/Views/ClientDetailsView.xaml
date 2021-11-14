@@ -57,7 +57,10 @@
                     Content="STATUS KLIENTA :   "
                     FontSize="20"
                     FontWeight="Bold" />
-                <ComboBox Width="200" ItemsSource="{Binding Source={StaticResource ClientStatusEnumList}}">
+                <ComboBox
+                    Width="200"
+                    VerticalAlignment="Center"
+                    ItemsSource="{Binding Source={StaticResource ClientStatusEnumList}}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}" />
@@ -134,7 +137,10 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
                     <Label Content="Brokerka:" />
-                    <TextBox Width="200" Text="{Binding ClientCommissionText}" TextChanged="TextBox_TextChanged" />
+                    <TextBox
+                        Width="200"
+                        Text="{Binding ClientCommissionText}"
+                        TextChanged="TextBox_TextChanged" />
                 </StackPanel>
                 <StackPanel
                     Margin="5"
