@@ -14,7 +14,8 @@ using CRMYourBankers.Enums;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class ResultViewModel : TabBaseViewModel, IRefreshReferenceDataOwner, IRefreshDataOwner
+    public class ResultViewModel : TabBaseViewModel, 
+        IRefreshReferenceDataOwner, IRefreshDataOwner, IMonthlyFinancialStatementOwner
     {
         public ICommand DetailsScreenOpenHandler { get; set; }
         public ICommand SaveTargetButtonComand { get; set; }
@@ -32,20 +33,20 @@ namespace CRMYourBankers.ViewModels
             get => _selectedMonthSummary;
             set
             {
-                _selectedMonthSummary = value;
-                NotifyPropertyChanged("SelectedMonthSummary");
-                NotifyPropertyChanged("ActualScore");
-                NotifyPropertyChanged("RealizedScore");
-                NotifyPropertyChanged("MonthSummaries");
-                NotifyPropertyChanged("CommissionPaid");
                 // jeśli kliknę w view w miesiąc to on wypełnia Value, potem SelectedMonthSummary
                 // potem _selectedMonthSummary a NotifyPropertyChanged odświeża watości na view
+                _selectedMonthSummary = value;
+                NotifyPropertyChanged("SelectedMonthSummary");                
+                NotifyPropertyChanged("MonthSummaries");
+                NotifyPropertyChanged("CommissionPaid");
+                
                 RefreshData();
+                MonthlyFinancialStatement();
             }
         }
-    
+
         public string ActualScore =>
-            SelectedMonthSummary != null ? ActualScoreValue.ToString() : "wybierz miesiąc";
+           SelectedMonthSummary != null ? ActualScoreValue.ToString() : "wybierz miesiąc";
         public int ActualScoreValue =>
             Context
                 .LoanApplications
@@ -55,8 +56,7 @@ namespace CRMYourBankers.ViewModels
         //to jest tylko getter, jeśli nie ma settera to na view musi być ustalone mode = one 
         //ponieważ dzięki temu kontrolki wiedzą, że to jest kmunikacja jednokierunkowa, view model na view
         public double RealizedScore => SelectedMonthSummary != null ?
-            Math.Round(ActualScoreValue*100 / (double)SelectedMonthSummary.EstimatedTarget, 2) : 0;
-
+            Math.Round(ActualScoreValue * 100 / (double)SelectedMonthSummary.EstimatedTarget, 2) : 0;
         public double CommissionPaid => SelectedMonthSummary != null ?
             Context.LoanApplications
             .Where(loan => loan.Paid)
@@ -166,6 +166,20 @@ namespace CRMYourBankers.ViewModels
 
                 RefreshReferenceData();
             });
+        }
+
+        public void MonthlyFinancialStatement()
+        {
+            //ActualScore = 
+            //{
+            //    if (SelectedMonthSummary != null)
+            //    {
+            //        ActualScoreValue.ToString();
+            //    }
+            //    { "wybierz miesiąc"};
+            //} ????
+            NotifyPropertyChanged("ActualScore");
+            NotifyPropertyChanged("RealizedScore");
         }
     }
 }

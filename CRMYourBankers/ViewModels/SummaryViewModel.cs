@@ -15,7 +15,8 @@ using System.Windows.Input;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class SummaryViewModel : TabBaseViewModel, IRefreshReferenceDataOwner, IRefreshDataOwner
+    public class SummaryViewModel : TabBaseViewModel, 
+        IRefreshReferenceDataOwner, IRefreshDataOwner, IMonthlyFinancialStatementOwner
     {        
         public ICommand LoanApplicationDetailsScreenOpenHandler { get; set; }
         public ICommand ClientDetailsScreenOpenHandler { get; set; }
@@ -43,10 +44,10 @@ namespace CRMYourBankers.ViewModels
             get => _selectedMonthSummary; 
             set
             {
-                _selectedMonthSummary = value;
-                NotifyPropertyChanged("ActualScoreValue");
+                _selectedMonthSummary = value;                
                 NotifyPropertyChanged("SelectedMonthSummary");
                 RefreshData();
+                MonthlyFinancialStatement();
             }
         }
         
@@ -64,7 +65,7 @@ namespace CRMYourBankers.ViewModels
                         target.Month.Month == DateTime.Today.Month &&
                         target.Month.Year == DateTime.Today.Year)
                 .Select(target => target.EstimatedTarget)
-                .SingleOrDefault();//wyciągnij pojedynczą wartość albo domyślną jeśli nei znajdziesz wartości
+                .SingleOrDefault();//wyciągnij pojedynczą wartość albo domyślną jeśli nie znajdziesz wartości
         public double RealizedScore => ActualScoreValue != 0 ? 
             Math.Round(ActualScoreValue * 100 / (double)ActualTarget, 2) : 0;
 
@@ -184,6 +185,11 @@ namespace CRMYourBankers.ViewModels
         public void RefreshReferenceData()
         {
             MonthSummaries = new ObservableCollection<MonthSummary>(Context.MonthSummaries.ToList());
+        }
+
+        public void MonthlyFinancialStatement()
+        {            
+            NotifyPropertyChanged("ActualScoreValue");
         }
     }
 }
