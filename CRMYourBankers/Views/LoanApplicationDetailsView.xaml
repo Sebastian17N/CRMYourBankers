@@ -47,7 +47,8 @@
                         FontWeight="Bold" />
                     <ComboBox
                         Width="200"
-                        VerticalAlignment="Center"
+                        Height="30"
+                        VerticalContentAlignment="Center"
                         ItemsSource="{Binding Source={StaticResource LoanApplicationStatusEnumList}}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
