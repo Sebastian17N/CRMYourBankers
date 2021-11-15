@@ -20,6 +20,14 @@
                 <x:Type TypeName="enums:LoanApplicationStatus" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <ObjectDataProvider
+            x:Key="MultiBrokerEnumList"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:MultiBroker" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
         <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
     </UserControl.Resources>
 
@@ -104,26 +112,14 @@
                     Margin="5"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-                    <Label Content="Wybierz Pośrednika:" />
-                    <ComboBox
-                        Width="300"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id"
-                        SelectionChanged="ComboBox_SelectionChanged" />
-                </StackPanel>
-                <StackPanel
-                    Margin="5"
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal">
-                    <Label Content="Wybierz Multibrokera:" />
-                    <ComboBox
-                        Width="300"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
+                    <Label Content="Multibroker:" />
+                    <ComboBox Width="300" ItemsSource="{Binding Source={StaticResource MultiBrokerEnumList}}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </StackPanel>
                 <StackPanel
                     Margin="5"

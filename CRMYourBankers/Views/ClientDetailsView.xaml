@@ -273,7 +273,7 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel>
-                <Label Content="    " />
+                <Label Content="            " />
             </StackPanel>
             <StackPanel
                 MaxWidth="1000"
