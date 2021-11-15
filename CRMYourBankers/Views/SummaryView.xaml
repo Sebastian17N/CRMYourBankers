@@ -38,6 +38,9 @@
             <TextBox Width="200" Text="{Binding RealizedScore, Mode=OneWay}" />
         </StackPanel>
         <StackPanel>
+            <Label Content="Aktywne Wnioski:" FontSize="15" />
+        </StackPanel>
+        <StackPanel>
             <DataGrid
                 Height="300"
                 AutoGenerateColumns="False"
@@ -81,6 +84,9 @@
                         IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
+        </StackPanel>
+        <StackPanel>
+            <Label Content="Aktywni Klienci:" FontSize="15" />
         </StackPanel>
         <StackPanel>
             <DataGrid

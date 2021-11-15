@@ -158,7 +158,6 @@ namespace CRMYourBankers.ViewModels
                     ).ToList();
             NotifyPropertyChanged("DataGridScore");
         }
-
         public void RegisterCommands()
         {
             LoanApplicationDetailsScreenOpenHandler = new RelayCommand(() =>
