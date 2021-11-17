@@ -32,11 +32,13 @@ namespace CRMYourBankers.Converters
 
         object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Enum myEnum = (Enum)value;
-            if (myEnum == null)
+            if (value == null || !(value is Enum))
             {
                 return null;
             }
+
+            Enum myEnum = (Enum)value;
+
             string description = GetEnumDescription(myEnum);
             if (!string.IsNullOrEmpty(description))
             {

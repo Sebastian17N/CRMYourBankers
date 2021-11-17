@@ -23,6 +23,7 @@ namespace CRMYourBankers.Models
         //public Bank Bank { get; set; }
         //public int BankId { get; set; }
         public List<ClientTask> ClientTasks { get; set; }
+        public List<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
 
         public string FullName => $"{FirstName} {LastName} {Email}";
         public string TasksToDo => string.Join(Environment.NewLine,
@@ -31,6 +32,7 @@ namespace CRMYourBankers.Models
         public Client()
         {
             ClientTasks = new List<ClientTask>();
+            ExistingPersonalLoans = new List<BankClientPersonalLoan>();
         }
 
         public bool Validate()

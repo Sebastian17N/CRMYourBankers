@@ -15,6 +15,7 @@ namespace CRMYourBankers.Database
         public DbSet<LoanTask> LoanTasks { get; set; }
         public DbSet<ClientTask> ClientTasks { get; set; }
         public DbSet<MonthSummary> MonthSummaries { get; set; }
+        public DbSet<BankClientPersonalLoan> BankClientPersonalLoans { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -25,13 +26,35 @@ namespace CRMYourBankers.Database
             base.OnConfiguring(optionsBuilder);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<BankClientPersonalLoan>()
+                .HasKey(bc => new { bc.BankId, bc.ClientId });
+
+            //modelBuilder.Entity<BankClientPersonalLoan>()
+            //    .ToTable("BankClientPersonalLoan")
+            //    .HasKey(entity => new { entity.BankId, entity.ClientId });
+
+            //modelBuilder.Entity<BankClientPersonalLoan>()
+            //    .HasOne(entity => entity.Client)
+            //    .WithMany(entity => entity.ExistingPersonalLoans)
+            //    .HasForeignKey(entity => entity.ClientId);
+
+            //modelBuilder.Entity<BankClientPersonalLoan>()
+            //    .HasOne(entity => entity.Bank)
+            //    .WithMany(entity => entity.PersonalLoanClients)
+            //    .HasForeignKey(entity => entity.BankId);
+        }
+
         public void DataSeeds()
         {
             AddClients();
             AddClientTasks();
+            AddBanks();
             AddLoanApplications();
             AddLoanTasks();
-            AddBanks();
             AddMonthSummaries();
         }
 

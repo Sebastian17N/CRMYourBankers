@@ -36,9 +36,9 @@ namespace CRMYourBankers.ViewModels
                     ClientCommissionText = _selectedClients.ClientCommission;
                     ContactPersonText = _selectedClients.ContactPerson;
                     WhatHesJobText = _selectedClients.WhatHesJob;
-                    ZusUs = _selectedClients.ZusUs;
+                    SelectedZus = _selectedClients.ZusUs;
                     GeneralNoteText = _selectedClients.GeneralNote;
-
+                    ExistingPersonalLoans = _selectedClients.ExistingPersonalLoans;
                 }
                 else
                 {
@@ -77,9 +77,11 @@ namespace CRMYourBankers.ViewModels
         public string GeneralNoteText { get; set; }
         //public int? BankId { get; set; }
         public TabName LastTabName { get; set; }
-        public ZusUs ZusUs { get; set; }
+        public ZusUs SelectedZus { get; set; }
         public Spouse Spouse { get; set; }
         public ClientStatus ClientStatus { get; set; }
+
+        public List<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
 
         public dynamic LoanApplicationsForClient { get; set; }
         private List<ClientTask> _clientTasks;
@@ -92,10 +94,14 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("ClientTask");
             }
         }        
+
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
         public ICommand DetailsScreenOpenHandler { get; set; }
         public ICommand AddNewClientTaskButtonCommand { get; set; }
+        public ICommand AddNewExistingPersonalLoan { get; set; }
+
+
         public YourBankersContext Context { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
         public ObservableCollection<Bank> Banks { get; set; }
@@ -150,6 +156,8 @@ namespace CRMYourBankers.ViewModels
         {
             SaveButtonCommand = new RelayCommand(() =>
             {
+                ExistingPersonalLoans.RemoveAll(loan => loan.BankId == 0);
+
                 if (SelectedClient == null)
                 {
                     var newClient = new Client
@@ -164,8 +172,9 @@ namespace CRMYourBankers.ViewModels
                         ClientCommission = ClientCommissionText,
                         ContactPerson = ContactPersonText,
                         WhatHesJob = WhatHesJobText,
-                        ZusUs = ZusUs,
+                        ZusUs = SelectedZus,
                         GeneralNote = GeneralNoteText,
+                        ExistingPersonalLoans = ExistingPersonalLoans
                         //BankId = BankId ?? 0
                     };
 
@@ -200,8 +209,9 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.ClientCommission = ClientCommissionText;
                     SelectedClient.ContactPerson = ContactPersonText;
                     SelectedClient.WhatHesJob = WhatHesJobText;
-                    SelectedClient.ZusUs = ZusUs;
+                    SelectedClient.ZusUs = SelectedZus;
                     SelectedClient.GeneralNote = GeneralNoteText;
+                    SelectedClient.ExistingPersonalLoans = ExistingPersonalLoans;
 
                     if (!SelectedClient.Validate())
                     {
@@ -237,6 +247,7 @@ namespace CRMYourBankers.ViewModels
                     LastTabName = TabName.ClientDetails
                 });
             });
+            
             AddNewClientTaskButtonCommand = new RelayCommand(() =>
             {
                 if (SelectedClient != null)
@@ -248,6 +259,15 @@ namespace CRMYourBankers.ViewModels
                     Context.ClientTasks.Add(newClientTask);
                 }                
             });
+
+            AddNewExistingPersonalLoan = new RelayCommand(() =>
+            {
+                if (ExistingPersonalLoans == null)
+                    ExistingPersonalLoans = new List<BankClientPersonalLoan>();
+
+                ExistingPersonalLoans.Add(new BankClientPersonalLoan { ClientId = SelectedClient.Id });
+                NotifyPropertyChanged("ExistingPersonalLoans");
+            });
         }
 
         public void ClearAllFields()
@@ -258,6 +278,8 @@ namespace CRMYourBankers.ViewModels
             EmailText = "";
             PersonalIdText = null;
             LoanApplicationsForClient = null;
+            SelectedZus = ZusUs.DontArrear;
+            ExistingPersonalLoans = null;
         }
     }
 }
