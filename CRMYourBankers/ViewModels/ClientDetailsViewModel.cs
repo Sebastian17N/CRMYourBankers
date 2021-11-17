@@ -39,6 +39,10 @@ namespace CRMYourBankers.ViewModels
                     SelectedZus = _selectedClients.ZusUs;
                     GeneralNoteText = _selectedClients.GeneralNote;
                     ExistingPersonalLoans = _selectedClients.ExistingPersonalLoans;
+                    SelectedUs = _selectedClients.Us;
+                    SelectedSpouse = _selectedClients.Spouse;
+                    SelectedSourceOfIncome = _selectedClients.SourceOfIncome;
+                    SelectedClientStatus = _selectedClients.ClientStatus;
                 }
                 else
                 {
@@ -75,11 +79,12 @@ namespace CRMYourBankers.ViewModels
         public string ContactPersonText { get; set; }
         public string WhatHesJobText { get; set; }
         public string GeneralNoteText { get; set; }
-        //public int? BankId { get; set; }
         public TabName LastTabName { get; set; }
         public ZusUs SelectedZus { get; set; }
-        public Spouse Spouse { get; set; }
-        public ClientStatus ClientStatus { get; set; }
+        public ZusUs SelectedUs { get; set; }
+        public Spouse SelectedSpouse { get; set; }
+        public SourceOfIncome SelectedSourceOfIncome { get; set; }
+        public ClientStatus SelectedClientStatus { get; set; }
 
         public List<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
 
@@ -173,9 +178,12 @@ namespace CRMYourBankers.ViewModels
                         ContactPerson = ContactPersonText,
                         WhatHesJob = WhatHesJobText,
                         ZusUs = SelectedZus,
+                        Us = SelectedUs,
                         GeneralNote = GeneralNoteText,
-                        ExistingPersonalLoans = ExistingPersonalLoans
-                        //BankId = BankId ?? 0
+                        ExistingPersonalLoans = ExistingPersonalLoans,
+                        Spouse = SelectedSpouse,
+                        SourceOfIncome = SelectedSourceOfIncome,
+                        ClientStatus = SelectedClientStatus
                     };
 
                     if (!newClient.Validate())
@@ -212,6 +220,10 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.ZusUs = SelectedZus;
                     SelectedClient.GeneralNote = GeneralNoteText;
                     SelectedClient.ExistingPersonalLoans = ExistingPersonalLoans;
+                    SelectedClient.Us = SelectedUs;
+                    SelectedClient.Spouse = SelectedSpouse;
+                    SelectedClient.SourceOfIncome = SelectedSourceOfIncome;
+                    SelectedClient.ClientStatus = SelectedClientStatus;
 
                     if (!SelectedClient.Validate())
                     {
@@ -278,7 +290,6 @@ namespace CRMYourBankers.ViewModels
             EmailText = "";
             PersonalIdText = null;
             LoanApplicationsForClient = null;
-            SelectedZus = ZusUs.DontArrear;
             ExistingPersonalLoans = null;
         }
     }

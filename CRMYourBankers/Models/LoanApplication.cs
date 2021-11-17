@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CRMYourBankers.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,6 +16,7 @@ namespace CRMYourBankers.Models
         public Bank Bank { get; set; }
         public int BankId { get; set; }
         public DateTime LoanStartDate { get; set; }
+        public LoanApplicationStatus LoanApplicationStatus { get; set; }
         public bool Paid { get; set; } = false; //można to też zapisać w konstruktorze, ustawić wartość domyślną
         
         public List<LoanTask> LoanTasks { get; set; }

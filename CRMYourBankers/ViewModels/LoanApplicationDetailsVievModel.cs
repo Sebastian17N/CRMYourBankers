@@ -28,6 +28,7 @@ namespace CRMYourBankers.ViewModels
         public Client Client { get; set; }
         public DateTime LoanStartDate { get; set; }
         public TabName LastTabName { get; set; }
+        public LoanApplicationStatus SelectedLoanApplicationStatus { get; set; }
         public bool IsPaid { get; set; }
         public string FullName { get; set; }
         #endregion
@@ -84,7 +85,8 @@ namespace CRMYourBankers.ViewModels
                         AmountReceived = AmountReceivedText,
                         ClientCommission  = ClientCommissionText,
                         LoanStartDate = LoanStartDate,     
-                        Paid = IsPaid
+                        Paid = IsPaid,
+                        LoanApplicationStatus = SelectedLoanApplicationStatus
                     };
 
                     if (!newLoanApplication.Validate())
@@ -107,6 +109,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedLoanApplication.ClientCommission = ClientCommissionText;
                     SelectedLoanApplication.LoanStartDate = LoanStartDate;
                     SelectedLoanApplication.Paid = IsPaid;
+                    SelectedLoanApplication.LoanApplicationStatus = SelectedLoanApplicationStatus;
 
                     if (!SelectedLoanApplication.Validate())
                     {
@@ -182,6 +185,7 @@ namespace CRMYourBankers.ViewModels
                 TasksToDoText = _selectedLoanApplication.TasksToDo;
                 LoanStartDate = _selectedLoanApplication.LoanStartDate;
                 IsPaid = _selectedLoanApplication.Paid;
+                SelectedLoanApplicationStatus = _selectedLoanApplication.LoanApplicationStatus;
             }
             NotifyPropertyChanged("LoanApplication");
         }

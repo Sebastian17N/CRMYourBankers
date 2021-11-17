@@ -68,7 +68,8 @@
                 <ComboBox
                     Width="200"
                     VerticalAlignment="Center"
-                    ItemsSource="{Binding Source={StaticResource ClientStatusEnumList}}">
+                    ItemsSource="{Binding Source={StaticResource ClientStatusEnumList}}"
+                    SelectedValue="{Binding SelectedClientStatus}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}" />
@@ -216,7 +217,10 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
                     <Label Content="US:" />
-                    <ComboBox Width="200" ItemsSource="{Binding Source={StaticResource ZusUsEnumList}}">
+                    <ComboBox
+                        Width="200"
+                        ItemsSource="{Binding Source={StaticResource ZusUsEnumList}}"
+                        SelectedValue="{Binding SelectedUs}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}" />
@@ -229,7 +233,10 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
                     <Label Content="Małżonek:" />
-                    <ComboBox Width="200" ItemsSource="{Binding Source={StaticResource SpouseEnumList}}">
+                    <ComboBox
+                        Width="200"
+                        ItemsSource="{Binding Source={StaticResource SpouseEnumList}}"
+                        SelectedValue="{Binding SelectedSpouse}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}" />
@@ -242,7 +249,10 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
                     <Label Content="Źródło dochodów:" />
-                    <ComboBox Width="200" ItemsSource="{Binding Source={StaticResource SourceOfIncomeEnumList}}">
+                    <ComboBox
+                        Width="200"
+                        ItemsSource="{Binding Source={StaticResource SourceOfIncomeEnumList}}"
+                        SelectedValue="{Binding SelectedSourceOfIncome}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}" />

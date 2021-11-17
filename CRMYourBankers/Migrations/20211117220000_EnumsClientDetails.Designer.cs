@@ -3,14 +3,16 @@ using System;
 using CRMYourBankers.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRMYourBankers.Migrations
 {
     [DbContext(typeof(YourBankersContext))]
-    partial class YourBankersContextModelSnapshot : ModelSnapshot
+    [Migration("20211117220000_EnumsClientDetails")]
+    partial class EnumsClientDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,9 +144,6 @@ namespace CRMYourBankers.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ClientId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("LoanApplicationStatus")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("LoanStartDate")
