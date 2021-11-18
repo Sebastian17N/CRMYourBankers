@@ -14,18 +14,23 @@ using CRMYourBankers.Enums;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class ResultViewModel : TabBaseViewModel, 
-        IRefreshReferenceDataOwner, IRefreshDataOwner, IMonthlyFinancialStatementOwner
+    public class ResultViewModel : MonthlyFinancialStatementBase,
+        IRefreshReferenceDataOwner, IRefreshDataOwner
     {
         public ICommand DetailsScreenOpenHandler { get; set; }
         public ICommand SaveTargetButtonComand { get; set; }
         public ICommand AddNewMonthCommand { get; set; }
-        public YourBankersContext Context { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
         public string EstimatedTargetText { get; set; }
         
         public dynamic DataGridData { get; set; }
         public ObservableCollection<MonthSummary> MonthSummaries { get; set; }
+         public double CommissionPaid => SelectedMonthSummary != null ?
+            Context.LoanApplications
+            .Where(loan => loan.Paid)
+            .Where(loan => loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
+            .Where(loan => loan.LoanStartDate.Year == SelectedMonthSummary.Month.Year)
+            .Sum(loan => loan.ClientCommission).Value : 0;//value jest ponieważ clientCommision może być null i to zabezpiecza
 
         private MonthSummary _selectedMonthSummary;
         public MonthSummary SelectedMonthSummary 
@@ -36,38 +41,23 @@ namespace CRMYourBankers.ViewModels
                 // jeśli kliknę w view w miesiąc to on wypełnia Value, potem SelectedMonthSummary
                 // potem _selectedMonthSummary a NotifyPropertyChanged odświeża watości na view
                 _selectedMonthSummary = value;
+                if (SelectedMonthSummary != null)
+                {
+                    SelectedDateTime = SelectedMonthSummary.Month;
+                }
+
                 NotifyPropertyChanged("SelectedMonthSummary");                
                 NotifyPropertyChanged("MonthSummaries");
                 NotifyPropertyChanged("CommissionPaid");
-                
+                NotifyPropertyChanged("ActualScore");
+                NotifyPropertyChanged("RealizedScore");
                 RefreshData();
-                MonthlyFinancialStatement();
             }
         }
-
-        public string ActualScore =>
-           SelectedMonthSummary != null ? ActualScoreValue.ToString() : "wybierz miesiąc";
-        public int ActualScoreValue =>
-            Context
-                .LoanApplications
-                .Where(loan => loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
-                .Where(loan => loan.LoanStartDate.Year == SelectedMonthSummary.Month.Year)
-                .Sum(loan => loan.AmountReceived).Value;
-        //to jest tylko getter, jeśli nie ma settera to na view musi być ustalone mode = one 
-        //ponieważ dzięki temu kontrolki wiedzą, że to jest kmunikacja jednokierunkowa, view model na view
-        public double RealizedScore => SelectedMonthSummary != null ?
-            Math.Round(ActualScoreValue * 100 / (double)SelectedMonthSummary.EstimatedTarget, 2) : 0;
-        public double CommissionPaid => SelectedMonthSummary != null ?
-            Context.LoanApplications
-            .Where(loan => loan.Paid)
-            .Where(loan => loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
-            .Where(loan => loan.LoanStartDate.Year == SelectedMonthSummary.Month.Year)
-            .Sum(loan => loan.ClientCommission).Value : 0;//value jest ponieważ clientCommision może być null i to zabezpiecza
-
+                
         public ResultViewModel(Messenger messenger, YourBankersContext context) : 
-            base(messenger, TabName.Result)
+            base(messenger, TabName.Result, context)
         {
-            Context = context;
             RegisterCommands();
         }     
         
@@ -166,20 +156,6 @@ namespace CRMYourBankers.ViewModels
 
                 RefreshReferenceData();
             });
-        }
-
-        public void MonthlyFinancialStatement()
-        {
-            //ActualScore = 
-            //{
-            //    if (SelectedMonthSummary != null)
-            //    {
-            //        ActualScoreValue.ToString();
-            //    }
-            //    { "wybierz miesiąc"};
-            //} ????
-            NotifyPropertyChanged("ActualScore");
-            NotifyPropertyChanged("RealizedScore");
-        }
+        }       
     }
 }
