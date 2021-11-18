@@ -33,20 +33,6 @@ namespace CRMYourBankers.Database
 
             modelBuilder.Entity<BankClientPersonalLoan>()
                 .HasKey(bc => new { bc.BankId, bc.ClientId });
-
-            //modelBuilder.Entity<BankClientPersonalLoan>()
-            //    .ToTable("BankClientPersonalLoan")
-            //    .HasKey(entity => new { entity.BankId, entity.ClientId });
-
-            //modelBuilder.Entity<BankClientPersonalLoan>()
-            //    .HasOne(entity => entity.Client)
-            //    .WithMany(entity => entity.ExistingPersonalLoans)
-            //    .HasForeignKey(entity => entity.ClientId);
-
-            //modelBuilder.Entity<BankClientPersonalLoan>()
-            //    .HasOne(entity => entity.Bank)
-            //    .WithMany(entity => entity.PersonalLoanClients)
-            //    .HasForeignKey(entity => entity.BankId);
         }
 
         public void DataSeeds()

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRMYourBankers.Migrations
 {
     [DbContext(typeof(YourBankersContext))]
-    [Migration("20211118134204_BrokerListInClientsSetails")]
-    partial class BrokerListInClientsSetails
+    [Migration("20211118141528_AddBroker")]
+    partial class AddBroker
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,7 +70,7 @@ namespace CRMYourBankers.Migrations
                     b.Property<long>("AmountRequested")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BrokerId")
+                    b.Property<int?>("BrokerId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ClientCommission")
@@ -245,9 +245,7 @@ namespace CRMYourBankers.Migrations
                 {
                     b.HasOne("CRMYourBankers.Models.Broker", "Broker")
                         .WithMany("Clients")
-                        .HasForeignKey("BrokerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BrokerId");
 
                     b.Navigation("Broker");
                 });
