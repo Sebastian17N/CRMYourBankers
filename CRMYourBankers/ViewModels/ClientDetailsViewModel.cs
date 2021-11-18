@@ -81,6 +81,7 @@ namespace CRMYourBankers.ViewModels
         public string WhatHesJobText { get; set; }
         public string GeneralNoteText { get; set; }
         public int? BrokerId { get; set; }
+        public string NewTaskText { get; set; }
         public TabName LastTabName { get; set; }
         public ZusUs? SelectedZus { get; set; }
         public ZusUs? SelectedUs { get; set; }
@@ -277,7 +278,8 @@ namespace CRMYourBankers.ViewModels
                 {
                     var newClientTask = new ClientTask
                     {
-                        
+                        Text = NewTaskText,
+                        ClientId = SelectedClient.Id
                     };
                     Context.ClientTasks.Add(newClientTask);
                 }                
