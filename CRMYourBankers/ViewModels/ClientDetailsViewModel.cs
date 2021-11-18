@@ -79,6 +79,7 @@ namespace CRMYourBankers.ViewModels
         public string ContactPersonText { get; set; }
         public string WhatHesJobText { get; set; }
         public string GeneralNoteText { get; set; }
+        public int? BrokerId { get; set; }
         public TabName LastTabName { get; set; }
         public ZusUs SelectedZus { get; set; }
         public ZusUs SelectedUs { get; set; }
@@ -89,6 +90,7 @@ namespace CRMYourBankers.ViewModels
         public List<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
 
         public dynamic LoanApplicationsForClient { get; set; }
+
         private List<ClientTask> _clientTasks;
         public List<ClientTask> ClientTasks
         {
@@ -110,6 +112,7 @@ namespace CRMYourBankers.ViewModels
         public YourBankersContext Context { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
         public ObservableCollection<Bank> Banks { get; set; }
+        public ObservableCollection<Broker> Brokers { get; set; }
 
         public ClientDetailsViewModel(Messenger tabMessenger, YourBankersContext context)
             : base(tabMessenger, TabName.ClientDetails)
@@ -183,7 +186,9 @@ namespace CRMYourBankers.ViewModels
                         ExistingPersonalLoans = ExistingPersonalLoans,
                         Spouse = SelectedSpouse,
                         SourceOfIncome = SelectedSourceOfIncome,
-                        ClientStatus = SelectedClientStatus
+                        ClientStatus = SelectedClientStatus,
+                        BrokerId = BrokerId ??0
+
                     };
 
                     if (!newClient.Validate())
@@ -224,6 +229,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.Spouse = SelectedSpouse;
                     SelectedClient.SourceOfIncome = SelectedSourceOfIncome;
                     SelectedClient.ClientStatus = SelectedClientStatus;
+                    SelectedClient.BrokerId = BrokerId ??0;
 
                     if (!SelectedClient.Validate())
                     {

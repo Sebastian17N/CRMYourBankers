@@ -3,14 +3,16 @@ using System;
 using CRMYourBankers.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRMYourBankers.Migrations
 {
     [DbContext(typeof(YourBankersContext))]
-    partial class YourBankersContextModelSnapshot : ModelSnapshot
+    [Migration("20211118134204_BrokerListInClientsSetails")]
+    partial class BrokerListInClientsSetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,7 +58,7 @@ namespace CRMYourBankers.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Broker");
+                    b.ToTable("Brokers");
                 });
 
             modelBuilder.Entity("CRMYourBankers.Models.Client", b =>
