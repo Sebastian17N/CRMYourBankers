@@ -56,7 +56,7 @@ namespace CRMYourBankers.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Broker");
+                    b.ToTable("Brokers");
                 });
 
             modelBuilder.Entity("CRMYourBankers.Models.Client", b =>
@@ -68,7 +68,7 @@ namespace CRMYourBankers.Migrations
                     b.Property<long>("AmountRequested")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BrokerId")
+                    b.Property<int?>("BrokerId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ClientCommission")
@@ -243,9 +243,7 @@ namespace CRMYourBankers.Migrations
                 {
                     b.HasOne("CRMYourBankers.Models.Broker", "Broker")
                         .WithMany("Clients")
-                        .HasForeignKey("BrokerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BrokerId");
 
                     b.Navigation("Broker");
                 });

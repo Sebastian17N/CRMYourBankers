@@ -2,16 +2,22 @@
 
 namespace CRMYourBankers.Migrations
 {
-    public partial class BrokersList : Migration
+    public partial class AddBroker : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "BrokerId",
-                table: "Clients",
+                name: "LoanApplicationStatus",
+                table: "LoanApplications",
                 type: "INTEGER",
                 nullable: false,
                 defaultValue: 0);
+
+            migrationBuilder.AddColumn<int>(
+                name: "BrokerId",
+                table: "Clients",
+                type: "INTEGER",
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "Brokers",
@@ -37,7 +43,7 @@ namespace CRMYourBankers.Migrations
                 column: "BrokerId",
                 principalTable: "Brokers",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -52,6 +58,10 @@ namespace CRMYourBankers.Migrations
             migrationBuilder.DropIndex(
                 name: "IX_Clients_BrokerId",
                 table: "Clients");
+
+            migrationBuilder.DropColumn(
+                name: "LoanApplicationStatus",
+                table: "LoanApplications");
 
             migrationBuilder.DropColumn(
                 name: "BrokerId",

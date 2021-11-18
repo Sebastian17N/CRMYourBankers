@@ -24,10 +24,12 @@ namespace CRMYourBankers.Models
         public Spouse Spouse { get; set; }
         public SourceOfIncome SourceOfIncome { get; set; }
         public ClientStatus ClientStatus { get; set; }
+        public int? BrokerId { get; set; }
+
         public List<ClientTask> ClientTasks { get; set; }
         public List<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
         public Broker Broker { get; set; }
-        public int BrokerId { get; set; }
+
         public string FullName => $"{FirstName} {LastName} {Email}";
         public string TasksToDo => string.Join(Environment.NewLine,
             ClientTasks.Where(task => !task.Done).Select(task => task.Text));
