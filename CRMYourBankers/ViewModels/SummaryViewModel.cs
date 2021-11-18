@@ -106,6 +106,7 @@ namespace CRMYourBankers.ViewModels
                 Context
                     .Clients
                     .Include(client => client.ClientTasks)
+                    .Include(client => client.ExistingPersonalLoans)
                     .ToList();
             NotifyPropertyChanged("DataGridData");
                       

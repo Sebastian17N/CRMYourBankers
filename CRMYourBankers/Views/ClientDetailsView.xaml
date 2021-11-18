@@ -296,9 +296,13 @@
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
                     EnableRowVirtualization="False"
-                    ItemsSource="{Binding ExistingPersonalLoans}">
+                    ItemsSource="{Binding ExistingPersonalLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
-                        <DataGridComboBoxColumn DisplayMemberPath="Name" SelectedItemBinding="{Binding Bank}">
+                        <DataGridComboBoxColumn
+                            Width="130"
+                            CanUserSort="False"
+                            DisplayMemberPath="Name"
+                            Header="Bank">
                             <DataGridComboBoxColumn.ElementStyle>
                                 <Style>
                                     <Setter Property="ComboBox.ItemsSource" Value="{Binding Path=DataContext.Banks, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" />
