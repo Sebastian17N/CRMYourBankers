@@ -134,6 +134,7 @@ namespace CRMYourBankers.ViewModels
             {
                 return;
             }
+
             LoanApplicationsForClient =
                 Context.LoanApplications
                     .Include(loan=>loan.LoanTasks)
@@ -276,12 +277,23 @@ namespace CRMYourBankers.ViewModels
             {
                 if (SelectedClient != null)
                 {
-                    var newClientTask = new ClientTask
+                    using (var context = new YourBankersContext())
                     {
-                        Text = NewTaskText,
-                        ClientId = SelectedClient.Id
-                    };
-                    Context.ClientTasks.Add(newClientTask);
+                        var newClientTask = new ClientTask
+                        {
+                            Text = NewTaskText,
+                            ClientId = SelectedClient.Id
+                        };
+
+                        context.ClientTasks.Add(newClientTask);
+                        context.SaveChanges();
+                    }
+
+                    SelectedClient.ClientTasks = 
+                        Context
+                            .ClientTasks
+                            .Where(task => task.ClientId == SelectedClient.Id)
+                            .ToList();
                 }                
             });
 
