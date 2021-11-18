@@ -19,11 +19,11 @@ namespace CRMYourBankers.Models
         public string ContactPerson { get; set; }
         public string WhatHesJob { get; set; }
         public string GeneralNote { get; set; }
-        public ZusUs ZusUs { get; set; }
-        public ZusUs Us { get; set; }
-        public Spouse Spouse { get; set; }
-        public SourceOfIncome SourceOfIncome { get; set; }
-        public ClientStatus ClientStatus { get; set; }
+        public ZusUs? ZusUs { get; set; }
+        public ZusUs? Us { get; set; }
+        public Spouse? Spouse { get; set; }
+        public SourceOfIncome? SourceOfIncome { get; set; }
+        public ClientStatus? ClientStatus { get; set; }
         public int? BrokerId { get; set; }
 
         public List<ClientTask> ClientTasks { get; set; }

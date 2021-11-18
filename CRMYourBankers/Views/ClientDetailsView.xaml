@@ -104,7 +104,7 @@
                 </StackPanel>
                 <StackPanel
                     Margin="5"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Right"
                     Orientation="Horizontal">
                     <Label Content="Numer Telefonu:" />
                     <TextBox Width="200" Text="{Binding PhoneNumberText}" />

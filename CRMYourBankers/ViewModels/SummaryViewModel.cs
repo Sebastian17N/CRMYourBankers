@@ -15,8 +15,7 @@ using System.Windows.Input;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class SummaryViewModel : TabBaseViewModel, 
-        IRefreshReferenceDataOwner, IRefreshDataOwner
+    public class SummaryViewModel : MonthlyFinancialStatementBase, IRefreshReferenceDataOwner, IRefreshDataOwner
     {        
         public ICommand LoanApplicationDetailsScreenOpenHandler { get; set; }
         public ICommand ClientDetailsScreenOpenHandler { get; set; }
@@ -35,39 +34,8 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("Clients");
             }
         }
-        public YourBankersContext Context { get; set; }
         public Client SelectedClient { get; set; }
-       
-        private MonthSummary _selectedMonthSummary;
-        public MonthSummary SelectedMonthSummary
-        {
-            get => _selectedMonthSummary; 
-            set
-            {
-                _selectedMonthSummary = value;                
-                NotifyPropertyChanged("SelectedMonthSummary");
-                RefreshData();
-                MonthlyFinancialStatement();
-            }
-        }
-        
-        public int ActualScoreValue =>
-            Context
-                .LoanApplications
-                .Where(loan => 
-                        loan.LoanStartDate.Year == DateTime.Today.Year &&
-                        loan.LoanStartDate.Month == DateTime.Today.Month)
-                .Sum(loan => loan.AmountReceived).Value;
-        public int ActualTarget =>
-            Context
-                .MonthSummaries
-                .Where(target => 
-                        target.Month.Month == DateTime.Today.Month &&
-                        target.Month.Year == DateTime.Today.Year)
-                .Select(target => target.EstimatedTarget)
-                .SingleOrDefault();//wyciągnij pojedynczą wartość albo domyślną jeśli nie znajdziesz wartości
-        public double RealizedScore => ActualScoreValue != 0 ? 
-            Math.Round(ActualScoreValue * 100 / (double)ActualTarget, 2) : 0;
+
 
         // Przykłady innego napisania RealizedScore w postaci property z widocznym get i funkcji.
         //public double Costam => ActualScoreValue != 0 ?
@@ -95,7 +63,7 @@ namespace CRMYourBankers.ViewModels
         //strzałka to lambda, można powiedzieć, że to funkcja a nawet properta
         //funkcja anonimowa to funkcja, która nie ma nazwy i nie możesz się do niej odwołać
         public SummaryViewModel(Messenger messenger, YourBankersContext context) : 
-            base(messenger, TabName.Summary)
+            base(messenger, TabName.Summary, context)
         {
             RegisterCommands();
             Context = context;
@@ -103,6 +71,8 @@ namespace CRMYourBankers.ViewModels
 
         public void RefreshData()
         {
+            SelectedDateTime = DateTime.Today;
+
             DataGridData =
                 Context.LoanApplications
                 .Include(loan => loan.LoanTasks)
@@ -185,9 +155,5 @@ namespace CRMYourBankers.ViewModels
             MonthSummaries = new ObservableCollection<MonthSummary>(Context.MonthSummaries.ToList());
         }
 
-        public void MonthlyFinancialStatement()
-        {            
-            NotifyPropertyChanged("ActualScoreValue");
-        }
     }
 }

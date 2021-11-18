@@ -43,6 +43,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedSpouse = _selectedClients.Spouse;
                     SelectedSourceOfIncome = _selectedClients.SourceOfIncome;
                     SelectedClientStatus = _selectedClients.ClientStatus;
+                    BrokerId = _selectedClients.BrokerId ??0;
                 }
                 else
                 {
@@ -81,11 +82,11 @@ namespace CRMYourBankers.ViewModels
         public string GeneralNoteText { get; set; }
         public int? BrokerId { get; set; }
         public TabName LastTabName { get; set; }
-        public ZusUs SelectedZus { get; set; }
-        public ZusUs SelectedUs { get; set; }
-        public Spouse SelectedSpouse { get; set; }
-        public SourceOfIncome SelectedSourceOfIncome { get; set; }
-        public ClientStatus SelectedClientStatus { get; set; }
+        public ZusUs? SelectedZus { get; set; }
+        public ZusUs? SelectedUs { get; set; }
+        public Spouse? SelectedSpouse { get; set; }
+        public SourceOfIncome? SelectedSourceOfIncome { get; set; }
+        public ClientStatus? SelectedClientStatus { get; set; }
 
         public List<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
 
@@ -123,6 +124,7 @@ namespace CRMYourBankers.ViewModels
         public void RefreshReferenceData()
         {
             Banks = new ObservableCollection<Bank>(Context.Banks.ToList());
+            Brokers = new ObservableCollection<Broker>(Context.Brokers.ToList());
         }
         
         public void RefreshData()
@@ -297,6 +299,11 @@ namespace CRMYourBankers.ViewModels
             PersonalIdText = null;
             LoanApplicationsForClient = null;
             ExistingPersonalLoans = null;
+            SelectedClientStatus = null;
+            SelectedZus = null;
+            SelectedUs = null;
+            SelectedSpouse = null;
+            SelectedSourceOfIncome = null;
         }
     }
 }

@@ -14,18 +14,23 @@ using CRMYourBankers.Enums;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class ResultViewModel : TabBaseViewModel, MonthlyFinancialStatementBase,
+    public class ResultViewModel : MonthlyFinancialStatementBase,
         IRefreshReferenceDataOwner, IRefreshDataOwner
     {
         public ICommand DetailsScreenOpenHandler { get; set; }
         public ICommand SaveTargetButtonComand { get; set; }
         public ICommand AddNewMonthCommand { get; set; }
-        public YourBankersContext Context { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
         public string EstimatedTargetText { get; set; }
         
         public dynamic DataGridData { get; set; }
         public ObservableCollection<MonthSummary> MonthSummaries { get; set; }
+         public double CommissionPaid => SelectedMonthSummary != null ?
+            Context.LoanApplications
+            .Where(loan => loan.Paid)
+            .Where(loan => loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
+            .Where(loan => loan.LoanStartDate.Year == SelectedMonthSummary.Month.Year)
+            .Sum(loan => loan.ClientCommission).Value : 0;//value jest ponieważ clientCommision może być null i to zabezpiecza
 
         private MonthSummary _selectedMonthSummary;
         public MonthSummary SelectedMonthSummary 
@@ -36,6 +41,11 @@ namespace CRMYourBankers.ViewModels
                 // jeśli kliknę w view w miesiąc to on wypełnia Value, potem SelectedMonthSummary
                 // potem _selectedMonthSummary a NotifyPropertyChanged odświeża watości na view
                 _selectedMonthSummary = value;
+                if (SelectedMonthSummary != null)
+                {
+                    SelectedDateTime = SelectedMonthSummary.Month;
+                }
+
                 NotifyPropertyChanged("SelectedMonthSummary");                
                 NotifyPropertyChanged("MonthSummaries");
                 NotifyPropertyChanged("CommissionPaid");
@@ -46,9 +56,8 @@ namespace CRMYourBankers.ViewModels
         }
                 
         public ResultViewModel(Messenger messenger, YourBankersContext context) : 
-            base(messenger, TabName.Result)
+            base(messenger, TabName.Result, context)
         {
-            Context = context;
             RegisterCommands();
         }     
         
