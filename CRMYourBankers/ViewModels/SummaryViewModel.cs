@@ -16,7 +16,7 @@ using System.Windows.Input;
 namespace CRMYourBankers.ViewModels
 {
     public class SummaryViewModel : TabBaseViewModel, 
-        IRefreshReferenceDataOwner, IRefreshDataOwner, IMonthlyFinancialStatementOwner
+        IRefreshReferenceDataOwner, IRefreshDataOwner
     {        
         public ICommand LoanApplicationDetailsScreenOpenHandler { get; set; }
         public ICommand ClientDetailsScreenOpenHandler { get; set; }

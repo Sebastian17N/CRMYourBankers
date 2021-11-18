@@ -14,8 +14,8 @@ using CRMYourBankers.Enums;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class ResultViewModel : TabBaseViewModel, 
-        IRefreshReferenceDataOwner, IRefreshDataOwner, IMonthlyFinancialStatementOwner
+    public class ResultViewModel : TabBaseViewModel, MonthlyFinancialStatementBase,
+        IRefreshReferenceDataOwner, IRefreshDataOwner
     {
         public ICommand DetailsScreenOpenHandler { get; set; }
         public ICommand SaveTargetButtonComand { get; set; }
@@ -39,31 +39,12 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("SelectedMonthSummary");                
                 NotifyPropertyChanged("MonthSummaries");
                 NotifyPropertyChanged("CommissionPaid");
-                
+                NotifyPropertyChanged("ActualScore");
+                NotifyPropertyChanged("RealizedScore");
                 RefreshData();
-                MonthlyFinancialStatement();
             }
         }
-
-        public string ActualScore =>
-           SelectedMonthSummary != null ? ActualScoreValue.ToString() : "wybierz miesiąc";
-        public int ActualScoreValue =>
-            Context
-                .LoanApplications
-                .Where(loan => loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
-                .Where(loan => loan.LoanStartDate.Year == SelectedMonthSummary.Month.Year)
-                .Sum(loan => loan.AmountReceived).Value;
-        //to jest tylko getter, jeśli nie ma settera to na view musi być ustalone mode = one 
-        //ponieważ dzięki temu kontrolki wiedzą, że to jest kmunikacja jednokierunkowa, view model na view
-        public double RealizedScore => SelectedMonthSummary != null ?
-            Math.Round(ActualScoreValue * 100 / (double)SelectedMonthSummary.EstimatedTarget, 2) : 0;
-        public double CommissionPaid => SelectedMonthSummary != null ?
-            Context.LoanApplications
-            .Where(loan => loan.Paid)
-            .Where(loan => loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
-            .Where(loan => loan.LoanStartDate.Year == SelectedMonthSummary.Month.Year)
-            .Sum(loan => loan.ClientCommission).Value : 0;//value jest ponieważ clientCommision może być null i to zabezpiecza
-
+                
         public ResultViewModel(Messenger messenger, YourBankersContext context) : 
             base(messenger, TabName.Result)
         {
@@ -166,20 +147,6 @@ namespace CRMYourBankers.ViewModels
 
                 RefreshReferenceData();
             });
-        }
-
-        public void MonthlyFinancialStatement()
-        {
-            //ActualScore = 
-            //{
-            //    if (SelectedMonthSummary != null)
-            //    {
-            //        ActualScoreValue.ToString();
-            //    }
-            //    { "wybierz miesiąc"};
-            //} ????
-            NotifyPropertyChanged("ActualScore");
-            NotifyPropertyChanged("RealizedScore");
-        }
+        }       
     }
 }
