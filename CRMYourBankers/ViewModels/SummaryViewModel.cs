@@ -15,8 +15,7 @@ using System.Windows.Input;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class SummaryViewModel : TabBaseViewModel, 
-        IRefreshReferenceDataOwner, IRefreshDataOwner, IMonthlyFinancialStatementOwner
+    public class SummaryViewModel : TabBaseViewModel, IRefreshReferenceDataOwner, IRefreshDataOwner
     {        
         public ICommand LoanApplicationDetailsScreenOpenHandler { get; set; }
         public ICommand ClientDetailsScreenOpenHandler { get; set; }
@@ -37,20 +36,7 @@ namespace CRMYourBankers.ViewModels
         }
         public YourBankersContext Context { get; set; }
         public Client SelectedClient { get; set; }
-       
-        private MonthSummary _selectedMonthSummary;
-        public MonthSummary SelectedMonthSummary
-        {
-            get => _selectedMonthSummary; 
-            set
-            {
-                _selectedMonthSummary = value;                
-                NotifyPropertyChanged("SelectedMonthSummary");
-                RefreshData();
-                MonthlyFinancialStatement();
-            }
-        }
-        
+               
         public int ActualScoreValue =>
             Context
                 .LoanApplications
@@ -58,6 +44,7 @@ namespace CRMYourBankers.ViewModels
                         loan.LoanStartDate.Year == DateTime.Today.Year &&
                         loan.LoanStartDate.Month == DateTime.Today.Month)
                 .Sum(loan => loan.AmountReceived).Value;
+
         public int ActualTarget =>
             Context
                 .MonthSummaries
@@ -66,6 +53,7 @@ namespace CRMYourBankers.ViewModels
                         target.Month.Year == DateTime.Today.Year)
                 .Select(target => target.EstimatedTarget)
                 .SingleOrDefault();//wyciągnij pojedynczą wartość albo domyślną jeśli nie znajdziesz wartości
+
         public double RealizedScore => ActualScoreValue != 0 ? 
             Math.Round(ActualScoreValue * 100 / (double)ActualTarget, 2) : 0;
 
@@ -157,6 +145,7 @@ namespace CRMYourBankers.ViewModels
                     ).ToList();
             NotifyPropertyChanged("DataGridScore");
         }
+
         public void RegisterCommands()
         {
             LoanApplicationDetailsScreenOpenHandler = new RelayCommand(() =>
@@ -183,11 +172,6 @@ namespace CRMYourBankers.ViewModels
         public void RefreshReferenceData()
         {
             MonthSummaries = new ObservableCollection<MonthSummary>(Context.MonthSummaries.ToList());
-        }
-
-        public void MonthlyFinancialStatement()
-        {            
-            NotifyPropertyChanged("ActualScoreValue");
         }
     }
 }

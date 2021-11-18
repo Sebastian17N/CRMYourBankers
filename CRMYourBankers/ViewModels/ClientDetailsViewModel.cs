@@ -164,6 +164,9 @@ namespace CRMYourBankers.ViewModels
         {
             SaveButtonCommand = new RelayCommand(() =>
             {
+                foreach (var loan in ExistingPersonalLoans.Where(loan => loan.BankId == 0 && loan.Bank != null))
+                    loan.BankId = loan.Bank.Id;
+
                 ExistingPersonalLoans.RemoveAll(loan => loan.BankId == 0);
 
                 if (SelectedClient == null)
@@ -229,7 +232,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.Spouse = SelectedSpouse;
                     SelectedClient.SourceOfIncome = SelectedSourceOfIncome;
                     SelectedClient.ClientStatus = SelectedClientStatus;
-                    SelectedClient.BrokerId = BrokerId ??0;
+                    SelectedClient.BrokerId = BrokerId;
 
                     if (!SelectedClient.Validate())
                     {

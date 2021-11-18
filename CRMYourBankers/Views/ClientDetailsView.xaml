@@ -287,14 +287,14 @@
                 <StackPanel
                     Margin="10"
                     HorizontalAlignment="Center"
-                    Orientation="Horizontal"
-                    Visibility="Collapsed">
+                    Orientation="Horizontal">
                     <Button Command="{Binding AddNewExistingPersonalLoan}" Content="Dodaj" />
                 </StackPanel>
                 <DataGrid
                     Width="Auto"
                     Height="200"
                     AutoGenerateColumns="False"
+                    CanUserAddRows="False"
                     EnableRowVirtualization="False"
                     ItemsSource="{Binding ExistingPersonalLoans}">
                     <DataGrid.Columns>
