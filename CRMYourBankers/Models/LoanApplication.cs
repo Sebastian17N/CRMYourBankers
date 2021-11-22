@@ -15,10 +15,11 @@ namespace CRMYourBankers.Models
         public Client Client { get; set; }
         public Bank Bank { get; set; }
         public int BankId { get; set; }
+        public int? MultiBrokerId { get; set; }
         public DateTime LoanStartDate { get; set; }
         public LoanApplicationStatus LoanApplicationStatus { get; set; }
         public bool Paid { get; set; } = false; //można to też zapisać w konstruktorze, ustawić wartość domyślną
-        
+        public MultiBroker MultiBroker { get; set; }
         public List<LoanTask> LoanTasks { get; set; }
         //public string TasksToDo => LoanTasks.LastOrDefault()?.Text;//wyciągnij ostatni z danej kolekcji
         //? zabezpiecza, że jeśli obiekt będzie pusty to nie odwołasz się do jego wnętrza

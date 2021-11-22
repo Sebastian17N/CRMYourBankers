@@ -13,6 +13,7 @@ namespace CRMYourBankers.Database
         public DbSet<LoanApplication> LoanApplications { get; set; }
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Broker> Brokers { get; set; }
+        public DbSet<MultiBroker> MultiBrokers { get; set; }
         public DbSet<LoanTask> LoanTasks { get; set; }
         public DbSet<ClientTask> ClientTasks { get; set; }
         public DbSet<MonthSummary> MonthSummaries { get; set; }
@@ -45,6 +46,7 @@ namespace CRMYourBankers.Database
             AddLoanTasks();
             AddMonthSummaries();
             AddBrokers();
+            AddMultiBrokers();
         }
 
         private void AddClients()
@@ -172,6 +174,21 @@ namespace CRMYourBankers.Database
                         new Broker{Id = 2, Name = "Jakub Nieroda"},
                         new Broker{Id = 3, Name = "Ola Nieroda"},
                         new Broker{Id = 4, Name = "Anna Borowik"},
+                    });
+
+                SaveChanges();
+            }
+        }
+        private void AddMultiBrokers()
+        {
+            if (!MultiBrokers.Any())
+            {
+                MultiBrokers.AddRange(
+                    new List<MultiBroker>
+                    {
+                        new MultiBroker{Id = 1, Name = "Lendi"},
+                        new MultiBroker{Id = 2, Name = "Open"},
+                        new MultiBroker{Id = 3, Name = "Brak"},
                     });
 
                 SaveChanges();

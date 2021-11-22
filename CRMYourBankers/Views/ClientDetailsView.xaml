@@ -149,7 +149,7 @@
                     Orientation="Horizontal">
                     <Label Content="Pośrednik:" />
                     <ComboBox
-                        Width="300"
+                        Width="200"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Brokers}"
                         SelectedValue="{Binding BrokerId}"
