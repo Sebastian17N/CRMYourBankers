@@ -118,7 +118,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedLoanApplication.LoanStartDate = LoanStartDate;
                     SelectedLoanApplication.Paid = IsPaid;
                     SelectedLoanApplication.LoanApplicationStatus = SelectedLoanApplicationStatus;
-                    SelectedLoanApplication.MultiBrokerId = MultiBrokerId ?? 0;
+                    SelectedLoanApplication.MultiBrokerId = MultiBrokerId;
                     SelectedLoanApplication.LoanTasks = LoanTasks;
 
                     if (!SelectedLoanApplication.Validate())

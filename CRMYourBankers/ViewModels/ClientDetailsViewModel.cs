@@ -297,12 +297,13 @@ namespace CRMYourBankers.ViewModels
                         context.SaveChanges();
                     }
 
-                    SelectedClient.ClientTasks = 
-                        Context
+                    SelectedClient.ClientTasks = new ObservableCollection<ClientTask>
+                          (Context
                             .ClientTasks
                             .Where(task => task.ClientId == SelectedClient.Id)
-                            .ToList();
+                            .ToList());
                 }
+                NewTaskText = string.Empty;
                 MessageBox.Show($"Nowe zadanie dodane",
                     "Dodano Nowe Zadanie",
                    MessageBoxButton.OK,
