@@ -39,6 +39,9 @@ namespace CRMYourBankers.ViewModels
                     SelectedZus = _selectedClients.ZusUs;
                     GeneralNoteText = _selectedClients.GeneralNote;
                     ExistingPersonalLoans = new ObservableCollection<BankClientPersonalLoan>(_selectedClients.ExistingPersonalLoans);
+                    ExistingPersonalLoansQuestions = new ObservableCollection<BankClientPersonalLoan>(_selectedClients.ExistingPersonalLoans);
+                    ExistingCompanyLoans = new ObservableCollection<BankClientPersonalLoan>(_selectedClients.ExistingPersonalLoans);
+                    ExistingCompanyLoansQuestions = new ObservableCollection<BankClientPersonalLoan>(_selectedClients.ExistingPersonalLoans);
                     SelectedUs = _selectedClients.Us;
                     SelectedSpouse = _selectedClients.Spouse;
                     SelectedSourceOfIncome = _selectedClients.SourceOfIncome;
@@ -91,17 +94,23 @@ namespace CRMYourBankers.ViewModels
         public ClientStatus? SelectedClientStatus { get; set; }
 
         public ObservableCollection<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
+        public ObservableCollection<BankClientPersonalLoan> ExistingPersonalLoansQuestions { get; set; }
+        public ObservableCollection<BankClientPersonalLoan> ExistingCompanyLoans { get; set; }
+        public ObservableCollection<BankClientPersonalLoan> ExistingCompanyLoansQuestions { get; set; }
 
         public dynamic LoanApplicationsForClient { get; set; }
 
-        private List<ClientTask> _clientTasks;
-        public List<ClientTask> ClientTasks
+        private ObservableCollection<ClientTask> _clientTasks;
+        public ObservableCollection<ClientTask> ClientTasks
         {
             get => _clientTasks;
             set 
-            { 
-                _clientTasks = value;
-                NotifyPropertyChanged("ClientTask");
+            {
+                _clientTasks = new ObservableCollection<ClientTask>(
+                    value
+                        .OrderBy(task => task.Done)
+                        .ThenByDescending(task => task.Id)
+                        .ToList());
             }
         }        
 
@@ -162,7 +171,13 @@ namespace CRMYourBankers.ViewModels
                         loan.BankName,
                         loan.AmountRequested,
                         loan.TasksToDo
-                    }).ToList(); 
+                    }).ToList();
+
+            //SelectedClient =
+            //    Context.ClientTasks
+            //         .OrderBy(task => task.Done)
+            //         .ThenByDescending(task => task.Id)
+            //         .ToList()); JAK TO NAPISAĆ!?!?!?!?
         }
         
         public void RegisterCommands()
@@ -303,7 +318,10 @@ namespace CRMYourBankers.ViewModels
                             .Where(task => task.ClientId == SelectedClient.Id)
                             .ToList());
                 }
+
                 NewTaskText = string.Empty;
+                NotifyPropertyChanged("NewTaskText");
+
                 MessageBox.Show($"Nowe zadanie dodane",
                     "Dodano Nowe Zadanie",
                    MessageBoxButton.OK,

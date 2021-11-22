@@ -2,7 +2,6 @@
 using CRMYourBankers.ViewModels.Base;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using CRMYourBankers.Messages;

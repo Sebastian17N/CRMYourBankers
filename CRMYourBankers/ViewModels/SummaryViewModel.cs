@@ -107,6 +107,8 @@ namespace CRMYourBankers.ViewModels
             Clients =
                 Context
                     .Clients
+                    .Where(client => client.ClientStatus == ClientStatus.Active ||
+                                     client.ClientStatus == ClientStatus.InitiallyInterested)   
                     .Include(client => client.ClientTasks)
                     .Include(client => client.ExistingPersonalLoans)
                     .ToList();

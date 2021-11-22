@@ -276,27 +276,22 @@
                         Content="Dodaj Nowe Zadanie" />
                 </StackPanel>
             </StackPanel>
-            <StackPanel Width="120" Margin="30,0,0,0">
+            <StackPanel Width="110" Margin="20,0,0,0">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock
-                        Width="60"
+                        Width="100"
+                        Margin="5"
                         Text="Kredyty osobiste"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
                 </StackPanel>
-                <StackPanel
-                    Margin="10"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <Button Command="{Binding AddNewExistingPersonalLoan}" Content="Dodaj" />
-                </StackPanel>
                 <DataGrid
                     Width="Auto"
-                    Height="200"
+                    Height="250"
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
                     EnableRowVirtualization="False"
-                    ItemsSource="{Binding ExistingPersonalLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    ItemsSource="{Binding ExistingPersonalLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
                             Width="100"
@@ -316,531 +311,114 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
-            <StackPanel
-                MaxWidth="1000"
-                Margin="30,0,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top">
+            <StackPanel Width="110" Margin="10,0,0,0">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Label Content="Kredyty osobiste" />
+                    <TextBlock
+                        Width="100"
+                        Margin="5"
+                        Text="Zapytania osobiste"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
                 </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
+                <DataGrid
+                    Width="Auto"
+                    Height="250"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="True"
+                    EnableRowVirtualization="False"
+                    ItemsSource="{Binding ExistingPersonalLoansQuestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridComboBoxColumn
+                            Width="110"
+                            DisplayMemberPath="Name"
+                            SelectedItemBinding="{Binding Bank}">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="ComboBox.ItemsSource" Value="{Binding Path=DataContext.Banks, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" />
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style>
+                                    <Setter Property="ComboBox.ItemsSource" Value="{Binding Path=DataContext.Banks, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" />
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
-            <StackPanel
-                MaxWidth="1000"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top">
+            <StackPanel Width="110" Margin="10,0,0,0">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Label Content="Zapytania osobiste" />
+                    <TextBlock
+                        Width="100"
+                        Margin="5"
+                        Text="Kredyty firmowe"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
                 </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
+                <DataGrid
+                    Width="Auto"
+                    Height="250"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="True"
+                    EnableRowVirtualization="False"
+                    ItemsSource="{Binding ExistingCompanyLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridComboBoxColumn
+                            Width="110"
+                            DisplayMemberPath="Name"
+                            SelectedItemBinding="{Binding Bank}">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="ComboBox.ItemsSource" Value="{Binding Path=DataContext.Banks, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" />
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style>
+                                    <Setter Property="ComboBox.ItemsSource" Value="{Binding Path=DataContext.Banks, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" />
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
-            <StackPanel>
-                <Label Content=" " />
-            </StackPanel>
-            <StackPanel
-                MaxWidth="1000"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top">
+            <StackPanel Width="110" Margin="10,0,0,0">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Label Content="Kredyty firmowe" />
+                    <TextBlock
+                        Width="100"
+                        Margin="5"
+                        Text="Zapytania firmowe"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
                 </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
+                <DataGrid
+                    Width="Auto"
+                    Height="250"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="True"
+                    EnableRowVirtualization="False"
+                    ItemsSource="{Binding ExistingCompanyLoansQuestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridComboBoxColumn
+                            Width="110"
+                            DisplayMemberPath="Name"
+                            SelectedItemBinding="{Binding Bank}">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="ComboBox.ItemsSource" Value="{Binding Path=DataContext.Banks, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" />
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style>
+                                    <Setter Property="ComboBox.ItemsSource" Value="{Binding Path=DataContext.Banks, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" />
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
             <StackPanel
                 MaxWidth="1000"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top">
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Label Content="Kredyty firmowe" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="80"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
-                        SelectedValuePath="Id" />
-                </StackPanel>
-            </StackPanel>
-            <StackPanel>
-                <Label Content="        " />
-            </StackPanel>
-            <StackPanel
-                MaxWidth="1000"
+                Margin="20,0,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
                 <StackPanel
@@ -930,12 +508,28 @@
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
-                    Margin="5"
+                    Margin="8"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <ComboBox
+                        Width="100"
+                        DisplayMemberPath="Name"
+                        ItemsSource="{Binding Banks}"
+                        SelectedValue="{Binding BankId}"
+                        SelectedValuePath="Id" />
+                    <Button
+                        Width="100"
+                        Margin="20,0,0,0"
+                        Command="{Binding AddNewLoanApplicationButtonCommand}"
+                        Content="Złóż wniosek" />
+                </StackPanel>
+                <StackPanel
+                    Margin="0,0,10,10"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
                     <Label Content="Notatka BIK:" />
                     <TextBox
-                        Width="150"
+                        Width="140"
                         Height="60"
                         Text="{Binding BIKNoteText}"
                         TextWrapping="Wrap" />

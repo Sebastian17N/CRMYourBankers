@@ -28,6 +28,9 @@ namespace CRMYourBankers.Models
         public int? BrokerId { get; set; }
         public ObservableCollection<ClientTask> ClientTasks { get; set; }
         public List<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
+        public List<BankClientPersonalLoan> ExistingPersonalLoansQuestions { get; set; }
+        public List<BankClientPersonalLoan> ExistingCompanyLoans { get; set; }
+        public List<BankClientPersonalLoan> ExistingCompanyLoansQuestions { get; set; }
         public Broker Broker { get; set; }
 
         public string FullName => $"{FirstName} {LastName} {Email}";
