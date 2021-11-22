@@ -19,7 +19,7 @@
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="enums:LoanApplicationStatus" />
             </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>       
+        </ObjectDataProvider>
         <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
     </UserControl.Resources>
 
@@ -164,7 +164,8 @@
                 Height="400"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
-                ItemsSource="{Binding SelectedLoanApplication.LoanTasks}">
+                CanUserSortColumns="False"
+                ItemsSource="{Binding LoanTasks}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="300"

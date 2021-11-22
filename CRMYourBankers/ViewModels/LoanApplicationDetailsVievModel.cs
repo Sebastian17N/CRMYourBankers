@@ -37,6 +37,20 @@ namespace CRMYourBankers.ViewModels
         public ObservableCollection<Bank> Banks { get; set; }
         public ObservableCollection<MultiBroker> MultiBrokers { get; set; }
 
+        private ObservableCollection<LoanTask> _loanTasks;
+        public ObservableCollection<LoanTask> LoanTasks 
+        { 
+            get => _loanTasks; 
+            set
+			{
+				_loanTasks = new ObservableCollection<LoanTask>(
+					value
+                        .OrderBy(task => task.Done)
+                        .ThenByDescending(task => task.Id)
+                        .ToList());
+			}
+        }
+
         private LoanApplication _selectedLoanApplication;
         public LoanApplication SelectedLoanApplication
         {
@@ -80,6 +94,7 @@ namespace CRMYourBankers.ViewModels
                         Paid = IsPaid,
                         LoanApplicationStatus = SelectedLoanApplicationStatus,
                         MultiBrokerId = MultiBrokerId ?? 0,
+                        LoanTasks = LoanTasks
                     };
 
                     if (!newLoanApplication.Validate())
@@ -104,6 +119,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedLoanApplication.Paid = IsPaid;
                     SelectedLoanApplication.LoanApplicationStatus = SelectedLoanApplicationStatus;
                     SelectedLoanApplication.MultiBrokerId = MultiBrokerId ?? 0;
+                    SelectedLoanApplication.LoanTasks = LoanTasks;
 
                     if (!SelectedLoanApplication.Validate())
                     {
@@ -158,9 +174,13 @@ namespace CRMYourBankers.ViewModels
                             .LoanTasks
                             .Where(task => task.LoanApplicationId == SelectedLoanApplication.Id)
                             .ToList());
+                    LoanTasks = SelectedLoanApplication.LoanTasks;
+                    NotifyPropertyChanged("LoanTasks");
                 }
 
                 TasksToDoText = string.Empty;
+                NotifyPropertyChanged("TasksToDoText");
+
                 MessageBox.Show($"Nowe zadanie dodane",
                     "Dodano Nowe Zadanie",
                    MessageBoxButton.OK,
@@ -213,6 +233,7 @@ namespace CRMYourBankers.ViewModels
                 IsPaid = _selectedLoanApplication.Paid;
                 SelectedLoanApplicationStatus = _selectedLoanApplication.LoanApplicationStatus;
                 MultiBrokerId = _selectedLoanApplication.MultiBrokerId;
+                LoanTasks = _selectedLoanApplication.LoanTasks;
             }
             NotifyPropertyChanged("LoanApplication");
         }
