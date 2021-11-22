@@ -25,6 +25,7 @@ namespace CRMYourBankers.ViewModels
         public string TasksToDoText { get; set; }
         public int? BankId { get; set; }
         public int? ClientId { get; set; }
+        public int? MultiBrokerId { get; set; }
         public DateTime LoanStartDate { get; set; }
         public TabName LastTabName { get; set; }
         public LoanApplicationStatus SelectedLoanApplicationStatus { get; set; }
@@ -34,7 +35,8 @@ namespace CRMYourBankers.ViewModels
 
         public ObservableCollection<Client> Clients { get; set; }
         public ObservableCollection<Bank> Banks { get; set; }
-        
+        public ObservableCollection<MultiBroker> MultiBrokers { get; set; }
+
         private LoanApplication _selectedLoanApplication;
         public LoanApplication SelectedLoanApplication
         {
@@ -60,6 +62,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand CancelButtonCommand { get; set; }
         public ICommand AddNewLoanApplicationTaskButtonCommand { get; set; }
         public YourBankersContext Context { get; set; }
+
         public dynamic BankList { get; set; }
 
         public LoanApplicationDetailsViewModel(Messenger tabMessenger, YourBankersContext context) 
@@ -86,7 +89,8 @@ namespace CRMYourBankers.ViewModels
                         ClientCommission  = ClientCommissionText,
                         LoanStartDate = LoanStartDate,     
                         Paid = IsPaid,
-                        LoanApplicationStatus = SelectedLoanApplicationStatus
+                        LoanApplicationStatus = SelectedLoanApplicationStatus,
+                        MultiBrokerId = MultiBrokerId ?? 0,
                     };
 
                     if (!newLoanApplication.Validate())
@@ -110,6 +114,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedLoanApplication.LoanStartDate = LoanStartDate;
                     SelectedLoanApplication.Paid = IsPaid;
                     SelectedLoanApplication.LoanApplicationStatus = SelectedLoanApplicationStatus;
+                    SelectedLoanApplication.MultiBrokerId = MultiBrokerId ?? 0;
 
                     if (!SelectedLoanApplication.Validate())
                     {
@@ -188,6 +193,7 @@ namespace CRMYourBankers.ViewModels
             //specjalny rodzaj listy, który który sam powiadamia widok, że się zmienił bez potrzeby 
             //wywoływania NotifyPropertyChanged
             Banks = new ObservableCollection<Bank>(Context.Banks.ToList());
+            MultiBrokers = new ObservableCollection<MultiBroker>(Context.MultiBrokers.ToList());
         }
 
         public void ClearAllFields()
@@ -200,6 +206,7 @@ namespace CRMYourBankers.ViewModels
             TasksToDoText = null;
             LoanStartDate = DateTime.Now;
             IsPaid = false;
+            MultiBrokerId = null;
         }
 
         public void RefreshData()
@@ -214,6 +221,7 @@ namespace CRMYourBankers.ViewModels
                 LoanStartDate = _selectedLoanApplication.LoanStartDate;
                 IsPaid = _selectedLoanApplication.Paid;
                 SelectedLoanApplicationStatus = _selectedLoanApplication.LoanApplicationStatus;
+                MultiBrokerId = _selectedLoanApplication.MultiBrokerId;
             }
             NotifyPropertyChanged("LoanApplication");
         }

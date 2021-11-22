@@ -19,15 +19,7 @@
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="enums:LoanApplicationStatus" />
             </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-        <ObjectDataProvider
-            x:Key="MultiBrokerEnumList"
-            MethodName="GetValues"
-            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="enums:MultiBroker" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+        </ObjectDataProvider>       
         <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
     </UserControl.Resources>
 
@@ -114,14 +106,13 @@
                     Margin="5"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-                    <Label Content="Multibroker:" />
-                    <ComboBox Width="300" ItemsSource="{Binding Source={StaticResource MultiBrokerEnumList}}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                    <Label Content="MultiBroker:" />
+                    <ComboBox
+                        Width="300"
+                        DisplayMemberPath="Name"
+                        ItemsSource="{Binding MultiBrokers}"
+                        SelectedValue="{Binding MultiBrokerId}"
+                        SelectedValuePath="Id" />
                 </StackPanel>
                 <StackPanel
                     Margin="5"

@@ -25,7 +25,6 @@ namespace CRMYourBankers.Models
         public SourceOfIncome? SourceOfIncome { get; set; }
         public ClientStatus? ClientStatus { get; set; }
         public int? BrokerId { get; set; }
-
         public List<ClientTask> ClientTasks { get; set; }
         public List<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
         public Broker Broker { get; set; }

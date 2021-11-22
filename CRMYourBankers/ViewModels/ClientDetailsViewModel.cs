@@ -44,6 +44,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedSourceOfIncome = _selectedClients.SourceOfIncome;
                     SelectedClientStatus = _selectedClients.ClientStatus;
                     BrokerId = _selectedClients.BrokerId ??0;
+                    
                 }
                 else
                 {
@@ -88,9 +89,7 @@ namespace CRMYourBankers.ViewModels
         public Spouse? SelectedSpouse { get; set; }
         public SourceOfIncome? SelectedSourceOfIncome { get; set; }
         public ClientStatus? SelectedClientStatus { get; set; }
-
         public List<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
-
         public dynamic LoanApplicationsForClient { get; set; }
 
         private List<ClientTask> _clientTasks;
@@ -195,7 +194,6 @@ namespace CRMYourBankers.ViewModels
                         SourceOfIncome = SelectedSourceOfIncome,
                         ClientStatus = SelectedClientStatus,
                         BrokerId = BrokerId ??0
-
                     };
 
                     if (!newClient.Validate())
@@ -325,6 +323,7 @@ namespace CRMYourBankers.ViewModels
             SelectedUs = null;
             SelectedSpouse = null;
             SelectedSourceOfIncome = null;
+            BrokerId = null;
         }
     }
 }

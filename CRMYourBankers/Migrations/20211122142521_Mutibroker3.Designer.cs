@@ -3,14 +3,16 @@ using System;
 using CRMYourBankers.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRMYourBankers.Migrations
 {
     [DbContext(typeof(YourBankersContext))]
-    partial class YourBankersContextModelSnapshot : ModelSnapshot
+    [Migration("20211122142521_Mutibroker3")]
+    partial class Mutibroker3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,6 +94,9 @@ namespace CRMYourBankers.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("MultiBrokerId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<long?>("PersonalId")
                         .HasColumnType("INTEGER");
 
@@ -116,6 +121,8 @@ namespace CRMYourBankers.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BrokerId");
+
+                    b.HasIndex("MultiBrokerId");
 
                     b.ToTable("Clients");
                 });
@@ -169,9 +176,6 @@ namespace CRMYourBankers.Migrations
                     b.Property<DateTime>("LoanStartDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("MultiBrokerId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<bool>("Paid")
                         .HasColumnType("INTEGER");
 
@@ -180,8 +184,6 @@ namespace CRMYourBankers.Migrations
                     b.HasIndex("BankId");
 
                     b.HasIndex("ClientId");
-
-                    b.HasIndex("MultiBrokerId");
 
                     b.ToTable("LoanApplications");
                 });
@@ -236,7 +238,7 @@ namespace CRMYourBankers.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MultiBrokers");
+                    b.ToTable("MultiBroker");
                 });
 
             modelBuilder.Entity("CRMYourBankers.Models.BankClientPersonalLoan", b =>
@@ -264,7 +266,13 @@ namespace CRMYourBankers.Migrations
                         .WithMany("Clients")
                         .HasForeignKey("BrokerId");
 
+                    b.HasOne("CRMYourBankers.Models.MultiBroker", "MultiBroker")
+                        .WithMany("Clients")
+                        .HasForeignKey("MultiBrokerId");
+
                     b.Navigation("Broker");
+
+                    b.Navigation("MultiBroker");
                 });
 
             modelBuilder.Entity("CRMYourBankers.Models.ClientTask", b =>
@@ -292,15 +300,9 @@ namespace CRMYourBankers.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CRMYourBankers.Models.MultiBroker", "MultiBroker")
-                        .WithMany("LoanApplications")
-                        .HasForeignKey("MultiBrokerId");
-
                     b.Navigation("Bank");
 
                     b.Navigation("Client");
-
-                    b.Navigation("MultiBroker");
                 });
 
             modelBuilder.Entity("CRMYourBankers.Models.LoanTask", b =>
@@ -340,7 +342,7 @@ namespace CRMYourBankers.Migrations
 
             modelBuilder.Entity("CRMYourBankers.Models.MultiBroker", b =>
                 {
-                    b.Navigation("LoanApplications");
+                    b.Navigation("Clients");
                 });
 #pragma warning restore 612, 618
         }
