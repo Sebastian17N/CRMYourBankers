@@ -1,6 +1,7 @@
 ﻿using CRMYourBankers.Enums;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace CRMYourBankers.Models
@@ -20,7 +21,7 @@ namespace CRMYourBankers.Models
         public LoanApplicationStatus LoanApplicationStatus { get; set; }
         public bool Paid { get; set; } = false; //można to też zapisać w konstruktorze, ustawić wartość domyślną
         public MultiBroker MultiBroker { get; set; }
-        public List<LoanTask> LoanTasks { get; set; }
+        public ObservableCollection<LoanTask> LoanTasks { get; set; }
         //public string TasksToDo => LoanTasks.LastOrDefault()?.Text;//wyciągnij ostatni z danej kolekcji
         //? zabezpiecza, że jeśli obiekt będzie pusty to nie odwołasz się do jego wnętrza
 
@@ -32,7 +33,7 @@ namespace CRMYourBankers.Models
 
         public LoanApplication()
         {
-            LoanTasks = new List<LoanTask>();//dodając wniosek automatycznie tworzy sie pusta lista zadań
+            LoanTasks = new ObservableCollection<LoanTask>();//dodając wniosek automatycznie tworzy sie pusta lista zadań
         }
 
         public bool Validate()

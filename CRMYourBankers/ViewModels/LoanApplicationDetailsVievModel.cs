@@ -47,17 +47,6 @@ namespace CRMYourBankers.ViewModels
             }
         }
 
-        private List<LoanTask> _loanTasks;
-        public List<LoanTask> LoanTasks 
-        { 
-            get => _loanTasks;
-            set
-            {
-                _loanTasks = value;                
-                NotifyPropertyChanged("LoanTasks");
-            }
-        }
-
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
         public ICommand AddNewLoanApplicationTaskButtonCommand { get; set; }
@@ -164,12 +153,14 @@ namespace CRMYourBankers.ViewModels
                         context.SaveChanges();
                     }
 
-                    SelectedLoanApplication.LoanTasks =
-                        Context
+                    SelectedLoanApplication.LoanTasks = new ObservableCollection<LoanTask>
+                        (Context
                             .LoanTasks
                             .Where(task => task.LoanApplicationId == SelectedLoanApplication.Id)
-                            .ToList();
+                            .ToList());
                 }
+
+                TasksToDoText = string.Empty;
                 MessageBox.Show($"Nowe zadanie dodane",
                     "Dodano Nowe Zadanie",
                    MessageBoxButton.OK,
