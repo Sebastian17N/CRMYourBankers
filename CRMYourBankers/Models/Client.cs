@@ -1,6 +1,7 @@
 ﻿using CRMYourBankers.Enums;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 
@@ -25,7 +26,7 @@ namespace CRMYourBankers.Models
         public SourceOfIncome? SourceOfIncome { get; set; }
         public ClientStatus? ClientStatus { get; set; }
         public int? BrokerId { get; set; }
-        public List<ClientTask> ClientTasks { get; set; }
+        public ObservableCollection<ClientTask> ClientTasks { get; set; }
         public List<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
         public Broker Broker { get; set; }
 
@@ -35,7 +36,7 @@ namespace CRMYourBankers.Models
         
         public Client()
         {
-            ClientTasks = new List<ClientTask>();
+            ClientTasks = new ObservableCollection<ClientTask>();
             ExistingPersonalLoans = new List<BankClientPersonalLoan>();
         }
 
