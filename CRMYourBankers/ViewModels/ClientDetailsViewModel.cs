@@ -257,7 +257,7 @@ namespace CRMYourBankers.ViewModels
 
                 Context.SaveChanges();
                 MessageBox.Show($"Zapisano: {FirstNameText} {LastNameText}", 
-                    "Dodano Klienta",
+                    "Dodano Klienta",   
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
 
