@@ -38,7 +38,7 @@ namespace CRMYourBankers.ViewModels
                     WhatHesJobText = _selectedClients.WhatHesJob;
                     SelectedZus = _selectedClients.ZusUs;
                     GeneralNoteText = _selectedClients.GeneralNote;
-                    ExistingPersonalLoans = _selectedClients.ExistingPersonalLoans;
+                    ExistingPersonalLoans = new ObservableCollection<BankClientPersonalLoan>(_selectedClients.ExistingPersonalLoans);
                     SelectedUs = _selectedClients.Us;
                     SelectedSpouse = _selectedClients.Spouse;
                     SelectedSourceOfIncome = _selectedClients.SourceOfIncome;
@@ -89,7 +89,7 @@ namespace CRMYourBankers.ViewModels
         public SourceOfIncome? SelectedSourceOfIncome { get; set; }
         public ClientStatus? SelectedClientStatus { get; set; }
 
-        public List<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
+        public ObservableCollection<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
 
         public dynamic LoanApplicationsForClient { get; set; }
 
@@ -171,7 +171,9 @@ namespace CRMYourBankers.ViewModels
                 foreach (var loan in ExistingPersonalLoans.Where(loan => loan.BankId == 0 && loan.Bank != null))
                     loan.BankId = loan.Bank.Id;
 
-                ExistingPersonalLoans.RemoveAll(loan => loan.BankId == 0);
+                var listWithoutRemovedItems = ExistingPersonalLoans.ToList();
+                listWithoutRemovedItems.RemoveAll(loan => loan.BankId == 0);
+                ExistingPersonalLoans = new ObservableCollection<BankClientPersonalLoan>(listWithoutRemovedItems);
 
                 if (SelectedClient == null)
                 {
@@ -190,7 +192,7 @@ namespace CRMYourBankers.ViewModels
                         ZusUs = SelectedZus,
                         Us = SelectedUs,
                         GeneralNote = GeneralNoteText,
-                        ExistingPersonalLoans = ExistingPersonalLoans,
+                        ExistingPersonalLoans = ExistingPersonalLoans.ToList(),
                         Spouse = SelectedSpouse,
                         SourceOfIncome = SelectedSourceOfIncome,
                         ClientStatus = SelectedClientStatus,
@@ -231,7 +233,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.WhatHesJob = WhatHesJobText;
                     SelectedClient.ZusUs = SelectedZus;
                     SelectedClient.GeneralNote = GeneralNoteText;
-                    SelectedClient.ExistingPersonalLoans = ExistingPersonalLoans;
+                    SelectedClient.ExistingPersonalLoans = ExistingPersonalLoans.ToList();
                     SelectedClient.Us = SelectedUs;
                     SelectedClient.Spouse = SelectedSpouse;
                     SelectedClient.SourceOfIncome = SelectedSourceOfIncome;
@@ -247,7 +249,6 @@ namespace CRMYourBankers.ViewModels
                         return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
                     }
                 }
-                Context.SaveChanges();
 
                 MessageBox.Show($"Zapisano: {FirstNameText} {LastNameText}", 
                     "Dodano Klienta",
@@ -304,7 +305,7 @@ namespace CRMYourBankers.ViewModels
             AddNewExistingPersonalLoan = new RelayCommand(() =>
             {
                 if (ExistingPersonalLoans == null)
-                    ExistingPersonalLoans = new List<BankClientPersonalLoan>();
+                    ExistingPersonalLoans = new ObservableCollection<BankClientPersonalLoan>();
 
                 ExistingPersonalLoans.Add(new BankClientPersonalLoan { ClientId = SelectedClient.Id });
                 NotifyPropertyChanged("ExistingPersonalLoans");

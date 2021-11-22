@@ -33,6 +33,7 @@ namespace CRMYourBankers.Database
 
             modelBuilder.Entity<BankClientPersonalLoan>()
                 .HasKey(bc => new { bc.BankId, bc.ClientId });
+
         }
 
         public void DataSeeds()
