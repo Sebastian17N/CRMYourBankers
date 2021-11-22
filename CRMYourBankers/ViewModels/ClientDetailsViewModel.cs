@@ -81,7 +81,7 @@ namespace CRMYourBankers.ViewModels
         public string ContactPersonText { get; set; }
         public string WhatHesJobText { get; set; }
         public string GeneralNoteText { get; set; }
-        public int? BrokerId { get; set; }
+        public int BrokerId { get; set; }
         public string NewTaskText { get; set; }
         public TabName LastTabName { get; set; }
         public ZusUs? SelectedZus { get; set; }
@@ -172,6 +172,11 @@ namespace CRMYourBankers.ViewModels
                 foreach (var loan in ExistingPersonalLoans.Where(loan => loan.BankId == 0 && loan.Bank != null))
                     loan.BankId = loan.Bank.Id;
 
+                foreach (var loan in ExistingPersonalLoans.Where(loan => loan.ClientId == 0))
+                {
+                    loan.ClientId = SelectedClient.Id;
+                }
+
                 var listWithoutRemovedItems = ExistingPersonalLoans.ToList();
                 listWithoutRemovedItems.RemoveAll(loan => loan.BankId == 0);
                 ExistingPersonalLoans = new ObservableCollection<BankClientPersonalLoan>(listWithoutRemovedItems);
@@ -197,7 +202,7 @@ namespace CRMYourBankers.ViewModels
                         Spouse = SelectedSpouse,
                         SourceOfIncome = SelectedSourceOfIncome,
                         ClientStatus = SelectedClientStatus,
-                        BrokerId = BrokerId ??0
+                        BrokerId = BrokerId == 0 ? null : BrokerId
                     };
 
                     if (!newClient.Validate())
@@ -238,7 +243,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.Spouse = SelectedSpouse;
                     SelectedClient.SourceOfIncome = SelectedSourceOfIncome;
                     SelectedClient.ClientStatus = SelectedClientStatus;
-                    SelectedClient.BrokerId = BrokerId;
+                    SelectedClient.BrokerId = BrokerId == 0 ? null : BrokerId;
 
                     if (!SelectedClient.Validate())
                     {
@@ -250,10 +255,12 @@ namespace CRMYourBankers.ViewModels
                     }
                 }
 
+                Context.SaveChanges();
                 MessageBox.Show($"Zapisano: {FirstNameText} {LastNameText}", 
                     "Dodano Klienta",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
+
                 TabMessenger.Send(new TabChangeMessage { TabName = LastTabName });
                 ClearAllFields();                              
             });
@@ -326,7 +333,7 @@ namespace CRMYourBankers.ViewModels
             SelectedUs = null;
             SelectedSpouse = null;
             SelectedSourceOfIncome = null;
-            BrokerId = null;
+            BrokerId = 0;
         }
     }
 }

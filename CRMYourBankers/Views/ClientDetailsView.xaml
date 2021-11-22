@@ -294,7 +294,7 @@
                     Width="Auto"
                     Height="200"
                     AutoGenerateColumns="False"
-                    CanUserAddRows="False"
+                    CanUserAddRows="True"
                     EnableRowVirtualization="False"
                     ItemsSource="{Binding ExistingPersonalLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
