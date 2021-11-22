@@ -58,6 +58,7 @@ namespace CRMYourBankers.ViewModels
 
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
+        public ICommand AddNewLoanApplicationTaskButtonCommand { get; set; }
         public YourBankersContext Context { get; set; }
         public dynamic BankList { get; set; }
 
@@ -128,6 +129,7 @@ namespace CRMYourBankers.ViewModels
                     "Dodano Nowy Wniosek",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
+
                 TabMessenger.Send(new TabChangeMessage { TabName = LastTabName });
                 ClearAllFields();
             });
@@ -140,6 +142,34 @@ namespace CRMYourBankers.ViewModels
 
             // Przykład napisania zwykłej funkcji, którą możesz zastąpić funkcją anonimową - patrz komentarz wyżej.
             CancelButtonCommand = new RelayCommand(CancelButtonCommandHandler);
+
+            AddNewLoanApplicationTaskButtonCommand = new RelayCommand(() =>
+            {
+                if (SelectedLoanApplication != null)
+                {
+                    using (var context = new YourBankersContext())
+                    {
+                        var newLoanApplicationTask = new LoanTask
+                        {
+                            Text = TasksToDoText,
+                            LoanApplicationId = SelectedLoanApplication.Id
+                        };
+
+                        context.LoanTasks.Add(newLoanApplicationTask);
+                        context.SaveChanges();
+                    }
+
+                    SelectedLoanApplication.LoanTasks =
+                        Context
+                            .LoanTasks
+                            .Where(task => task.LoanApplicationId == SelectedLoanApplication.Id)
+                            .ToList();
+                }
+                MessageBox.Show($"Nowe zadanie dodane",
+                    "Dodano Nowe Zadanie",
+                   MessageBoxButton.OK,
+                   MessageBoxImage.Information);
+            });
         }
 
         private void CancelButtonCommandHandler ()
@@ -181,7 +211,6 @@ namespace CRMYourBankers.ViewModels
                 AmountRequestedText = _selectedLoanApplication.AmountRequested;
                 AmountReceivedText = _selectedLoanApplication.AmountReceived;
                 ClientCommissionText = _selectedLoanApplication.ClientCommission;
-                TasksToDoText = _selectedLoanApplication.TasksToDo;
                 LoanStartDate = _selectedLoanApplication.LoanStartDate;
                 IsPaid = _selectedLoanApplication.Paid;
                 SelectedLoanApplicationStatus = _selectedLoanApplication.LoanApplicationStatus;

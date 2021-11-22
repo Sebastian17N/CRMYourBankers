@@ -127,13 +127,6 @@
                     Margin="5"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-                    <Label Content="Dodaj nowe zadanie:" />
-                    <TextBox Width="300" Text="{Binding TasksToDoText}" />
-                </StackPanel>
-                <StackPanel
-                    Margin="5"
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal">
                     <Label Content="Data uruchomienia kredytu" />
                     <DatePicker
                         HorizontalContentAlignment="Center"
@@ -160,6 +153,19 @@
                     Width="200"
                     Command="{Binding CancelButtonCommand}"
                     Content="Cancel" />
+                <StackPanel
+                    Margin="5,10,5,5"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical">
+                    <TextBox
+                        Width="300"
+                        Height="20"
+                        Text="{Binding TasksToDoText}" />
+                    <Button
+                        Width="300"
+                        Command="{Binding AddNewLoanApplicationTaskButtonCommand}"
+                        Content="Dodaj Nowe Zadanie" />
+                </StackPanel>
             </StackPanel>
         </StackPanel>
         <StackPanel>

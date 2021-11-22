@@ -294,7 +294,11 @@ namespace CRMYourBankers.ViewModels
                             .ClientTasks
                             .Where(task => task.ClientId == SelectedClient.Id)
                             .ToList();
-                }                
+                }
+                MessageBox.Show($"Nowe zadanie dodane",
+                    "Dodano Nowe Zadanie",
+                   MessageBoxButton.OK,
+                   MessageBoxImage.Information);
             });
 
             AddNewExistingPersonalLoan = new RelayCommand(() =>
