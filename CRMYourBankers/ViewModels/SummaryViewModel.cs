@@ -35,6 +35,7 @@ namespace CRMYourBankers.ViewModels
             }
         }
         public Client SelectedClient { get; set; }
+        public dynamic DataGridScore { get; set; }
 
 
         // Przykłady innego napisania RealizedScore w postaci property z widocznym get i funkcji.
@@ -71,7 +72,8 @@ namespace CRMYourBankers.ViewModels
 
         public void RefreshData()
         {
-            
+            SelectedDateTime = DateTime.Today;
+
             DataGridData =
                 Context.LoanApplications
                 .Where(loan => loan.LoanApplicationStatus == LoanApplicationStatus.Offer ||
@@ -113,7 +115,24 @@ namespace CRMYourBankers.ViewModels
                     .Include(client => client.ExistingPersonalLoans)
                     .ToList();
             NotifyPropertyChanged("DataGridData");
-            
+
+            DataGridScore =
+                Context
+                    .LoanApplications
+                    .Where(loan =>
+                        loan.LoanStartDate.Year == DateTime.Today.Year &&
+                        loan.LoanStartDate.Month == DateTime.Today.Month)
+                    .Select(loan =>
+                        new
+                        {
+                            ClientFullName = loan.Client.FullName,
+                            loan.AmountReceived,
+                            BankName = loan.Bank.Name,
+                            ClientCommission = loan.ClientCommission,
+                            Id = loan.Id
+                        }
+                    ).ToList();
+            NotifyPropertyChanged("DataGridScore");
         }
 
         public void RegisterCommands()

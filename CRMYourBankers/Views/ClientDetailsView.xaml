@@ -539,7 +539,7 @@
         <StackPanel>
             <DataGrid
                 Height="150"
-                AutoGenerateColumns="False"
+                AutoGenerateColumns="False"                
                 ItemsSource="{Binding LoanApplicationsForClient}"
                 SelectedItem="{Binding SelectedLoanApplication}">
                 <DataGrid.Columns>
