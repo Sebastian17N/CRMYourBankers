@@ -79,7 +79,7 @@ namespace CRMYourBankers.ViewModels
         public string EmailText { get; set; }
         public int? PhoneNumberText { get; set; }
         public long? PersonalIdText { get; set; }
-        public long AmountRequestedText { get; set; }
+        public long? AmountRequestedText { get; set; }
         public string ClientCommissionText { get; set; }
         public string ContactPersonText { get; set; }
         public string WhatHesJobText { get; set; }
@@ -119,6 +119,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand DetailsScreenOpenHandler { get; set; }
         public ICommand AddNewClientTaskButtonCommand { get; set; }
         public ICommand AddNewExistingPersonalLoan { get; set; }
+        public ICommand AddNewLoanApplicationCommand1 { get; set; }
 
 
         public YourBankersContext Context { get; set; }
@@ -336,6 +337,23 @@ namespace CRMYourBankers.ViewModels
                 ExistingPersonalLoans.Add(new BankClientPersonalLoan { ClientId = SelectedClient.Id });
                 NotifyPropertyChanged("ExistingPersonalLoans");
             });
+
+            AddNewLoanApplicationCommand1 = new RelayCommand(() => 
+            {
+                if (SelectedClient == null)
+                    return;
+
+                var newLoanApplicationForClient = new LoanApplication
+                {                    
+                    ClientId = SelectedClient.Id
+                };
+
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    TabName = TabName.LoanApplicationDetails,
+                    LastTabName = TabName.ClientDetails
+                });
+            });
         }
 
         public void ClearAllFields()
@@ -344,7 +362,11 @@ namespace CRMYourBankers.ViewModels
             LastNameText = "";
             PhoneNumberText = null;
             EmailText = "";
+            ContactPersonText = "";
+            WhatHesJobText = "";
             PersonalIdText = null;
+            AmountRequestedText = null;
+            ClientCommissionText = "";
             LoanApplicationsForClient = null;
             ExistingPersonalLoans = null;
             SelectedClientStatus = null;

@@ -15,7 +15,7 @@ namespace CRMYourBankers.Models
         public string Email { get; set; }        
         public long? PersonalId { get; set; }
         public int Id { get; set; }
-        public long AmountRequested { get; set; }
+        public long? AmountRequested { get; set; }
         public string ClientCommission { get; set; }
         public string ContactPerson { get; set; }
         public string WhatHesJob { get; set; }

@@ -27,7 +27,7 @@ namespace CRMYourBankers.ViewModels
         public int? MultiBrokerId { get; set; }
         public DateTime LoanStartDate { get; set; }
         public TabName LastTabName { get; set; }
-        public LoanApplicationStatus SelectedLoanApplicationStatus { get; set; }
+        public LoanApplicationStatus? SelectedLoanApplicationStatus { get; set; }
         public bool IsPaid { get; set; }
         public string FullName { get; set; }
         #endregion
@@ -217,6 +217,7 @@ namespace CRMYourBankers.ViewModels
             LoanStartDate = DateTime.Now;
             IsPaid = false;
             MultiBrokerId = null;
+            SelectedLoanApplicationStatus = null;
         }
 
         public void RefreshData()

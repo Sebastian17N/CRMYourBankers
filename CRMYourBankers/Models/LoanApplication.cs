@@ -18,7 +18,7 @@ namespace CRMYourBankers.Models
         public int BankId { get; set; }
         public int? MultiBrokerId { get; set; }
         public DateTime LoanStartDate { get; set; }
-        public LoanApplicationStatus LoanApplicationStatus { get; set; }
+        public LoanApplicationStatus? LoanApplicationStatus { get; set; }
         public bool Paid { get; set; } = false; //można to też zapisać w konstruktorze, ustawić wartość domyślną
         public MultiBroker MultiBroker { get; set; }
         public ObservableCollection<LoanTask> LoanTasks { get; set; }
