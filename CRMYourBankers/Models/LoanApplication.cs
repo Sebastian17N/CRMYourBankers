@@ -34,6 +34,7 @@ namespace CRMYourBankers.Models
         public LoanApplication()
         {
             LoanTasks = new ObservableCollection<LoanTask>();//dodając wniosek automatycznie tworzy sie pusta lista zadań
+            
         }
 
         public bool Validate()
@@ -41,7 +42,8 @@ namespace CRMYourBankers.Models
             return
                 AmountRequested != null &&
                 ClientId != 0 && // Jeśli ClientId lub BankId = 0 to oznacza, że nie wybrano ich z combo.
-                BankId != 0;
+                BankId != 0 &&
+                LoanApplicationStatus != null;
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Input;
 using CRMYourBankers.Enums;
 using System.Collections.ObjectModel;
+using System;
 
 namespace CRMYourBankers.ViewModels
 {
@@ -47,7 +48,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedSourceOfIncome = _selectedClients.SourceOfIncome;
                     SelectedClientStatus = _selectedClients.ClientStatus;
                     BrokerId = _selectedClients.BrokerId ??0;
-                    
+                    ClientTasks = _selectedClients.ClientTasks;
                 }
                 else
                 {
@@ -86,6 +87,7 @@ namespace CRMYourBankers.ViewModels
         public string GeneralNoteText { get; set; }
         public int BrokerId { get; set; }
         public string NewTaskText { get; set; }
+        public int LoanProposal1 { get; set; }
         public TabName LastTabName { get; set; }
         public ZusUs? SelectedZus { get; set; }
         public ZusUs? SelectedUs { get; set; }
@@ -260,6 +262,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.SourceOfIncome = SelectedSourceOfIncome;
                     SelectedClient.ClientStatus = SelectedClientStatus;
                     SelectedClient.BrokerId = BrokerId == 0 ? null : BrokerId;
+                    SelectedClient.ClientTasks = ClientTasks;
 
                     if (!SelectedClient.Validate())
                     {
@@ -289,10 +292,11 @@ namespace CRMYourBankers.ViewModels
 
             DetailsScreenOpenHandler = new RelayCommand(() =>
             {
+                var selectedLoanApplicationId = (int)SelectedLoanApplication.Id;
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = TabName.LoanApplicationDetails,
-                    ObjectId = SelectedLoanApplication.Id,
+                    SelectedObject = Context.LoanApplications.Single(loan => loan.Id == selectedLoanApplicationId),
                     LastTabName = TabName.ClientDetails
                 });
             });
@@ -318,6 +322,7 @@ namespace CRMYourBankers.ViewModels
                             .ClientTasks
                             .Where(task => task.ClientId == SelectedClient.Id)
                             .ToList());
+                    ClientTasks = SelectedClient.ClientTasks;
                 }
 
                 NewTaskText = string.Empty;
@@ -345,11 +350,16 @@ namespace CRMYourBankers.ViewModels
 
                 var newLoanApplicationForClient = new LoanApplication
                 {                    
-                    ClientId = SelectedClient.Id
+                    ClientId = SelectedClient.Id,
+                    Client = SelectedClient,
+                    BankId = LoanProposal1,
+                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal1),
+                    LoanStartDate = DateTime.Now
                 };
 
                 TabMessenger.Send(new TabChangeMessage
                 {
+                    SelectedObject = newLoanApplicationForClient,
                     TabName = TabName.LoanApplicationDetails,
                     LastTabName = TabName.ClientDetails
                 });

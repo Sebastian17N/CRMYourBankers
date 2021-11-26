@@ -9,6 +9,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using CRMYourBankers.Enums;
+using CRMYourBankers.Models;
 
 namespace CRMYourBankers.ViewModels
 {
@@ -177,8 +178,7 @@ namespace CRMYourBankers.ViewModels
                         break;
 
                     case TabName.ClientDetails:
-                        _clientDetailsViewModel.SelectedClient = message.ObjectId > 0 ?
-                           Context.Clients.Single(client => client.Id == message.ObjectId) : null;
+                        _clientDetailsViewModel.SelectedClient = (Client)message.SelectedObject;
                         SelectedTab = _clientDetailsViewModel;                       
                         break;
 
@@ -186,10 +186,7 @@ namespace CRMYourBankers.ViewModels
                         SelectedTab = _loanApplicationSearchViewModel;
                         break;
                     case TabName.LoanApplicationDetails:
-                        _loanApplicationDetailsViewModel.SelectedLoanApplication =
-                            message.ObjectId > 0 ?
-                            Context.LoanApplications.Single(loan => loan.Id == message.ObjectId) :
-                            null;
+                        _loanApplicationDetailsViewModel.SelectedLoanApplication = (LoanApplication)message.SelectedObject;
                         SelectedTab = _loanApplicationDetailsViewModel;
                             break;
                     case TabName.Summary:

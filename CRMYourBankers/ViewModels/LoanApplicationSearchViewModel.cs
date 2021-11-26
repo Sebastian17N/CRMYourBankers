@@ -68,10 +68,11 @@ namespace CRMYourBankers.ViewModels
         {
             DetailsScreenOpenHandler = new RelayCommand(() =>
             {
+                var selectedLoanApplicationId = (int)SelectedLoanApplication.Id;
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = TabName.LoanApplicationDetails,
-                    ObjectId = SelectedLoanApplication.Id,
+                    SelectedObject = Context.LoanApplications.Single(loan => loan.Id == selectedLoanApplicationId),
                     LastTabName = TabName.LoanApplicationSearch
                 });                
             });            

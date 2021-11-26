@@ -128,6 +128,11 @@ namespace CRMYourBankers.ViewModels
                             MessageBoxImage.Warning);
                         return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
                     }
+                    if (SelectedLoanApplication.Id == 0)
+                    {
+                        Context.LoanApplications.Add(SelectedLoanApplication);
+                        SelectedLoanApplication.Id = Context.LoanApplications.Max(loan => loan.Id) + 1;
+                    }
                 }
 
                 Context.SaveChanges();
@@ -193,7 +198,7 @@ namespace CRMYourBankers.ViewModels
             TabMessenger.Send(new TabChangeMessage 
             { 
                 TabName = LastTabName,
-                ObjectId = LastTabName == TabName.ClientDetails ? SelectedLoanApplication.ClientId : 0
+                SelectedObject = LastTabName == TabName.ClientDetails ? SelectedLoanApplication.Client : null
             });
         }
 

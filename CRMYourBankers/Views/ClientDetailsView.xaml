@@ -435,7 +435,7 @@
                         Width="100"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
+                        SelectedValue="{Binding LoanProposal1}"
                         SelectedValuePath="Id" />
                     <Button
                         Width="100"
@@ -576,7 +576,7 @@
                 Height="200"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
-                ItemsSource="{Binding SelectedClient.ClientTasks}">
+                ItemsSource="{Binding ClientTasks}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="300"
