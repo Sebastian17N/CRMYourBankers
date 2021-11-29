@@ -105,6 +105,7 @@ namespace CRMYourBankers.ViewModels
                         return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
                     }
 
+                    SelectedLoanApplication = newLoanApplication;
                     Context.LoanApplications.Add(newLoanApplication);
                 }
                 else

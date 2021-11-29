@@ -20,6 +20,8 @@ namespace CRMYourBankers.Models
         public DateTime LoanStartDate { get; set; }
         public LoanApplicationStatus? LoanApplicationStatus { get; set; }
         public bool Paid { get; set; } = false; //można to też zapisać w konstruktorze, ustawić wartość domyślną
+        public DateTime StartDate { get; set; }
+
         public MultiBroker MultiBroker { get; set; }
         public ObservableCollection<LoanTask> LoanTasks { get; set; }
         //public string TasksToDo => LoanTasks.LastOrDefault()?.Text;//wyciągnij ostatni z danej kolekcji
@@ -34,7 +36,7 @@ namespace CRMYourBankers.Models
         public LoanApplication()
         {
             LoanTasks = new ObservableCollection<LoanTask>();//dodając wniosek automatycznie tworzy sie pusta lista zadań
-            
+            StartDate = DateTime.Now;
         }
 
         public bool Validate()

@@ -121,6 +121,7 @@ namespace CRMYourBankers.Database
                         AmountRequested = 100000,
                         AmountReceived = 100000,
                         ClientCommission = 5000,
+                        StartDate = DateTime.Parse("2021/11/12")
                     },
                     new LoanApplication
                     {
@@ -130,6 +131,7 @@ namespace CRMYourBankers.Database
                         AmountRequested = 200000,
                         AmountReceived = 200000,
                         ClientCommission = 10000,
+                        StartDate = DateTime.Parse("2021/10/22")
                     });
 
                 SaveChanges();

@@ -45,7 +45,8 @@ namespace CRMYourBankers.ViewModels
                         loan.AmountRequested,
                         loan.AmountReceived,
                         loan.TasksToDo,
-                        BankName = bank.Name
+                        BankName = bank.Name,
+                        loan.StartDate
                     })
                 .Join(
                     Context.Clients,
@@ -58,8 +59,9 @@ namespace CRMYourBankers.ViewModels
                         loan.BankName,
                         loan.AmountRequested,
                         loan.AmountReceived,
-                        loan.TasksToDo
-                    })
+                        loan.TasksToDo,
+                        StartDate = loan.StartDate.ToString("MMMM yyyy").ToUpper()
+                    })                
                 .ToList();
             NotifyPropertyChanged("DataGridData");
         }
