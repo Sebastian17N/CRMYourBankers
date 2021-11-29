@@ -7,7 +7,7 @@
     d:DesignHeight="300"
     d:DesignWidth="600"
     mc:Ignorable="d">
-
+    
     <StackPanel Orientation="Vertical">
         <Button
             Width="200"

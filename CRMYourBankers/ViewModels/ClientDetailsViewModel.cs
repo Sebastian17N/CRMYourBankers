@@ -88,6 +88,13 @@ namespace CRMYourBankers.ViewModels
         public int BrokerId { get; set; }
         public string NewTaskText { get; set; }
         public int LoanProposal1 { get; set; }
+        public int LoanProposal2 { get; set; }
+        public int LoanProposal3 { get; set; }
+        public int LoanProposal4 { get; set; }
+
+        public int LoanProposal5 { get; set; }
+        public int LoanProposal6 { get; set; }
+        public int LoanProposal7 { get; set; }
         public TabName LastTabName { get; set; }
         public ZusUs? SelectedZus { get; set; }
         public ZusUs? SelectedUs { get; set; }
@@ -122,6 +129,12 @@ namespace CRMYourBankers.ViewModels
         public ICommand AddNewClientTaskButtonCommand { get; set; }
         public ICommand AddNewExistingPersonalLoan { get; set; }
         public ICommand AddNewLoanApplicationCommand1 { get; set; }
+        public ICommand AddNewLoanApplicationCommand2 { get; set; }
+        public ICommand AddNewLoanApplicationCommand3 { get; set; }
+        public ICommand AddNewLoanApplicationCommand4 { get; set; }
+        public ICommand AddNewLoanApplicationCommand5 { get; set; }
+        public ICommand AddNewLoanApplicationCommand6 { get; set; }
+        public ICommand AddNewLoanApplicationCommand7 { get; set; }
 
 
         public YourBankersContext Context { get; set; }
@@ -264,6 +277,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.BrokerId = BrokerId == 0 ? null : BrokerId;
                     SelectedClient.ClientTasks = ClientTasks;
 
+
                     if (!SelectedClient.Validate())
                     {
                         MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
@@ -364,6 +378,132 @@ namespace CRMYourBankers.ViewModels
                     LastTabName = TabName.ClientDetails
                 });
             });
+            AddNewLoanApplicationCommand2 = new RelayCommand(() =>
+            {
+                if (SelectedClient == null)
+                    return;
+
+                var newLoanApplicationForClient = new LoanApplication
+                {
+                    ClientId = SelectedClient.Id,
+                    Client = SelectedClient,
+                    BankId = LoanProposal2,
+                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal2),
+                    LoanStartDate = DateTime.Now
+                };
+
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    SelectedObject = newLoanApplicationForClient,
+                    TabName = TabName.LoanApplicationDetails,
+                    LastTabName = TabName.ClientDetails
+                });
+            });
+            AddNewLoanApplicationCommand3 = new RelayCommand(() =>
+            {
+                if (SelectedClient == null)
+                    return;
+
+                var newLoanApplicationForClient = new LoanApplication
+                {
+                    ClientId = SelectedClient.Id,
+                    Client = SelectedClient,
+                    BankId = LoanProposal3,
+                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal3),
+                    LoanStartDate = DateTime.Now
+                };
+
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    SelectedObject = newLoanApplicationForClient,
+                    TabName = TabName.LoanApplicationDetails,
+                    LastTabName = TabName.ClientDetails
+                });
+            });
+            AddNewLoanApplicationCommand4 = new RelayCommand(() =>
+            {
+                if (SelectedClient == null)
+                    return;
+
+                var newLoanApplicationForClient = new LoanApplication
+                {
+                    ClientId = SelectedClient.Id,
+                    Client = SelectedClient,
+                    BankId = LoanProposal4,
+                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal4),
+                    LoanStartDate = DateTime.Now
+                };
+
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    SelectedObject = newLoanApplicationForClient,
+                    TabName = TabName.LoanApplicationDetails,
+                    LastTabName = TabName.ClientDetails
+                });
+            });
+            AddNewLoanApplicationCommand5 = new RelayCommand(() =>
+            {
+                if (SelectedClient == null)
+                    return;
+
+                var newLoanApplicationForClient = new LoanApplication
+                {
+                    ClientId = SelectedClient.Id,
+                    Client = SelectedClient,
+                    BankId = LoanProposal5,
+                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal5),
+                    LoanStartDate = DateTime.Now
+                };
+
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    SelectedObject = newLoanApplicationForClient,
+                    TabName = TabName.LoanApplicationDetails,
+                    LastTabName = TabName.ClientDetails
+                });
+            });
+            AddNewLoanApplicationCommand6 = new RelayCommand(() =>
+            {
+                if (SelectedClient == null)
+                    return;
+
+                var newLoanApplicationForClient = new LoanApplication
+                {
+                    ClientId = SelectedClient.Id,
+                    Client = SelectedClient,
+                    BankId = LoanProposal6,
+                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal6),
+                    LoanStartDate = DateTime.Now
+                };
+
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    SelectedObject = newLoanApplicationForClient,
+                    TabName = TabName.LoanApplicationDetails,
+                    LastTabName = TabName.ClientDetails
+                });
+            });
+            AddNewLoanApplicationCommand7 = new RelayCommand(() =>
+            {
+                if (SelectedClient == null)
+                    return;
+
+                var newLoanApplicationForClient = new LoanApplication
+                {
+                    ClientId = SelectedClient.Id,
+                    Client = SelectedClient,
+                    BankId = LoanProposal7,
+                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal7),
+                    LoanStartDate = DateTime.Now
+                };
+
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    SelectedObject = newLoanApplicationForClient,
+                    TabName = TabName.LoanApplicationDetails,
+                    LastTabName = TabName.ClientDetails
+                });
+            });           
         }
 
         public void ClearAllFields()

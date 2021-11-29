@@ -50,7 +50,7 @@
     <StackPanel Orientation="Vertical">
         <DockPanel>
             <StackPanel
-                Margin="10"
+                Margin="8"
                 HorizontalAlignment="Left"
                 Orientation="Horizontal">
                 <Label
@@ -264,7 +264,7 @@
                 </StackPanel>
                 <StackPanel
                     Margin="5"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Right"
                     Orientation="Vertical">
                     <TextBox
                         Width="300"
@@ -422,13 +422,12 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
                 <StackPanel
-                    Margin="2"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <Label Content="Propozycje wniosków" />
                 </StackPanel>
                 <StackPanel
-                    Margin="8"
+                    Margin="7"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
@@ -444,83 +443,99 @@
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
-                    Margin="8"
+                    Margin="7"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
                         Width="100"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
+                        SelectedValue="{Binding LoanProposal2}"
                         SelectedValuePath="Id" />
                     <Button
                         Width="100"
                         Margin="20,0,0,0"
-                        Command="{Binding AddNewLoanApplicationButtonCommand}"
+                        Command="{Binding AddNewLoanApplicationCommand2}"
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
-                    Margin="8"
+                    Margin="7"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
                         Width="100"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
+                        SelectedValue="{Binding LoanProposal3}"
                         SelectedValuePath="Id" />
                     <Button
                         Width="100"
                         Margin="20,0,0,0"
-                        Command="{Binding AddNewLoanApplicationButtonCommand}"
+                        Command="{Binding AddNewLoanApplicationCommand3}"
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
-                    Margin="8"
+                    Margin="7"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
                         Width="100"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
+                        SelectedValue="{Binding LoanProposal4}"
                         SelectedValuePath="Id" />
                     <Button
                         Width="100"
                         Margin="20,0,0,0"
-                        Command="{Binding AddNewLoanApplicationButtonCommand}"
+                        Command="{Binding AddNewLoanApplicationCommand4}"
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
-                    Margin="8"
+                    Margin="7"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
                         Width="100"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
+                        SelectedValue="{Binding LoanProposal5}"
                         SelectedValuePath="Id" />
                     <Button
                         Width="100"
                         Margin="20,0,0,0"
-                        Command="{Binding AddNewLoanApplicationButtonCommand}"
+                        Command="{Binding AddNewLoanApplicationCommand5}"
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
-                    Margin="8"
+                    Margin="7"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
                         Width="100"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding BankId}"
+                        SelectedValue="{Binding LoanProposal6}"
                         SelectedValuePath="Id" />
                     <Button
                         Width="100"
                         Margin="20,0,0,0"
-                        Command="{Binding AddNewLoanApplicationButtonCommand}"
+                        Command="{Binding AddNewLoanApplicationCommand6}"
+                        Content="Złóż wniosek" />
+                </StackPanel>
+                <StackPanel
+                    Margin="7"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <ComboBox
+                        Width="100"
+                        DisplayMemberPath="Name"
+                        ItemsSource="{Binding Banks}"
+                        SelectedValue="{Binding LoanProposal7}"
+                        SelectedValuePath="Id" />
+                    <Button
+                        Width="100"
+                        Margin="20,0,0,0"
+                        Command="{Binding AddNewLoanApplicationCommand7}"
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
@@ -530,7 +545,7 @@
                     <Label Content="Notatka BIK:" />
                     <TextBox
                         Width="140"
-                        Height="60"
+                        Height="40"
                         Text="{Binding BIKNoteText}"
                         TextWrapping="Wrap" />
                 </StackPanel>
