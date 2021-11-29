@@ -291,7 +291,8 @@
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
                     EnableRowVirtualization="False"
-                    ItemsSource="{Binding ExistingPersonalLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DataGrid_SelectionChanged">
+                    ItemsSource="{Binding ExistingPersonalLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionChanged="DataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
                             Width="100"
@@ -326,7 +327,8 @@
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
                     EnableRowVirtualization="False"
-                    ItemsSource="{Binding ExistingPersonalLoansQuestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DataGrid_SelectionChanged">
+                    ItemsSource="{Binding ExistingPersonalLoansQuestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionChanged="DataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
                             Width="110"
@@ -361,7 +363,8 @@
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
                     EnableRowVirtualization="False"
-                    ItemsSource="{Binding ExistingCompanyLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DataGrid_SelectionChanged">
+                    ItemsSource="{Binding ExistingCompanyLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionChanged="DataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
                             Width="110"
@@ -396,7 +399,8 @@
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
                     EnableRowVirtualization="False"
-                    ItemsSource="{Binding ExistingCompanyLoansQuestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DataGrid_SelectionChanged">
+                    ItemsSource="{Binding ExistingCompanyLoansQuestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionChanged="DataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
                             Width="110"
@@ -421,9 +425,7 @@
                 Margin="20,0,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
-                <StackPanel
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <Label Content="Propozycje wniosków" />
                 </StackPanel>
                 <StackPanel
@@ -434,12 +436,13 @@
                         Width="100"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding LoanProposal1}"
+                        SelectedValue="{Binding LoanApplicationsProposals[0]}"
                         SelectedValuePath="Id" />
                     <Button
                         Width="100"
                         Margin="20,0,0,0"
-                        Command="{Binding AddNewLoanApplicationCommand1}"
+                        Command="{Binding AddNewLoanApplicationCommand}"
+                        CommandParameter="0"
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
@@ -450,12 +453,13 @@
                         Width="100"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding LoanProposal2}"
+                        SelectedValue="{Binding LoanApplicationsProposals[1]}"
                         SelectedValuePath="Id" />
                     <Button
                         Width="100"
                         Margin="20,0,0,0"
-                        Command="{Binding AddNewLoanApplicationCommand2}"
+                        Command="{Binding AddNewLoanApplicationCommand}"
+                        CommandParameter="1"
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
@@ -466,12 +470,13 @@
                         Width="100"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding LoanProposal3}"
+                        SelectedValue="{Binding LoanApplicationsProposals[2]}"
                         SelectedValuePath="Id" />
                     <Button
                         Width="100"
                         Margin="20,0,0,0"
-                        Command="{Binding AddNewLoanApplicationCommand3}"
+                        Command="{Binding AddNewLoanApplicationCommand}"
+                        CommandParameter="2"
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
@@ -482,12 +487,13 @@
                         Width="100"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding LoanProposal4}"
+                        SelectedValue="{Binding LoanApplicationsProposals[3]}"
                         SelectedValuePath="Id" />
                     <Button
                         Width="100"
                         Margin="20,0,0,0"
-                        Command="{Binding AddNewLoanApplicationCommand4}"
+                        Command="{Binding AddNewLoanApplicationCommand}"
+                        CommandParameter="3"
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
@@ -498,12 +504,13 @@
                         Width="100"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding LoanProposal5}"
+                        SelectedValue="{Binding LoanApplicationsProposals[4]}"
                         SelectedValuePath="Id" />
                     <Button
                         Width="100"
                         Margin="20,0,0,0"
-                        Command="{Binding AddNewLoanApplicationCommand5}"
+                        Command="{Binding AddNewLoanApplicationCommand}"
+                        CommandParameter="4"
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
@@ -514,12 +521,13 @@
                         Width="100"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding LoanProposal6}"
+                        SelectedValue="{Binding LoanApplicationsProposals[5]}"
                         SelectedValuePath="Id" />
                     <Button
                         Width="100"
                         Margin="20,0,0,0"
-                        Command="{Binding AddNewLoanApplicationCommand6}"
+                        Command="{Binding AddNewLoanApplicationCommand}"
+                        CommandParameter="5"
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
@@ -530,12 +538,13 @@
                         Width="100"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
-                        SelectedValue="{Binding LoanProposal7}"
+                        SelectedValue="{Binding LoanApplicationsProposals[6]}"
                         SelectedValuePath="Id" />
                     <Button
                         Width="100"
                         Margin="20,0,0,0"
-                        Command="{Binding AddNewLoanApplicationCommand7}"
+                        Command="{Binding AddNewLoanApplicationCommand}"
+                        CommandParameter="6"
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
@@ -554,7 +563,7 @@
         <StackPanel>
             <DataGrid
                 Height="150"
-                AutoGenerateColumns="False"                
+                AutoGenerateColumns="False"
                 ItemsSource="{Binding LoanApplicationsForClient}"
                 SelectedItem="{Binding SelectedLoanApplication}">
                 <DataGrid.Columns>

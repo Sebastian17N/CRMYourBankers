@@ -40,15 +40,18 @@ namespace CRMYourBankers.ViewModels
                     SelectedZus = _selectedClients.ZusUs;
                     GeneralNoteText = _selectedClients.GeneralNote;
                     ExistingPersonalLoans = new ObservableCollection<BankClientPersonalLoan>(_selectedClients.ExistingPersonalLoans);
-                    //ExistingPersonalLoansQuestions = new ObservableCollection<BankClientPersonalLoan>(_selectedClients.ExistingPersonalLoans);
-                    //ExistingCompanyLoans = new ObservableCollection<BankClientPersonalLoan>(_selectedClients.ExistingPersonalLoans);
-                    //ExistingCompanyLoansQuestions = new ObservableCollection<BankClientPersonalLoan>(_selectedClients.ExistingPersonalLoans);
+                    //new ObservableCollection<BankClientPersonalLoan>(
+                    //    _selectedClients
+                    //    .ExistingPersonalLoans
+                    //    .Where(loan => loan.BikTypeLoan == BikTypeLoan.Personal)
+                    //    .ToList();
                     SelectedUs = _selectedClients.Us;
                     SelectedSpouse = _selectedClients.Spouse;
                     SelectedSourceOfIncome = _selectedClients.SourceOfIncome;
                     SelectedClientStatus = _selectedClients.ClientStatus;
                     BrokerId = _selectedClients.BrokerId ??0;
                     ClientTasks = _selectedClients.ClientTasks;
+                    LoanApplicationsProposals = _selectedClients.LoanApplicationsProposalsInts;
                 }
                 else
                 {
@@ -87,14 +90,9 @@ namespace CRMYourBankers.ViewModels
         public string GeneralNoteText { get; set; }
         public int BrokerId { get; set; }
         public string NewTaskText { get; set; }
-        public int LoanProposal1 { get; set; }
-        public int LoanProposal2 { get; set; }
-        public int LoanProposal3 { get; set; }
-        public int LoanProposal4 { get; set; }
 
-        public int LoanProposal5 { get; set; }
-        public int LoanProposal6 { get; set; }
-        public int LoanProposal7 { get; set; }
+        public List<int> LoanApplicationsProposals { get; set; }
+
         public TabName LastTabName { get; set; }
         public ZusUs? SelectedZus { get; set; }
         public ZusUs? SelectedUs { get; set; }
@@ -128,14 +126,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand DetailsScreenOpenHandler { get; set; }
         public ICommand AddNewClientTaskButtonCommand { get; set; }
         public ICommand AddNewExistingPersonalLoan { get; set; }
-        public ICommand AddNewLoanApplicationCommand1 { get; set; }
-        public ICommand AddNewLoanApplicationCommand2 { get; set; }
-        public ICommand AddNewLoanApplicationCommand3 { get; set; }
-        public ICommand AddNewLoanApplicationCommand4 { get; set; }
-        public ICommand AddNewLoanApplicationCommand5 { get; set; }
-        public ICommand AddNewLoanApplicationCommand6 { get; set; }
-        public ICommand AddNewLoanApplicationCommand7 { get; set; }
-
+        public ICommand AddNewLoanApplicationCommand { get; set; }
 
         public YourBankersContext Context { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
@@ -233,7 +224,8 @@ namespace CRMYourBankers.ViewModels
                         Spouse = SelectedSpouse,
                         SourceOfIncome = SelectedSourceOfIncome,
                         ClientStatus = SelectedClientStatus,
-                        BrokerId = BrokerId == 0 ? null : BrokerId
+                        BrokerId = BrokerId == 0 ? null : BrokerId,
+                        LoanApplicationsProposalsInts = LoanApplicationsProposals
                     };
 
                     if (!newClient.Validate())
@@ -270,13 +262,18 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.ZusUs = SelectedZus;
                     SelectedClient.GeneralNote = GeneralNoteText;
                     SelectedClient.ExistingPersonalLoans = ExistingPersonalLoans.ToList();
+                    // ExistingPersonalLoans
+                    //  .Union(ExistingPersonalQuestions)
+                    //  .Union(ExistingCompanyLoans)
+                    //  .Union(ExistingCompanyQuestions)
+                    //  .ToList()
                     SelectedClient.Us = SelectedUs;
                     SelectedClient.Spouse = SelectedSpouse;
                     SelectedClient.SourceOfIncome = SelectedSourceOfIncome;
                     SelectedClient.ClientStatus = SelectedClientStatus;
                     SelectedClient.BrokerId = BrokerId == 0 ? null : BrokerId;
                     SelectedClient.ClientTasks = ClientTasks;
-
+                    SelectedClient.LoanApplicationsProposalsInts = LoanApplicationsProposals;
 
                     if (!SelectedClient.Validate())
                     {
@@ -357,17 +354,19 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("ExistingPersonalLoans");
             });
 
-            AddNewLoanApplicationCommand1 = new RelayCommand(() => 
+            AddNewLoanApplicationCommand = new RelayCommand<string>(loanProposalIndex => 
             {
                 if (SelectedClient == null)
                     return;
+
+                var loanProposalIndexValue = int.Parse(loanProposalIndex);
 
                 var newLoanApplicationForClient = new LoanApplication
                 {                    
                     ClientId = SelectedClient.Id,
                     Client = SelectedClient,
-                    BankId = LoanProposal1,
-                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal1),
+                    BankId = LoanApplicationsProposals[loanProposalIndexValue],
+                    Bank = Context.Banks.Single(bank => bank.Id == LoanApplicationsProposals[loanProposalIndexValue]),
                     LoanStartDate = DateTime.Now
                 };
 
@@ -377,133 +376,7 @@ namespace CRMYourBankers.ViewModels
                     TabName = TabName.LoanApplicationDetails,
                     LastTabName = TabName.ClientDetails
                 });
-            });
-            AddNewLoanApplicationCommand2 = new RelayCommand(() =>
-            {
-                if (SelectedClient == null)
-                    return;
-
-                var newLoanApplicationForClient = new LoanApplication
-                {
-                    ClientId = SelectedClient.Id,
-                    Client = SelectedClient,
-                    BankId = LoanProposal2,
-                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal2),
-                    LoanStartDate = DateTime.Now
-                };
-
-                TabMessenger.Send(new TabChangeMessage
-                {
-                    SelectedObject = newLoanApplicationForClient,
-                    TabName = TabName.LoanApplicationDetails,
-                    LastTabName = TabName.ClientDetails
-                });
-            });
-            AddNewLoanApplicationCommand3 = new RelayCommand(() =>
-            {
-                if (SelectedClient == null)
-                    return;
-
-                var newLoanApplicationForClient = new LoanApplication
-                {
-                    ClientId = SelectedClient.Id,
-                    Client = SelectedClient,
-                    BankId = LoanProposal3,
-                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal3),
-                    LoanStartDate = DateTime.Now
-                };
-
-                TabMessenger.Send(new TabChangeMessage
-                {
-                    SelectedObject = newLoanApplicationForClient,
-                    TabName = TabName.LoanApplicationDetails,
-                    LastTabName = TabName.ClientDetails
-                });
-            });
-            AddNewLoanApplicationCommand4 = new RelayCommand(() =>
-            {
-                if (SelectedClient == null)
-                    return;
-
-                var newLoanApplicationForClient = new LoanApplication
-                {
-                    ClientId = SelectedClient.Id,
-                    Client = SelectedClient,
-                    BankId = LoanProposal4,
-                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal4),
-                    LoanStartDate = DateTime.Now
-                };
-
-                TabMessenger.Send(new TabChangeMessage
-                {
-                    SelectedObject = newLoanApplicationForClient,
-                    TabName = TabName.LoanApplicationDetails,
-                    LastTabName = TabName.ClientDetails
-                });
-            });
-            AddNewLoanApplicationCommand5 = new RelayCommand(() =>
-            {
-                if (SelectedClient == null)
-                    return;
-
-                var newLoanApplicationForClient = new LoanApplication
-                {
-                    ClientId = SelectedClient.Id,
-                    Client = SelectedClient,
-                    BankId = LoanProposal5,
-                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal5),
-                    LoanStartDate = DateTime.Now
-                };
-
-                TabMessenger.Send(new TabChangeMessage
-                {
-                    SelectedObject = newLoanApplicationForClient,
-                    TabName = TabName.LoanApplicationDetails,
-                    LastTabName = TabName.ClientDetails
-                });
-            });
-            AddNewLoanApplicationCommand6 = new RelayCommand(() =>
-            {
-                if (SelectedClient == null)
-                    return;
-
-                var newLoanApplicationForClient = new LoanApplication
-                {
-                    ClientId = SelectedClient.Id,
-                    Client = SelectedClient,
-                    BankId = LoanProposal6,
-                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal6),
-                    LoanStartDate = DateTime.Now
-                };
-
-                TabMessenger.Send(new TabChangeMessage
-                {
-                    SelectedObject = newLoanApplicationForClient,
-                    TabName = TabName.LoanApplicationDetails,
-                    LastTabName = TabName.ClientDetails
-                });
-            });
-            AddNewLoanApplicationCommand7 = new RelayCommand(() =>
-            {
-                if (SelectedClient == null)
-                    return;
-
-                var newLoanApplicationForClient = new LoanApplication
-                {
-                    ClientId = SelectedClient.Id,
-                    Client = SelectedClient,
-                    BankId = LoanProposal7,
-                    Bank = Context.Banks.Single(bank => bank.Id == LoanProposal7),
-                    LoanStartDate = DateTime.Now
-                };
-
-                TabMessenger.Send(new TabChangeMessage
-                {
-                    SelectedObject = newLoanApplicationForClient,
-                    TabName = TabName.LoanApplicationDetails,
-                    LastTabName = TabName.ClientDetails
-                });
-            });           
+            });               
         }
 
         public void ClearAllFields()
@@ -525,6 +398,7 @@ namespace CRMYourBankers.ViewModels
             SelectedSpouse = null;
             SelectedSourceOfIncome = null;
             BrokerId = 0;
+            LoanApplicationsProposals = new List<int>();
         }
     }
 }
