@@ -223,7 +223,7 @@ namespace CRMYourBankers.ViewModels
             LoanStartDate = DateTime.Now;
             IsPaid = false;
             MultiBrokerId = null;
-            SelectedLoanApplicationStatus = null;
+            SelectedLoanApplicationStatus = LoanApplicationStatus.Submited;
         }
 
         public void RefreshData()

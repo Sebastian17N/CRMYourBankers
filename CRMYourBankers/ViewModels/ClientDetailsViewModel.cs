@@ -519,7 +519,7 @@ namespace CRMYourBankers.ViewModels
             ClientCommissionText = "";
             LoanApplicationsForClient = null;
             ExistingPersonalLoans = null;
-            SelectedClientStatus = null;
+            SelectedClientStatus = ClientStatus.InitiallyInterested;
             SelectedZus = null;
             SelectedUs = null;
             SelectedSpouse = null;
