@@ -18,6 +18,7 @@ namespace CRMYourBankers.Database
         public DbSet<ClientTask> ClientTasks { get; set; }
         public DbSet<MonthSummary> MonthSummaries { get; set; }
         public DbSet<BankClientPersonalLoan> BankClientPersonalLoans { get; set; }
+        public DbSet<LoanApplicationsProposal> LoanApplicationsProposals { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,6 +36,9 @@ namespace CRMYourBankers.Database
             modelBuilder.Entity<BankClientPersonalLoan>()
                 .HasKey(bc => new { bc.BankId, bc.ClientId });
 
+            modelBuilder.Entity<LoanApplicationsProposal>()
+                .HasKey(prop => new { prop.ClientId, prop.ProposalIndex });
+
         }
 
         public void DataSeeds()
@@ -47,6 +51,7 @@ namespace CRMYourBankers.Database
             AddMonthSummaries();
             AddBrokers();
             AddMultiBrokers();
+            AddLoanApplicationsProposals();
         }
 
         private void AddClients()
@@ -181,6 +186,7 @@ namespace CRMYourBankers.Database
                 SaveChanges();
             }
         }
+
         private void AddMultiBrokers()
         {
             if (!MultiBrokers.Any())
@@ -196,6 +202,7 @@ namespace CRMYourBankers.Database
                 SaveChanges();
             }
         }
+
         private void AddBanks()
         {
             if (!Banks.Any())
@@ -215,17 +222,39 @@ namespace CRMYourBankers.Database
         }
 
         private void AddMonthSummaries()
-        {
-            if (!MonthSummaries.Any())
-            {
-                MonthSummaries.AddRange(
-                    new MonthSummary { Month = DateTime.Parse("2021/09/01"), EstimatedTarget = 1024000 },
-                    new MonthSummary { Month = DateTime.Parse("2021/10/01"), EstimatedTarget = 2024000 },
-                    new MonthSummary { Month = DateTime.Parse("2021/11/01"), EstimatedTarget = 3024000 }
-                    );
+		{
+			if (MonthSummaries.Any())
+				return;
 
-                SaveChanges();
+			MonthSummaries.AddRange(
+				new MonthSummary { Month = DateTime.Parse("2021/09/01"), EstimatedTarget = 1024000 },
+				new MonthSummary { Month = DateTime.Parse("2021/10/01"), EstimatedTarget = 2024000 },
+				new MonthSummary { Month = DateTime.Parse("2021/11/01"), EstimatedTarget = 3024000 }
+				);
+
+			SaveChanges();
+		}
+
+		private void AddLoanApplicationsProposals()
+		{
+            if (LoanApplicationsProposals.Any())
+                return;
+
+            foreach (var client in Clients)
+            {
+                for (var proposalIndex = 0; proposalIndex < 7; ++proposalIndex)
+                {
+                    client.LoanApplicationsProposals.Add(
+                        new LoanApplicationsProposal
+                        {
+                            ClientId = client.Id,
+                            BankId = null,
+                            ProposalIndex = proposalIndex
+                        });
+                }
             }
-        }
+
+            SaveChanges();
+		}
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 
@@ -28,6 +29,28 @@ namespace CRMYourBankers.Models
         public int? BrokerId { get; set; }
         public ObservableCollection<ClientTask> ClientTasks { get; set; }
         public List<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
+        public ObservableCollection<LoanApplicationsProposal> LoanApplicationsProposals { get; set; }
+
+        [NotMapped]
+        public List<int> LoanApplicationsProposalsInts
+		{
+            get => 
+                new List<int>(
+                    LoanApplicationsProposals
+                    .Select(prop => prop.BankId ?? 0)
+                    .ToList());
+
+            set
+			{
+                foreach (var proposal in LoanApplicationsProposals)
+				{
+                    proposal.BankId = 
+                        value[proposal.ProposalIndex] == 0 
+                        ? null 
+                        : value[proposal.ProposalIndex];
+				}
+			}
+		}
         //public List<BankClientPersonalLoan> ExistingPersonalLoansQuestions { get; set; }
         //public List<BankClientPersonalLoan> ExistingCompanyLoans { get; set; }
         //public List<BankClientPersonalLoan> ExistingCompanyLoansQuestions { get; set; }
@@ -43,6 +66,7 @@ namespace CRMYourBankers.Models
         {
             ClientTasks = new ObservableCollection<ClientTask>();
             ExistingPersonalLoans = new List<BankClientPersonalLoan>();
+            LoanApplicationsProposals = new ObservableCollection<LoanApplicationsProposal>();
         }
 
         public bool Validate()
