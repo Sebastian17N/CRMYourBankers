@@ -45,7 +45,7 @@ namespace CRMYourBankers.ViewModels
                 Context
                     .Clients
                     .Include(client => client.ClientTasks)
-                    .Include(bank => bank.ExistingPersonalLoans)
+                    .Include(bank => bank.ExistingBankClientBIK)
                     .Include(proposal => proposal.LoanApplicationsProposals)
                     .ToList();
         }

@@ -332,8 +332,7 @@
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
                     EnableRowVirtualization="False"
-                    ItemsSource="{Binding ExistingPersonalLoansQuestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectionChanged="DataGrid_SelectionChanged">
+                    ItemsSource="{Binding ExistingPersonalLoansQuestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
                             Width="110"
@@ -368,8 +367,7 @@
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
                     EnableRowVirtualization="False"
-                    ItemsSource="{Binding ExistingCompanyLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectionChanged="DataGrid_SelectionChanged">
+                    ItemsSource="{Binding ExistingCompanyLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
                             Width="110"

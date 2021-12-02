@@ -29,7 +29,7 @@ namespace CRMYourBankers.Models
         public ClientStatus? ClientStatus { get; set; }
         public int? BrokerId { get; set; }
         public ObservableCollection<ClientTask> ClientTasks { get; set; }
-        public List<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
+        public List<BankClientBIK> ExistingBankClientBIK { get; set; }
         public ObservableCollection<LoanApplicationsProposal> LoanApplicationsProposals { get; set; }
 
         [NotMapped]
@@ -66,19 +66,29 @@ namespace CRMYourBankers.Models
         public Client()
         {
             ClientTasks = new ObservableCollection<ClientTask>();
-            ExistingPersonalLoans = new List<BankClientPersonalLoan>();
+            ExistingBankClientBIK = new List<BankClientBIK>();
             LoanApplicationsProposals = new ObservableCollection<LoanApplicationsProposal>();
         }
 
         public bool Validate()
             //validate sprawdza poprawność 
         {
+            var aaa = ExistingBankClientBIK.GroupBy(
+                loan => new { loan.BankId, loan.BIKType },
+                loan => loan.ClientId,
+                (key, value) => new { key, amount = value.Count() }
+                );
+            var bbb = aaa.All(loan => loan.amount <= 1);
             return
             FirstName != "" &&
             LastName != "" &&
             PhoneNumber != null &&
             Email != "" &&
-            PersonalId != null;
-        }       
+            PersonalId != null &&
+            bbb;
+            
+
+        }    
+        
     }
 }
