@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRMYourBankers.Migrations
 {
     [DbContext(typeof(YourBankersContext))]
-    [Migration("20211202123053_NewBanksOnTheList")]
-    partial class NewBanksOnTheList
+    [Migration("20211202153129_expandedPrimaryKeyForBankClientPersonalLoans")]
+    partial class expandedPrimaryKeyForBankClientPersonalLoans
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,10 @@ namespace CRMYourBankers.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("BankId", "ClientId");
+                    b.Property<int>("BIKType")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("BankId", "ClientId", "BIKType");
 
                     b.HasIndex("ClientId");
 

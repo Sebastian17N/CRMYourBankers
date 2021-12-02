@@ -40,11 +40,23 @@ namespace CRMYourBankers.ViewModels
                     SelectedZus = _selectedClients.ZusUs;
                     GeneralNoteText = _selectedClients.GeneralNote;
                     ExistingPersonalLoans =
-                     new ObservableCollection<BankClientPersonalLoan>(
+                     new ObservableCollection<BankClientBIK>(
                         _selectedClients
-                        .ExistingPersonalLoans
+                        .ExistingBankClientBIK
                         .Where(loan => loan.BIKType == BIKType.PersonalLoans)
-                        .ToList();
+                        .ToList());
+                    ExistingPersonalLoansQuestions =
+                     new ObservableCollection<BankClientBIK>(
+                        _selectedClients
+                        .ExistingBankClientBIK
+                        .Where(loan => loan.BIKType == BIKType.PersonalQuestions)
+                        .ToList());
+                    ExistingCompanyLoans =
+                    new ObservableCollection<BankClientBIK>(
+                        _selectedClients
+                        .ExistingBankClientBIK
+                        .Where(loan => loan.BIKType == BIKType.CompanyLoans)
+                        .ToList());
                     SelectedUs = _selectedClients.Us;
                     SelectedSpouse = _selectedClients.Spouse;
                     SelectedSourceOfIncome = _selectedClients.SourceOfIncome;
@@ -101,9 +113,9 @@ namespace CRMYourBankers.ViewModels
         public SourceOfIncome? SelectedSourceOfIncome { get; set; }
         public ClientStatus? SelectedClientStatus { get; set; }
 
-        public ObservableCollection<BankClientPersonalLoan> ExistingPersonalLoans { get; set; }
-        //public ObservableCollection<BankClientPersonalLoan> ExistingPersonalLoansQuestions { get; set; }
-        //public ObservableCollection<BankClientPersonalLoan> ExistingCompanyLoans { get; set; }
+        public ObservableCollection<BankClientBIK> ExistingPersonalLoans { get; set; }
+        public ObservableCollection<BankClientBIK> ExistingPersonalLoansQuestions { get; set; }
+        public ObservableCollection<BankClientBIK> ExistingCompanyLoans { get; set; }
         //public ObservableCollection<BankClientPersonalLoan> ExistingCompanyLoansQuestions { get; set; }
 
         public dynamic LoanApplicationsForClient { get; set; }
@@ -202,10 +214,23 @@ namespace CRMYourBankers.ViewModels
 
                 var listWithoutRemovedItems = ExistingPersonalLoans.ToList();
                 listWithoutRemovedItems.RemoveAll(loan => loan.BankId == 0);
-                ExistingPersonalLoans = new ObservableCollection<BankClientPersonalLoan>(listWithoutRemovedItems);
+                ExistingPersonalLoans = new ObservableCollection<BankClientBIK>(listWithoutRemovedItems);
+                
+                foreach (var item in ExistingPersonalLoansQuestions
+                    .Where(loan => loan.BIKType != BIKType.PersonalQuestions))
+                {
+                    item.BIKType = BIKType.PersonalQuestions;
+                }
+
+                foreach (var item in ExistingCompanyLoans
+                    .Where(loan => loan.BIKType != BIKType.CompanyLoans))
+                {
+                    item.BIKType = BIKType.CompanyLoans;
+                }
 
                 if (SelectedClient == null)
                 {
+                    
                     var newClient = new Client
                     {
                         Id = Context.Clients.Max(client => client.Id) + 1,
@@ -221,7 +246,11 @@ namespace CRMYourBankers.ViewModels
                         ZusUs = SelectedZus,
                         Us = SelectedUs,
                         GeneralNote = GeneralNoteText,
-                        ExistingPersonalLoans = ExistingPersonalLoans.ToList(),
+                        ExistingBankClientBIK = 
+                                ExistingPersonalLoans
+                                .Union(ExistingPersonalLoansQuestions)
+                                .Union(ExistingCompanyLoans)
+                                .ToList(),                       
                         Spouse = SelectedSpouse,
                         SourceOfIncome = SelectedSourceOfIncome,
                         ClientStatus = SelectedClientStatus,
@@ -263,12 +292,11 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.WhatHesJob = WhatHesJobText;
                     SelectedClient.ZusUs = SelectedZus;
                     SelectedClient.GeneralNote = GeneralNoteText;
-                    SelectedClient.ExistingPersonalLoans = ExistingPersonalLoans.ToList();
-                    // ExistingPersonalLoans
-                    //  .Union(ExistingPersonalQuestions)
-                    //  .Union(ExistingCompanyLoans)
-                    //  .Union(ExistingCompanyQuestions)
-                    //  .ToList()
+                    SelectedClient.ExistingBankClientBIK = 
+                            ExistingPersonalLoans
+                            .Union(ExistingPersonalLoansQuestions)
+                            .Union(ExistingCompanyLoans)
+                            .ToList();
                     SelectedClient.Us = SelectedUs;
                     SelectedClient.Spouse = SelectedSpouse;
                     SelectedClient.SourceOfIncome = SelectedSourceOfIncome;
@@ -351,9 +379,9 @@ namespace CRMYourBankers.ViewModels
             AddNewExistingPersonalLoan = new RelayCommand(() =>
             {
                 if (ExistingPersonalLoans == null)
-                    ExistingPersonalLoans = new ObservableCollection<BankClientPersonalLoan>();
+                    ExistingPersonalLoans = new ObservableCollection<BankClientBIK>();
 
-                ExistingPersonalLoans.Add(new BankClientPersonalLoan { ClientId = SelectedClient.Id });
+                ExistingPersonalLoans.Add(new BankClientBIK { ClientId = SelectedClient.Id });
                 NotifyPropertyChanged("ExistingPersonalLoans");
             });
 
@@ -396,6 +424,8 @@ namespace CRMYourBankers.ViewModels
             ClientCommissionText = "";
             LoanApplicationsForClient = null;
             ExistingPersonalLoans = null;
+            ExistingPersonalLoansQuestions = null;
+            ExistingCompanyLoans = null;
             SelectedClientStatus = ClientStatus.InitiallyInterested;
             SelectedZus = null;
             SelectedUs = null;

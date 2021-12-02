@@ -17,7 +17,7 @@ namespace CRMYourBankers.Database
         public DbSet<LoanTask> LoanTasks { get; set; }
         public DbSet<ClientTask> ClientTasks { get; set; }
         public DbSet<MonthSummary> MonthSummaries { get; set; }
-        public DbSet<BankClientPersonalLoan> BankClientPersonalLoans { get; set; }
+        public DbSet<BankClientBIK> BankClientBIK { get; set; }
         public DbSet<LoanApplicationsProposal> LoanApplicationsProposals { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,9 +33,12 @@ namespace CRMYourBankers.Database
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<BankClientPersonalLoan>()
-                .HasKey(bc => new { bc.BankId, bc.ClientId });
-
+            modelBuilder.Entity<BankClientBIK>()
+                .HasKey(bc => new { bc.BankId, bc.ClientId, bc.BIKType });
+            //zbiór tych 3 wartości musi być unikalny, tak jakby kazdy w Polsce miał 3 pesele
+            //1 element może być dzielony miedzy rekory, 2 i 3 też, ale żaden rekord nie ma jednocześnie 
+            //wszystkich 3 takich samych elementów jak inny rekord
+            //może być tylko jeden: mBank, Jan Kowalski, Kredyt Osobisty
             modelBuilder.Entity<LoanApplicationsProposal>()
                 .HasKey(prop => new { prop.ClientId, prop.ProposalIndex });
 
@@ -182,7 +185,6 @@ namespace CRMYourBankers.Database
                         new Broker{Id = 3, Name = "Ola Nieroda"},
                         new Broker{Id = 4, Name = "Anna Borowik"},
                     });
-
                 SaveChanges();
             }
         }
@@ -199,6 +201,7 @@ namespace CRMYourBankers.Database
                         new MultiBroker{Id = 3, Name = "Brak"},
                     });
 
+
                 SaveChanges();
             }
         }
@@ -212,7 +215,7 @@ namespace CRMYourBankers.Database
                     {
                         new Bank{Id = 1, Name = "SANTANDER"},
                         new Bank{Id = 2, Name = "SANTANDER Firmowy"},
-                        new Bank{Id = 3, Name = "ALIRO"},
+                        new Bank{Id = 3, Name = "ALIOR"},
                         new Bank{Id = 4, Name = "ALIOR Firmowy"},
                         new Bank{Id = 5, Name = "mBANK"},
                         new Bank{Id = 6, Name = "mBANK Firmowy"},

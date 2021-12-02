@@ -3,14 +3,16 @@ using System;
 using CRMYourBankers.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRMYourBankers.Migrations
 {
     [DbContext(typeof(YourBankersContext))]
-    partial class YourBankersContextModelSnapshot : ModelSnapshot
+    [Migration("20211202150859_BIKType")]
+    partial class BIKType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +32,7 @@ namespace CRMYourBankers.Migrations
                     b.ToTable("Banks");
                 });
 
-            modelBuilder.Entity("CRMYourBankers.Models.BankClientBIK", b =>
+            modelBuilder.Entity("CRMYourBankers.Models.BankClientPersonalLoan", b =>
                 {
                     b.Property<int>("BankId")
                         .HasColumnType("INTEGER");
@@ -41,11 +43,14 @@ namespace CRMYourBankers.Migrations
                     b.Property<int>("BIKType")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("BankId", "ClientId", "BIKType");
+                    b.Property<int>("LoanIndex")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("BankId", "ClientId");
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("BankClientBIK");
+                    b.ToTable("BankClientPersonalLoans");
                 });
 
             modelBuilder.Entity("CRMYourBankers.Models.Broker", b =>
@@ -266,7 +271,7 @@ namespace CRMYourBankers.Migrations
                     b.ToTable("MultiBrokers");
                 });
 
-            modelBuilder.Entity("CRMYourBankers.Models.BankClientBIK", b =>
+            modelBuilder.Entity("CRMYourBankers.Models.BankClientPersonalLoan", b =>
                 {
                     b.HasOne("CRMYourBankers.Models.Bank", "Bank")
                         .WithMany("PersonalLoanClients")

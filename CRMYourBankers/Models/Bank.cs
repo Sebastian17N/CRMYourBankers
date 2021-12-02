@@ -8,6 +8,6 @@ namespace CRMYourBankers.Models
         public int Id { get; set; }
 
         public List<LoanApplication> LoanApplications { get; set; }
-        public List<BankClientPersonalLoan> PersonalLoanClients { get; set; }        
+        public List<BankClientBIK> PersonalLoanClients { get; set; }        
     }
 }
