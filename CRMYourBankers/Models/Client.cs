@@ -21,6 +21,7 @@ namespace CRMYourBankers.Models
         public string ContactPerson { get; set; }
         public string WhatHesJob { get; set; }
         public string GeneralNote { get; set; }
+        public string BIKNote { get; set; }
         public ZusUs? ZusUs { get; set; }
         public ZusUs? Us { get; set; }
         public Spouse? Spouse { get; set; }

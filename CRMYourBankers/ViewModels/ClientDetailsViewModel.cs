@@ -52,6 +52,7 @@ namespace CRMYourBankers.ViewModels
                     BrokerId = _selectedClients.BrokerId ??0;
                     ClientTasks = _selectedClients.ClientTasks;
                     LoanApplicationsProposals = _selectedClients.LoanApplicationsProposalsInts;
+                    BIKNoteText = _selectedClients.BIKNote;
                 }
                 else
                 {
@@ -90,6 +91,7 @@ namespace CRMYourBankers.ViewModels
         public string GeneralNoteText { get; set; }
         public int BrokerId { get; set; }
         public string NewTaskText { get; set; }
+        public string BIKNoteText { get; set; }
 
         public List<int> LoanApplicationsProposals { get; set; }
 
@@ -225,7 +227,8 @@ namespace CRMYourBankers.ViewModels
                         SourceOfIncome = SelectedSourceOfIncome,
                         ClientStatus = SelectedClientStatus,
                         BrokerId = BrokerId == 0 ? null : BrokerId,
-                        LoanApplicationsProposalsInts = LoanApplicationsProposals
+                        LoanApplicationsProposalsInts = LoanApplicationsProposals,
+                        BIKNote = BIKNoteText
                     };
 
                     if (!newClient.Validate())
@@ -273,6 +276,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.ClientStatus = SelectedClientStatus;
                     SelectedClient.BrokerId = BrokerId == 0 ? null : BrokerId;
                     SelectedClient.ClientTasks = ClientTasks;
+                    SelectedClient.BIKNote = BIKNoteText;
                     SelectedClient.LoanApplicationsProposalsInts = LoanApplicationsProposals;
 
                     if (!SelectedClient.Validate())
@@ -397,6 +401,7 @@ namespace CRMYourBankers.ViewModels
             SelectedUs = null;
             SelectedSpouse = null;
             SelectedSourceOfIncome = null;
+            BIKNoteText = "";
             BrokerId = 0;
             LoanApplicationsProposals = new List<int>();
         }
