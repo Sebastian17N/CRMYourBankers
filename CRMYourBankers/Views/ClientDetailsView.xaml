@@ -293,6 +293,11 @@
                     EnableRowVirtualization="False"
                     ItemsSource="{Binding ExistingPersonalLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectionChanged="DataGrid_SelectionChanged">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Usuń" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
                             Width="100"

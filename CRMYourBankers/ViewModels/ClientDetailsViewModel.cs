@@ -44,7 +44,7 @@ namespace CRMYourBankers.ViewModels
                         _selectedClients
                         .ExistingPersonalLoans
                         .Where(loan => loan.BIKType == BIKType.PersonalLoans)
-                        .ToList();
+                        .ToList());
                     SelectedUs = _selectedClients.Us;
                     SelectedSpouse = _selectedClients.Spouse;
                     SelectedSourceOfIncome = _selectedClients.SourceOfIncome;
@@ -263,7 +263,8 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.WhatHesJob = WhatHesJobText;
                     SelectedClient.ZusUs = SelectedZus;
                     SelectedClient.GeneralNote = GeneralNoteText;
-                    SelectedClient.ExistingPersonalLoans = ExistingPersonalLoans.ToList();
+                    SelectedClient.ExistingPersonalLoans = 
+                        ExistingPersonalLoans.ToList();
                     // ExistingPersonalLoans
                     //  .Union(ExistingPersonalQuestions)
                     //  .Union(ExistingCompanyLoans)
