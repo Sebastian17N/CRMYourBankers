@@ -210,11 +210,23 @@ namespace CRMYourBankers.Database
                 Banks.AddRange(
                     new List<Bank>
                     {
-                        new Bank{Id = 1, Name = "Santander"},
-                        new Bank{Id = 2, Name = "Santander Firmowy"},
-                        new Bank{Id = 3, Name = "Alior"},
-                        new Bank{Id = 4, Name = "BNP"},
-                        new Bank{Id = 5, Name = "mBank"},
+                        new Bank{Id = 1, Name = "SANTANDER"},
+                        new Bank{Id = 2, Name = "SANTANDER Firmowy"},
+                        new Bank{Id = 3, Name = "ALIRO"},
+                        new Bank{Id = 4, Name = "ALIOR Firmowy"},
+                        new Bank{Id = 5, Name = "mBANK"},
+                        new Bank{Id = 6, Name = "mBANK Firmowy"},
+                        new Bank{Id = 7, Name = "BNP"},
+                        new Bank{Id = 8, Name = "BNP Firmowy"},
+                        new Bank{Id = 9, Name = "Pocztowy"},
+                        new Bank{Id = 10, Name = "GET IN"},
+                        new Bank{Id = 11, Name = "AION"},
+                        new Bank{Id = 12, Name = "CITI"},
+                        new Bank{Id = 13, Name = "CA"},
+                        new Bank{Id = 14, Name = "BOŚ"},
+                        new Bank{Id = 15, Name = "SKOK"},
+                        new Bank{Id = 16, Name = "ING"},
+                        new Bank{Id = 17, Name = "NEST"},
                     });
 
                 SaveChanges();

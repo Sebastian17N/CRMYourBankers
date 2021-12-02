@@ -39,12 +39,12 @@ namespace CRMYourBankers.ViewModels
                     WhatHesJobText = _selectedClients.WhatHesJob;
                     SelectedZus = _selectedClients.ZusUs;
                     GeneralNoteText = _selectedClients.GeneralNote;
-                    ExistingPersonalLoans = new ObservableCollection<BankClientPersonalLoan>(_selectedClients.ExistingPersonalLoans);
-                    //new ObservableCollection<BankClientPersonalLoan>(
-                    //    _selectedClients
-                    //    .ExistingPersonalLoans
-                    //    .Where(loan => loan.BikTypeLoan == BikTypeLoan.Personal)
-                    //    .ToList();
+                    ExistingPersonalLoans =
+                     new ObservableCollection<BankClientPersonalLoan>(
+                        _selectedClients
+                        .ExistingPersonalLoans
+                        .Where(loan => loan.BIKType == BIKType.PersonalLoans)
+                        .ToList();
                     SelectedUs = _selectedClients.Us;
                     SelectedSpouse = _selectedClients.Spouse;
                     SelectedSourceOfIncome = _selectedClients.SourceOfIncome;
@@ -62,7 +62,6 @@ namespace CRMYourBankers.ViewModels
         }
 
         //public bool EditingClient => SelectedClient != null;
-
         //public bool EditingClinetFunction()
         //{
         //    return SelectedClient != null;
@@ -371,7 +370,8 @@ namespace CRMYourBankers.ViewModels
                     Client = SelectedClient,
                     BankId = LoanApplicationsProposals[loanProposalIndexValue],
                     Bank = Context.Banks.Single(bank => bank.Id == LoanApplicationsProposals[loanProposalIndexValue]),
-                    LoanStartDate = DateTime.Now
+                    LoanStartDate = DateTime.Now,
+                    LoanApplicationStatus = LoanApplicationStatus.Submited
                 };
 
                 TabMessenger.Send(new TabChangeMessage

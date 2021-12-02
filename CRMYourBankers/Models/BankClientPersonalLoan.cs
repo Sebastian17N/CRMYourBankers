@@ -1,4 +1,6 @@
-﻿namespace CRMYourBankers.Models
+﻿using CRMYourBankers.Enums;
+
+namespace CRMYourBankers.Models
 {
     public class BankClientPersonalLoan
     {
@@ -8,10 +10,7 @@
         public int BankId { get; set; }
         public Bank Bank { get; set; }
 
-        // Krok pierwszy
-        //public BikLoanType BikLoanType { get; set; }
-
-        // Krok drugi
-        //public int LoanIndex { get; set; }
+        public BIKType BIKType { get; set; }
+        public int LoanIndex { get; set; }
     }
 }
