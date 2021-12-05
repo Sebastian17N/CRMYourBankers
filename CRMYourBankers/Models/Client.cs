@@ -52,9 +52,6 @@ namespace CRMYourBankers.Models
 				}
 			}
 		}
-        //public List<BankClientPersonalLoan> ExistingPersonalLoansQuestions { get; set; }
-        //public List<BankClientPersonalLoan> ExistingCompanyLoans { get; set; }
-        //public List<BankClientPersonalLoan> ExistingCompanyLoansQuestions { get; set; }
         public Broker Broker { get; set; }
 
         public string FullName => $"{FirstName} {LastName} {Email}";
@@ -71,7 +68,6 @@ namespace CRMYourBankers.Models
         }
 
         public bool Validate()
-            //validate sprawdza poprawność 
         {
             var aaa = ExistingBankClientBIK.GroupBy(
                 loan => new { loan.BankId, loan.BIKType },

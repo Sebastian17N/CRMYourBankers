@@ -7,7 +7,7 @@ namespace CRMYourBankers.Models
         public int ClientId { get; set; }
         public Client Client { get; set; }
 
-        public int BankId { get; set; }
+        public int? BankId { get; set; }
         public Bank Bank { get; set; }
 
         public BIKType BIKType { get; set; }
