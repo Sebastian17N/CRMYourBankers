@@ -291,14 +291,14 @@
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
                     EnableRowVirtualization="False"
+                    SelectedItem="{Binding SelectedElementBIKAnalysis}"
                     ItemsSource="{Binding ExistingPersonalLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectionChanged="DataGrid_SelectionChanged">
                     <DataGrid.ContextMenu>
                         <ContextMenu>
                             <MenuItem 
                                 Header="Usuń" 
-                                CommandParameter="BankClientBIK" 
-                                ItemsSource="{Binding RemoveBIKAnalysisElementCommand}"/>
+                                Command="{Binding RemoveBIKAnalysisElementCommand}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>

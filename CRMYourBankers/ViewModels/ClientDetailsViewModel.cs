@@ -75,6 +75,14 @@ namespace CRMYourBankers.ViewModels
                 else
                 {
                     ClearAllFields();
+                    ExistingPersonalLoans =
+                     new ObservableCollection<BankClientBIK>();
+                    ExistingPersonalLoansQuestions =
+                     new ObservableCollection<BankClientBIK>();
+                    ExistingCompanyLoans =
+                    new ObservableCollection<BankClientBIK>();
+                    ExistingCompanyLoansQuestions =
+                    new ObservableCollection<BankClientBIK>();
                 }
             }
         }
@@ -103,6 +111,7 @@ namespace CRMYourBankers.ViewModels
         public int BrokerId { get; set; }
         public string NewTaskText { get; set; }
         public string BIKNoteText { get; set; }
+        public BankClientBIK SelectedElementBIKAnalysis { get; set; }
         public List<int> LoanApplicationsProposals { get; set; }
         public TabName LastTabName { get; set; }
         public ZusUs? SelectedZus { get; set; }
@@ -110,12 +119,16 @@ namespace CRMYourBankers.ViewModels
         public Spouse? SelectedSpouse { get; set; }
         public SourceOfIncome? SelectedSourceOfIncome { get; set; }
         public ClientStatus? SelectedClientStatus { get; set; }
-
         public ObservableCollection<BankClientBIK> ExistingPersonalLoans { get; set; }
         public ObservableCollection<BankClientBIK> ExistingPersonalLoansQuestions { get; set; }
         public ObservableCollection<BankClientBIK> ExistingCompanyLoans { get; set; }
         public ObservableCollection<BankClientBIK> ExistingCompanyLoansQuestions { get; set; }
-
+        public List<BankClientBIK> ExistingBankClientBIK => 
+                                ExistingPersonalLoans
+                                .Union(ExistingPersonalLoansQuestions)
+                                .Union(ExistingCompanyLoans)
+                                .Union(ExistingCompanyLoansQuestions)
+                                .ToList();                                
         public dynamic LoanApplicationsForClient { get; set; }
 
         private ObservableCollection<ClientTask> _clientTasks;
@@ -197,34 +210,10 @@ namespace CRMYourBankers.ViewModels
         {
             SaveButtonCommand = new RelayCommand(() =>
             {
-                foreach (var loan in ExistingPersonalLoans.Where(loan => loan.BankId == 0 || loan.Bank != null))
-                    loan.BankId = loan.Bank.Id;
-
-                foreach (var loan in ExistingPersonalLoans.Where(loan => loan.ClientId == 0))
-                {
-                    loan.ClientId = SelectedClient.Id;
-                }
-
-                var listWithoutRemovedItems = ExistingPersonalLoans.ToList();
-                listWithoutRemovedItems.RemoveAll(loan => loan.BankId == 0);
-                ExistingPersonalLoans = new ObservableCollection<BankClientBIK>(listWithoutRemovedItems);
-                
-                foreach (var item in ExistingPersonalLoansQuestions
-                    .Where(loan => loan.BIKType != BIKType.PersonalQuestions))
-                {
-                    item.BIKType = BIKType.PersonalQuestions;
-                }
-
-                foreach (var item in ExistingCompanyLoans
-                    .Where(loan => loan.BIKType != BIKType.CompanyLoans))
-                {
-                    item.BIKType = BIKType.CompanyLoans;
-                }
-                foreach (var item in ExistingCompanyLoansQuestions
-                    .Where(loan => loan.BIKType != BIKType.CompanyQuestions))
-                {
-                    item.BIKType = BIKType.CompanyQuestions;
-                }
+                ProcessCollectionBeforeSave(ExistingPersonalLoans, BIKType.PersonalLoans);
+                ProcessCollectionBeforeSave(ExistingPersonalLoansQuestions, BIKType.PersonalQuestions);
+                ProcessCollectionBeforeSave(ExistingCompanyLoans, BIKType.CompanyLoans);
+                ProcessCollectionBeforeSave(ExistingCompanyLoansQuestions, BIKType.CompanyQuestions);               
 
                 if (SelectedClient == null)
                 {
@@ -244,12 +233,7 @@ namespace CRMYourBankers.ViewModels
                         ZusUs = SelectedZus,
                         Us = SelectedUs,
                         GeneralNote = GeneralNoteText,
-                        ExistingBankClientBIK = 
-                                ExistingPersonalLoans
-                                .Union(ExistingPersonalLoansQuestions)
-                                .Union(ExistingCompanyLoans)
-                                .Union(ExistingCompanyLoansQuestions)
-                                .ToList(),                       
+                        ExistingBankClientBIK = ExistingBankClientBIK,                       
                         Spouse = SelectedSpouse,
                         SourceOfIncome = SelectedSourceOfIncome,
                         ClientStatus = SelectedClientStatus,
@@ -291,12 +275,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedClient.WhatHesJob = WhatHesJobText;
                     SelectedClient.ZusUs = SelectedZus;
                     SelectedClient.GeneralNote = GeneralNoteText;
-                    SelectedClient.ExistingBankClientBIK = 
-                            ExistingPersonalLoans
-                            .Union(ExistingPersonalLoansQuestions)
-                            .Union(ExistingCompanyLoans)
-                            .Union(ExistingCompanyLoansQuestions)
-                            .ToList();
+                    SelectedClient.ExistingBankClientBIK = ExistingBankClientBIK;                            
                     SelectedClient.Us = SelectedUs;
                     SelectedClient.Spouse = SelectedSpouse;
                     SelectedClient.SourceOfIncome = SelectedSourceOfIncome;
@@ -385,15 +364,14 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("ExistingPersonalLoans");
             });
 
-            RemoveBIKAnalysisElementCommand = new RelayCommand(() =>
+            RemoveBIKAnalysisElementCommand = new RelayCommand<ObservableCollection<BankClientBIK>>(
+                collection =>
             {
-                if (ExistingPersonalLoans == null)
-                    return;
+                collection.Remove(SelectedElementBIKAnalysis);
 
-                //ExistingPersonalLoans.RemoveAt();
+            }, collection => SelectedElementBIKAnalysis != null);
+            //przykład commanda z 2 parametrami
 
-                NotifyPropertyChanged("ExistingPersonalLoans");
-            });
             AddNewLoanApplicationCommand = new RelayCommand<string>(loanProposalIndex => 
             {
                 if (SelectedClient == null)
@@ -419,7 +397,18 @@ namespace CRMYourBankers.ViewModels
                 });
             });               
         }
+        public void ProcessCollectionBeforeSave(ObservableCollection<BankClientBIK> collection, BIKType bikType)
+        {
+            var listWithoutRemovedItems = collection.ToList();
+            listWithoutRemovedItems.RemoveAll(loan => loan.BankId == 0);
+            collection = new ObservableCollection<BankClientBIK>(listWithoutRemovedItems);
 
+            foreach (var item in collection
+                    .Where(loan => loan.BIKType != bikType))
+            {
+                item.BIKType = bikType;
+            }
+        }
         public void ClearAllFields()
         {
             FirstNameText = "";
