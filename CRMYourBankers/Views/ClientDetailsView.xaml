@@ -295,7 +295,10 @@
                     SelectionChanged="DataGrid_SelectionChanged">
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Usuń" />
+                            <MenuItem 
+                                Header="Usuń" 
+                                CommandParameter="BankClientBIK" 
+                                ItemsSource="{Binding RemoveBIKAnalysisElementCommand}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>

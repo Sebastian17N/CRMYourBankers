@@ -138,6 +138,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand AddNewClientTaskButtonCommand { get; set; }
         public ICommand AddNewExistingPersonalLoan { get; set; }
         public ICommand AddNewLoanApplicationCommand { get; set; }
+        public ICommand RemoveBIKAnalysisElementCommand { get; set; }
 
         public YourBankersContext Context { get; set; }
         public dynamic SelectedLoanApplication { get; set; }
@@ -384,6 +385,15 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("ExistingPersonalLoans");
             });
 
+            RemoveBIKAnalysisElementCommand = new RelayCommand(() =>
+            {
+                if (ExistingPersonalLoans == null)
+                    return;
+
+                //ExistingPersonalLoans.RemoveAt();
+
+                NotifyPropertyChanged("ExistingPersonalLoans");
+            });
             AddNewLoanApplicationCommand = new RelayCommand<string>(loanProposalIndex => 
             {
                 if (SelectedClient == null)
