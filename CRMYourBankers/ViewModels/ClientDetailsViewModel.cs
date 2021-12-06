@@ -26,58 +26,66 @@ namespace CRMYourBankers.ViewModels
 			{
 				_selectedClients = value;
 
-				if (_selectedClients != null)
-				{
-					FirstNameText = _selectedClients.FirstName;
-					LastNameText = _selectedClients.LastName;
-					EmailText = _selectedClients.Email;
-					PhoneNumberText = _selectedClients.PhoneNumber;
-					PersonalIdText = _selectedClients.PersonalId;
-					AmountRequestedText = _selectedClients.AmountRequested;
-					ClientCommissionText = _selectedClients.ClientCommission;
-					ContactPersonText = _selectedClients.ContactPerson;
-					WhatHesJobText = _selectedClients.WhatHesJob;
-					SelectedZus = _selectedClients.ZusUs;
-					GeneralNoteText = _selectedClients.GeneralNote;
-					ExistingPersonalLoans =
-					 new ObservableCollection<BankClientBIK>(
-						_selectedClients
-						.ExistingBankClientBIK
-						.Where(loan => loan.BIKType == BIKType.PersonalLoans)
-						.ToList());
-					ExistingPersonalLoansQuestions =
-					 new ObservableCollection<BankClientBIK>(
-						_selectedClients
-						.ExistingBankClientBIK
-						.Where(loan => loan.BIKType == BIKType.PersonalQuestions)
-						.ToList());
-					ExistingCompanyLoans =
-					new ObservableCollection<BankClientBIK>(
-						_selectedClients
-						.ExistingBankClientBIK
-						.Where(loan => loan.BIKType == BIKType.CompanyLoans)
-						.ToList());
-					ExistingCompanyLoansQuestions =
-					new ObservableCollection<BankClientBIK>(
-						_selectedClients
-						.ExistingBankClientBIK
-						.Where(loan => loan.BIKType == BIKType.CompanyQuestions)
-						.ToList());
-					SelectedUs = _selectedClients.Us;
-					SelectedSpouse = _selectedClients.Spouse;
-					SelectedSourceOfIncome = _selectedClients.SourceOfIncome;
-					SelectedClientStatus = _selectedClients.ClientStatus;
-					BrokerId = _selectedClients.BrokerId ?? 0;
-					ClientTasks = _selectedClients.ClientTasks;
-					LoanApplicationsProposals = _selectedClients.LoanApplicationsProposalsInts;
-					BIKNoteText = _selectedClients.BIKNote;
-				}
-				else
-				{
-					ClearAllFields();
-				}
-			}
-		}
+                if (_selectedClients != null)
+                {
+                    FirstNameText = _selectedClients.FirstName;
+                    LastNameText = _selectedClients.LastName;
+                    EmailText = _selectedClients.Email;
+                    PhoneNumberText = _selectedClients.PhoneNumber;
+                    PersonalIdText = _selectedClients.PersonalId;
+                    AmountRequestedText = _selectedClients.AmountRequested;
+                    ClientCommissionText = _selectedClients.ClientCommission;
+                    ContactPersonText = _selectedClients.ContactPerson;
+                    WhatHesJobText = _selectedClients.WhatHesJob;
+                    SelectedZus = _selectedClients.ZusUs;
+                    GeneralNoteText = _selectedClients.GeneralNote;
+                    ExistingPersonalLoans =
+                     new ObservableCollection<BankClientBIK>(
+                        _selectedClients
+                        .ExistingBankClientBIK
+                        .Where(loan => loan.BIKType == BIKType.PersonalLoans)
+                        .ToList());
+                    ExistingPersonalLoansQuestions =
+                     new ObservableCollection<BankClientBIK>(
+                        _selectedClients
+                        .ExistingBankClientBIK
+                        .Where(loan => loan.BIKType == BIKType.PersonalQuestions)
+                        .ToList());
+                    ExistingCompanyLoans =
+                    new ObservableCollection<BankClientBIK>(
+                        _selectedClients
+                        .ExistingBankClientBIK
+                        .Where(loan => loan.BIKType == BIKType.CompanyLoans)
+                        .ToList());
+                    ExistingCompanyLoansQuestions =
+                    new ObservableCollection<BankClientBIK>(
+                        _selectedClients
+                        .ExistingBankClientBIK
+                        .Where(loan => loan.BIKType == BIKType.CompanyQuestions)
+                        .ToList());
+                    SelectedUs = _selectedClients.Us;
+                    SelectedSpouse = _selectedClients.Spouse;
+                    SelectedSourceOfIncome = _selectedClients.SourceOfIncome;
+                    SelectedClientStatus = _selectedClients.ClientStatus;
+                    BrokerId = _selectedClients.BrokerId ??0;
+                    ClientTasks = _selectedClients.ClientTasks;
+                    LoanApplicationsProposals = _selectedClients.LoanApplicationsProposalsInts;
+                    BIKNoteText = _selectedClients.BIKNote;
+                }
+                else
+                {
+                    ClearAllFields();
+                    ExistingPersonalLoans =
+                     new ObservableCollection<BankClientBIK>();
+                    ExistingPersonalLoansQuestions =
+                     new ObservableCollection<BankClientBIK>();
+                    ExistingCompanyLoans =
+                    new ObservableCollection<BankClientBIK>();
+                    ExistingCompanyLoansQuestions =
+                    new ObservableCollection<BankClientBIK>();
+                }
+            }
+        }
 
 		// Wydłużony zapis, tego co na dole dla FirstNameText
 		//private string _firstNameText2;
@@ -90,33 +98,37 @@ namespace CRMYourBankers.ViewModels
 		//    }
 		//}
 
-		public string FirstNameText { get; set; }
-		public string LastNameText { get; set; }
-		public string EmailText { get; set; }
-		public int? PhoneNumberText { get; set; }
-		public long? PersonalIdText { get; set; }
-		public long? AmountRequestedText { get; set; }
-		public string ClientCommissionText { get; set; }
-		public string ContactPersonText { get; set; }
-		public string WhatHesJobText { get; set; }
-		public string GeneralNoteText { get; set; }
-		public int BrokerId { get; set; }
-		public string NewTaskText { get; set; }
-		public string BIKNoteText { get; set; }
-		public List<int> LoanApplicationsProposals { get; set; }
-		public TabName LastTabName { get; set; }
-		public ZusUs? SelectedZus { get; set; }
-		public ZusUs? SelectedUs { get; set; }
-		public Spouse? SelectedSpouse { get; set; }
-		public SourceOfIncome? SelectedSourceOfIncome { get; set; }
-		public ClientStatus? SelectedClientStatus { get; set; }
-
-		public ObservableCollection<BankClientBIK> ExistingPersonalLoans { get; set; }
-		public ObservableCollection<BankClientBIK> ExistingPersonalLoansQuestions { get; set; }
-		public ObservableCollection<BankClientBIK> ExistingCompanyLoans { get; set; }
-		public ObservableCollection<BankClientBIK> ExistingCompanyLoansQuestions { get; set; }
-
-		public dynamic LoanApplicationsForClient { get; set; }
+        public string FirstNameText { get; set; }
+        public string LastNameText { get; set; }
+        public string EmailText { get; set; }
+        public int? PhoneNumberText { get; set; }
+        public long? PersonalIdText { get; set; }
+        public long? AmountRequestedText { get; set; }
+        public string ClientCommissionText { get; set; }
+        public string ContactPersonText { get; set; }
+        public string WhatHesJobText { get; set; }
+        public string GeneralNoteText { get; set; }
+        public int BrokerId { get; set; }
+        public string NewTaskText { get; set; }
+        public string BIKNoteText { get; set; }
+        public List<int> LoanApplicationsProposals { get; set; }
+        public TabName LastTabName { get; set; }
+        public ZusUs? SelectedZus { get; set; }
+        public ZusUs? SelectedUs { get; set; }
+        public Spouse? SelectedSpouse { get; set; }
+        public SourceOfIncome? SelectedSourceOfIncome { get; set; }
+        public ClientStatus? SelectedClientStatus { get; set; }
+        public ObservableCollection<BankClientBIK> ExistingPersonalLoans { get; set; }
+        public ObservableCollection<BankClientBIK> ExistingPersonalLoansQuestions { get; set; }
+        public ObservableCollection<BankClientBIK> ExistingCompanyLoans { get; set; }
+        public ObservableCollection<BankClientBIK> ExistingCompanyLoansQuestions { get; set; }
+        public List<BankClientBIK> ExistingBankClientBIK => 
+                                ExistingPersonalLoans
+                                .Union(ExistingPersonalLoansQuestions)
+                                .Union(ExistingCompanyLoans)
+                                .Union(ExistingCompanyLoansQuestions)
+                                .ToList();                                
+        public dynamic LoanApplicationsForClient { get; set; }
 
 		private ObservableCollection<ClientTask> _clientTasks;
 		public ObservableCollection<ClientTask> ClientTasks
@@ -176,99 +188,70 @@ namespace CRMYourBankers.ViewModels
 				return;
 			}
 
-			LoanApplicationsForClient =
-				Context.LoanApplications
-					.Include(loan => loan.LoanTasks)
-					.Where(loan => loan.ClientId == SelectedClient.Id)
-					.Join(
-					Context.Banks,
-					loan => loan.BankId,
-					bank => bank.Id,
-					(loan, bank) => new
-					{
-						loan.Id,
-						loan.ClientId,
-						loan.AmountRequested,
-						loan.TasksToDo,
-						BankName = bank.Name
-					})
-				.Join(
-					Context.Clients,
-					loan => loan.ClientId,
-					client => client.Id,
-					(loan, client) => new
-					{
-						loan.Id,
-						loan.BankName,
-						loan.AmountRequested,
-						loan.TasksToDo
-					}).ToList();
-		}
+            LoanApplicationsForClient =
+                Context.LoanApplications
+                    .Include(loan=>loan.LoanTasks)
+                    .Where(loan => loan.ClientId == SelectedClient.Id) 
+                    .Join(
+                    Context.Banks,
+                    loan => loan.BankId,
+                    bank => bank.Id,
+                    (loan, bank) => new
+                    {
+                        loan.Id,
+                        loan.ClientId,
+                        loan.AmountRequested,
+                        loan.TasksToDo,
+                        BankName = bank.Name
+                    })
+                .Join(
+                    Context.Clients,
+                    loan => loan.ClientId,
+                    client => client.Id,
+                    (loan, client) => new
+                    {
+                        loan.Id,
+                        loan.BankName,
+                        loan.AmountRequested,
+                        loan.TasksToDo
+                    }).ToList();
+        }
+        
+        public void RegisterCommands()
+        {
+            SaveButtonCommand = new RelayCommand(() =>
+            {
+                ProcessCollectionBeforeSave(ExistingPersonalLoans, BIKType.PersonalLoans);
+                ProcessCollectionBeforeSave(ExistingPersonalLoansQuestions, BIKType.PersonalQuestions);
+                ProcessCollectionBeforeSave(ExistingCompanyLoans, BIKType.CompanyLoans);
+                ProcessCollectionBeforeSave(ExistingCompanyLoansQuestions, BIKType.CompanyQuestions);               
 
-		public void RegisterCommands()
-		{
-			SaveButtonCommand = new RelayCommand(() =>
-			{
-				//foreach (var loan in ExistingPersonalLoans.Where(loan => loan.BankId == 0 || loan.Bank != null))
-				//    loan.BankId = loan.Bank.Id;
-
-				//foreach (var loan in ExistingPersonalLoans.Where(loan => loan.ClientId == 0))
-				//{
-				//    loan.ClientId = SelectedClient.Id;
-				//}
-
-				var listWithoutRemovedItems = ExistingPersonalLoans.ToList();
-				listWithoutRemovedItems.RemoveAll(loan => loan.BankId == 0);
-				ExistingPersonalLoans = new ObservableCollection<BankClientBIK>(listWithoutRemovedItems);
-
-				foreach (var item in ExistingPersonalLoansQuestions
-					.Where(loan => loan.BIKType != BIKType.PersonalQuestions))
-				{
-					item.BIKType = BIKType.PersonalQuestions;
-				}
-
-				foreach (var item in ExistingCompanyLoans
-					.Where(loan => loan.BIKType != BIKType.CompanyLoans))
-				{
-					item.BIKType = BIKType.CompanyLoans;
-				}
-				foreach (var item in ExistingCompanyLoansQuestions
-					.Where(loan => loan.BIKType != BIKType.CompanyQuestions))
-				{
-					item.BIKType = BIKType.CompanyQuestions;
-				}
-
-				if (SelectedClient == null)
-				{
-
-					var newClient = new Client
-					{
-						Id = Context.Clients.Max(client => client.Id) + 1,
-						FirstName = FirstNameText,
-						LastName = LastNameText,
-						PhoneNumber = PhoneNumberText,
-						Email = EmailText,
-						PersonalId = PersonalIdText,
-						AmountRequested = AmountRequestedText,
-						ClientCommission = ClientCommissionText,
-						ContactPerson = ContactPersonText,
-						WhatHesJob = WhatHesJobText,
-						ZusUs = SelectedZus,
-						Us = SelectedUs,
-						GeneralNote = GeneralNoteText,
-						ExistingBankClientBIK =
-								ExistingPersonalLoans
-								.Union(ExistingPersonalLoansQuestions)
-								.Union(ExistingCompanyLoans)
-								.Union(ExistingCompanyLoansQuestions)
-								.ToList(),
-						Spouse = SelectedSpouse,
-						SourceOfIncome = SelectedSourceOfIncome,
-						ClientStatus = SelectedClientStatus,
-						BrokerId = BrokerId == 0 ? null : BrokerId,
-						LoanApplicationsProposalsInts = LoanApplicationsProposals,
-						BIKNote = BIKNoteText
-					};
+                if (SelectedClient == null)
+                {
+                    
+                    var newClient = new Client
+                    {
+                        Id = Context.Clients.Max(client => client.Id) + 1,
+                        FirstName = FirstNameText,
+                        LastName = LastNameText,
+                        PhoneNumber = PhoneNumberText,
+                        Email = EmailText,
+                        PersonalId = PersonalIdText,
+                        AmountRequested = AmountRequestedText,
+                        ClientCommission = ClientCommissionText,
+                        ContactPerson = ContactPersonText,
+                        WhatHesJob = WhatHesJobText,
+                        ZusUs = SelectedZus,
+                        Us = SelectedUs,
+                        GeneralNote = GeneralNoteText,
+                        ExistingBankClientBIK = ExistingBankClientBIK,                       
+                        Spouse = SelectedSpouse,
+                        SourceOfIncome = SelectedSourceOfIncome,
+                        ClientStatus = SelectedClientStatus,
+                        BrokerId = BrokerId == 0 ? null : BrokerId,
+                        LoanApplicationsProposalsInts = LoanApplicationsProposals,
+                        BIKNote = BIKNoteText
+                    };
 
 					if (!newClient.Validate())
 					{
@@ -288,35 +271,30 @@ namespace CRMYourBankers.ViewModels
 						return;
 					}
 
-					Context.Clients.Add(newClient);
-				}
-				else
-				{
-					SelectedClient.FirstName = FirstNameText;
-					SelectedClient.LastName = LastNameText;
-					SelectedClient.PhoneNumber = PhoneNumberText;
-					SelectedClient.Email = EmailText;
-					SelectedClient.PersonalId = PersonalIdText;
-					SelectedClient.AmountRequested = AmountRequestedText;
-					SelectedClient.ClientCommission = ClientCommissionText;
-					SelectedClient.ContactPerson = ContactPersonText;
-					SelectedClient.WhatHesJob = WhatHesJobText;
-					SelectedClient.ZusUs = SelectedZus;
-					SelectedClient.GeneralNote = GeneralNoteText;
-					SelectedClient.ExistingBankClientBIK =
-							ExistingPersonalLoans
-							.Union(ExistingPersonalLoansQuestions)
-							.Union(ExistingCompanyLoans)
-							.Union(ExistingCompanyLoansQuestions)
-							.ToList();
-					SelectedClient.Us = SelectedUs;
-					SelectedClient.Spouse = SelectedSpouse;
-					SelectedClient.SourceOfIncome = SelectedSourceOfIncome;
-					SelectedClient.ClientStatus = SelectedClientStatus;
-					SelectedClient.BrokerId = BrokerId == 0 ? null : BrokerId;
-					SelectedClient.ClientTasks = ClientTasks;
-					SelectedClient.BIKNote = BIKNoteText;
-					SelectedClient.LoanApplicationsProposalsInts = LoanApplicationsProposals;
+                    Context.Clients.Add(newClient);                    
+                }
+                else
+                {
+                    SelectedClient.FirstName = FirstNameText;
+                    SelectedClient.LastName = LastNameText;
+                    SelectedClient.PhoneNumber = PhoneNumberText;
+                    SelectedClient.Email = EmailText;
+                    SelectedClient.PersonalId = PersonalIdText;
+                    SelectedClient.AmountRequested = AmountRequestedText;
+                    SelectedClient.ClientCommission = ClientCommissionText;
+                    SelectedClient.ContactPerson = ContactPersonText;
+                    SelectedClient.WhatHesJob = WhatHesJobText;
+                    SelectedClient.ZusUs = SelectedZus;
+                    SelectedClient.GeneralNote = GeneralNoteText;
+                    SelectedClient.ExistingBankClientBIK = ExistingBankClientBIK;                            
+                    SelectedClient.Us = SelectedUs;
+                    SelectedClient.Spouse = SelectedSpouse;
+                    SelectedClient.SourceOfIncome = SelectedSourceOfIncome;
+                    SelectedClient.ClientStatus = SelectedClientStatus;
+                    SelectedClient.BrokerId = BrokerId == 0 ? null : BrokerId;
+                    SelectedClient.ClientTasks = ClientTasks;
+                    SelectedClient.BIKNote = BIKNoteText;
+                    SelectedClient.LoanApplicationsProposalsInts = LoanApplicationsProposals;
 
 					if (!SelectedClient.Validate())
 					{
@@ -397,16 +375,18 @@ namespace CRMYourBankers.ViewModels
 				NotifyPropertyChanged("ExistingPersonalLoans");
 			});
 
-			RemoveBIKAnalysisElementCommand = new RelayCommand<ObservableCollection<BankClientBIK>>(
-				collection =>
-			{
-				collection.Remove(SelectedElementBIKAnalysis);
-			}, collection => SelectedElementBIKAnalysis != null);
+            RemoveBIKAnalysisElementCommand = new RelayCommand<ObservableCollection<BankClientBIK>>(
+                collection =>
+            {
+                collection.Remove(SelectedElementBIKAnalysis);
 
-			AddNewLoanApplicationCommand = new RelayCommand<string>(loanProposalIndex =>
-			{
-				if (SelectedClient == null)
-					return;
+            }, collection => SelectedElementBIKAnalysis != null);
+            //przykład commanda z 2 parametrami
+
+            AddNewLoanApplicationCommand = new RelayCommand<string>(loanProposalIndex => 
+            {
+                if (SelectedClient == null)
+                    return;
 
 				var loanProposalIndexValue = int.Parse(loanProposalIndex);
 
@@ -420,40 +400,51 @@ namespace CRMYourBankers.ViewModels
 					LoanApplicationStatus = LoanApplicationStatus.Submited
 				};
 
-				TabMessenger.Send(new TabChangeMessage
-				{
-					SelectedObject = newLoanApplicationForClient,
-					TabName = TabName.LoanApplicationDetails,
-					LastTabName = TabName.ClientDetails
-				});
-			});
-		}
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    SelectedObject = newLoanApplicationForClient,
+                    TabName = TabName.LoanApplicationDetails,
+                    LastTabName = TabName.ClientDetails
+                });
+            });               
+        }
+        public void ProcessCollectionBeforeSave(ObservableCollection<BankClientBIK> collection, BIKType bikType)
+        {
+            var listWithoutRemovedItems = collection.ToList();
+            listWithoutRemovedItems.RemoveAll(loan => loan.BankId == 0);
+            collection = new ObservableCollection<BankClientBIK>(listWithoutRemovedItems);
 
-		public void ClearAllFields()
-		{
-			FirstNameText = "";
-			LastNameText = "";
-			PhoneNumberText = null;
-			EmailText = "";
-			ContactPersonText = "";
-			WhatHesJobText = "";
-			PersonalIdText = null;
-			AmountRequestedText = null;
-			ClientCommissionText = "";
-			LoanApplicationsForClient = null;
-			ExistingPersonalLoans = null;
-			ExistingPersonalLoansQuestions = null;
-			ExistingCompanyLoans = null;
-			ExistingCompanyLoansQuestions = null;
-			SelectedClientStatus = ClientStatus.InitiallyInterested;
-			SelectedZus = null;
-			SelectedUs = null;
-			SelectedSpouse = null;
-			SelectedSourceOfIncome = null;
-			BIKNoteText = "";
-			GeneralNoteText = "";
-			BrokerId = 0;
-			LoanApplicationsProposals = new List<int>();
-		}
-	}
+            foreach (var item in collection
+                    .Where(loan => loan.BIKType != bikType))
+            {
+                item.BIKType = bikType;
+            }
+        }
+        public void ClearAllFields()
+        {
+            FirstNameText = "";
+            LastNameText = "";
+            PhoneNumberText = null;
+            EmailText = "";
+            ContactPersonText = "";
+            WhatHesJobText = "";
+            PersonalIdText = null;
+            AmountRequestedText = null;
+            ClientCommissionText = "";
+            LoanApplicationsForClient = null;
+            ExistingPersonalLoans = null;
+            ExistingPersonalLoansQuestions = null;
+            ExistingCompanyLoans = null;
+            ExistingCompanyLoansQuestions = null;
+            SelectedClientStatus = ClientStatus.InitiallyInterested;
+            SelectedZus = null;
+            SelectedUs = null;
+            SelectedSpouse = null;
+            SelectedSourceOfIncome = null;
+            BIKNoteText = "";
+            GeneralNoteText = "";
+            BrokerId = 0;
+            LoanApplicationsProposals = new List<int>();
+        }
+    }
 }
