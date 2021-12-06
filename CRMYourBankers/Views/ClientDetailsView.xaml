@@ -291,9 +291,8 @@
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
                     EnableRowVirtualization="False"
-                    SelectedItem="{Binding SelectedElementBIKAnalysis}"
                     ItemsSource="{Binding ExistingPersonalLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding SelectedBIK}">
+                    SelectedItem="{Binding SelectedElementBIKAnalysis}">
                     <DataGrid.ContextMenu>
                         <ContextMenu>
                             <MenuItem
