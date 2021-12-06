@@ -221,10 +221,10 @@ namespace CRMYourBankers.ViewModels
         {
             SaveButtonCommand = new RelayCommand(() =>
             {
-                ProcessCollectionBeforeSave(ExistingPersonalLoans, BIKType.PersonalLoans);
-                ProcessCollectionBeforeSave(ExistingPersonalLoansQuestions, BIKType.PersonalQuestions);
-                ProcessCollectionBeforeSave(ExistingCompanyLoans, BIKType.CompanyLoans);
-                ProcessCollectionBeforeSave(ExistingCompanyLoansQuestions, BIKType.CompanyQuestions);               
+                ExistingPersonalLoans = ProcessCollectionBeforeSave(ExistingPersonalLoans, BIKType.PersonalLoans);
+                ExistingPersonalLoansQuestions = ProcessCollectionBeforeSave(ExistingPersonalLoansQuestions, BIKType.PersonalQuestions);
+                ExistingCompanyLoans = ProcessCollectionBeforeSave(ExistingCompanyLoans, BIKType.CompanyLoans);
+                ExistingCompanyLoansQuestions = ProcessCollectionBeforeSave(ExistingCompanyLoansQuestions, BIKType.CompanyQuestions);               
 
                 if (SelectedClient == null)
                 {
@@ -408,10 +408,12 @@ namespace CRMYourBankers.ViewModels
                 });
             });               
         }
-        public void ProcessCollectionBeforeSave(ObservableCollection<BankClientBIK> collection, BIKType bikType)
+
+        private ObservableCollection<BankClientBIK> ProcessCollectionBeforeSave(
+            ObservableCollection<BankClientBIK> collection, BIKType bikType)
         {
             var listWithoutRemovedItems = collection.ToList();
-            listWithoutRemovedItems.RemoveAll(loan => loan.BankId == 0);
+            listWithoutRemovedItems.RemoveAll(loan => loan.Bank == null);
             collection = new ObservableCollection<BankClientBIK>(listWithoutRemovedItems);
 
             foreach (var item in collection
@@ -419,7 +421,10 @@ namespace CRMYourBankers.ViewModels
             {
                 item.BIKType = bikType;
             }
+
+            return collection;
         }
+
         public void ClearAllFields()
         {
             FirstNameText = "";

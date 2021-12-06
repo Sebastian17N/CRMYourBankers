@@ -70,7 +70,7 @@ namespace CRMYourBankers.Models
         public bool Validate()
         {
             var aaa = ExistingBankClientBIK.GroupBy(
-                loan => new { loan.BankId, loan.BIKType },
+                loan => new { loan.Bank.Id, loan.BIKType },
                 loan => loan.ClientId,
                 (key, value) => new { key, amount = value.Count() }
                 );
