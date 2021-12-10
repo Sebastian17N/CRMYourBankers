@@ -276,7 +276,7 @@
                         Content="Dodaj Nowe Zadanie" />
                 </StackPanel>
             </StackPanel>
-            <StackPanel Width="110" Margin="20,0,0,0">
+            <StackPanel Width="120" Margin="20,0,0,0">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock
                         Width="100"
@@ -286,7 +286,7 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
                 <DataGrid
-                    Width="108"
+                    Width="120"
                     Height="250"
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
@@ -303,7 +303,7 @@
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
-                            Width="100"
+                            Width="112"
                             DisplayMemberPath="Name"
                             SelectedItemBinding="{Binding Bank}">
                             <DataGridComboBoxColumn.ElementStyle>
@@ -320,7 +320,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
-            <StackPanel Width="110" Margin="10,0,0,0">
+            <StackPanel Width="120" Margin="10,0,0,0">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock
                         Width="100"
@@ -330,7 +330,7 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
                 <DataGrid
-                    Width="108"
+                    Width="120"
                     Height="250"
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
@@ -347,7 +347,7 @@
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
-                            Width="110"
+                            Width="112"
                             DisplayMemberPath="Name"
                             SelectedItemBinding="{Binding Bank}">
                             <DataGridComboBoxColumn.ElementStyle>
@@ -364,7 +364,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
-            <StackPanel Width="110" Margin="10,0,0,0">
+            <StackPanel Width="120" Margin="10,0,0,0">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock
                         Width="100"
@@ -374,7 +374,7 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
                 <DataGrid
-                    Width="108"
+                    Width="120"
                     Height="250"
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
@@ -391,7 +391,7 @@
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
-                            Width="110"
+                            Width="112"
                             DisplayMemberPath="Name"
                             SelectedItemBinding="{Binding Bank}">
                             <DataGridComboBoxColumn.ElementStyle>
@@ -408,7 +408,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
-            <StackPanel Width="110" Margin="10,0,0,0">
+            <StackPanel Width="120" Margin="10,0,0,0">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock
                         Width="100"
@@ -418,7 +418,7 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
                 <DataGrid
-                    Width="108"
+                    Width="120"
                     Height="250"
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
@@ -435,7 +435,7 @@
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
-                            Width="110"
+                            Width="112"
                             DisplayMemberPath="Name"
                             SelectedItemBinding="{Binding Bank}">
                             <DataGridComboBoxColumn.ElementStyle>

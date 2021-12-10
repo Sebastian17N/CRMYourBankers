@@ -163,8 +163,10 @@ namespace CRMYourBankers.ViewModels
 		public ICommand AddNewExistingPersonalLoan { get; set; }
 		public ICommand AddNewLoanApplicationCommand { get; set; }
 		public ICommand RemoveBIKAnalysisElementCommand { get; set; }
+        public ICommand ResetBIKButtonCommand { get; set; }
 
-		public YourBankersContext Context { get; set; }
+
+        public YourBankersContext Context { get; set; }
 		public dynamic SelectedLoanApplication { get; set; }
 		public ObservableCollection<Bank> Banks { get; set; }
 		public ObservableCollection<Broker> Brokers { get; set; }
@@ -406,7 +408,27 @@ namespace CRMYourBankers.ViewModels
                     TabName = TabName.LoanApplicationDetails,
                     LastTabName = TabName.ClientDetails
                 });
-            });               
+            });
+
+            ResetBIKButtonCommand = new RelayCommand(() =>
+            {
+                MessageBox.Show("Czy na pewno resetować analizę BIK?",
+                            "potwierdzenie czynności",
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Question);
+                
+                ExistingPersonalLoans = null;
+                ExistingPersonalLoansQuestions = null;
+                ExistingCompanyLoans = null;
+                ExistingCompanyLoansQuestions = null;
+                LoanApplicationsProposals = null;
+
+                if (ExistingPersonalLoans == null)
+                    ExistingPersonalLoans = new ObservableCollection<BankClientBIK>();
+
+                ExistingPersonalLoans.Add(new BankClientBIK { ClientId = SelectedClient.Id });
+                NotifyPropertyChanged("ExistingPersonalLoans");
+            });
         }
 
         private ObservableCollection<BankClientBIK> ProcessCollectionBeforeSave(
