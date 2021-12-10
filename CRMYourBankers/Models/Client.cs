@@ -74,15 +74,14 @@ namespace CRMYourBankers.Models
                 loan => loan.ClientId,
                 (key, value) => new { key, amount = value.Count() }
                 );
-            var bbb = aaa.All(loan => loan.amount <= 1);
+            //var bbb = aaa.All(loan => loan.amount <= 1); do czego to służyło bo wywala błąd? :) 
             return
             FirstName != "" &&
             LastName != "" &&
             PhoneNumber != null &&
             Email != "" &&
-            PersonalId != null &&
-            bbb;
-            
+            PersonalId != null;
+          // bbb;           
 
         }    
         

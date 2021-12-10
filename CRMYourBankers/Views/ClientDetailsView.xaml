@@ -286,7 +286,7 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
                 <DataGrid
-                    Width="Auto"
+                    Width="108"
                     Height="250"
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
@@ -330,12 +330,21 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
                 <DataGrid
-                    Width="Auto"
+                    Width="108"
                     Height="250"
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
-                    EnableRowVirtualization="False"
-                    ItemsSource="{Binding ExistingPersonalLoansQuestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    EnableRowVirtualization="False"                    
+                    ItemsSource="{Binding ExistingPersonalLoansQuestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedElementBIKAnalysis}">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem
+                                Command="{Binding RemoveBIKAnalysisElementCommand}"
+                                CommandParameter="{Binding ExistingPersonalLoansQuestions}"
+                                Header="Usuń" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
                             Width="110"
@@ -365,12 +374,21 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
                 <DataGrid
-                    Width="Auto"
+                    Width="108"
                     Height="250"
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
                     EnableRowVirtualization="False"
-                    ItemsSource="{Binding ExistingCompanyLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    ItemsSource="{Binding ExistingCompanyLoans, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedElementBIKAnalysis}">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem
+                                Command="{Binding RemoveBIKAnalysisElementCommand}"
+                                CommandParameter="{Binding ExistingCompanyLoans}"
+                                Header="Usuń" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
                             Width="110"
@@ -400,13 +418,21 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
                 <DataGrid
-                    Width="Auto"
+                    Width="108"
                     Height="250"
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
                     EnableRowVirtualization="False"
                     ItemsSource="{Binding ExistingCompanyLoansQuestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectionChanged="DataGrid_SelectionChanged">
+                    SelectedItem="{Binding SelectedElementBIKAnalysis}">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem
+                                Command="{Binding RemoveBIKAnalysisElementCommand}"
+                                CommandParameter="{Binding ExistingCompanyLoansQuestions}"
+                                Header="Usuń" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn
                             Width="110"
