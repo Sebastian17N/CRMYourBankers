@@ -113,6 +113,7 @@ namespace CRMYourBankers.ViewModels
                                      client.ClientStatus == ClientStatus.InitiallyInterested)   
                     .Include(client => client.ClientTasks)
                     .Include(client => client.ExistingBankClientBIK)
+                    .Include(client => client.LoanApplicationsProposals)
                     .ToList();
             NotifyPropertyChanged("DataGridData");
 
