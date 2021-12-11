@@ -43,6 +43,18 @@ namespace CRMYourBankers.Models
 
             set
 			{
+                if (!LoanApplicationsProposals.Any())
+				{
+                    for (int i = 0; i < 7; i++)
+                    {
+                        LoanApplicationsProposals.Add(new LoanApplicationsProposal
+                        {
+                            Client = this,
+                            ProposalIndex = i
+                        });
+                    }
+                }
+
                 foreach (var proposal in LoanApplicationsProposals)
 				{
                     proposal.BankId = 

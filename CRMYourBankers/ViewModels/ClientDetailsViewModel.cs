@@ -433,6 +433,7 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("ExistingPersonalLoans");
                 NotifyPropertyChanged("ExistingPersonalLoansQuestions");
                 NotifyPropertyChanged("ExistingCompanyLoans");
+                NotifyPropertyChanged("ExistingCompanyLoansQuestions");
                 NotifyPropertyChanged("LoanApplicationsProposals");
 
             });
@@ -478,7 +479,7 @@ namespace CRMYourBankers.ViewModels
             BIKNoteText = "";
             GeneralNoteText = "";
             BrokerId = 0;
-            LoanApplicationsProposals = new List<int>();
+            LoanApplicationsProposals = new List<int> { 0, 0, 0, 0, 0, 0, 0};
         }
     }
 }
