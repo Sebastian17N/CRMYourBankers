@@ -417,17 +417,21 @@ namespace CRMYourBankers.ViewModels
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Question);
                 
-                ExistingPersonalLoans = null;
-                ExistingPersonalLoansQuestions = null;
-                ExistingCompanyLoans = null;
-                ExistingCompanyLoansQuestions = null;
-                LoanApplicationsProposals = null;
+                ExistingPersonalLoans.Clear();
+                ExistingPersonalLoansQuestions.Clear();
+                ExistingCompanyLoans.Clear();
+                ExistingCompanyLoansQuestions.Clear();
 
-                if (ExistingPersonalLoans == null)
-                    ExistingPersonalLoans = new ObservableCollection<BankClientBIK>();
+                for(int i = 0; i < LoanApplicationsProposals.Count; i++)
+                {
+                    LoanApplicationsProposals[i] = 0;
+                }
 
-                ExistingPersonalLoans.Add(new BankClientBIK { ClientId = SelectedClient.Id });
                 NotifyPropertyChanged("ExistingPersonalLoans");
+                NotifyPropertyChanged("ExistingPersonalLoansQuestions");
+                NotifyPropertyChanged("ExistingCompanyLoans");
+                NotifyPropertyChanged("LoanApplicationsProposals");
+
             });
         }
 
