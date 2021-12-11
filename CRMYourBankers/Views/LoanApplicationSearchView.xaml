@@ -16,7 +16,7 @@
             <DataGrid
                 Height="400"
                 AutoGenerateColumns="False"
-                ItemsSource="{Binding DataGridData, Converter={StaticResource FromCollectionToListCollectionViewWithDescriptionConverter}, ConverterParameter='StartDate'}"
+                ItemsSource="{Binding DataGridData, Converter={StaticResource FromCollectionToListCollectionViewWithDescriptionConverter}, ConverterParameter='StartDate, StartDateString'}"
                 SelectedItem="{Binding SelectedLoanApplication}">
                 <DataGrid.GroupStyle>
                     <GroupStyle>

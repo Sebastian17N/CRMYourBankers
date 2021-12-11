@@ -8,15 +8,20 @@ namespace CRMYourBankers.Converters
 {
 	public  class FromCollectionToListCollectionViewWithDescriptionConverter : IValueConverter
     {
-        object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        object IValueConverter.Convert(object value, Type targetType, object parameters, CultureInfo culture)
         {
-            if (value == null || parameter == null)
+            if (value == null || parameters == null)
+                return null;
+
+            var parametersValues = parameters.ToString().Split(',');
+
+            if (parametersValues.Length != 2)
                 return null;
 
             ListCollectionView collectionView = new ListCollectionView((IList)value);
-            collectionView.GroupDescriptions.Add(new PropertyGroupDescription(parameter.ToString()));
-            collectionView.SortDescriptions.Add(new SortDescription(parameter.ToString(), ListSortDirection.Descending));
-
+            collectionView.SortDescriptions.Add(new SortDescription(parametersValues[0], ListSortDirection.Descending));
+            collectionView.GroupDescriptions.Add(new PropertyGroupDescription(parametersValues[1]));
+            
             return collectionView;
         }
 

@@ -60,7 +60,8 @@ namespace CRMYourBankers.ViewModels
                         loan.AmountRequested,
                         loan.AmountReceived,
                         loan.TasksToDo,
-                        StartDate = loan.StartDate.ToString("MMMM yyyy").ToUpper()
+                        StartDate = loan.StartDate,
+                        StartDateString = loan.StartDate.ToString("MMMM yyyy").ToUpper()
                     })                
                 .ToList();
             NotifyPropertyChanged("DataGridData");
