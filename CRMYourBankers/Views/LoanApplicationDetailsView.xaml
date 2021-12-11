@@ -118,6 +118,20 @@
                     Margin="5"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
+                    <Label Content="Data dodania wniosku" />
+                    <DatePicker
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        FirstDayOfWeek="Monday"
+                        IsTodayHighlighted="True"
+                        SelectedDate="{Binding StartDate}"
+                        SelectedDateFormat="Short"
+                        Visibility="Visible" />
+                </StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
                     <Label Content="Data uruchomienia kredytu" />
                     <DatePicker
                         HorizontalContentAlignment="Center"
@@ -126,13 +140,16 @@
                         IsTodayHighlighted="True"
                         SelectedDate="{Binding LoanStartDate}"
                         SelectedDateFormat="Short"
-                        Visibility="Visible" />
+                        Visibility="Visible" />                    
+                </StackPanel>
+                <StackPanel
+                    HorizontalAlignment="Right">
                     <CheckBox
-                        Margin="5,5,5,5"
-                        HorizontalContentAlignment="Center"
+                        Margin="5,5,5,5"                  
+                        HorizontalContentAlignment="Right"
                         VerticalContentAlignment="Center"
                         BorderThickness="5,5,5,5"
-                        Content="Czy zapłacono  "
+                        Content="Zapłacona brokerka "
                         FlowDirection="RightToLeft"
                         IsChecked="{Binding IsPaid}" />
                 </StackPanel>

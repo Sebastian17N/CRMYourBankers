@@ -76,8 +76,11 @@ namespace CRMYourBankers.ViewModels
                 DataGridData = 
                     Context
                         .LoanApplications
+                        .Where(loan => loan.LoanApplicationStatus == LoanApplicationStatus.Launched)
                         .Where(loan =>
                             loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
+                        .Where(loan =>
+                            loan.LoanStartDate.Year == SelectedMonthSummary.Month.Year)
                         .Select(loan =>
                             new
                             {

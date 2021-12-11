@@ -25,7 +25,8 @@ namespace CRMYourBankers.ViewModels
         public int? BankId { get; set; }
         public int? ClientId { get; set; }
         public int? MultiBrokerId { get; set; }
-        public DateTime LoanStartDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime LoanStartDate { get; set; }        
         public TabName LastTabName { get; set; }
         public LoanApplicationStatus? SelectedLoanApplicationStatus { get; set; }
         public bool IsPaid { get; set; }
@@ -89,6 +90,7 @@ namespace CRMYourBankers.ViewModels
                         AmountRequested = AmountRequestedText,
                         AmountReceived = AmountReceivedText,
                         ClientCommission  = ClientCommissionText,
+                        StartDate = StartDate,
                         LoanStartDate = LoanStartDate,     
                         Paid = IsPaid,
                         LoanApplicationStatus = SelectedLoanApplicationStatus,
@@ -115,6 +117,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
                     SelectedLoanApplication.ClientCommission = ClientCommissionText;
+                    SelectedLoanApplication.StartDate = StartDate;
                     SelectedLoanApplication.LoanStartDate = LoanStartDate;
                     SelectedLoanApplication.Paid = IsPaid;
                     SelectedLoanApplication.LoanApplicationStatus = SelectedLoanApplicationStatus;
@@ -220,6 +223,7 @@ namespace CRMYourBankers.ViewModels
             AmountReceivedText = null;
             ClientCommissionText = null;
             TasksToDoText = null;
+            StartDate = DateTime.Now;
             LoanStartDate = DateTime.Now;
             IsPaid = false;
             MultiBrokerId = null;
@@ -235,6 +239,7 @@ namespace CRMYourBankers.ViewModels
                 AmountRequestedText = _selectedLoanApplication.AmountRequested;
                 AmountReceivedText = _selectedLoanApplication.AmountReceived;
                 ClientCommissionText = _selectedLoanApplication.ClientCommission;
+                StartDate = _selectedLoanApplication.StartDate;
                 LoanStartDate = _selectedLoanApplication.LoanStartDate;
                 IsPaid = _selectedLoanApplication.Paid;
                 SelectedLoanApplicationStatus = _selectedLoanApplication.LoanApplicationStatus;

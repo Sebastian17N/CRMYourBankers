@@ -424,6 +424,7 @@ namespace CRMYourBankers.ViewModels
                 ExistingPersonalLoansQuestions.Clear();
                 ExistingCompanyLoans.Clear();
                 ExistingCompanyLoansQuestions.Clear();
+                BIKNoteText = String.Empty;
 
                 for(int i = 0; i < LoanApplicationsProposals.Count; i++)
                 {
@@ -435,6 +436,7 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("ExistingCompanyLoans");
                 NotifyPropertyChanged("ExistingCompanyLoansQuestions");
                 NotifyPropertyChanged("LoanApplicationsProposals");
+                NotifyPropertyChanged("BIKNoteText");
 
             });
         }
