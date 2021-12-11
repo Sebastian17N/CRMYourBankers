@@ -412,11 +412,14 @@ namespace CRMYourBankers.ViewModels
 
             ResetBIKButtonCommand = new RelayCommand(() =>
             {
-                MessageBox.Show("Czy na pewno resetować analizę BIK?",
+                var result = MessageBox.Show("Czy na pewno resetować analizę BIK?",
                             "potwierdzenie czynności",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Question);
-                
+
+                if (result == MessageBoxResult.No)
+                    return;
+
                 ExistingPersonalLoans.Clear();
                 ExistingPersonalLoansQuestions.Clear();
                 ExistingCompanyLoans.Clear();
