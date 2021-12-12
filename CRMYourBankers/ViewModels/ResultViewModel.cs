@@ -24,7 +24,10 @@ namespace CRMYourBankers.ViewModels
         public string EstimatedTargetText { get; set; }
         
         public dynamic DataGridData { get; set; }
+
+        private ObservableCollection<MonthSummary> _monthSummaries;
         public ObservableCollection<MonthSummary> MonthSummaries { get; set; }
+       
          public double CommissionPaid => SelectedMonthSummary != null ?
             Context.LoanApplications
             .Where(loan => loan.Paid)
@@ -63,7 +66,8 @@ namespace CRMYourBankers.ViewModels
         
         public void RefreshReferenceData()
         {
-            MonthSummaries = new ObservableCollection<MonthSummary>(Context.MonthSummaries.ToList());
+            MonthSummaries = new ObservableCollection<MonthSummary>(
+                Context.MonthSummaries.ToList().OrderByDescending(month => month.Month.Date));
             NotifyPropertyChanged("SelectedMonthSummary");
             NotifyPropertyChanged("MonthSummaries");
         }
