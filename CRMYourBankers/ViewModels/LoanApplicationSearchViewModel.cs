@@ -45,6 +45,7 @@ namespace CRMYourBankers.ViewModels
                         loan.AmountRequested,
                         loan.AmountReceived,
                         loan.TasksToDo,
+                        loan.LoanApplicationStatus,
                         BankName = bank.Name,
                         loan.StartDate
                     })
@@ -60,6 +61,7 @@ namespace CRMYourBankers.ViewModels
                         loan.AmountRequested,
                         loan.AmountReceived,
                         loan.TasksToDo,
+                        loan.LoanApplicationStatus,
                         StartDate = loan.StartDate,
                         StartDateString = loan.StartDate.ToString("MMMM yyyy").ToUpper()
                     })                

@@ -69,6 +69,11 @@
                         Header="Wnioskowana Kwota"
                         IsReadOnly="True" />
                     <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding LoanApplicationStatus}"
+                        Header="Status Wniosku"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
                         Width="200"
                         Binding="{Binding TasksToDo}"
                         Header="Zadania"
