@@ -1,4 +1,6 @@
-﻿namespace CRMYourBankers.Models
+﻿using System;
+
+namespace CRMYourBankers.Models
 {
     public class ClientTask
     {
@@ -7,5 +9,6 @@
         public bool Done { get; set; }
         public int ClientId { get; set; } 
         public Client Client { get; set; }
+        public DateTime TaskDate { get; set; }
     }
 }

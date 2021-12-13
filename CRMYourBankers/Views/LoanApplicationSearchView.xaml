@@ -26,7 +26,7 @@
     <StackPanel>
         <StackPanel>
             <DataGrid
-                Height="400"
+                Height="Auto"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding DataGridData, Converter={StaticResource FromCollectionToListCollectionViewWithDescriptionConverter}, ConverterParameter='StartDate, StartDateString'}"
                 SelectedItem="{Binding SelectedLoanApplication}">

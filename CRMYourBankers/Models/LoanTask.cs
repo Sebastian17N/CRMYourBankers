@@ -7,6 +7,5 @@
         public bool Done { get; set; }
         public int LoanApplicationId { get; set; }
         public LoanApplication LoanApplication { get; set; }
-
     }
 }

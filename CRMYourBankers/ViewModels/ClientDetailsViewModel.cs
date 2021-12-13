@@ -69,6 +69,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedClientStatus = _selectedClients.ClientStatus;
                     BrokerId = _selectedClients.BrokerId ??0;
                     ClientTasks = _selectedClients.ClientTasks;
+                    
                     LoanApplicationsProposals = _selectedClients.LoanApplicationsProposalsInts;
                     BIKNoteText = _selectedClients.BIKNote;
                 }
@@ -110,6 +111,7 @@ namespace CRMYourBankers.ViewModels
         public string GeneralNoteText { get; set; }
         public int BrokerId { get; set; }
         public string NewTaskText { get; set; }
+        public DateTime TaskDate { get; set; }
         public string BIKNoteText { get; set; }
         public List<int> LoanApplicationsProposals { get; set; }
         public TabName LastTabName { get; set; }

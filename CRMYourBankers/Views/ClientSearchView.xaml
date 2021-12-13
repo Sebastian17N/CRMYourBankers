@@ -16,7 +16,7 @@
             Command="{Binding SearchButtonCommand}"
             Content="Search" />
         <DataGrid
-            Height="400"
+            Height="Auto"
             AutoGenerateColumns="False"
             ItemsSource="{Binding Clients}"
             SelectedItem="{Binding SelectedClient}">
