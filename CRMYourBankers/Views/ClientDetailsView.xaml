@@ -654,7 +654,11 @@
                         Width="300"
                         Binding="{Binding Text}"
                         Header="Zadania" />
-                    <DataGridCheckBoxColumn Binding="{Binding Done}" Header="Zrobione" />
+                    <DataGridTextColumn
+                        Width="80"                         
+                        Binding="{Binding TaskDate, StringFormat=\{0:yyyy.MM.dd\}}"
+                        Header="Data" />
+                    <DataGridCheckBoxColumn Binding="{Binding Done}" Header="Zrobione" />                    
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

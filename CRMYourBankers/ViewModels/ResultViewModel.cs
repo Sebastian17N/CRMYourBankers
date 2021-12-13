@@ -24,8 +24,6 @@ namespace CRMYourBankers.ViewModels
         public string EstimatedTargetText { get; set; }
         
         public dynamic DataGridData { get; set; }
-
-        private ObservableCollection<MonthSummary> _monthSummaries;
         public ObservableCollection<MonthSummary> MonthSummaries { get; set; }
        
          public double CommissionPaid => SelectedMonthSummary != null ?

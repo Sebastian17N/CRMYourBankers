@@ -69,7 +69,8 @@ namespace CRMYourBankers.Models
         public string FullName => $"{FirstName} {LastName} {Email}";
         public string TasksToDo => string.Join(Environment.NewLine,
             ClientTasks.Where(task => !task.Done)
-                       .OrderByDescending(task => task.Id)
+                       .OrderBy(task => task.TaskDate)
+                       .ThenByDescending(task => task.Id)
                        .Select(task => task.Text));        
         
         public Client()

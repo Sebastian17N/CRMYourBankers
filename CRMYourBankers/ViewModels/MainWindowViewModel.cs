@@ -170,7 +170,9 @@ namespace CRMYourBankers.ViewModels
         {
             TabMessenger.Register<TabChangeMessage>(this,
                 message =>
-            {                
+            {
+                ActivatedClientStatusBaseOnIncomingTask();
+
                 switch (message.TabName)
                 {
                     case TabName.ClientSearch:
@@ -201,6 +203,26 @@ namespace CRMYourBankers.ViewModels
                     ((ILastTabNameOwner)SelectedTab).LastTabName = message.LastTabName;
                 }//wszyskie widoki implementujące ten interface (ILastTabNameOwner), będa miały przypisywane LastTabName automatycznie
             }); //Interface jest dla widoku, z którego będziemy się cofać a nie ten który wysyła message
+        }
+
+        public void ActivatedClientStatusBaseOnIncomingTask()
+        {
+            //Kroki postępowania w pisaniu Linq:
+            //znajdz nieaktywnych klientów
+            //data zadania jest dzisiejsza, lub wsteczna oraz NotDone
+            //zmiana statusu na aktywny
+
+            var foundClients = Context.Clients
+                .Where(client => client.ClientStatus != ClientStatus.Active)
+                .Where(client => client.ClientTasks
+                        .Any(task => task.TaskDate <= System.DateTime.Now && !task.Done))
+                .ToList();
+            foreach (var client in foundClients)
+            {
+                client.ClientStatus = ClientStatus.Active;
+            }
+
+            Context.SaveChanges();            
         }
     }
 }

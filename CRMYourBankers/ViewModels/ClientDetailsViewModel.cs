@@ -111,7 +111,7 @@ namespace CRMYourBankers.ViewModels
         public string GeneralNoteText { get; set; }
         public int BrokerId { get; set; }
         public string NewTaskText { get; set; }
-        public DateTime TaskDate { get; set; }
+        public DateTime? TaskDate { get; set; }
         public string BIKNoteText { get; set; }
         public List<int> LoanApplicationsProposals { get; set; }
         public TabName LastTabName { get; set; }
@@ -141,6 +141,7 @@ namespace CRMYourBankers.ViewModels
 				_clientTasks = new ObservableCollection<ClientTask>(
 					value
 						.OrderBy(task => task.Done)
+                        .ThenBy(task => task.TaskDate)
 						.ThenByDescending(task => task.Id)
 						.ToList());
 			}
@@ -341,14 +342,24 @@ namespace CRMYourBankers.ViewModels
 			{
 				if (SelectedClient != null)
 				{
-					using (var context = new YourBankersContext())
+                    if (TaskDate <= DateTime.Now)
+                    {
+                        MessageBox.Show($"Nie można dodać zadania z datą wsteczną",
+                            "Ostrzeżenie",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Warning);
+
+                        return;
+                    }
+
+                    using (var context = new YourBankersContext())
 					{
-						var newClientTask = new ClientTask
+                        var newClientTask = new ClientTask
 						{
 							Text = NewTaskText,
-							ClientId = SelectedClient.Id
+							ClientId = SelectedClient.Id,                            
+                            TaskDate = TaskDate
 						};
-
 						context.ClientTasks.Add(newClientTask);
 						context.SaveChanges();
 					}
@@ -362,9 +373,12 @@ namespace CRMYourBankers.ViewModels
 				}
 
 				NewTaskText = string.Empty;
+                TaskDate = null;
 				NotifyPropertyChanged("NewTaskText");
+                NotifyPropertyChanged("TaskDate");
+                NotifyPropertyChanged("ClientTasks");
 
-				MessageBox.Show($"Nowe zadanie dodane",
+                MessageBox.Show($"Nowe zadanie dodane",
 					"Dodano Nowe Zadanie",
 				   MessageBoxButton.OK,
 				   MessageBoxImage.Information);
