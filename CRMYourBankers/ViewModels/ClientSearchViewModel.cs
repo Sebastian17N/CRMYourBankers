@@ -63,13 +63,10 @@ namespace CRMYourBankers.ViewModels
                 });
             });
 
-            //SearchButtonCommand = new RelayCommand(() =>
-            //{
-            //    if (SearchText == SelectedClient.ToString())
-            //    {
-            //        Clients = Context.Clients.Select(client => client.Id);
-            //    }
-            //});
+            SearchButtonCommand = new RelayCommand(() =>
+            {
+                RefreshData();
+            });
         }
     }
 }
