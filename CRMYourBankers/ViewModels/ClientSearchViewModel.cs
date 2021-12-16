@@ -17,6 +17,7 @@ namespace CRMYourBankers.ViewModels
     {
         public ICommand SearchButtonCommand { get; set; }
         public ICommand DetailsScreenOpenHandler { get; set; }
+
         public string SearchText { get; set; }
 
         private List<Client> _clients;
@@ -73,6 +74,6 @@ namespace CRMYourBankers.ViewModels
 			{
                 RefreshData();
 			});
-		}
+        }
     }
 }
