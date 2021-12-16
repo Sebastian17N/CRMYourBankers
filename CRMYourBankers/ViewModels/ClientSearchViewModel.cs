@@ -42,13 +42,19 @@ namespace CRMYourBankers.ViewModels
 
         public void RefreshData()
         {
-            Clients =
+            var query =
                 Context
                     .Clients
                     .Include(client => client.ClientTasks)
                     .Include(bank => bank.ExistingBankClientBIK)
                     .Include(proposal => proposal.LoanApplicationsProposals)
-                    .ToList();
+                    .AsQueryable();
+
+            if (!string.IsNullOrEmpty(SearchText))
+                query = query
+                    .Where(client => EF.Functions.Like(client.FirstName + " " + client.LastName + " " + client.Email, $"%{SearchText}%"));
+
+            Clients = query.ToList();
         }
 
         public void RegisterCommands()
