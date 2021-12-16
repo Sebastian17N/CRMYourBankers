@@ -54,7 +54,8 @@ namespace CRMYourBankers.ViewModels
             if (!string.IsNullOrEmpty(SearchText))
                 query = query
                     .Where(client => EF.Functions.Like(client.FirstName + " " + client.LastName + " " + client.Email, $"%{SearchText}%"));
-
+            //EF - entity framework z tego biore funkcję "like"
+            // like(z tych miejsc wyszukuję co jest po przecinku) %- oznacza że może być dowolna ilość znaków przed i po wpisanym tekście
             Clients = query.ToList();
         }
 
@@ -70,10 +71,10 @@ namespace CRMYourBankers.ViewModels
                 });
             });
 
-			SearchButtonCommand = new RelayCommand(() =>
-			{
+            SearchButtonCommand = new RelayCommand(() =>
+            {
                 RefreshData();
-			});
+            });
         }
     }
 }

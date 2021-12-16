@@ -198,15 +198,14 @@ namespace CRMYourBankers.ViewModels
 
             GoToSelectedClientButtonCommand = new RelayCommand(() =>
             {
-                if (Clients == null)
+                if (SelectedLoanApplication?.Client == null)
                     return;
-
-                SelectedLoanApplication.ClientId = ClientId ?? 0;
-
+                //? powoduje że jeżeli SelectedLoanApplication będzie puste to podstawi się null, a nie zawiesi program
+                
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = TabName.ClientDetails,
-                    SelectedObject = SelectedClient,
+                    SelectedObject = SelectedLoanApplication.Client,
                     LastTabName = TabName.LoanApplicationDetails
                 });
             });
