@@ -32,7 +32,7 @@ namespace CRMYourBankers.ViewModels
         public bool IsPaid { get; set; }
         public string FullName { get; set; }
         #endregion
-
+        public Client SelectedClient { get; set; }
         public ObservableCollection<Client> Clients { get; set; }
         public ObservableCollection<Bank> Banks { get; set; }
         public ObservableCollection<MultiBroker> MultiBrokers { get; set; }
@@ -64,6 +64,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand SaveButtonCommand { get; set; }
         public ICommand CancelButtonCommand { get; set; }
         public ICommand AddNewLoanApplicationTaskButtonCommand { get; set; }
+        public ICommand GoToSelectedClientButtonCommand { get; set; }
         public YourBankersContext Context { get; set; }
 
         public dynamic BankList { get; set; }
@@ -193,6 +194,21 @@ namespace CRMYourBankers.ViewModels
                     "Dodano Nowe Zadanie",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
+            });
+
+            GoToSelectedClientButtonCommand = new RelayCommand(() =>
+            {
+                if (Clients == null)
+                    return;
+
+                SelectedLoanApplication.ClientId = ClientId ?? 0;
+
+                TabMessenger.Send(new TabChangeMessage
+                {
+                    TabName = TabName.ClientDetails,
+                    SelectedObject = SelectedClient,
+                    LastTabName = TabName.LoanApplicationDetails
+                });
             });
         }
 

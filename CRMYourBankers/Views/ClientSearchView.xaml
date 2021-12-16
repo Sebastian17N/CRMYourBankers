@@ -9,12 +9,19 @@
     mc:Ignorable="d">
     
     <StackPanel Orientation="Vertical">
-        <Button
-            Width="200"
-            Margin="10,10,10,10"
+        <StackPanel Orientation="Horizontal">
+            <Button
+            Width="100"
+            Margin="5"
             HorizontalAlignment="Left"
             Command="{Binding SearchButtonCommand}"
             Content="Search" />
+            <TextBox
+            Width="200"
+            Margin="5"
+            HorizontalAlignment="Left"
+            Text="{Binding SearchText}" />
+        </StackPanel>
         <DataGrid
             Height="Auto"
             AutoGenerateColumns="False"

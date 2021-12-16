@@ -17,6 +17,7 @@ namespace CRMYourBankers.ViewModels
     {
         public ICommand SearchButtonCommand { get; set; }
         public ICommand DetailsScreenOpenHandler { get; set; }
+        public string SearchText { get; set; }
 
         private List<Client> _clients;
         public List<Client> Clients 
@@ -61,6 +62,14 @@ namespace CRMYourBankers.ViewModels
                     LastTabName = TabName.ClientSearch
                 });
             });
+
+            //SearchButtonCommand = new RelayCommand(() =>
+            //{
+            //    if (SearchText == SelectedClient.ToString())
+            //    {
+            //        Clients = Context.Clients.Select(client => client.Id);
+            //    }
+            //});
         }
     }
 }

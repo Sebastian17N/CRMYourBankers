@@ -60,11 +60,22 @@
                         DisplayMemberPath="FullName"
                         ItemsSource="{Binding Clients}"
                         SelectedValue="{Binding ClientId}"
-                        SelectedValuePath="Id" />
+                        SelectedValuePath="Id" />                    
                     <!--
                         ItemSource to pobiera dane, SelectedValue wiąże konkretną properte
                         z SelectedValuePath, DisplayMemberPath to co się wyświetla
                     -->
+                </StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="300"
+                        Height="25"
+                        HorizontalAlignment="Right"
+                        Command="{Binding GoToSelectedClientButtonCommand}"
+                        Content="Przejdź do klienta" />
                 </StackPanel>
                 <StackPanel
                     Margin="5"
@@ -154,23 +165,27 @@
                         IsChecked="{Binding IsPaid}" />
                 </StackPanel>
                 <Button
-                    Width="200"
+                    Width="300"
+                    HorizontalAlignment="Right"
                     Command="{Binding SaveButtonCommand}"
                     Content="Save" />
                 <Button
-                    Width="200"
+                    Width="300"
+                    HorizontalAlignment="Right"
                     Command="{Binding CancelButtonCommand}"
                     Content="Cancel" />
                 <StackPanel
-                    Margin="5,10,5,5"
-                    HorizontalAlignment="Center"
+                    Margin="5,10,0,5"
+                    HorizontalAlignment="Right"
                     Orientation="Vertical">
                     <TextBox
                         Width="300"
                         Height="20"
+                        HorizontalAlignment="Right"
                         Text="{Binding TasksToDoText}" />
                     <Button
                         Width="300"
+                        HorizontalAlignment="Right"
                         Command="{Binding AddNewLoanApplicationTaskButtonCommand}"
                         Content="Dodaj Nowe Zadanie" />
                 </StackPanel>
