@@ -133,7 +133,7 @@
                         IsReadOnly="True" />
                     <DataGridTextColumn
                         Width="120"
-                        Binding="{Binding ClientCommission}"
+                        Binding="{Binding CommissionGet}"
                         Header="Prowizja"
                         IsReadOnly="True" />
                     <DataGridTemplateColumn Header="Zapłacono">
@@ -143,6 +143,7 @@
                                     Width="Auto"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
+                                    IsHitTestVisible="False"                                   
                                     IsChecked="{Binding Paid, Mode=OneWay}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

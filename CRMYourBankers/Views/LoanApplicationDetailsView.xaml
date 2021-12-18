@@ -185,12 +185,12 @@
                     Width="300"
                     HorizontalAlignment="Right"
                     Command="{Binding SaveButtonCommand}"
-                    Content="Save" />
+                    Content="Zapisz" />
                 <Button
                     Width="300"
                     HorizontalAlignment="Right"
                     Command="{Binding CancelButtonCommand}"
-                    Content="Cancel" />
+                    Content="Anuluj" />
                 <StackPanel
                     Margin="5,10,0,5"
                     HorizontalAlignment="Right"

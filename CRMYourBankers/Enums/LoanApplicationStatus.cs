@@ -6,9 +6,9 @@ namespace CRMYourBankers.Enums
     {
         [Description("Złożony")]
         Submited,
-        [Description("Wstępna oferta")]
+        [Description("Wstępna Oferta")]
         Offer,
-        [Description("Decyzja kredytowa")]
+        [Description("Decyzja Kredytowa")]
         CreditDecision,
         [Description("Kredyt Uruchomiony")]
         Launched,

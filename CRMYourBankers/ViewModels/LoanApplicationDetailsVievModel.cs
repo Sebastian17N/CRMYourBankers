@@ -20,7 +20,27 @@ namespace CRMYourBankers.ViewModels
         #region UI property fields
         public int? AmountRequestedText { get; set; }
         public int? AmountReceivedText { get; set; }
-        public int? ClientCommissionText { get; set; }
+        private int? _clientCommissionText;
+        public int? ClientCommissionText 
+        { 
+            get=> _clientCommissionText;
+            set
+            {
+                _clientCommissionText = value;
+                NotifyPropertyChanged("CommissionGet");
+            }
+        }
+        public int? _brokerCommissionText;
+        public int? BrokerCommissionText 
+        {
+            get => _brokerCommissionText;
+            set
+            {
+                _brokerCommissionText = value;
+                NotifyPropertyChanged("CommissionGet");
+            }
+        }
+        public int? CommissionGet => ClientCommissionText - BrokerCommissionText;
         public string TasksToDoText { get; set; }
         public int? BankId { get; set; }
         public int? ClientId { get; set; }
@@ -28,10 +48,12 @@ namespace CRMYourBankers.ViewModels
         public DateTime StartDate { get; set; }
         public DateTime LoanStartDate { get; set; }        
         public TabName LastTabName { get; set; }
+        public object LastTabObject { get; set; }
         public LoanApplicationStatus? SelectedLoanApplicationStatus { get; set; }
         public bool IsPaid { get; set; }
         public string FullName { get; set; }
         #endregion
+        
         public Client SelectedClient { get; set; }
         public ObservableCollection<Client> Clients { get; set; }
         public ObservableCollection<Bank> Banks { get; set; }
@@ -43,11 +65,15 @@ namespace CRMYourBankers.ViewModels
             get => _loanTasks; 
             set
 			{
-				_loanTasks = new ObservableCollection<LoanTask>(
+                if (value == null)
+                    _loanTasks = new ObservableCollection<LoanTask>();
+                else
+				    _loanTasks = new ObservableCollection<LoanTask>(
 					value
                         .OrderBy(task => task.Done)
                         .ThenByDescending(task => task.Id)
                         .ToList());
+                NotifyPropertyChanged("LoanTask");
 			}
         }
 
@@ -91,6 +117,7 @@ namespace CRMYourBankers.ViewModels
                         AmountRequested = AmountRequestedText,
                         AmountReceived = AmountReceivedText,
                         ClientCommission  = ClientCommissionText,
+                        BrokerCommission = BrokerCommissionText,
                         StartDate = StartDate,
                         LoanStartDate = LoanStartDate,     
                         Paid = IsPaid,
@@ -118,6 +145,7 @@ namespace CRMYourBankers.ViewModels
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
                     SelectedLoanApplication.ClientCommission = ClientCommissionText;
+                    SelectedLoanApplication.BrokerCommission = BrokerCommissionText;
                     SelectedLoanApplication.StartDate = StartDate;
                     SelectedLoanApplication.LoanStartDate = LoanStartDate;
                     SelectedLoanApplication.Paid = IsPaid;
@@ -149,7 +177,11 @@ namespace CRMYourBankers.ViewModels
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
 
-                TabMessenger.Send(new TabChangeMessage { TabName = LastTabName });
+                TabMessenger.Send(new TabChangeMessage 
+                { 
+                    TabName = LastTabName,
+                    SelectedObject = LastTabName == TabName.ClientDetails ? SelectedLoanApplication.Client : null
+                });
                 ClearAllFields();
             });
             
@@ -206,7 +238,8 @@ namespace CRMYourBankers.ViewModels
                 {
                     TabName = TabName.ClientDetails,
                     SelectedObject = SelectedLoanApplication.Client,
-                    LastTabName = TabName.LoanApplicationDetails
+                    LastTabName = TabName.LoanApplicationDetails,
+                    LastTabObject = SelectedLoanApplication
                 });
             });
         }
@@ -237,11 +270,13 @@ namespace CRMYourBankers.ViewModels
             AmountRequestedText = null;
             AmountReceivedText = null;
             ClientCommissionText = null;
+            BrokerCommissionText = null;
             TasksToDoText = null;
             StartDate = DateTime.Now;
             LoanStartDate = DateTime.Now;
             IsPaid = false;
             MultiBrokerId = null;
+            LoanTasks = null;
             SelectedLoanApplicationStatus = LoanApplicationStatus.Submited;
         }
 
@@ -254,6 +289,7 @@ namespace CRMYourBankers.ViewModels
                 AmountRequestedText = _selectedLoanApplication.AmountRequested;
                 AmountReceivedText = _selectedLoanApplication.AmountReceived;
                 ClientCommissionText = _selectedLoanApplication.ClientCommission;
+                BrokerCommissionText = _selectedLoanApplication.BrokerCommission;
                 StartDate = _selectedLoanApplication.StartDate;
                 LoanStartDate = _selectedLoanApplication.LoanStartDate;
                 IsPaid = _selectedLoanApplication.Paid;

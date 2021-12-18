@@ -31,7 +31,7 @@ namespace CRMYourBankers.ViewModels
             .Where(loan => loan.Paid)
             .Where(loan => loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
             .Where(loan => loan.LoanStartDate.Year == SelectedMonthSummary.Month.Year)
-            .Sum(loan => loan.ClientCommission).Value : 0;//value jest ponieważ clientCommision może być null i to zabezpiecza
+            .Sum(loan => loan.ClientCommission - loan.BrokerCommission).Value : 0;//value jest ponieważ clientCommision może być null i to zabezpiecza
 
         private MonthSummary _selectedMonthSummary;
         public MonthSummary SelectedMonthSummary 
@@ -89,7 +89,7 @@ namespace CRMYourBankers.ViewModels
                                 ClientFullName = loan.Client.FullName,
                                 loan.AmountReceived,
                                 BankName = loan.Bank.Name,
-                                ClientCommission = loan.ClientCommission,
+                                CommissionGet = loan.ClientCommission - loan.BrokerCommission,
                                 Id = loan.Id,
                                 Paid = loan.Paid
                             }

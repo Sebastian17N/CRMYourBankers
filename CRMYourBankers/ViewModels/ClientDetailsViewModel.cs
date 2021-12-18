@@ -115,6 +115,7 @@ namespace CRMYourBankers.ViewModels
         public string BIKNoteText { get; set; }
         public List<int> LoanApplicationsProposals { get; set; }
         public TabName LastTabName { get; set; }
+        public object LastTabObject { get; set; }
         public ZusUs? SelectedZus { get; set; }
         public ZusUs? SelectedUs { get; set; }
         public Spouse? SelectedSpouse { get; set; }
@@ -317,15 +318,24 @@ namespace CRMYourBankers.ViewModels
 					MessageBoxButton.OK,
 					MessageBoxImage.Information);
 
-				TabMessenger.Send(new TabChangeMessage { TabName = LastTabName });
+				TabMessenger.Send(new TabChangeMessage 
+                { 
+                    TabName = LastTabName,
+                    SelectedObject = LastTabObject
+                });
 				ClearAllFields();
 			});
 
 			CancelButtonCommand = new RelayCommand(() =>
 			{
 				ClearAllFields();
-				TabMessenger.Send(new TabChangeMessage { TabName = LastTabName });
-			});
+				TabMessenger.Send(new TabChangeMessage 
+                { 
+                    TabName = LastTabName,
+                    SelectedObject = LastTabObject                                        
+                });               
+
+            });
 
 			DetailsScreenOpenHandler = new RelayCommand(() =>
 			{
@@ -334,7 +344,7 @@ namespace CRMYourBankers.ViewModels
 				{
 					TabName = TabName.LoanApplicationDetails,
 					SelectedObject = Context.LoanApplications.Single(loan => loan.Id == selectedLoanApplicationId),
-					LastTabName = TabName.ClientDetails
+					LastTabName = TabName.ClientDetails                    
 				});
 			});
 
@@ -494,6 +504,7 @@ namespace CRMYourBankers.ViewModels
             SelectedUs = null;
             SelectedSpouse = null;
             SelectedSourceOfIncome = null;
+            ClientTasks = new ObservableCollection<ClientTask>();
             BIKNoteText = "";
             GeneralNoteText = "";
             BrokerId = 0;

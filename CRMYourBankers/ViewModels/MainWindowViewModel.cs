@@ -201,6 +201,7 @@ namespace CRMYourBankers.ViewModels
                 if (SelectedTab is ILastTabNameOwner) //is sprawdza czy obiekt z lewej strony jest danego typu
                 {
                     ((ILastTabNameOwner)SelectedTab).LastTabName = message.LastTabName;
+                    ((ILastTabNameOwner)SelectedTab).LastTabObject = message.LastTabObject;
                 }//wszyskie widoki implementujące ten interface (ILastTabNameOwner), będa miały przypisywane LastTabName automatycznie
             }); //Interface jest dla widoku, z którego będziemy się cofać a nie ten który wysyła message
         }
