@@ -25,13 +25,13 @@ namespace CRMYourBankers.ViewModels
         
         public dynamic DataGridData { get; set; }
         public ObservableCollection<MonthSummary> MonthSummaries { get; set; }
-       
-         public double CommissionPaid => SelectedMonthSummary != null ?
-            Context.LoanApplications
-            .Where(loan => loan.Paid)
-            .Where(loan => loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
-            .Where(loan => loan.LoanStartDate.Year == SelectedMonthSummary.Month.Year)
-            .Sum(loan => loan.ClientCommission - loan.BrokerCommission).Value : 0;//value jest ponieważ clientCommision może być null i to zabezpiecza
+
+        public double CommissionPaid => SelectedMonthSummary != null ?
+           Context.LoanApplications
+           .Where(loan => loan.Paid)
+           .Where(loan => loan.LoanStartDate.Month == SelectedMonthSummary.Month.Month)
+           .Where(loan => loan.LoanStartDate.Year == SelectedMonthSummary.Month.Year)
+           .Sum(loan => loan.CommissionGet).Value : 0;//value jest ponieważ clientCommision może być null i to zabezpiecza
 
         private MonthSummary _selectedMonthSummary;
         public MonthSummary SelectedMonthSummary 
@@ -89,11 +89,12 @@ namespace CRMYourBankers.ViewModels
                                 ClientFullName = loan.Client.FullName,
                                 loan.AmountReceived,
                                 BankName = loan.Bank.Name,
-                                CommissionGet = loan.ClientCommission - loan.BrokerCommission,
+                                CommissionGet = loan.CommissionGet,
                                 Id = loan.Id,
                                 Paid = loan.Paid
                             }
                         ).ToList();
+                
                 NotifyPropertyChanged("DataGridData");
 
                 EstimatedTargetText = SelectedMonthSummary.EstimatedTarget.ToString();

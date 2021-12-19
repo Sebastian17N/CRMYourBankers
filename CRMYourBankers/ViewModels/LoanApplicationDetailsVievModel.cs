@@ -41,13 +41,7 @@ namespace CRMYourBankers.ViewModels
             }
         }
         
-        var convertedClient = Int32.TryParse(ClientCommissionText, out var convertedClientValue);
-        int ClientCommissionValue = convertedClient ? convertedClientValue : null;
-
-        var convertedBroker  = Int32.TryParse(BrokerCommissionText, out var convertedBrokerValue);
-        int BrokerCommissionValue = convertedBroker ? convertedBrokerValue : null;
-
-        public int? CommissionGet => ClientCommissionValue - BrokerCommissionValue;
+        public int? CommissionGet => ConvertedCommission();
         public string TasksToDoText { get; set; }
         public int? BankId { get; set; }
         public int? ClientId { get; set; }
@@ -305,6 +299,19 @@ namespace CRMYourBankers.ViewModels
                 LoanTasks = _selectedLoanApplication.LoanTasks;
             }
             NotifyPropertyChanged("LoanApplication");
+        }
+
+        public int? ConvertedCommission()
+        {
+            var convertedClient = Int32.TryParse(ClientCommissionText, out var convertedClientValue);
+            int? ClientCommissionValue = convertedClient ? convertedClientValue : null;
+
+            var convertedBroker = Int32.TryParse(BrokerCommissionText, out var convertedBrokerValue);
+            int? BrokerCommissionValue = convertedBroker ? convertedBrokerValue : null;
+
+            var CommissionGetvalue = ClientCommissionValue - BrokerCommissionValue;
+
+            return CommissionGetvalue;
         }
     }
 }
