@@ -11,8 +11,8 @@ namespace CRMYourBankers.Models
         public int Id { get; set; }
         public int? AmountRequested { get; set; }
         public int? AmountReceived { get; set; }
-        public int? ClientCommission { get; set; } 
-        public int? BrokerCommission { get; set; }
+        public string ClientCommission { get; set; } 
+        public string BrokerCommission { get; set; }
         public int ClientId { get; set; }
         public Client Client { get; set; }
         public Bank Bank { get; set; }

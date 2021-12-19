@@ -137,7 +137,7 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage 
                 { 
                     TabName = TabName.ClientDetails,
-                    LastTabName = SelectedTab.TabName
+                    LastTabName = SelectedTab.TabName,
                 });
             });
             AddNewLoanApplicationCommand = new RelayCommand(() =>

@@ -20,8 +20,8 @@ namespace CRMYourBankers.ViewModels
         #region UI property fields
         public int? AmountRequestedText { get; set; }
         public int? AmountReceivedText { get; set; }
-        private int? _clientCommissionText;
-        public int? ClientCommissionText 
+        private string _clientCommissionText;
+        public string ClientCommissionText 
         { 
             get=> _clientCommissionText;
             set
@@ -30,8 +30,8 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("CommissionGet");
             }
         }
-        public int? _brokerCommissionText;
-        public int? BrokerCommissionText 
+        public string _brokerCommissionText;
+        public string BrokerCommissionText 
         {
             get => _brokerCommissionText;
             set
@@ -40,7 +40,14 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("CommissionGet");
             }
         }
-        public int? CommissionGet => ClientCommissionText - BrokerCommissionText;
+        
+        var convertedClient = Int32.TryParse(ClientCommissionText, out var convertedClientValue);
+        int ClientCommissionValue = convertedClient ? convertedClientValue : null;
+
+        var convertedBroker  = Int32.TryParse(BrokerCommissionText, out var convertedBrokerValue);
+        int BrokerCommissionValue = convertedBroker ? convertedBrokerValue : null;
+
+        public int? CommissionGet => ClientCommissionValue - BrokerCommissionValue;
         public string TasksToDoText { get; set; }
         public int? BankId { get; set; }
         public int? ClientId { get; set; }
