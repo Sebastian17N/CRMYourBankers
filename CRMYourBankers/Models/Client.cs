@@ -28,6 +28,8 @@ namespace CRMYourBankers.Models
         public SourceOfIncome? SourceOfIncome { get; set; }
         public ClientStatus? ClientStatus { get; set; }
         public int? BrokerId { get; set; }
+
+        public int SortIndex { get; set; }
         public ObservableCollection<ClientTask> ClientTasks { get; set; }
         public List<BankClientBIK> ExistingBankClientBIK { get; set; }
         public ObservableCollection<LoanApplicationsProposal> LoanApplicationsProposals { get; set; }

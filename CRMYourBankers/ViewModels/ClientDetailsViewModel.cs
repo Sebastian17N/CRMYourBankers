@@ -234,10 +234,11 @@ namespace CRMYourBankers.ViewModels
 
                 if (SelectedClient == null)
                 {
-                    
+
                     var newClient = new Client
                     {
                         Id = Context.Clients.Max(client => client.Id) + 1,
+                        SortIndex = Context.Clients.Max(client => client.SortIndex) + 1,
                         FirstName = FirstNameText,
                         LastName = LastNameText,
                         PhoneNumber = PhoneNumberText,

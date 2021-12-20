@@ -16,14 +16,18 @@ using System.Windows.Input;
 namespace CRMYourBankers.ViewModels
 {
     public class SummaryViewModel : MonthlyFinancialStatementBase, IRefreshReferenceDataOwner, IRefreshDataOwner
-    {        
+    {
         public ICommand LoanApplicationDetailsScreenOpenHandler { get; set; }
         public ICommand ClientDetailsScreenOpenHandler { get; set; }
+
+        public ICommand MoveClientUpCommand { get; set; }
+        public ICommand MoveClientDownCommand { get; set; }
+
         public dynamic SelectedLoanApplication { get; set; }
         public ObservableCollection<MonthSummary> MonthSummaries { get; set; }
 
         public dynamic DataGridData { get; set; }
-        
+
         private List<Client> _clients;
         public List<Client> Clients
         {
@@ -36,6 +40,8 @@ namespace CRMYourBankers.ViewModels
         }
         public Client SelectedClient { get; set; }
         public dynamic DataGridScore { get; set; }
+
+        public string ArrowUpPath => $"{AppDomain.CurrentDomain.BaseDirectory}Images\\ArrowUp.png";
 
 
         // Przykłady innego napisania RealizedScore w postaci property z widocznym get i funkcji.
@@ -63,7 +69,7 @@ namespace CRMYourBankers.ViewModels
 
         //strzałka to lambda, można powiedzieć, że to funkcja a nawet properta
         //funkcja anonimowa to funkcja, która nie ma nazwy i nie możesz się do niej odwołać
-        public SummaryViewModel(Messenger messenger, YourBankersContext context) : 
+        public SummaryViewModel(Messenger messenger, YourBankersContext context) :
             base(messenger, TabName.Summary, context)
         {
             RegisterCommands();
@@ -104,18 +110,11 @@ namespace CRMYourBankers.ViewModels
                         loan.AmountReceived,
                         loan.TasksToDo,
                     })
-                .ToList();            
-            
-            Clients =
-                Context
-                    .Clients
-                    .Where(client => client.ClientStatus == ClientStatus.Active ||
-                                     client.ClientStatus == ClientStatus.InitiallyInterested)   
-                    .Include(client => client.ClientTasks)
-                    .Include(client => client.ExistingBankClientBIK)
-                    .Include(client => client.LoanApplicationsProposals)
-                    .ToList();
+                .ToList();
+                   
             NotifyPropertyChanged("DataGridData");
+
+            RefreshClients();
 
             DataGridScore =
                 Context
@@ -134,6 +133,22 @@ namespace CRMYourBankers.ViewModels
                         }
                     ).ToList();
             NotifyPropertyChanged("DataGridScore");
+        }
+
+        public void RefreshClients()
+		{
+            Clients =
+                Context
+                    .Clients
+                    .Where(client => client.ClientStatus == ClientStatus.Active ||
+                                     client.ClientStatus == ClientStatus.InitiallyInterested)
+                    .Include(client => client.ClientTasks)
+                    .Include(client => client.ExistingBankClientBIK)
+                    .Include(client => client.LoanApplicationsProposals)
+                    .OrderBy(client => client.SortIndex)
+                    .ToList();
+
+            NotifyPropertyChanged("Clients");
         }
 
         public void RegisterCommands()
@@ -157,7 +172,58 @@ namespace CRMYourBankers.ViewModels
                     SelectedObject = SelectedClient,
                     LastTabName = TabName.Summary                    
                 });
-            });            
+            });
+
+            MoveClientUpCommand = new RelayCommand(() =>
+            {
+
+                var aaa = Context
+                        .Clients
+                        .Where(client =>
+                            (client.ClientStatus == ClientStatus.Active || client.ClientStatus == ClientStatus.InitiallyInterested)
+                            && client.SortIndex < SelectedClient.SortIndex);
+
+                var clientToSwitch =
+                    Context
+                        .Clients
+                        .Where(client =>
+                            (client.ClientStatus == ClientStatus.Active || client.ClientStatus == ClientStatus.InitiallyInterested)
+                            && client.SortIndex < SelectedClient.SortIndex)
+                        .OrderByDescending(client => client.SortIndex)
+                        .FirstOrDefault();
+
+                if (clientToSwitch == null)
+                    return;
+
+                var oldSortIndex = SelectedClient.SortIndex;
+                SelectedClient.SortIndex = clientToSwitch.SortIndex;
+                clientToSwitch.SortIndex = oldSortIndex;
+
+                Context.SaveChanges();
+                RefreshClients();
+            });
+
+            MoveClientDownCommand = new RelayCommand(() =>
+            {
+                var clientToSwitch =
+                    Context
+                        .Clients
+                        .Where(client =>
+                            (client.ClientStatus == ClientStatus.Active || client.ClientStatus == ClientStatus.InitiallyInterested)
+                            && client.SortIndex > SelectedClient.SortIndex)
+                        .OrderBy(client => client.SortIndex)
+                        .FirstOrDefault();
+
+                if (clientToSwitch == null)
+                    return;
+
+                var oldSortIndex = SelectedClient.SortIndex;
+                SelectedClient.SortIndex = clientToSwitch.SortIndex;
+                clientToSwitch.SortIndex = oldSortIndex;
+
+                Context.SaveChanges();
+                RefreshClients();
+            });
         }
 
         public void RefreshReferenceData()

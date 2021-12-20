@@ -17,16 +17,16 @@
             CornerRadius="6">
             <StackPanel Orientation="Horizontal">
                 <Button
-                Width="100"
-                Margin="5"
-                HorizontalAlignment="Left"
-                Command="{Binding SearchButtonCommand}"
-                Content="Znajdź" />
+                    Width="100"
+                    Margin="5"
+                    HorizontalAlignment="Left"
+                    Command="{Binding SearchButtonCommand}"
+                    Content="Znajdź" />
                 <TextBox
-                Width="200"
-                Margin="5"
-                HorizontalAlignment="Left"
-                Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
+                    Width="200"
+                    Margin="5"
+                    HorizontalAlignment="Left"
+                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding SearchButtonCommand}" />
                     </TextBox.InputBindings>
@@ -37,7 +37,8 @@
             Height="Auto"
             AutoGenerateColumns="False"
             ItemsSource="{Binding Clients}"
-            SelectedItem="{Binding SelectedClient}">
+            SelectedItem="{Binding SelectedClient}"
+            VerticalScrollBarVisibility="Auto">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
