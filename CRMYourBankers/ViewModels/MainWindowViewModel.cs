@@ -10,6 +10,8 @@ using System.Windows;
 using System.Windows.Input;
 using CRMYourBankers.Enums;
 using CRMYourBankers.Models;
+using System.IO;
+using System;
 
 namespace CRMYourBankers.ViewModels
 {
@@ -71,6 +73,8 @@ namespace CRMYourBankers.ViewModels
         private LoanApplicationDetailsViewModel _loanApplicationDetailsViewModel;
         private SummaryViewModel _summaryViewModel;
         private ResultViewModel _resultViewModel;
+
+        public string LogoPath => $"{AppDomain.CurrentDomain.BaseDirectory}Images\\Logo.png";
 
         public YourBankersContext Context { get; set; }
 

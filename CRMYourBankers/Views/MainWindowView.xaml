@@ -17,15 +17,10 @@
     </Window.DataContext>
 
     <StackPanel Orientation="Vertical">
-        <Image>
-            <Image.Source>
-                <BitmapImage                     
-                    DecodePixelWidth="500" 
-                    DecodePixelHeight="100"
-                    UriSource="Images\Logo.png">                    
-                </BitmapImage>
-            </Image.Source>
-        </Image>
+        <Image
+            Width="295"
+            Height="67"
+            Source="{Binding LogoPath}" />
         <DockPanel>
             <StackPanel
                 HorizontalAlignment="Left"
