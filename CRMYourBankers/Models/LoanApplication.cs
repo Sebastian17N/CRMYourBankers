@@ -1,6 +1,5 @@
 ﻿using CRMYourBankers.Enums;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -11,9 +10,8 @@ namespace CRMYourBankers.Models
         public int Id { get; set; }
         public int? AmountRequested { get; set; }
         public int? AmountReceived { get; set; }
-        public string ClientCommission { get; set; } 
-        public string BrokerCommission { get; set; }
-        public int? CommissionGet => ConvertedCommission();
+        public int? ClientCommission { get; set; } 
+        public int? BrokerCommission { get; set; }
         public int ClientId { get; set; }
         public Client Client { get; set; }
         public Bank Bank { get; set; }
@@ -47,19 +45,9 @@ namespace CRMYourBankers.Models
                 AmountRequested != null &&
                 ClientId != 0 && // Jeśli ClientId lub BankId = 0 to oznacza, że nie wybrano ich z combo.
                 BankId != 0 &&
+                (ClientCommission == null || ClientCommission > 0) &&
+                (BrokerCommission == null || BrokerCommission > 0) &&
                 LoanApplicationStatus != null;
-        }
-        public int? ConvertedCommission()
-        {
-            var convertedClient = Int32.TryParse(ClientCommission, out var convertedClientValue);
-            int? ClientCommissionValue = convertedClient ? convertedClientValue : null;
-
-            var convertedBroker = Int32.TryParse(BrokerCommission, out var convertedBrokerValue);
-            int? BrokerCommissionValue = convertedBroker ? convertedBrokerValue : null;
-
-            var CommissionGetvalue = ClientCommissionValue - BrokerCommissionValue;
-
-            return CommissionGetvalue;
         }
     }
 }

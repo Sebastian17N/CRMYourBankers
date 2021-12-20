@@ -40,8 +40,10 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("CommissionGet");
             }
         }
-        
-        public int? CommissionGet => ConvertedCommission();
+
+        public int? CommissionGet => 
+            ParseComission(ClientCommissionText) - ParseComission(BrokerCommissionText);
+
         public string TasksToDoText { get; set; }
         public int? BankId { get; set; }
         public int? ClientId { get; set; }
@@ -109,64 +111,40 @@ namespace CRMYourBankers.ViewModels
             {
                 if (SelectedLoanApplication == null)
                 {
-                    var newLoanApplication = new LoanApplication
+                    SelectedLoanApplication = new LoanApplication
                     {
-                        Id = Context.LoanApplications.Max(loan => loan.Id) + 1,
-                        ClientId = ClientId ??0, //do pustej property z clasy LoanApplication wstaw wartość z property z LoanApplicationDetailsView
-                                            //??0 oznacza, że jeśli ClientId z prawej będzie null to wstawi O
-                        BankId = BankId ??0,
-                        AmountRequested = AmountRequestedText,
-                        AmountReceived = AmountReceivedText,
-                        ClientCommission  = ClientCommissionText,
-                        BrokerCommission = BrokerCommissionText,
-                        StartDate = StartDate,
-                        LoanStartDate = LoanStartDate,     
-                        Paid = IsPaid,
-                        LoanApplicationStatus = SelectedLoanApplicationStatus,
-                        MultiBrokerId = MultiBrokerId ?? 0,
-                        LoanTasks = LoanTasks
+                        Id = Context.LoanApplications.Max(loan => loan.Id) + 1                        
                     };
 
-                    if (!newLoanApplication.Validate())
-                    {
-                        MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
-                            "Błędy w formularzu",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Warning);
-                        return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
-                    }
-
-                    SelectedLoanApplication = newLoanApplication;
-                    Context.LoanApplications.Add(newLoanApplication);
+                    Context.LoanApplications.Add(SelectedLoanApplication);
                 }
-                else
-                {
-                    SelectedLoanApplication.ClientId = ClientId ?? 0;
-                    SelectedLoanApplication.BankId = BankId ?? 0;
-                    SelectedLoanApplication.AmountRequested = AmountRequestedText;
-                    SelectedLoanApplication.AmountRequested = AmountRequestedText;
-                    SelectedLoanApplication.ClientCommission = ClientCommissionText;
-                    SelectedLoanApplication.BrokerCommission = BrokerCommissionText;
-                    SelectedLoanApplication.StartDate = StartDate;
-                    SelectedLoanApplication.LoanStartDate = LoanStartDate;
-                    SelectedLoanApplication.Paid = IsPaid;
-                    SelectedLoanApplication.LoanApplicationStatus = SelectedLoanApplicationStatus;
-                    SelectedLoanApplication.MultiBrokerId = MultiBrokerId;
-                    SelectedLoanApplication.LoanTasks = LoanTasks;
 
-                    if (!SelectedLoanApplication.Validate())
-                    {
-                        MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
+                SelectedLoanApplication.ClientId = ClientId ?? 0;
+                SelectedLoanApplication.BankId = BankId ?? 0;
+                SelectedLoanApplication.AmountRequested = AmountRequestedText;
+                SelectedLoanApplication.AmountRequested = AmountRequestedText;
+                SelectedLoanApplication.ClientCommission = ParseComission(ClientCommissionText);
+                SelectedLoanApplication.BrokerCommission = ParseComission(BrokerCommissionText);
+                SelectedLoanApplication.StartDate = StartDate;
+                SelectedLoanApplication.LoanStartDate = LoanStartDate;
+                SelectedLoanApplication.Paid = IsPaid;
+                SelectedLoanApplication.LoanApplicationStatus = SelectedLoanApplicationStatus;
+                SelectedLoanApplication.MultiBrokerId = MultiBrokerId;
+                SelectedLoanApplication.LoanTasks = LoanTasks;
+
+                if (SelectedLoanApplication.Id == 0)
+                {
+                    Context.LoanApplications.Add(SelectedLoanApplication);
+                    SelectedLoanApplication.Id = Context.LoanApplications.Max(loan => loan.Id) + 1;
+                }
+
+                if (!Validate() || !SelectedLoanApplication.Validate())
+                {
+                    MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
                             "Błędy w formularzu",
                             MessageBoxButton.OK,
                             MessageBoxImage.Warning);
-                        return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
-                    }
-                    if (SelectedLoanApplication.Id == 0)
-                    {
-                        Context.LoanApplications.Add(SelectedLoanApplication);
-                        SelectedLoanApplication.Id = Context.LoanApplications.Max(loan => loan.Id) + 1;
-                    }
+                    return;
                 }
 
                 Context.SaveChanges();
@@ -183,6 +161,7 @@ namespace CRMYourBankers.ViewModels
                     TabName = LastTabName,
                     SelectedObject = LastTabName == TabName.ClientDetails ? SelectedLoanApplication.Client : null
                 });
+
                 ClearAllFields();
             });
             
@@ -289,8 +268,8 @@ namespace CRMYourBankers.ViewModels
                 ClientId = _selectedLoanApplication.ClientId;
                 AmountRequestedText = _selectedLoanApplication.AmountRequested;
                 AmountReceivedText = _selectedLoanApplication.AmountReceived;
-                ClientCommissionText = _selectedLoanApplication.ClientCommission;
-                BrokerCommissionText = _selectedLoanApplication.BrokerCommission;
+                ClientCommissionText = _selectedLoanApplication.ClientCommission?.ToString();
+                BrokerCommissionText = _selectedLoanApplication.BrokerCommission?.ToString();
                 StartDate = _selectedLoanApplication.StartDate;
                 LoanStartDate = _selectedLoanApplication.LoanStartDate;
                 IsPaid = _selectedLoanApplication.Paid;
@@ -301,18 +280,19 @@ namespace CRMYourBankers.ViewModels
             NotifyPropertyChanged("LoanApplication");
         }
 
-        public int? ConvertedCommission()
-        {
-            var convertedClient = Int32.TryParse(ClientCommissionText, out var convertedClientValue);
-            int? ClientCommissionValue = convertedClient ? convertedClientValue : null;
-
-            var convertedBroker = Int32.TryParse(BrokerCommissionText, out var convertedBrokerValue);
-            int? BrokerCommissionValue = convertedBroker ? convertedBrokerValue : null;
-
-            var CommissionGetvalue = ClientCommissionValue - BrokerCommissionValue;
-
-            return CommissionGetvalue;
+        public int? ParseComission(string comission)
+		{
+            var converted = int.TryParse(comission, out var convertedValue);
+            return converted ? convertedValue : null;
         }
+
+        public bool Validate()
+		{
+            return
+                string.IsNullOrEmpty(ClientCommissionText) || (int.TryParse(ClientCommissionText, out var clientValue) && clientValue > 0) 
+                && string.IsNullOrEmpty(BrokerCommissionText) || (int.TryParse(BrokerCommissionText, out var brokerValue) && brokerValue > 0)
+                && clientValue > brokerValue;
+		}
     }
 }
 
