@@ -30,6 +30,15 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("CommissionGet");
             }
         }
+        private int? clientCommissionValue
+		{
+            get
+			{
+                var convertedClient = int.TryParse(ClientCommissionText, out var convertedClientValue);
+                return convertedClient ? convertedClientValue : null;
+            }
+		}
+
         public string _brokerCommissionText;
         public string BrokerCommissionText 
         {
@@ -40,7 +49,15 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("CommissionGet");
             }
         }
-        
+        private int? brokerCommissionValue
+        {
+            get
+            {
+                var convertedBroker = int.TryParse(BrokerCommissionText, out var convertedBrokerValue);
+                return convertedBroker ? convertedBrokerValue : null;
+            }
+        }
+
         public int? CommissionGet => ConvertedCommission();
         public string TasksToDoText { get; set; }
         public int? BankId { get; set; }
@@ -92,6 +109,7 @@ namespace CRMYourBankers.ViewModels
         public ICommand CancelButtonCommand { get; set; }
         public ICommand AddNewLoanApplicationTaskButtonCommand { get; set; }
         public ICommand GoToSelectedClientButtonCommand { get; set; }
+
         public YourBankersContext Context { get; set; }
 
         public dynamic BankList { get; set; }
@@ -117,8 +135,8 @@ namespace CRMYourBankers.ViewModels
                         BankId = BankId ??0,
                         AmountRequested = AmountRequestedText,
                         AmountReceived = AmountReceivedText,
-                        ClientCommission  = ClientCommissionText,
-                        BrokerCommission = BrokerCommissionText,
+                        ClientCommission  = clientCommissionValue,
+                        BrokerCommission = brokerCommissionValue,
                         StartDate = StartDate,
                         LoanStartDate = LoanStartDate,     
                         Paid = IsPaid,
@@ -145,8 +163,8 @@ namespace CRMYourBankers.ViewModels
                     SelectedLoanApplication.BankId = BankId ?? 0;
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
                     SelectedLoanApplication.AmountRequested = AmountRequestedText;
-                    SelectedLoanApplication.ClientCommission = ClientCommissionText;
-                    SelectedLoanApplication.BrokerCommission = BrokerCommissionText;
+                    SelectedLoanApplication.ClientCommission = clientCommissionValue;
+                    SelectedLoanApplication.BrokerCommission = brokerCommissionValue;
                     SelectedLoanApplication.StartDate = StartDate;
                     SelectedLoanApplication.LoanStartDate = LoanStartDate;
                     SelectedLoanApplication.Paid = IsPaid;
@@ -289,8 +307,8 @@ namespace CRMYourBankers.ViewModels
                 ClientId = _selectedLoanApplication.ClientId;
                 AmountRequestedText = _selectedLoanApplication.AmountRequested;
                 AmountReceivedText = _selectedLoanApplication.AmountReceived;
-                ClientCommissionText = _selectedLoanApplication.ClientCommission;
-                BrokerCommissionText = _selectedLoanApplication.BrokerCommission;
+                ClientCommissionText = _selectedLoanApplication.ClientCommission?.ToString();
+                BrokerCommissionText = _selectedLoanApplication.BrokerCommission?.ToString();
                 StartDate = _selectedLoanApplication.StartDate;
                 LoanStartDate = _selectedLoanApplication.LoanStartDate;
                 IsPaid = _selectedLoanApplication.Paid;
