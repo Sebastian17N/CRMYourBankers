@@ -17,6 +17,17 @@
     </Window.DataContext>
 
     <StackPanel Orientation="Vertical">
+        <Image>
+            <Image.Source>
+                <BitmapImage 
+                    
+                    DecodePixelWidth="500" 
+                    DecodePixelHeight="100"
+                    UriSource="C:\Users\Sebastian\Desktop\Firma\LOGO\Logo YB bez tła.png">
+                    
+                </BitmapImage>
+            </Image.Source>
+        </Image>
         <DockPanel>
             <StackPanel
                 HorizontalAlignment="Left"

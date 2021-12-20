@@ -10,89 +10,96 @@
     d:DesignWidth="1000"
     mc:Ignorable="d">
     <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Horizontal">
-            <StackPanel
+        <Border
+            Margin="10"
+            Background="LightGray"
+            BorderBrush="Blue"
+            BorderThickness="2"
+            CornerRadius="6">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel
                 MaxWidth="400"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center">
-                <StackPanel
+                    <StackPanel
                     Margin="5"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-                    <Label Content="Miesiąc" />
-                    <ComboBox
+                        <Label Content="Miesiąc" />
+                        <ComboBox
                         Width="200"
                         DisplayMemberPath="MonthDisplay"
                         ItemsSource="{Binding MonthSummaries}"
                         SelectedValue="{Binding SelectedMonthSummary}" />
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-            <StackPanel>
-                <StackPanel
+                <StackPanel>
+                    <StackPanel
                     Margin="5"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-                    <Label Content="Zrealizowany wynik:" />
-                    <TextBox
+                        <Label Content="Zrealizowany wynik:" />
+                        <TextBox
                         Width="200"
                         IsReadOnly="True"
                         Text="{Binding ActualScore, Mode=OneWay}" />
-                    <!--  ten combobox pobiera tylko wartosci a nie jest edytowalny  -->
-                </StackPanel>
-                <StackPanel
+                        <!--  ten combobox pobiera tylko wartosci a nie jest edytowalny  -->
+                    </StackPanel>
+                    <StackPanel
                     Margin="5"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-                    <Label Content="TARGET na ten miesiąc:" />
-                    <TextBox
+                        <Label Content="TARGET na ten miesiąc:" />
+                        <TextBox
                         Width="200"
                         IsReadOnly="False"
                         Text="{Binding EstimatedTargetText}" />
-                </StackPanel>
-                <StackPanel
+                    </StackPanel>
+                    <StackPanel
                     Margin="5"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-                    <Label Content="Wynik zrealizowany w (%):" />
-                    <TextBox
+                        <Label Content="Wynik zrealizowany w (%):" />
+                        <TextBox
                         Width="200"
                         IsReadOnly="True"
                         Text="{Binding RealizedScore, Mode=OneWay}" />
-                </StackPanel>
-                <StackPanel
+                    </StackPanel>
+                    <StackPanel
                     Margin="5"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-                    <Label Content="Łączna prowizja:" />
-                    <TextBox
+                        <Label Content="Łączna prowizja:" />
+                        <TextBox
                         Width="200"
                         IsReadOnly="True"
                         Text="{Binding CommissionPaid, Mode=OneWay}" />
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-            <StackPanel
+                <StackPanel
                 MaxWidth="400"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center">
-                <StackPanel
+                    <StackPanel
                     Margin="5"
                     HorizontalAlignment="Right"
                     Orientation="Vertical">
-                    <Button
+                        <Button
                         Width="200"
                         Margin="10,10,10,10"
                         HorizontalAlignment="Left"
                         Command="{Binding SaveTargetButtonComand}"
                         Content="Zapisz TARGET na ten miesiąc" />
-                    <Button
+                        <Button
                         Width="200"
                         Margin="10,10,10,10"
                         HorizontalAlignment="Left"
                         Command="{Binding AddNewMonthCommand}"
                         Content="Dodaj nowy miesiąc" />
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
-        </StackPanel>
+        </Border>
         <StackPanel>
             <DataGrid
                 Height="300"

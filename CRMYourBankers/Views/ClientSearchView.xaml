@@ -9,23 +9,30 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Horizontal">
-            <Button
+        <Border
+            Margin="5"
+            Background="LightGray"
+            BorderBrush="Blue"
+            BorderThickness="2"
+            CornerRadius="6">
+            <StackPanel Orientation="Horizontal">
+                <Button
                 Width="100"
                 Margin="5"
                 HorizontalAlignment="Left"
                 Command="{Binding SearchButtonCommand}"
                 Content="Znajdź" />
-            <TextBox
+                <TextBox
                 Width="200"
                 Margin="5"
                 HorizontalAlignment="Left"
                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
-                <TextBox.InputBindings>
-                    <KeyBinding Key="Enter" Command="{Binding SearchButtonCommand}" />
-                </TextBox.InputBindings>
-            </TextBox>
-        </StackPanel>
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding SearchButtonCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+            </StackPanel>
+        </Border>
         <DataGrid
             Height="Auto"
             AutoGenerateColumns="False"
