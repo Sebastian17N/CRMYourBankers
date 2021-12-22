@@ -20,6 +20,7 @@
         <Image
             Width="295"
             Height="67"
+            HorizontalAlignment="Left"
             Source="{Binding LogoPath}" />
         <DockPanel>
             <StackPanel

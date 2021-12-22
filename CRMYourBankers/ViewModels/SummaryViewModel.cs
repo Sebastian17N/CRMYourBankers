@@ -42,6 +42,7 @@ namespace CRMYourBankers.ViewModels
         public dynamic DataGridScore { get; set; }
 
         public string ArrowUpPath => $"{AppDomain.CurrentDomain.BaseDirectory}Images\\ArrowUp.png";
+        public string ArrowDownPath => $"{AppDomain.CurrentDomain.BaseDirectory}Images\\ArrowDown.png";
 
 
         // Przykłady innego napisania RealizedScore w postaci property z widocznym get i funkcji.
