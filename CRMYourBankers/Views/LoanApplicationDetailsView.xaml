@@ -60,7 +60,7 @@
                         DisplayMemberPath="FullName"
                         ItemsSource="{Binding Clients}"
                         SelectedValue="{Binding ClientId}"
-                        SelectedValuePath="Id" />                    
+                        SelectedValuePath="Id" />
                     <!--
                         ItemSource to pobiera dane, SelectedValue wiąże konkretną properte
                         z SelectedValuePath, DisplayMemberPath to co się wyświetla
@@ -168,12 +168,11 @@
                         IsTodayHighlighted="True"
                         SelectedDate="{Binding LoanStartDate}"
                         SelectedDateFormat="Short"
-                        Visibility="Visible" />                    
+                        Visibility="Visible" />
                 </StackPanel>
-                <StackPanel
-                    HorizontalAlignment="Right">
+                <StackPanel HorizontalAlignment="Right">
                     <CheckBox
-                        Margin="5,5,5,5"                  
+                        Margin="5,5,5,5"
                         HorizontalContentAlignment="Right"
                         VerticalContentAlignment="Center"
                         BorderThickness="5,5,5,5"

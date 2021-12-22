@@ -289,9 +289,9 @@ namespace CRMYourBankers.ViewModels
         public bool Validate()
 		{
             return
-                string.IsNullOrEmpty(ClientCommissionText) || (int.TryParse(ClientCommissionText, out var clientValue) && clientValue > 0) 
-                && string.IsNullOrEmpty(BrokerCommissionText) || (int.TryParse(BrokerCommissionText, out var brokerValue) && brokerValue > 0)
-                && clientValue > brokerValue;
+                string.IsNullOrEmpty(ClientCommissionText) || (int.TryParse(ClientCommissionText, out var clientValue) && clientValue >= 0) 
+                && string.IsNullOrEmpty(BrokerCommissionText) || (int.TryParse(BrokerCommissionText, out var brokerValue) && brokerValue >= 0)
+                && clientValue >= brokerValue;
 		}
     }
 }

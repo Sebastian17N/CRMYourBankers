@@ -45,8 +45,8 @@ namespace CRMYourBankers.Models
                 AmountRequested != null &&
                 ClientId != 0 && // Jeśli ClientId lub BankId = 0 to oznacza, że nie wybrano ich z combo.
                 BankId != 0 &&
-                (ClientCommission == null || ClientCommission > 0) &&
-                (BrokerCommission == null || BrokerCommission > 0) &&
+                (ClientCommission == null || ClientCommission >= 0) &&
+                (BrokerCommission == null || BrokerCommission >= 0) &&
                 LoanApplicationStatus != null;
         }
     }
