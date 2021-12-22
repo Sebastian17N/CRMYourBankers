@@ -141,7 +141,7 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage 
                 { 
                     TabName = TabName.ClientDetails,
-                    LastTabName = SelectedTab.TabName,
+                    LastTabName = TabName.Summary
                 });
             });
             AddNewLoanApplicationCommand = new RelayCommand(() =>
@@ -149,7 +149,7 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 { 
                     TabName = TabName.LoanApplicationDetails,
-                    LastTabName = SelectedTab.TabName
+                    LastTabName = TabName.Summary
                 });
             });
             OpenClientsSearchScreenCommand = new RelayCommand(() =>
@@ -176,6 +176,16 @@ namespace CRMYourBankers.ViewModels
                 message =>
             {
                 ActivatedClientStatusBaseOnIncomingTask();
+
+                // 1. Wyciągać last object z ostatniej otwartej zakładki (o ile istnieje) - czyli np. przechodząc z client details -> dodaj nowy wniosek
+                //      do LastTabObject trafi konkretny klient z poprzedniego widoku.
+                // 1.a Albo trzeba zrobić switch, który rozpozna typ obiektu i będzie go rzutował na Client, albo LoanApplication.
+                // 1.b Dodać interface, który będzie zawierał definicję obiektu, po którym będą dziedziczyły LoanApplication i Client, i który będzie miał
+                //      uniwersalne pole typu SelectedItem.
+                // 2. Przypisujesz to LastTabObject poniżej w switchu.
+                // 2.a Dodajesz logikę przepisania SelectedObject = LastTabObject jeśli jest to cofnięcie.
+                // 3. Kasujesz przypisywanie LastTabObject ze wszystkich innych miejsc w kodzie.
+                // 4. Jak rozpoznawać, że się cofasz, a nie zagnieżdżasz, może pole w SwitchTabMessage.
 
                 switch (message.TabName)
                 {
