@@ -22,8 +22,9 @@ namespace CRMYourBankers.ViewModels.Base
            Context
                .LoanApplications
                .Where(loan =>
-                       loan.LoanStartDate.Year == SelectedDateTime.Year &&
-                       loan.LoanStartDate.Month == SelectedDateTime.Month)
+                       loan.LoanStartDate.HasValue &&
+                       loan.LoanStartDate.Value.Year == SelectedDateTime.Year &&
+                       loan.LoanStartDate.Value.Month == SelectedDateTime.Month)
                .Sum(loan => loan.AmountReceived).Value;
         public int ActualTarget =>
             Context

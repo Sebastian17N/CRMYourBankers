@@ -121,8 +121,9 @@ namespace CRMYourBankers.ViewModels
                 Context
                     .LoanApplications
                     .Where(loan =>
-                        loan.LoanStartDate.Year == DateTime.Today.Year &&
-                        loan.LoanStartDate.Month == DateTime.Today.Month)
+                        loan.LoanStartDate.HasValue &&
+                        loan.LoanStartDate.Value.Year == DateTime.Today.Year &&
+                        loan.LoanStartDate.Value.Month == DateTime.Today.Month)
                     .Select(loan =>
                         new
                         {

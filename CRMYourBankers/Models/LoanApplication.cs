@@ -17,7 +17,7 @@ namespace CRMYourBankers.Models
         public Bank Bank { get; set; }
         public int BankId { get; set; }
         public int? MultiBrokerId { get; set; }
-        public DateTime LoanStartDate { get; set; }
+        public DateTime? LoanStartDate { get; set; }
         public LoanApplicationStatus? LoanApplicationStatus { get; set; }
         public bool Paid { get; set; } = false; //można to też zapisać w konstruktorze, ustawić wartość domyślną
         public DateTime StartDate { get; set; }
@@ -47,7 +47,9 @@ namespace CRMYourBankers.Models
                 BankId != 0 &&
                 (ClientCommission == null || ClientCommission >= 0) &&
                 (BrokerCommission == null || BrokerCommission >= 0) &&
-                LoanApplicationStatus != null;
+                LoanApplicationStatus != null &&
+                (LoanApplicationStatus.Value == Enums.LoanApplicationStatus.Launched && LoanStartDate.HasValue ||
+                 LoanApplicationStatus.Value != Enums.LoanApplicationStatus.Launched && !LoanStartDate.HasValue);                
         }
     }
 }

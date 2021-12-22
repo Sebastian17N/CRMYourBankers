@@ -49,7 +49,7 @@ namespace CRMYourBankers.ViewModels
         public int? ClientId { get; set; }
         public int? MultiBrokerId { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime LoanStartDate { get; set; }        
+        public DateTime? LoanStartDate { get; set; }        
         public TabName LastTabName { get; set; }
         public object LastTabObject { get; set; }
         public LoanApplicationStatus? SelectedLoanApplicationStatus { get; set; }
@@ -253,7 +253,7 @@ namespace CRMYourBankers.ViewModels
             BrokerCommissionText = null;
             TasksToDoText = null;
             StartDate = DateTime.Now;
-            LoanStartDate = DateTime.Now;
+            LoanStartDate = null;
             IsPaid = false;
             MultiBrokerId = null;
             LoanTasks = null;

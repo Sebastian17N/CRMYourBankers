@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Images\ArrowDown.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Images\ArrowUp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
