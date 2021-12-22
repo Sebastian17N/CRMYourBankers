@@ -64,38 +64,35 @@
                     Content="Dodaj nowy wniosek" />
             </StackPanel>
         </DockPanel>
-        <StackPanel>
-            <TabControl
-                x:Name="MainTabControl"
-                Height="800"
-                ItemsSource="{Binding ItemTabs}"
-                SelectedItem="{Binding SelectedTab}">
-                <TabControl.ItemContainerStyle>
-                    <Style TargetType="{x:Type TabItem}">
-                        <Setter Property="Visibility" Value="Collapsed" />
-                    </Style>
-                </TabControl.ItemContainerStyle>
-                <TabControl.Resources>
-                    <DataTemplate DataType="{x:Type viewmodels:LoanApplicationSearchViewModel}">
-                        <views:LoanApplicationSearchView />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewmodels:ClientSearchViewModel}">
-                        <views:ClientSearchView />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewmodels:ClientDetailsViewModel}">
-                        <views:ClientDetailsView />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewmodels:LoanApplicationDetailsViewModel}">
-                        <views:LoanApplicationDetailsView />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewmodels:SummaryViewModel}">
-                        <views:SummaryView />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewmodels:ResultViewModel}">
-                        <views:ResultView />
-                    </DataTemplate>
-                </TabControl.Resources>
-            </TabControl>
-        </StackPanel>
+        <TabControl
+            x:Name="MainTabControl"
+            ItemsSource="{Binding ItemTabs}"
+            SelectedItem="{Binding SelectedTab}">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+            </TabControl.ItemContainerStyle>
+            <TabControl.Resources>
+                <DataTemplate DataType="{x:Type viewmodels:LoanApplicationSearchViewModel}">
+                    <views:LoanApplicationSearchView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:ClientSearchViewModel}">
+                    <views:ClientSearchView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:ClientDetailsViewModel}">
+                    <views:ClientDetailsView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:LoanApplicationDetailsViewModel}">
+                    <views:LoanApplicationDetailsView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:SummaryViewModel}">
+                    <views:SummaryView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:ResultViewModel}">
+                    <views:ResultView />
+                </DataTemplate>
+            </TabControl.Resources>
+        </TabControl>
     </StackPanel>
 </Window>
