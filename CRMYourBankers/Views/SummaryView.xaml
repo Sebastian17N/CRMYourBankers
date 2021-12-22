@@ -9,13 +9,14 @@
     d:DesignHeight="800"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <StackPanel Height="Auto" Orientation="Vertical">
+    <DockPanel>
         <Border
             Margin="10"
             Background="LightGray"
             BorderBrush="Blue"
             BorderThickness="2"
-            CornerRadius="6">
+            CornerRadius="6"
+            DockPanel.Dock="Top">
             <StackPanel
                 Width="500"
                 HorizontalAlignment="Left"
@@ -49,135 +50,139 @@
                 </StackPanel>
             </StackPanel>
         </Border>
-        <StackPanel CanVerticallyScroll="True">
-            <StackPanel>
-                <Label Content="Aktywne Wnioski:" FontSize="15" />
-            </StackPanel>
-            <StackPanel>
-                <DataGrid
-                    MaxHeight="300"
-                    AutoGenerateColumns="False"
-                    ItemsSource="{Binding DataGridData}"
-                    SelectedItem="{Binding SelectedLoanApplication}"
-                    VerticalScrollBarVisibility="Visible">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button
-                                        Width="Auto"
-                                        Command="{Binding Path=DataContext.LoanApplicationDetailsScreenOpenHandler, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                        Content="Szczegóły" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn
-                            Width="120"
-                            Binding="{Binding FullName}"
-                            Header="Klient"
-                            IsReadOnly="True" />
-                        <DataGridTextColumn
-                            Width="120"
-                            Binding="{Binding BankName}"
-                            Header="Bank"
-                            IsReadOnly="True" />
-                        <DataGridTextColumn
-                            Width="120"
-                            Binding="{Binding AmountRequested}"
-                            Header="Wnioskowana Kwota"
-                            IsReadOnly="True" />
-                        <DataGridTextColumn
-                            Width="120"
-                            Binding="{Binding AmountReceived}"
-                            Header="Przyznana Kwota"
-                            IsReadOnly="True" />
-                        <DataGridTextColumn
-                            Width="200"
-                            Binding="{Binding TasksToDo}"
-                            Header="Zadania"
-                            IsReadOnly="True" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </StackPanel>
-            <StackPanel>
-                <Label Content="Aktywni Klienci:" FontSize="15" />
-            </StackPanel>
-            <StackPanel>
-                <DataGrid
-                    Height="900"
-                    AutoGenerateColumns="False"
-                    CanUserAddRows="False"
-                    ItemsSource="{Binding Clients}"
-                    SelectedItem="{Binding SelectedClient}"
-                    VerticalScrollBarVisibility="Visible">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button
-                                        Width="Auto"
-                                        Command="{Binding Path=DataContext.ClientDetailsScreenOpenHandler, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                        Content="Szczegóły" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn
-                            Width="80"
-                            Binding="{Binding FirstName}"
-                            Header="Imię"
-                            IsReadOnly="True" />
-                        <DataGridTextColumn
-                            Width="80"
-                            Binding="{Binding LastName}"
-                            Header="Nazwisko"
-                            IsReadOnly="True" />
-                        <DataGridTextColumn
-                            Width="120"
-                            Binding="{Binding Email}"
-                            Header="Mail"
-                            IsReadOnly="True" />
-                        <DataGridTextColumn
-                            Width="200"
-                            Binding="{Binding TasksToDo}"
-                            Header="Zadania"
-                            IsReadOnly="True" />
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button
-                                        Width="Auto"
-                                        Margin="1"
-                                        Command="{Binding Path=DataContext.MoveClientUpCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
-                                        <StackPanel>
-                                            <Image
-                                                Width="10"
-                                                Height="10"
-                                                Source="{Binding Path=DataContext.ArrowUpPath, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
-                                        </StackPanel>
-                                    </Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button
-                                        Width="Auto"
-                                        Margin="1"
-                                        Command="{Binding Path=DataContext.MoveClientDownCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
-                                        <StackPanel>
-                                            <Image
-                                                Width="10"
-                                                Height="10"
-                                                Source="{Binding Path=DataContext.ArrowDownPath, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
-                                        </StackPanel>
-                                    </Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </StackPanel>
-        </StackPanel>
-    </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
+                Content="Aktywne Wnioski:"
+                FontSize="15" />
+            <DataGrid
+                Grid.Row="1"
+                MaxHeight="300"
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding DataGridData}"
+                SelectedItem="{Binding SelectedLoanApplication}"
+                VerticalScrollBarVisibility="Visible">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Width="Auto"
+                                    Command="{Binding Path=DataContext.LoanApplicationDetailsScreenOpenHandler, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                    Content="Szczegóły" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding FullName}"
+                        Header="Klient"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding BankName}"
+                        Header="Bank"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding AmountRequested}"
+                        Header="Wnioskowana Kwota"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding AmountReceived}"
+                        Header="Przyznana Kwota"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="200"
+                        Binding="{Binding TasksToDo}"
+                        Header="Zadania"
+                        IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label
+                Grid.Row="2"
+                Content="Aktywni Klienci:"
+                FontSize="15" />
+            <DataGrid
+                Grid.Row="3"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                ItemsSource="{Binding Clients}"
+                SelectedItem="{Binding SelectedClient}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Width="Auto"
+                                    Command="{Binding Path=DataContext.ClientDetailsScreenOpenHandler, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                    Content="Szczegóły" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn
+                        Width="80"
+                        Binding="{Binding FirstName}"
+                        Header="Imię"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="80"
+                        Binding="{Binding LastName}"
+                        Header="Nazwisko"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding Email}"
+                        Header="Mail"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="200"
+                        Binding="{Binding TasksToDo}"
+                        Header="Zadania"
+                        IsReadOnly="True" />
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Width="Auto"
+                                    Margin="1"
+                                    Command="{Binding Path=DataContext.MoveClientUpCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                    <StackPanel>
+                                        <Image
+                                            Width="10"
+                                            Height="10"
+                                            Source="{Binding Path=DataContext.ArrowUpPath, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Width="Auto"
+                                    Margin="1"
+                                    Command="{Binding Path=DataContext.MoveClientDownCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                    <StackPanel>
+                                        <Image
+                                            Width="10"
+                                            Height="10"
+                                            Source="{Binding Path=DataContext.ArrowDownPath, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
 </UserControl>
