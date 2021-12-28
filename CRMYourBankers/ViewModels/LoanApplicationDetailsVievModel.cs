@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using CRMYourBankers.ViewModels.Interfaces;
 using System;
 using CRMYourBankers.Enums;
+using CRMYourBankers.Models.Interfaces;
 
 namespace CRMYourBankers.ViewModels
 {
@@ -68,6 +69,8 @@ namespace CRMYourBankers.ViewModels
             }
             
          }
+        public IEditable LastTabObject { get; set; }
+        public LoanApplicationStatus? SelectedLoanApplicationStatus { get; set; }
         public bool IsPaid { get; set; }
         public string FullName { get; set; }
         #endregion
@@ -174,7 +177,8 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage 
                 { 
                     TabName = LastTabName,
-                    SelectedObject = LastTabName == TabName.ClientDetails ? SelectedItem.Client : null
+                    SelectedObject = LastTabName == TabName.ClientDetails ? SelectedItem.Client : null,
+                    GoFurther = false
                 });
 
                 ClearAllFields();
@@ -245,7 +249,8 @@ namespace CRMYourBankers.ViewModels
             TabMessenger.Send(new TabChangeMessage 
             { 
                 TabName = LastTabName,
-                SelectedObject = LastTabObject 
+                SelectedObject = LastTabObject,
+                GoFurther = false
             });
         }
 
