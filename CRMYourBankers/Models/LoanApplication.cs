@@ -1,11 +1,12 @@
 ﻿using CRMYourBankers.Enums;
+using CRMYourBankers.Models.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace CRMYourBankers.Models
 {
-    public class LoanApplication
+    public class LoanApplication : IEditable
     {        
         public int Id { get; set; }
         public int? AmountRequested { get; set; }

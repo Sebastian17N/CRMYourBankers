@@ -1,4 +1,5 @@
 ﻿using CRMYourBankers.Enums;
+using CRMYourBankers.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace CRMYourBankers.Models
 {
-    public class Client
+    public class Client : IEditable
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

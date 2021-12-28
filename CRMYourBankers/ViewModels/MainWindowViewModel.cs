@@ -12,50 +12,12 @@ using CRMYourBankers.Enums;
 using CRMYourBankers.Models;
 using System.IO;
 using System;
+using CRMYourBankers.Models.Interfaces;
 
 namespace CRMYourBankers.ViewModels
 {
     public class MainWindowViewModel : TabBaseViewModel
-    {
-        // 1. Dodaj 3 nowe pola dla Client: nr telefonu, pesel, mail.
-        // 2. Użytkownik może dodawać te pola z interfaceu.
-        // 3. Użytkownik może zobaczyć nowe pola jako kolumny na ClientSearch.
-        // 4. Za każdym wejściem w 'AddNewClient' pola powinny być puste.
-        // 5. Przycisk Save na ClientDetails powinien wyświetlić MessageBox (zrobione) i przejśc do ClientSearch.
-        // 6. Nie można kliknąć Save jeśli pola są puste ALBO istnieje już użytkownik o tym samym nr PESEL.
-        // 7. Pozostałe walidacje na użytkowniku - rozwiązanie systemowe. Metoda "bool Validate()" w Client.
-        // powtórzyć walidację Validate, co dokładnie robi?
-        // powtórzyć Invoke, co dokładnie robi?
-        // co oznacza PropertyChangedEventHandler
-        // dokładne zastosowanie klas base i interfaces
-        // 8. Dodać logikę edycji klienta. Czyli jeśli ekran jest otwarty z już istniejącym
-        //         klientem, to walidacja peselu musi nie brać pod uwagę, wpisu który edytujesz (LINQ).
-        //TODO: 1. Dodać nowy ekran do tworzenia/ edytowania wniosków, do którego można przejść
-        //         z ekranu edycji klienta. Ma działać Bank lista, po dodaniu dodaniu nowej LoanApplication, powinno mieć przypisane
-        //            BankId i ClientId,
-        //         w widoku klineta poniżej ma wyświetlać się lista aktuanych wniosków    
-        //         dodać validację wniosku
-        //         dodaj przycisk, który wywoła linię 23 w LoanApplications = PrepareData(loanApplications, banks, clients);
-        //         czyli ponownie przeładuje zbiór danych (odświeży)
-        //         możesz otworzyć istniejący wniosek i go edytować/zapisać => jak przekazać w SelectedLoanApplication do bombobox liste banków i klientów???
-        //   Dlaczego w klientach jest puste pole a w wnioskach nie?
-        //   Zadania w widoku wniosków powinny być w formie tabelki i powinny być edytowalne tak jak w szczegóły klienta, nie ustawiać kolumn jako readonly
-        //  Co chcesz mieć na Summary i w jakiej formie
-        //  Stworzyć ClientTask i dodać jego wyświetlanie na ClientDetails
-        //  Kontrolki => dodawanie dowych tasków??? może być poprzez TextBox oraz kliknięcie myszką w listę zadań, pojawi się pytanie czy chce dodać nowe zadanie
-        // Problemy: dlaczego w Client Details na początki wyświetla się tylko jedna lista zadań, a po odświeżeniu 2
-        // Uzupełnij wszystkie widoki w context
-        // Problemy:Dlaczego we wniosku nie wyświetla się lista banków i klientów?
-        // nowy klient/wniosek ma być pusty i logika otwierania aktualnego klienta
-        // Result View mają się wyświetlać wszystkie pola
-        // Summary View ma działać przechodzenie do innych widoków z gridów
-        //jaką informację potrzebujesz żeby po kliknięcu cancel wracało do vidoku w którym przed chwilą byłeś, pomyś nie musisz robić
-        //Stwórz przycisk na wynikach, który pozwoli na dodawanie nowego mc
-        //zasatanów się gdzie będzie edytowany cel na dany mc
-        //Dla zus i us stwórz enum, oddzielny folder => class, 
-        //Problemy: jak wyciągnąć target dla obecnego miesiąca? bez użycia selectedMonth
-        //Główne menu zaprogramować kontorlki te same co w Result (żeby wybrać aktualny miesiąc wybierz DateTime.Today(można użyć do dodaj nowy wniosek i zamiast null to data dzisiejsza(zmien dateTime.minvalue)))
-
+    {  
         public ICommand OpenClientsSearchScreenCommand { get; set; }
         public ICommand OpenLoanApplicationsSearchScreenCommand { get; set; }
         public ICommand AddNewClientButtonCommand { get; set; }
@@ -177,15 +139,22 @@ namespace CRMYourBankers.ViewModels
             {
                 ActivatedClientStatusBaseOnIncomingTask();
 
-                // 1. Wyciągać last object z ostatniej otwartej zakładki (o ile istnieje) - czyli np. przechodząc z client details -> dodaj nowy wniosek
+                // 1. Wyciągać lastTabObject z ostatniej otwartej zakładki (o ile istnieje) - czyli np. przechodząc z client details -> dodaj nowy wniosek
                 //      do LastTabObject trafi konkretny klient z poprzedniego widoku.
-                // 1.a Albo trzeba zrobić switch, który rozpozna typ obiektu i będzie go rzutował na Client, albo LoanApplication.
                 // 1.b Dodać interface, który będzie zawierał definicję obiektu, po którym będą dziedziczyły LoanApplication i Client, i który będzie miał
                 //      uniwersalne pole typu SelectedItem.
                 // 2. Przypisujesz to LastTabObject poniżej w switchu.
                 // 2.a Dodajesz logikę przepisania SelectedObject = LastTabObject jeśli jest to cofnięcie.
                 // 3. Kasujesz przypisywanie LastTabObject ze wszystkich innych miejsc w kodzie.
                 // 4. Jak rozpoznawać, że się cofasz, a nie zagnieżdżasz, może pole w SwitchTabMessage.
+
+                var lastTabName = SelectedTab.TabName;
+                IEditable lastTabObject = null;
+
+                if (SelectedTab is ISelectedItemOwner<IEditable>)
+                {
+                    lastTabObject = ((ISelectedItemOwner<IEditable>)SelectedTab).SelectedItem;                    
+                }
 
                 switch (message.TabName)
                 {
@@ -194,7 +163,7 @@ namespace CRMYourBankers.ViewModels
                         break;
 
                     case TabName.ClientDetails:
-                        _clientDetailsViewModel.SelectedClient = (Client)message.SelectedObject;
+                        _clientDetailsViewModel.SelectedItem = (Client)message.SelectedObject;
                         SelectedTab = _clientDetailsViewModel;                       
                         break;
 
@@ -202,7 +171,7 @@ namespace CRMYourBankers.ViewModels
                         SelectedTab = _loanApplicationSearchViewModel;
                         break;
                     case TabName.LoanApplicationDetails:
-                        _loanApplicationDetailsViewModel.SelectedLoanApplication = (LoanApplication)message.SelectedObject;
+                        _loanApplicationDetailsViewModel.SelectedItem = (LoanApplication)message.SelectedObject;
                         SelectedTab = _loanApplicationDetailsViewModel;
                             break;
                     case TabName.Summary:
@@ -214,8 +183,10 @@ namespace CRMYourBankers.ViewModels
                 }
                 if (SelectedTab is ILastTabNameOwner) //is sprawdza czy obiekt z lewej strony jest danego typu
                 {
-                    ((ILastTabNameOwner)SelectedTab).LastTabName = message.LastTabName;
-                    ((ILastTabNameOwner)SelectedTab).LastTabObject = message.LastTabObject;
+
+                    ((ILastTabNameOwner)SelectedTab).LastTabName = lastTabName;
+                    ((ILastTabNameOwner)SelectedTab).LastTabObject = lastTabObject;
+
                 }//wszyskie widoki implementujące ten interface (ILastTabNameOwner), będa miały przypisywane LastTabName automatycznie
             }); //Interface jest dla widoku, z którego będziemy się cofać a nie ten który wysyła message
         }

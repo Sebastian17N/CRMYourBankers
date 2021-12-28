@@ -14,8 +14,9 @@ using CRMYourBankers.Enums;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class LoanApplicationDetailsViewModel : TabBaseViewModel, IRefreshReferenceDataOwner, 
-        IClearAllFieldsOwner, IRefreshDataOwner, ILastTabNameOwner
+    public class LoanApplicationDetailsViewModel : TabBaseViewModel, 
+        IRefreshReferenceDataOwner, IClearAllFieldsOwner, IRefreshDataOwner, 
+        ILastTabNameOwner, ISelectedItemOwner<LoanApplication>
     {
         #region UI property fields
         public int? AmountRequestedText { get; set; }
@@ -80,13 +81,13 @@ namespace CRMYourBankers.ViewModels
 			}
         }
 
-        private LoanApplication _selectedLoanApplication;
-        public LoanApplication SelectedLoanApplication
+        private LoanApplication _selectedItem;
+        public LoanApplication SelectedItem
         {
-            get => _selectedLoanApplication;
+            get => _selectedItem;
             set
             {
-                _selectedLoanApplication = value;
+                _selectedItem = value;
             }
         }
 
@@ -109,36 +110,36 @@ namespace CRMYourBankers.ViewModels
         {
             SaveButtonCommand = new RelayCommand(() =>
             {
-                if (SelectedLoanApplication == null)
+                if (SelectedItem == null)
                 {
-                    SelectedLoanApplication = new LoanApplication
+                    SelectedItem = new LoanApplication
                     {
                         Id = Context.LoanApplications.Max(loan => loan.Id) + 1                        
                     };
 
-                    Context.LoanApplications.Add(SelectedLoanApplication);
+                    Context.LoanApplications.Add(SelectedItem);
                 }
 
-                SelectedLoanApplication.ClientId = ClientId ?? 0;
-                SelectedLoanApplication.BankId = BankId ?? 0;
-                SelectedLoanApplication.AmountRequested = AmountRequestedText;
-                SelectedLoanApplication.AmountRequested = AmountRequestedText;
-                SelectedLoanApplication.ClientCommission = ParseComission(ClientCommissionText);
-                SelectedLoanApplication.BrokerCommission = ParseComission(BrokerCommissionText);
-                SelectedLoanApplication.StartDate = StartDate;
-                SelectedLoanApplication.LoanStartDate = LoanStartDate;
-                SelectedLoanApplication.Paid = IsPaid;
-                SelectedLoanApplication.LoanApplicationStatus = SelectedLoanApplicationStatus;
-                SelectedLoanApplication.MultiBrokerId = MultiBrokerId;
-                SelectedLoanApplication.LoanTasks = LoanTasks;
+                SelectedItem.ClientId = ClientId ?? 0;
+                SelectedItem.BankId = BankId ?? 0;
+                SelectedItem.AmountRequested = AmountRequestedText;
+                SelectedItem.AmountRequested = AmountRequestedText;
+                SelectedItem.ClientCommission = ParseComission(ClientCommissionText);
+                SelectedItem.BrokerCommission = ParseComission(BrokerCommissionText);
+                SelectedItem.StartDate = StartDate;
+                SelectedItem.LoanStartDate = LoanStartDate;
+                SelectedItem.Paid = IsPaid;
+                SelectedItem.LoanApplicationStatus = SelectedLoanApplicationStatus;
+                SelectedItem.MultiBrokerId = MultiBrokerId;
+                SelectedItem.LoanTasks = LoanTasks;
 
-                if (SelectedLoanApplication.Id == 0)
+                if (SelectedItem.Id == 0)
                 {
-                    Context.LoanApplications.Add(SelectedLoanApplication);
-                    SelectedLoanApplication.Id = Context.LoanApplications.Max(loan => loan.Id) + 1;
+                    Context.LoanApplications.Add(SelectedItem);
+                    SelectedItem.Id = Context.LoanApplications.Max(loan => loan.Id) + 1;
                 }
 
-                if (!Validate() || !SelectedLoanApplication.Validate())
+                if (!Validate() || !SelectedItem.Validate())
                 {
                     MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
                             "Błędy w formularzu",
@@ -148,9 +149,9 @@ namespace CRMYourBankers.ViewModels
                 }
 
                 Context.SaveChanges();
-                MessageBox.Show($"Zapisano: {SelectedLoanApplication.Client.FirstName} " +
-                                  $"{SelectedLoanApplication.Client.LastName} " +
-                                  $"{SelectedLoanApplication.Bank.Name} " +
+                MessageBox.Show($"Zapisano: {SelectedItem.Client.FirstName} " +
+                                  $"{SelectedItem.Client.LastName} " +
+                                  $"{SelectedItem.Bank.Name} " +
                                   $"{AmountRequestedText}",
                     "Dodano Nowy Wniosek",
                     MessageBoxButton.OK,
@@ -159,7 +160,7 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage 
                 { 
                     TabName = LastTabName,
-                    SelectedObject = LastTabName == TabName.ClientDetails ? SelectedLoanApplication.Client : null
+                    SelectedObject = LastTabName == TabName.ClientDetails ? SelectedItem.Client : null
                 });
 
                 ClearAllFields();
@@ -176,26 +177,26 @@ namespace CRMYourBankers.ViewModels
 
             AddNewLoanApplicationTaskButtonCommand = new RelayCommand(() =>
             {
-                if (SelectedLoanApplication != null)
+                if (SelectedItem != null)
                 {
                     using (var context = new YourBankersContext())
                     {
                         var newLoanApplicationTask = new LoanTask
                         {
                             Text = TasksToDoText,
-                            LoanApplicationId = SelectedLoanApplication.Id
+                            LoanApplicationId = SelectedItem.Id
                         };
 
                         context.LoanTasks.Add(newLoanApplicationTask);
                         context.SaveChanges();
                     }
 
-                    SelectedLoanApplication.LoanTasks = new ObservableCollection<LoanTask>
+                    SelectedItem.LoanTasks = new ObservableCollection<LoanTask>
                         (Context
                             .LoanTasks
-                            .Where(task => task.LoanApplicationId == SelectedLoanApplication.Id)
+                            .Where(task => task.LoanApplicationId == SelectedItem.Id)
                             .ToList());
-                    LoanTasks = SelectedLoanApplication.LoanTasks;
+                    LoanTasks = SelectedItem.LoanTasks;
                     NotifyPropertyChanged("LoanTasks");
                 }
 
@@ -210,16 +211,16 @@ namespace CRMYourBankers.ViewModels
 
             GoToSelectedClientButtonCommand = new RelayCommand(() =>
             {
-                if (SelectedLoanApplication?.Client == null)
+                if (SelectedItem?.Client == null)
                     return;
                 //? powoduje że jeżeli SelectedLoanApplication będzie puste to podstawi się null, a nie zawiesi program
                 
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = TabName.ClientDetails,
-                    SelectedObject = SelectedLoanApplication.Client,
+                    SelectedObject = SelectedItem.Client,
                     LastTabName = TabName.LoanApplicationDetails,
-                    LastTabObject = SelectedLoanApplication
+                    LastTabObject = SelectedItem
                 });
             });
         }
@@ -230,7 +231,7 @@ namespace CRMYourBankers.ViewModels
             TabMessenger.Send(new TabChangeMessage 
             { 
                 TabName = LastTabName,
-                SelectedObject = LastTabName == TabName.ClientDetails ? SelectedLoanApplication.Client : null
+                SelectedObject = LastTabObject 
             });
         }
 
@@ -262,20 +263,20 @@ namespace CRMYourBankers.ViewModels
 
         public void RefreshData()
         {
-            if (SelectedLoanApplication != null)
+            if (SelectedItem != null)
             {
-                BankId = _selectedLoanApplication.BankId;
-                ClientId = _selectedLoanApplication.ClientId;
-                AmountRequestedText = _selectedLoanApplication.AmountRequested;
-                AmountReceivedText = _selectedLoanApplication.AmountReceived;
-                ClientCommissionText = _selectedLoanApplication.ClientCommission?.ToString();
-                BrokerCommissionText = _selectedLoanApplication.BrokerCommission?.ToString();
-                StartDate = _selectedLoanApplication.StartDate;
-                LoanStartDate = _selectedLoanApplication.LoanStartDate;
-                IsPaid = _selectedLoanApplication.Paid;
-                SelectedLoanApplicationStatus = _selectedLoanApplication.LoanApplicationStatus;
-                MultiBrokerId = _selectedLoanApplication.MultiBrokerId;
-                LoanTasks = _selectedLoanApplication.LoanTasks;
+                BankId = _selectedItem.BankId;
+                ClientId = _selectedItem.ClientId;
+                AmountRequestedText = _selectedItem.AmountRequested;
+                AmountReceivedText = _selectedItem.AmountReceived;
+                ClientCommissionText = _selectedItem.ClientCommission?.ToString();
+                BrokerCommissionText = _selectedItem.BrokerCommission?.ToString();
+                StartDate = _selectedItem.StartDate;
+                LoanStartDate = _selectedItem.LoanStartDate;
+                IsPaid = _selectedItem.Paid;
+                SelectedLoanApplicationStatus = _selectedItem.LoanApplicationStatus;
+                MultiBrokerId = _selectedItem.MultiBrokerId;
+                LoanTasks = _selectedItem.LoanTasks;
             }
             NotifyPropertyChanged("LoanApplication");
         }

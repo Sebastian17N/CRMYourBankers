@@ -13,65 +13,67 @@ using System.Windows.Input;
 using CRMYourBankers.Enums;
 using System.Collections.ObjectModel;
 using System;
+using CRMYourBankers.Models.Interfaces;
 
 namespace CRMYourBankers.ViewModels
 {
-	public class ClientDetailsViewModel : TabBaseViewModel, IRefreshDataOwner, ILastTabNameOwner, IRefreshReferenceDataOwner
-	{
-		private Client _selectedClients;
-		public Client SelectedClient
+	public class ClientDetailsViewModel : TabBaseViewModel, 
+        IRefreshDataOwner, ILastTabNameOwner, IRefreshReferenceDataOwner, ISelectedItemOwner<Client>
+    {
+		private Client _selectedItem;
+		public Client SelectedItem
 		{
-			get => _selectedClients;
+			get => _selectedItem;
 			set
 			{
-				_selectedClients = value;
+				_selectedItem = value;
 
-                if (_selectedClients != null)
+                if (_selectedItem != null)
                 {
-                    FirstNameText = _selectedClients.FirstName;
-                    LastNameText = _selectedClients.LastName;
-                    EmailText = _selectedClients.Email;
-                    PhoneNumberText = _selectedClients.PhoneNumber;
-                    PersonalIdText = _selectedClients.PersonalId;
-                    AmountRequestedText = _selectedClients.AmountRequested;
-                    ClientCommissionText = _selectedClients.ClientCommission;
-                    ContactPersonText = _selectedClients.ContactPerson;
-                    WhatHesJobText = _selectedClients.WhatHesJob;
-                    SelectedZus = _selectedClients.ZusUs;
-                    GeneralNoteText = _selectedClients.GeneralNote;
+                    FirstNameText = _selectedItem.FirstName;
+                    LastNameText = _selectedItem.LastName;
+                    EmailText = _selectedItem.Email;
+                    PhoneNumberText = _selectedItem.PhoneNumber;
+                    PersonalIdText = _selectedItem.PersonalId;
+                    AmountRequestedText = _selectedItem.AmountRequested;
+                    ClientCommissionText = _selectedItem.ClientCommission;
+                    ContactPersonText = _selectedItem.ContactPerson;
+                    WhatHesJobText = _selectedItem.WhatHesJob;
+                    SelectedZus = _selectedItem.ZusUs;
+                    GeneralNoteText = _selectedItem.GeneralNote;
                     ExistingPersonalLoans =
                      new ObservableCollection<BankClientBIK>(
-                        _selectedClients
+                        _selectedItem
                         .ExistingBankClientBIK
                         .Where(loan => loan.BIKType == BIKType.PersonalLoans)
                         .ToList());
                     ExistingPersonalLoansQuestions =
                      new ObservableCollection<BankClientBIK>(
-                        _selectedClients
+                        _selectedItem
                         .ExistingBankClientBIK
                         .Where(loan => loan.BIKType == BIKType.PersonalQuestions)
                         .ToList());
                     ExistingCompanyLoans =
                     new ObservableCollection<BankClientBIK>(
-                        _selectedClients
+                        _selectedItem
                         .ExistingBankClientBIK
                         .Where(loan => loan.BIKType == BIKType.CompanyLoans)
                         .ToList());
                     ExistingCompanyLoansQuestions =
                     new ObservableCollection<BankClientBIK>(
-                        _selectedClients
+                        _selectedItem
                         .ExistingBankClientBIK
                         .Where(loan => loan.BIKType == BIKType.CompanyQuestions)
                         .ToList());
-                    SelectedUs = _selectedClients.Us;
-                    SelectedSpouse = _selectedClients.Spouse;
-                    SelectedSourceOfIncome = _selectedClients.SourceOfIncome;
-                    SelectedClientStatus = _selectedClients.ClientStatus;
-                    BrokerId = _selectedClients.BrokerId ??0;
-                    ClientTasks = _selectedClients.ClientTasks;
+                    SelectedUs = _selectedItem.Us;
+                    SelectedSpouse = _selectedItem.Spouse;
+                    SelectedSourceOfIncome = _selectedItem.SourceOfIncome;
+                    SelectedClientStatus = _selectedItem.ClientStatus;
+                    BrokerId = _selectedItem.BrokerId ??0;
+                    ClientTasks = _selectedItem.ClientTasks;
                     
-                    LoanApplicationsProposals = _selectedClients.LoanApplicationsProposalsInts;
-                    BIKNoteText = _selectedClients.BIKNote;
+                    LoanApplicationsProposals = _selectedItem.LoanApplicationsProposalsInts;
+                    BIKNoteText = _selectedItem.BIKNote;
                 }
                 else
                 {
@@ -174,8 +176,8 @@ namespace CRMYourBankers.ViewModels
 		public dynamic SelectedLoanApplication { get; set; }
 		public ObservableCollection<Bank> Banks { get; set; }
 		public ObservableCollection<Broker> Brokers { get; set; }
-
-		public ClientDetailsViewModel(Messenger tabMessenger, YourBankersContext context)
+        
+        public ClientDetailsViewModel(Messenger tabMessenger, YourBankersContext context)
 			: base(tabMessenger, TabName.ClientDetails)
 		{
 			Context = context;
@@ -189,7 +191,7 @@ namespace CRMYourBankers.ViewModels
 
 		public void RefreshData()
 		{
-			if (SelectedClient == null)
+			if (SelectedItem == null)
 			{
 				return;
 			}
@@ -197,7 +199,7 @@ namespace CRMYourBankers.ViewModels
             LoanApplicationsForClient =
                 Context.LoanApplications
                     .Include(loan=>loan.LoanTasks)
-                    .Where(loan => loan.ClientId == SelectedClient.Id) 
+                    .Where(loan => loan.ClientId == SelectedItem.Id) 
                     .Join(
                     Context.Banks,
                     loan => loan.BankId,
@@ -232,7 +234,7 @@ namespace CRMYourBankers.ViewModels
                 ExistingCompanyLoans = ProcessCollectionBeforeSave(ExistingCompanyLoans, BIKType.CompanyLoans);
                 ExistingCompanyLoansQuestions = ProcessCollectionBeforeSave(ExistingCompanyLoansQuestions, BIKType.CompanyQuestions);               
 
-                if (SelectedClient == null)
+                if (SelectedItem == null)
                 {
 
                     var newClient = new Client
@@ -282,28 +284,28 @@ namespace CRMYourBankers.ViewModels
                 }
                 else
                 {
-                    SelectedClient.FirstName = FirstNameText;
-                    SelectedClient.LastName = LastNameText;
-                    SelectedClient.PhoneNumber = PhoneNumberText;
-                    SelectedClient.Email = EmailText;
-                    SelectedClient.PersonalId = PersonalIdText;
-                    SelectedClient.AmountRequested = AmountRequestedText;
-                    SelectedClient.ClientCommission = ClientCommissionText;
-                    SelectedClient.ContactPerson = ContactPersonText;
-                    SelectedClient.WhatHesJob = WhatHesJobText;
-                    SelectedClient.ZusUs = SelectedZus;
-                    SelectedClient.GeneralNote = GeneralNoteText;
-                    SelectedClient.ExistingBankClientBIK = ExistingBankClientBIK;                            
-                    SelectedClient.Us = SelectedUs;
-                    SelectedClient.Spouse = SelectedSpouse;
-                    SelectedClient.SourceOfIncome = SelectedSourceOfIncome;
-                    SelectedClient.ClientStatus = SelectedClientStatus;
-                    SelectedClient.BrokerId = BrokerId == 0 ? null : BrokerId;
-                    SelectedClient.ClientTasks = ClientTasks;
-                    SelectedClient.BIKNote = BIKNoteText;
-                    SelectedClient.LoanApplicationsProposalsInts = LoanApplicationsProposals;
+                    SelectedItem.FirstName = FirstNameText;
+                    SelectedItem.LastName = LastNameText;
+                    SelectedItem.PhoneNumber = PhoneNumberText;
+                    SelectedItem.Email = EmailText;
+                    SelectedItem.PersonalId = PersonalIdText;
+                    SelectedItem.AmountRequested = AmountRequestedText;
+                    SelectedItem.ClientCommission = ClientCommissionText;
+                    SelectedItem.ContactPerson = ContactPersonText;
+                    SelectedItem.WhatHesJob = WhatHesJobText;
+                    SelectedItem.ZusUs = SelectedZus;
+                    SelectedItem.GeneralNote = GeneralNoteText;
+                    SelectedItem.ExistingBankClientBIK = ExistingBankClientBIK;                            
+                    SelectedItem.Us = SelectedUs;
+                    SelectedItem.Spouse = SelectedSpouse;
+                    SelectedItem.SourceOfIncome = SelectedSourceOfIncome;
+                    SelectedItem.ClientStatus = SelectedClientStatus;
+                    SelectedItem.BrokerId = BrokerId == 0 ? null : BrokerId;
+                    SelectedItem.ClientTasks = ClientTasks;
+                    SelectedItem.BIKNote = BIKNoteText;
+                    SelectedItem.LoanApplicationsProposalsInts = LoanApplicationsProposals;
 
-					if (!SelectedClient.Validate())
+					if (!SelectedItem.Validate())
 					{
 						MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
 							"Błędy w formularzu",
@@ -351,7 +353,7 @@ namespace CRMYourBankers.ViewModels
 
 			AddNewClientTaskButtonCommand = new RelayCommand(() =>
 			{
-				if (SelectedClient != null)
+				if (SelectedItem != null)
 				{
                     if (TaskDate <= DateTime.Now)
                     {
@@ -368,19 +370,19 @@ namespace CRMYourBankers.ViewModels
                         var newClientTask = new ClientTask
 						{
 							Text = NewTaskText,
-							ClientId = SelectedClient.Id,                            
+							ClientId = SelectedItem.Id,                            
                             TaskDate = TaskDate
 						};
 						context.ClientTasks.Add(newClientTask);
 						context.SaveChanges();
 					}
 
-					SelectedClient.ClientTasks = new ObservableCollection<ClientTask>
+					SelectedItem.ClientTasks = new ObservableCollection<ClientTask>
 						  (Context
 							.ClientTasks
-							.Where(task => task.ClientId == SelectedClient.Id)
+							.Where(task => task.ClientId == SelectedItem.Id)
 							.ToList());
-					ClientTasks = SelectedClient.ClientTasks;
+					ClientTasks = SelectedItem.ClientTasks;
 				}
 
 				NewTaskText = string.Empty;
@@ -400,7 +402,7 @@ namespace CRMYourBankers.ViewModels
 				if (ExistingPersonalLoans == null)
 					ExistingPersonalLoans = new ObservableCollection<BankClientBIK>();
 
-				ExistingPersonalLoans.Add(new BankClientBIK { ClientId = SelectedClient.Id });
+				ExistingPersonalLoans.Add(new BankClientBIK { ClientId = SelectedItem.Id });
 				NotifyPropertyChanged("ExistingPersonalLoans");
 			});
 
@@ -414,15 +416,18 @@ namespace CRMYourBankers.ViewModels
 
             AddNewLoanApplicationCommand = new RelayCommand<string>(loanProposalIndex => 
             {
-                if (SelectedClient == null)
+                if (SelectedItem == null)
                     return;
 
 				var loanProposalIndexValue = int.Parse(loanProposalIndex);
 
+                if (LoanApplicationsProposals[loanProposalIndexValue] == 0)
+                    return;
+
 				var newLoanApplicationForClient = new LoanApplication
 				{
-					ClientId = SelectedClient.Id,
-					Client = SelectedClient,
+					ClientId = SelectedItem.Id,
+					Client = SelectedItem,
 					BankId = LoanApplicationsProposals[loanProposalIndexValue],
 					Bank = Context.Banks.Single(bank => bank.Id == LoanApplicationsProposals[loanProposalIndexValue]),
 					LoanStartDate = DateTime.Now,
