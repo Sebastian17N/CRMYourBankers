@@ -148,6 +148,12 @@ namespace CRMYourBankers.ViewModels
                 // 3. Kasujesz przypisywanie LastTabObject ze wszystkich innych miejsc w kodzie.
                 // 4. Jak rozpoznawać, że się cofasz, a nie zagnieżdżasz, może pole w SwitchTabMessage.
 
+                TabName lastTabName = TabName.Summary;
+                object lastTabObject = null;
+
+                var goFurther = true;
+
+                if (SelectedTab is ILastTabNameOwner) //is sprawdza czy obiekt z lewej strony jest danego typu
                 var lastTabName = SelectedTab.TabName;
                 IEditable lastTabObject = null;
 
@@ -157,6 +163,14 @@ namespace CRMYourBankers.ViewModels
                 }
 
                 switch (message.TabName)
+                {
+                    lastTabName = ((ILastTabNameOwner)SelectedTab).LastTabName;
+                    lastTabObject = ((ILastTabNameOwner)SelectedTab).LastTabObject;
+                }
+
+                var tabNameToGo = goFurther ? message.TabName : lastTabName;
+
+                switch (tabNameToGo)
                 {
                     case TabName.ClientSearch:
                         SelectedTab = _clientSearchViewModel;
@@ -181,6 +195,26 @@ namespace CRMYourBankers.ViewModels
                         SelectedTab = _resultViewModel;
                         break;
                 }
+
+                if (goFurther)
+                {
+                    // Zagnieżdżanie. Odłóż informację o tym, jaki był poprzedni ekran.
+                    if (SelectedTab is ILastTabNameOwner) //is sprawdza czy obiekt z lewej strony jest danego typu
+                    {
+                        ((ILastTabNameOwner)SelectedTab).LastTabName = message.LastTabName;
+                        ((ILastTabNameOwner)SelectedTab).LastTabObject = message.LastTabObject;
+                    }
+                }
+                else
+				{
+                    // Cofanie. Weź informację o poprzednim ekranie i przypisz ją do aktualnego obiektu.
+                    if (SelectedTab is ISelectedItemOwner)
+
+				}
+                //wszyskie widoki implementujące ten interface (ILastTabNameOwner), będa miały przypisywane LastTabName automatycznie
+                //Interface jest dla widoku, z którego będziemy się cofać a nie ten który wysyła message
+
+            }); 
                 if (SelectedTab is ILastTabNameOwner) //is sprawdza czy obiekt z lewej strony jest danego typu
                 {
 
