@@ -1,4 +1,5 @@
 ﻿using CRMYourBankers.Enums;
+using CRMYourBankers.Models.Interfaces;
 
 namespace CRMYourBankers.Messages
 {
@@ -8,6 +9,8 @@ namespace CRMYourBankers.Messages
         //string zmienić na TabName i wszędzie roziwązać konflikty
         public object SelectedObject { get; set; }
         public TabName LastTabName { get; set; }
-        public object LastTabObject { get; set; }
+        public IEditable LastTabObject { get; set; }
+
+        public bool GoFurther { get; set; } = true;
     }
 }

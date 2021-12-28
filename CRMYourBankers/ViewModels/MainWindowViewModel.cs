@@ -13,6 +13,7 @@ using CRMYourBankers.Models;
 using System.IO;
 using System;
 using CRMYourBankers.Models.Interfaces;
+using System.Collections.Generic;
 
 namespace CRMYourBankers.ViewModels
 {
@@ -24,6 +25,8 @@ namespace CRMYourBankers.ViewModels
         public ICommand AddNewLoanApplicationCommand { get; set; }
         public ICommand OpenMainWindowSearchScreenCommand { get; set; }
         public ICommand OpenResultScreenCommand { get; set; }
+
+        //public List<(TabName tabName, IEditable selectedItem)> ScreensPath { get; set; } = new List<(TabName tabName, IEditable selectedItem)>();
 
         public ObservableCollection<object> ItemTabs => _itemTabs;
         private ObservableCollection<object> _itemTabs = new ObservableCollection<object>();
@@ -148,27 +151,39 @@ namespace CRMYourBankers.ViewModels
                 // 3. Kasujesz przypisywanie LastTabObject ze wszystkich innych miejsc w kodzie.
                 // 4. Jak rozpoznawać, że się cofasz, a nie zagnieżdżasz, może pole w SwitchTabMessage.
 
-                TabName lastTabName = TabName.Summary;
-                object lastTabObject = null;
+                var goFurther = message.GoFurther;
+                IEditable tabObject = null;
+                var tabName = TabName.Summary;
 
-                var goFurther = true;
+                if (goFurther)
+                {// Zagnieżdżanie.
+                    if (SelectedTab is ISelectedItemOwner<LoanApplication>)
+                    {
+                        tabObject = ((ISelectedItemOwner<LoanApplication>)SelectedTab).SelectedItem;
+                    }
+                    if (SelectedTab is ISelectedItemOwner<Client>)
+					{
+                        tabObject = ((ISelectedItemOwner<Client>)SelectedTab).SelectedItem;
+					}
+                    tabName = SelectedTab.TabName;
 
-                if (SelectedTab is ILastTabNameOwner) //is sprawdza czy obiekt z lewej strony jest danego typu
-                var lastTabName = SelectedTab.TabName;
-                IEditable lastTabObject = null;
+                    //ScreensPath.Add((tabName, tabObject));
+                }
+                else
+                {// Cofanie.
+                    if (SelectedTab is ILastTabNameOwner) //is sprawdza czy obiekt z lewej strony jest danego typu
+                    {
+                        tabObject = ((ILastTabNameOwner)SelectedTab).LastTabObject;
+                        tabName = ((ILastTabNameOwner)SelectedTab).LastTabName;
+                    }
 
-                if (SelectedTab is ISelectedItemOwner<IEditable>)
-                {
-                    lastTabObject = ((ISelectedItemOwner<IEditable>)SelectedTab).SelectedItem;                    
+                    //var lastScreen = ScreensPath.Last();
+                    //tabObject = lastScreen.selectedItem;
+                    //tabName = lastScreen.tabName;
+                    //ScreensPath.Remove(lastScreen);
                 }
 
-                switch (message.TabName)
-                {
-                    lastTabName = ((ILastTabNameOwner)SelectedTab).LastTabName;
-                    lastTabObject = ((ILastTabNameOwner)SelectedTab).LastTabObject;
-                }
-
-                var tabNameToGo = goFurther ? message.TabName : lastTabName;
+                var tabNameToGo = goFurther ? message.TabName : tabName;
 
                 switch (tabNameToGo)
                 {
@@ -201,28 +216,21 @@ namespace CRMYourBankers.ViewModels
                     // Zagnieżdżanie. Odłóż informację o tym, jaki był poprzedni ekran.
                     if (SelectedTab is ILastTabNameOwner) //is sprawdza czy obiekt z lewej strony jest danego typu
                     {
-                        ((ILastTabNameOwner)SelectedTab).LastTabName = message.LastTabName;
-                        ((ILastTabNameOwner)SelectedTab).LastTabObject = message.LastTabObject;
+                        ((ILastTabNameOwner)SelectedTab).LastTabName = tabName;
+                        ((ILastTabNameOwner)SelectedTab).LastTabObject = tabObject;
                     }
+                    //wszyskie widoki implementujące ten interface (ILastTabNameOwner), będa miały przypisywane LastTabName automatycznie
+                    //Interface jest dla widoku, z którego będziemy się cofać a nie ten który wysyła message
                 }
                 else
 				{
                     // Cofanie. Weź informację o poprzednim ekranie i przypisz ją do aktualnego obiektu.
-                    if (SelectedTab is ISelectedItemOwner)
-
+                    if (SelectedTab is ISelectedItemOwner<IEditable>)
+					{
+                        ((ISelectedItemOwner<IEditable>)SelectedTab).SelectedItem = tabObject;
+					}
 				}
-                //wszyskie widoki implementujące ten interface (ILastTabNameOwner), będa miały przypisywane LastTabName automatycznie
-                //Interface jest dla widoku, z którego będziemy się cofać a nie ten który wysyła message
-
-            }); 
-                if (SelectedTab is ILastTabNameOwner) //is sprawdza czy obiekt z lewej strony jest danego typu
-                {
-
-                    ((ILastTabNameOwner)SelectedTab).LastTabName = lastTabName;
-                    ((ILastTabNameOwner)SelectedTab).LastTabObject = lastTabObject;
-
-                }//wszyskie widoki implementujące ten interface (ILastTabNameOwner), będa miały przypisywane LastTabName automatycznie
-            }); //Interface jest dla widoku, z którego będziemy się cofać a nie ten który wysyła message
+            });
         }
 
         public void ActivatedClientStatusBaseOnIncomingTask()

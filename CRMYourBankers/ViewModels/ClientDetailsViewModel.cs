@@ -117,7 +117,7 @@ namespace CRMYourBankers.ViewModels
         public string BIKNoteText { get; set; }
         public List<int> LoanApplicationsProposals { get; set; }
         public TabName LastTabName { get; set; }
-        public object LastTabObject { get; set; }
+        public IEditable LastTabObject { get; set; }
         public ZusUs? SelectedZus { get; set; }
         public ZusUs? SelectedUs { get; set; }
         public Spouse? SelectedSpouse { get; set; }
@@ -324,7 +324,8 @@ namespace CRMYourBankers.ViewModels
 				TabMessenger.Send(new TabChangeMessage 
                 { 
                     TabName = LastTabName,
-                    SelectedObject = LastTabObject
+                    SelectedObject = LastTabObject,
+                    GoFurther = false
                 });
 				ClearAllFields();
 			});
@@ -332,10 +333,11 @@ namespace CRMYourBankers.ViewModels
 			CancelButtonCommand = new RelayCommand(() =>
 			{
 				ClearAllFields();
-				TabMessenger.Send(new TabChangeMessage 
-                { 
+                TabMessenger.Send(new TabChangeMessage
+                {
                     TabName = LastTabName,
-                    SelectedObject = LastTabObject                                        
+                    SelectedObject = LastTabObject,
+                    GoFurther = false
                 });               
 
             });

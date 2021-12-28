@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CRMYourBankers.Models.Interfaces
 {
-    internal interface IEditable
+    public interface IEditable
     {
 
 
