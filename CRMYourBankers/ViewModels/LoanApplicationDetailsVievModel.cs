@@ -53,7 +53,7 @@ namespace CRMYourBankers.ViewModels
         public DateTime StartDate { get; set; }
         public DateTime? LoanStartDate { get; set; }        
         public TabName LastTabName { get; set; }
-        public object LastTabObject { get; set; }
+        public IEditable LastTabObject { get; set; }
         private LoanApplicationStatus? _selectedLoanApplicationStatus;
         public LoanApplicationStatus? SelectedLoanApplicationStatus 
         { 
@@ -68,9 +68,7 @@ namespace CRMYourBankers.ViewModels
                 }
             }
             
-         }
-        public IEditable LastTabObject { get; set; }
-        public LoanApplicationStatus? SelectedLoanApplicationStatus { get; set; }
+         }        
         public bool IsPaid { get; set; }
         public string FullName { get; set; }
         #endregion
