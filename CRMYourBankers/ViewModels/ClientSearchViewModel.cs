@@ -49,6 +49,8 @@ namespace CRMYourBankers.ViewModels
                     .Include(client => client.ClientTasks)
                     .Include(bank => bank.ExistingBankClientBIK)
                     .Include(proposal => proposal.LoanApplicationsProposals)
+                    .OrderBy(client => client.ClientStatus)
+                    .ThenByDescending(client => client.Id)
                     .AsQueryable();
 
             if (!string.IsNullOrEmpty(SearchText))

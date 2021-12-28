@@ -53,7 +53,21 @@ namespace CRMYourBankers.ViewModels
         public DateTime? LoanStartDate { get; set; }        
         public TabName LastTabName { get; set; }
         public object LastTabObject { get; set; }
-        public LoanApplicationStatus? SelectedLoanApplicationStatus { get; set; }
+        private LoanApplicationStatus? _selectedLoanApplicationStatus;
+        public LoanApplicationStatus? SelectedLoanApplicationStatus 
+        { 
+            get => _selectedLoanApplicationStatus;
+            set
+            {
+                _selectedLoanApplicationStatus = value;
+                if (SelectedLoanApplicationStatus != LoanApplicationStatus.Launched)
+                {
+                    LoanStartDate = null;
+                    NotifyPropertyChanged("LoanStartDate");
+                }
+            }
+            
+         }
         public bool IsPaid { get; set; }
         public string FullName { get; set; }
         #endregion

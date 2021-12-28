@@ -232,7 +232,9 @@ namespace CRMYourBankers.ViewModels
                 ExistingPersonalLoans = ProcessCollectionBeforeSave(ExistingPersonalLoans, BIKType.PersonalLoans);
                 ExistingPersonalLoansQuestions = ProcessCollectionBeforeSave(ExistingPersonalLoansQuestions, BIKType.PersonalQuestions);
                 ExistingCompanyLoans = ProcessCollectionBeforeSave(ExistingCompanyLoans, BIKType.CompanyLoans);
-                ExistingCompanyLoansQuestions = ProcessCollectionBeforeSave(ExistingCompanyLoansQuestions, BIKType.CompanyQuestions);               
+                ExistingCompanyLoansQuestions = ProcessCollectionBeforeSave(ExistingCompanyLoansQuestions, BIKType.CompanyQuestions);
+
+                var originalClientStatus = SelectedItem.ClientStatus;
 
                 if (SelectedItem == null)
                 {
@@ -315,6 +317,14 @@ namespace CRMYourBankers.ViewModels
 					}
 				}
 
+                if (originalClientStatus == ClientStatus.Active && SelectedItem.ClientStatus != ClientStatus.Active
+                    && SelectedItem.ClientTasks.Any(task => task.TaskDate <= System.DateTime.Now && !task.Done))
+                {
+                    MessageBox.Show("Zmiana statusu Klienta niemożliwa, ponieważ istnieją zaległe zadania.",
+                            "Błędy w formularzu",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Warning);
+                }                 
 				Context.SaveChanges();
 				MessageBox.Show($"Zapisano: {FirstNameText} {LastNameText}",
 					"Dodano Klienta",

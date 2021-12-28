@@ -36,6 +36,7 @@
         <DataGrid
             Height="Auto"
             AutoGenerateColumns="False"
+            CanUserAddRows="False"
             ItemsSource="{Binding Clients}"
             SelectedItem="{Binding SelectedClient}"
             VerticalScrollBarVisibility="Auto">
