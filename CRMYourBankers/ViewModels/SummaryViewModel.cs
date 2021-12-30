@@ -168,10 +168,11 @@ namespace CRMYourBankers.ViewModels
 
             ClientDetailsScreenOpenHandler = new RelayCommand(() =>
             {
+                var selectedClientId = (int)SelectedClient.Id;
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = TabName.ClientDetails,
-                    SelectedObject = SelectedClient,
+                    SelectedObject = Context.Clients.Single(client => client.Id == selectedClientId),
                     LastTabName = TabName.Summary                    
                 });
             });

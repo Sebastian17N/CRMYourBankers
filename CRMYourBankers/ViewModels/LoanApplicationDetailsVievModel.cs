@@ -187,7 +187,6 @@ namespace CRMYourBankers.ViewModels
             //    ClearAllFields();
             //    TabMessenger.Send(new TabChangeMessage { TabName = LastTabName.ToString()});
             //});
-
             // Przykład napisania zwykłej funkcji, którą możesz zastąpić funkcją anonimową - patrz komentarz wyżej.
             CancelButtonCommand = new RelayCommand(CancelButtonCommandHandler);
 

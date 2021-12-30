@@ -199,13 +199,16 @@ namespace CRMYourBankers.ViewModels
                     case TabName.LoanApplicationSearch:
                         SelectedTab = _loanApplicationSearchViewModel;
                         break;
+
                     case TabName.LoanApplicationDetails:
                         _loanApplicationDetailsViewModel.SelectedItem = (LoanApplication)message.SelectedObject;
                         SelectedTab = _loanApplicationDetailsViewModel;
                             break;
+
                     case TabName.Summary:
                         SelectedTab = _summaryViewModel;
                         break;
+
                     case TabName.Result:
                         SelectedTab = _resultViewModel;
                         break;

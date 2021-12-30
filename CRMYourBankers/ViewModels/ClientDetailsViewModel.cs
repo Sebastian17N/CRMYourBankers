@@ -30,17 +30,26 @@ namespace CRMYourBankers.ViewModels
 
                 if (_selectedItem != null)
                 {
-                    FirstNameText = _selectedItem.FirstName;
-                    LastNameText = _selectedItem.LastName;
-                    EmailText = _selectedItem.Email;
-                    PhoneNumberText = _selectedItem.PhoneNumber;
-                    PersonalIdText = _selectedItem.PersonalId;
-                    AmountRequestedText = _selectedItem.AmountRequested;
-                    ClientCommissionText = _selectedItem.ClientCommission;
-                    ContactPersonText = _selectedItem.ContactPerson;
-                    WhatHesJobText = _selectedItem.WhatHesJob;
-                    SelectedZus = _selectedItem.ZusUs;
-                    GeneralNoteText = _selectedItem.GeneralNote;
+                    //FirstNameText = _selectedItem.FirstName;
+                    //LastNameText = _selectedItem.LastName;
+                    //EmailText = _selectedItem.Email;
+                    //PhoneNumberText = _selectedItem.PhoneNumber;
+                    //PersonalIdText = _selectedItem.PersonalId;
+                    //AmountRequestedText = _selectedItem.AmountRequested;
+                    //ClientCommissionText = _selectedItem.ClientCommission;
+                    //ContactPersonText = _selectedItem.ContactPerson;
+                    //WhatHesJobText = _selectedItem.WhatHesJob;
+                    //SelectedZus = _selectedItem.ZusUs;
+                    //GeneralNoteText = _selectedItem.GeneralNote;
+                    //SelectedUs = _selectedItem.Us;
+                    //SelectedSpouse = _selectedItem.Spouse;
+                    //SelectedSourceOfIncome = _selectedItem.SourceOfIncome;
+                    //SelectedClientStatus = _selectedItem.ClientStatus;
+                    //BrokerId = _selectedItem.BrokerId ?? 0;
+                    //ClientTasks = _selectedItem.ClientTasks;
+                    //LoanApplicationsProposals = _selectedItem.LoanApplicationsProposalsInts;
+                    //BIKNoteText = _selectedItem.BIKNote;
+                    
                     ExistingPersonalLoans =
                      new ObservableCollection<BankClientBIK>(
                         _selectedItem
@@ -64,24 +73,15 @@ namespace CRMYourBankers.ViewModels
                         _selectedItem
                         .ExistingBankClientBIK
                         .Where(loan => loan.BIKType == BIKType.CompanyQuestions)
-                        .ToList());
-                    SelectedUs = _selectedItem.Us;
-                    SelectedSpouse = _selectedItem.Spouse;
-                    SelectedSourceOfIncome = _selectedItem.SourceOfIncome;
-                    SelectedClientStatus = _selectedItem.ClientStatus;
-                    BrokerId = _selectedItem.BrokerId ??0;
-                    ClientTasks = _selectedItem.ClientTasks;
-                    
-                    LoanApplicationsProposals = _selectedItem.LoanApplicationsProposalsInts;
-                    BIKNoteText = _selectedItem.BIKNote;
+                        .ToList());                    
                 }
                 else
                 {
                     ClearAllFields();
                     ExistingPersonalLoans =
-                     new ObservableCollection<BankClientBIK>();
+                    new ObservableCollection<BankClientBIK>();
                     ExistingPersonalLoansQuestions =
-                     new ObservableCollection<BankClientBIK>();
+                    new ObservableCollection<BankClientBIK>();
                     ExistingCompanyLoans =
                     new ObservableCollection<BankClientBIK>();
                     ExistingCompanyLoansQuestions =
@@ -238,84 +238,109 @@ namespace CRMYourBankers.ViewModels
 
                 if (SelectedItem == null)
                 {
-
-                    var newClient = new Client
+                    SelectedItem = new Client
                     {
                         Id = Context.Clients.Max(client => client.Id) + 1,
-                        SortIndex = Context.Clients.Max(client => client.SortIndex) + 1,
-                        FirstName = FirstNameText,
-                        LastName = LastNameText,
-                        PhoneNumber = PhoneNumberText,
-                        Email = EmailText,
-                        PersonalId = PersonalIdText,
-                        AmountRequested = AmountRequestedText,
-                        ClientCommission = ClientCommissionText,
-                        ContactPerson = ContactPersonText,
-                        WhatHesJob = WhatHesJobText,
-                        ZusUs = SelectedZus,
-                        Us = SelectedUs,
-                        GeneralNote = GeneralNoteText,
-                        ExistingBankClientBIK = ExistingBankClientBIK,                       
-                        Spouse = SelectedSpouse,
-                        SourceOfIncome = SelectedSourceOfIncome,
-                        ClientStatus = SelectedClientStatus,
-                        BrokerId = BrokerId == 0 ? null : BrokerId,
-                        LoanApplicationsProposalsInts = LoanApplicationsProposals,
-                        BIKNote = BIKNoteText
+                        SortIndex = Context.Clients.Max(client => client.SortIndex) + 1
                     };
+                    Context.Clients.Add(SelectedItem);
 
-					if (!newClient.Validate())
-					{
-						MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
-							"Błędy w formularzu",
-							MessageBoxButton.OK,
-							MessageBoxImage.Warning);
-						return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
-					}
-
-					if (Context.Clients.Any(item => item.PersonalId == PersonalIdText))
-					{
-						MessageBox.Show("Klient o podanym nr Pesel już istnieje",
-							"Błędy w formularzu",
-							MessageBoxButton.OK,
-							MessageBoxImage.Warning);
-						return;
-					}
-
-                    Context.Clients.Add(newClient);                    
+                    //var newClient = new Client
+                    //{
+                    //    Id = Context.Clients.Max(client => client.Id) + 1,
+                    //    SortIndex = Context.Clients.Max(client => client.SortIndex) + 1,
+                    //    FirstName = FirstNameText,
+                    //    LastName = LastNameText,
+                    //    PhoneNumber = PhoneNumberText,
+                    //    Email = EmailText,
+                    //    PersonalId = PersonalIdText,
+                    //    AmountRequested = AmountRequestedText,
+                    //    ClientCommission = ClientCommissionText,
+                    //    ContactPerson = ContactPersonText,
+                    //    WhatHesJob = WhatHesJobText,
+                    //    ZusUs = SelectedZus,
+                    //    Us = SelectedUs,
+                    //    GeneralNote = GeneralNoteText,
+                    //    ExistingBankClientBIK = ExistingBankClientBIK,                       
+                    //    Spouse = SelectedSpouse,
+                    //    SourceOfIncome = SelectedSourceOfIncome,
+                    //    ClientStatus = SelectedClientStatus,
+                    //    BrokerId = BrokerId == 0 ? null : BrokerId,
+                    //    LoanApplicationsProposalsInts = LoanApplicationsProposals,
+                    //    BIKNote = BIKNoteText
+                    //};
+                    //Context.Clients.Add(newClient);                    
                 }
-                else
-                {
-                    SelectedItem.FirstName = FirstNameText;
-                    SelectedItem.LastName = LastNameText;
-                    SelectedItem.PhoneNumber = PhoneNumberText;
-                    SelectedItem.Email = EmailText;
-                    SelectedItem.PersonalId = PersonalIdText;
-                    SelectedItem.AmountRequested = AmountRequestedText;
-                    SelectedItem.ClientCommission = ClientCommissionText;
-                    SelectedItem.ContactPerson = ContactPersonText;
-                    SelectedItem.WhatHesJob = WhatHesJobText;
-                    SelectedItem.ZusUs = SelectedZus;
-                    SelectedItem.GeneralNote = GeneralNoteText;
-                    SelectedItem.ExistingBankClientBIK = ExistingBankClientBIK;                            
-                    SelectedItem.Us = SelectedUs;
-                    SelectedItem.Spouse = SelectedSpouse;
-                    SelectedItem.SourceOfIncome = SelectedSourceOfIncome;
-                    SelectedItem.ClientStatus = SelectedClientStatus;
-                    SelectedItem.BrokerId = BrokerId == 0 ? null : BrokerId;
-                    SelectedItem.ClientTasks = ClientTasks;
-                    SelectedItem.BIKNote = BIKNoteText;
-                    SelectedItem.LoanApplicationsProposalsInts = LoanApplicationsProposals;
 
-					if (!SelectedItem.Validate())
-					{
-						MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
-							"Błędy w formularzu",
-							MessageBoxButton.OK,
-							MessageBoxImage.Warning);
-						return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
-					}
-				}
+                SelectedItem.FirstName = FirstNameText;
+                SelectedItem.LastName = LastNameText;
+                SelectedItem.PhoneNumber = PhoneNumberText;
+                SelectedItem.Email = EmailText;
+                SelectedItem.PersonalId = PersonalIdText;
+                SelectedItem.AmountRequested = AmountRequestedText;
+                SelectedItem.ClientCommission = ClientCommissionText;
+                SelectedItem.ContactPerson = ContactPersonText;
+                SelectedItem.WhatHesJob = WhatHesJobText;
+                SelectedItem.ZusUs = SelectedZus;
+                SelectedItem.Us = SelectedUs;
+                SelectedItem.GeneralNote = GeneralNoteText;
+                SelectedItem.ExistingBankClientBIK = ExistingBankClientBIK;
+                SelectedItem.Spouse = SelectedSpouse;
+                SelectedItem.SourceOfIncome = SelectedSourceOfIncome;
+                SelectedItem.ClientStatus = SelectedClientStatus;
+                SelectedItem.BrokerId = BrokerId == 0 ? null : BrokerId;
+                SelectedItem.LoanApplicationsProposalsInts = LoanApplicationsProposals;
+                SelectedItem.BIKNote = BIKNoteText;
+
+                if (!SelectedItem.Validate())
+                {
+                    MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
+                        "Błędy w formularzu",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
+                }
+
+                if (Context.Clients.Any(item => item.PersonalId == PersonalIdText))
+                {
+                    MessageBox.Show("Klient o podanym nr Pesel już istnieje",
+                        "Błędy w formularzu",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;
+                }
+                //            else
+                //            {
+                //                SelectedItem.FirstName = FirstNameText;
+                //                SelectedItem.LastName = LastNameText;
+                //                SelectedItem.PhoneNumber = PhoneNumberText;
+                //                SelectedItem.Email = EmailText;
+                //                SelectedItem.PersonalId = PersonalIdText;
+                //                SelectedItem.AmountRequested = AmountRequestedText;
+                //                SelectedItem.ClientCommission = ClientCommissionText;
+                //                SelectedItem.ContactPerson = ContactPersonText;
+                //                SelectedItem.WhatHesJob = WhatHesJobText;
+                //                SelectedItem.ZusUs = SelectedZus;
+                //                SelectedItem.GeneralNote = GeneralNoteText;
+                //                SelectedItem.ExistingBankClientBIK = ExistingBankClientBIK;                            
+                //                SelectedItem.Us = SelectedUs;
+                //                SelectedItem.Spouse = SelectedSpouse;
+                //                SelectedItem.SourceOfIncome = SelectedSourceOfIncome;
+                //                SelectedItem.ClientStatus = SelectedClientStatus;
+                //                SelectedItem.BrokerId = BrokerId == 0 ? null : BrokerId;
+                //                SelectedItem.ClientTasks = ClientTasks;
+                //                SelectedItem.BIKNote = BIKNoteText;
+                //                SelectedItem.LoanApplicationsProposalsInts = LoanApplicationsProposals;
+
+                //	if (!SelectedItem.Validate())
+                //	{
+                //		MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
+                //			"Błędy w formularzu",
+                //			MessageBoxButton.OK,
+                //			MessageBoxImage.Warning);
+                //		return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
+                //	}
+                //}
 
                 if (originalClientStatus == ClientStatus.Active && SelectedItem.ClientStatus != ClientStatus.Active
                     && SelectedItem.ClientTasks.Any(task => task.TaskDate <= System.DateTime.Now && !task.Done))
