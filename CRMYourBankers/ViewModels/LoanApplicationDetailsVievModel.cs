@@ -60,16 +60,25 @@ namespace CRMYourBankers.ViewModels
             get => _selectedLoanApplicationStatus;
             set
             {
+                var originalLoanApplicationStatus = _selectedLoanApplicationStatus;
                 _selectedLoanApplicationStatus = value;
-                if (SelectedLoanApplicationStatus != LoanApplicationStatus.Launched)
+
+                if (!_isClearingData &&
+                    SelectedLoanApplicationStatus != LoanApplicationStatus.Launched &&
+                    originalLoanApplicationStatus == LoanApplicationStatus.Launched)
                 {
                     LoanStartDate = null;
                     NotifyPropertyChanged("LoanStartDate");
+
+                    MessageBox.Show("UWAGA! zmiana statusu uruchomionego kredytu powoduje usunięcie daty uruchomienia",
+                            "Zmiany w formularzu",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Warning);
                 }
-            }
-            
+            }            
          }        
         public bool IsPaid { get; set; }
+        private bool _isClearingData = false;
         public string FullName { get; set; }
         #endregion
         
@@ -172,6 +181,8 @@ namespace CRMYourBankers.ViewModels
                 //            MessageBoxImage.Warning);
                 //}
 
+
+
                 Context.SaveChanges();
                 MessageBox.Show($"Zapisano: {SelectedItem.Client.FirstName} " +
                                   $"{SelectedItem.Client.LastName} " +
@@ -271,6 +282,7 @@ namespace CRMYourBankers.ViewModels
 
         public void ClearAllFields()
         {
+            _isClearingData = true;
             ClientId = null;
             BankId = null;
             AmountRequestedText = null;
@@ -284,6 +296,7 @@ namespace CRMYourBankers.ViewModels
             MultiBrokerId = null;
             LoanTasks = null;
             SelectedLoanApplicationStatus = LoanApplicationStatus.Submited;
+            _isClearingData = false;
         }
 
         public void RefreshData()
