@@ -253,9 +253,7 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = TabName.ClientDetails,
-                    SelectedObject = SelectedItem.Client,
-                    LastTabName = TabName.LoanApplicationDetails,
-                    LastTabObject = SelectedItem
+                    SelectedObject = SelectedItem.Client
                 });
             });
         }

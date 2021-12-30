@@ -161,8 +161,7 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = TabName.LoanApplicationDetails,
-                    SelectedObject = Context.LoanApplications.Single(loan => loan.Id == selectedLoanApplicationId),
-                    LastTabName = TabName.Summary
+                    SelectedObject = Context.LoanApplications.Single(loan => loan.Id == selectedLoanApplicationId)
                 });
             });
 
@@ -172,8 +171,7 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = TabName.ClientDetails,
-                    SelectedObject = Context.Clients.Single(client => client.Id == selectedClientId),
-                    LastTabName = TabName.Summary                    
+                    SelectedObject = Context.Clients.Single(client => client.Id == selectedClientId)
                 });
             });
 
