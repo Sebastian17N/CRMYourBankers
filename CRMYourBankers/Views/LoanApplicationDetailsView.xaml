@@ -25,7 +25,6 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel
@@ -221,8 +220,7 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-
-        <StackPanel
+        <Grid
             Grid.Row="1"
             Grid.RowSpan="2"
             Grid.ColumnSpan="2"
@@ -240,6 +238,6 @@
                     <DataGridCheckBoxColumn Binding="{Binding Done}" Header="Zrobione" />
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

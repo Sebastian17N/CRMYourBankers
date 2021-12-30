@@ -16,13 +16,19 @@
         <viewmodels:MainWindowViewModel />
     </Window.DataContext>
 
-    <StackPanel Orientation="Vertical">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Image
+            Grid.Row="0"
             Width="295"
             Height="67"
             HorizontalAlignment="Left"
             Source="{Binding LogoPath}" />
-        <DockPanel>
+        <DockPanel Grid.Row="1">
             <StackPanel
                 HorizontalAlignment="Left"
                 DockPanel.Dock="Left"
@@ -66,6 +72,7 @@
         </DockPanel>
         <TabControl
             x:Name="MainTabControl"
+            Grid.Row="2"
             ItemsSource="{Binding ItemTabs}"
             SelectedItem="{Binding SelectedTab}">
             <TabControl.ItemContainerStyle>
@@ -94,5 +101,5 @@
                 </DataTemplate>
             </TabControl.Resources>
         </TabControl>
-    </StackPanel>
+    </Grid>
 </Window>

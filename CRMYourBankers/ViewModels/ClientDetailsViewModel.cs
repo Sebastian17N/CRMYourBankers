@@ -234,7 +234,7 @@ namespace CRMYourBankers.ViewModels
                 ExistingCompanyLoans = ProcessCollectionBeforeSave(ExistingCompanyLoans, BIKType.CompanyLoans);
                 ExistingCompanyLoansQuestions = ProcessCollectionBeforeSave(ExistingCompanyLoansQuestions, BIKType.CompanyQuestions);
 
-                var originalClientStatus = SelectedItem.ClientStatus;
+                var originalClientStatus = SelectedItem?.ClientStatus;
 
                 if (SelectedItem == null)
                 {
