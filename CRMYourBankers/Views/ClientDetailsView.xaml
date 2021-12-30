@@ -47,8 +47,17 @@
         <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
     </UserControl.Resources>
 
-    <StackPanel Orientation="Vertical">
-        <DockPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Row="0">
             <StackPanel
                 Margin="8"
                 HorizontalAlignment="Left"
@@ -84,7 +93,7 @@
                     Content="Resetuj analize BIK" />
             </StackPanel>
         </DockPanel>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
             <StackPanel
                 MaxWidth="1000"
                 HorizontalAlignment="Left"
@@ -273,10 +282,10 @@
                         Text="{Binding NewTaskText}" />
                     <DatePicker
                         Height="20"
-                        FontSize="8"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
                         FirstDayOfWeek="Monday"
+                        FontSize="8"
                         IsTodayHighlighted="True"
                         SelectedDate="{Binding TaskDate}"
                         SelectedDateFormat="Short"
@@ -350,7 +359,7 @@
                     Height="250"
                     AutoGenerateColumns="False"
                     CanUserAddRows="True"
-                    EnableRowVirtualization="False"                    
+                    EnableRowVirtualization="False"
                     ItemsSource="{Binding ExistingPersonalLoansQuestions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedElementBIKAnalysis}">
                     <DataGrid.ContextMenu>
@@ -608,9 +617,9 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-        <StackPanel>
+        <Grid Grid.Row="2">
             <DataGrid
-                Height="150"
+                MaxHeight="250"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding LoanApplicationsForClient}"
                 SelectedItem="{Binding SelectedLoanApplication}">
@@ -642,10 +651,10 @@
                         IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
-        <StackPanel>
+        </Grid>
+        <Grid Grid.Row="3">
             <DataGrid
-                Height="200"
+                MaxHeight="300"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 ItemsSource="{Binding ClientTasks}">
@@ -655,12 +664,12 @@
                         Binding="{Binding Text}"
                         Header="Zadania" />
                     <DataGridTextColumn
-                        Width="80"                         
+                        Width="80"
                         Binding="{Binding TaskDate, StringFormat=\{0:yyyy.MM.dd\}}"
                         Header="Data" />
-                    <DataGridCheckBoxColumn Binding="{Binding Done}" Header="Zrobione" />                    
+                    <DataGridCheckBoxColumn Binding="{Binding Done}" Header="Zrobione" />
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
-    </StackPanel>
+        </Grid>
+    </Grid>
 </UserControl>

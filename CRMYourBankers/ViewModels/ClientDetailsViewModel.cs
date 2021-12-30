@@ -238,7 +238,7 @@ namespace CRMYourBankers.ViewModels
 
                 if (SelectedItem == null)
                 {
-                    SelectedItem = new Client
+                    _selectedItem = new Client
                     {
                         Id = Context.Clients.Max(client => client.Id) + 1,
                         SortIndex = Context.Clients.Max(client => client.SortIndex) + 1

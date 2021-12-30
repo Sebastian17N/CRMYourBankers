@@ -15,87 +15,85 @@
         <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
         <converters:FromCollectionToListCollectionViewWithDescriptionConverter x:Key="FromCollectionToListCollectionViewWithDescriptionConverter" />
     </UserControl.Resources>
-    <StackPanel>
-        <StackPanel>
-            <DataGrid
-                Height="Auto"
-                AutoGenerateColumns="False"
-                ItemsSource="{Binding DataGridData, Converter={StaticResource FromCollectionToListCollectionViewWithDescriptionConverter}, ConverterParameter='StartDate, StartDateString'}"
-                SelectedItem="{Binding SelectedLoanApplication}">
-                <DataGrid.GroupStyle>
-                    <GroupStyle>
-                        <GroupStyle.ContainerStyle>
-                            <Style TargetType="{x:Type GroupItem}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type GroupItem}">
-                                            <Border
-                                                Margin="10"
-                                                Background="LightGray"
-                                                BorderBrush="Blue"
-                                                BorderThickness="2"
-                                                CornerRadius="6">
+    <Grid>
+        <DataGrid
+            Height="Auto"
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding DataGridData, Converter={StaticResource FromCollectionToListCollectionViewWithDescriptionConverter}, ConverterParameter='StartDate, StartDateString'}"
+            SelectedItem="{Binding SelectedLoanApplication}">
+            <DataGrid.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                        <Border
+                                            Margin="10"
+                                            Background="LightGray"
+                                            BorderBrush="Blue"
+                                            BorderThickness="2"
+                                            CornerRadius="6">
+                                            <StackPanel>
                                                 <StackPanel>
-                                                    <StackPanel>
-                                                        <Border BorderBrush="Gray" BorderThickness="1">
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <TextBlock
-                                                                    Margin="10"
-                                                                    FontSize="15"
-                                                                    FontWeight="Bold"
-                                                                    Text="{Binding Name}" />
-                                                            </StackPanel>
-                                                        </Border>
-                                                    </StackPanel>
-                                                    <ItemsPresenter />
+                                                    <Border BorderBrush="Gray" BorderThickness="1">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Margin="10"
+                                                                FontSize="15"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding Name}" />
+                                                        </StackPanel>
+                                                    </Border>
                                                 </StackPanel>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </GroupStyle.ContainerStyle>
-                    </GroupStyle>
-                </DataGrid.GroupStyle>
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button
-                                    Width="Auto"
-                                    Margin="1"
-                                    Command="{Binding Path=DataContext.DetailsScreenOpenHandler, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                    Content="Szczegóły" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn
-                        Width="120"
-                        Binding="{Binding FullName}"
-                        Header="Klient"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="120"
-                        Binding="{Binding BankName}"
-                        Header="Bank"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="120"
-                        Binding="{Binding AmountRequested}"
-                        Header="Wnioskowana Kwota"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="120"
-                        Binding="{Binding LoanApplicationStatus, Converter={StaticResource EnumDisplayNameConverter}}"
-                        Header="Status Wniosku"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="200"
-                        Binding="{Binding TasksToDo}"
-                        Header="Zadania"
-                        IsReadOnly="True" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
-    </StackPanel>
+                                                <ItemsPresenter />
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </DataGrid.GroupStyle>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                Width="Auto"
+                                Margin="1"
+                                Command="{Binding Path=DataContext.DetailsScreenOpenHandler, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                Content="Szczegóły" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn
+                    Width="120"
+                    Binding="{Binding FullName}"
+                    Header="Klient"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Width="120"
+                    Binding="{Binding BankName}"
+                    Header="Bank"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Width="120"
+                    Binding="{Binding AmountRequested}"
+                    Header="Wnioskowana Kwota"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Width="120"
+                    Binding="{Binding LoanApplicationStatus, Converter={StaticResource EnumDisplayNameConverter}}"
+                    Header="Status Wniosku"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Width="200"
+                    Binding="{Binding TasksToDo}"
+                    Header="Zadania"
+                    IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

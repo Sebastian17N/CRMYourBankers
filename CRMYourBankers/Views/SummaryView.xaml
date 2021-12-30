@@ -55,7 +55,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label
                 Grid.Row="0"
@@ -66,8 +66,7 @@
                 MaxHeight="300"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding DataGridData}"
-                SelectedItem="{Binding SelectedLoanApplication}"
-                VerticalScrollBarVisibility="Visible">
+                SelectedItem="{Binding SelectedLoanApplication}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
