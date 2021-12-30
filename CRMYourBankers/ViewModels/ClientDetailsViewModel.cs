@@ -30,26 +30,26 @@ namespace CRMYourBankers.ViewModels
 
                 if (_selectedItem != null)
                 {
-                    //FirstNameText = _selectedItem.FirstName;
-                    //LastNameText = _selectedItem.LastName;
-                    //EmailText = _selectedItem.Email;
-                    //PhoneNumberText = _selectedItem.PhoneNumber;
-                    //PersonalIdText = _selectedItem.PersonalId;
-                    //AmountRequestedText = _selectedItem.AmountRequested;
-                    //ClientCommissionText = _selectedItem.ClientCommission;
-                    //ContactPersonText = _selectedItem.ContactPerson;
-                    //WhatHesJobText = _selectedItem.WhatHesJob;
-                    //SelectedZus = _selectedItem.ZusUs;
-                    //GeneralNoteText = _selectedItem.GeneralNote;
-                    //SelectedUs = _selectedItem.Us;
-                    //SelectedSpouse = _selectedItem.Spouse;
-                    //SelectedSourceOfIncome = _selectedItem.SourceOfIncome;
-                    //SelectedClientStatus = _selectedItem.ClientStatus;
-                    //BrokerId = _selectedItem.BrokerId ?? 0;
-                    //ClientTasks = _selectedItem.ClientTasks;
-                    //LoanApplicationsProposals = _selectedItem.LoanApplicationsProposalsInts;
-                    //BIKNoteText = _selectedItem.BIKNote;
-                    
+                    FirstNameText = _selectedItem.FirstName;
+                    LastNameText = _selectedItem.LastName;
+                    EmailText = _selectedItem.Email;
+                    PhoneNumberText = _selectedItem.PhoneNumber;
+                    PersonalIdText = _selectedItem.PersonalId;
+                    AmountRequestedText = _selectedItem.AmountRequested;
+                    ClientCommissionText = _selectedItem.ClientCommission;
+                    ContactPersonText = _selectedItem.ContactPerson;
+                    WhatHesJobText = _selectedItem.WhatHesJob;
+                    SelectedZus = _selectedItem.ZusUs;
+                    GeneralNoteText = _selectedItem.GeneralNote;
+                    SelectedUs = _selectedItem.Us;
+                    SelectedSpouse = _selectedItem.Spouse;
+                    SelectedSourceOfIncome = _selectedItem.SourceOfIncome;
+                    SelectedClientStatus = _selectedItem.ClientStatus;
+                    BrokerId = _selectedItem.BrokerId ?? 0;
+                    ClientTasks = _selectedItem.ClientTasks;
+                    LoanApplicationsProposals = _selectedItem.LoanApplicationsProposalsInts;
+                    BIKNoteText = _selectedItem.BIKNote;
+
                     ExistingPersonalLoans =
                      new ObservableCollection<BankClientBIK>(
                         _selectedItem
@@ -332,16 +332,6 @@ namespace CRMYourBankers.ViewModels
                 //                SelectedItem.BIKNote = BIKNoteText;
                 //                SelectedItem.LoanApplicationsProposalsInts = LoanApplicationsProposals;
 
-                //	if (!SelectedItem.Validate())
-                //	{
-                //		MessageBox.Show("Niepoprawnie wypełnione dane lub puste pola",
-                //			"Błędy w formularzu",
-                //			MessageBoxButton.OK,
-                //			MessageBoxImage.Warning);
-                //		return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
-                //	}
-                //}
-
                 if (originalClientStatus == ClientStatus.Active && SelectedItem.ClientStatus != ClientStatus.Active
                     && SelectedItem.ClientTasks.Any(task => task.TaskDate <= System.DateTime.Now && !task.Done))
                 {
@@ -525,6 +515,7 @@ namespace CRMYourBankers.ViewModels
 
             return collection;
         }
+
 
         public void ClearAllFields()
         {

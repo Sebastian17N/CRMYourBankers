@@ -163,6 +163,15 @@ namespace CRMYourBankers.ViewModels
                     return;
                 }
 
+                //if (originalLoanApplicationStatus == ClientStatus.Active && SelectedItem.ClientStatus != ClientStatus.Active
+                //    && SelectedItem.ClientTasks.Any(task => task.TaskDate <= System.DateTime.Now && !task.Done))
+                //{
+                //    MessageBox.Show("Zmiana statusu Klienta niemożliwa, ponieważ istnieją zaległe zadania.",
+                //            "Błędy w formularzu",
+                //            MessageBoxButton.OK,
+                //            MessageBoxImage.Warning);
+                //}
+
                 Context.SaveChanges();
                 MessageBox.Show($"Zapisano: {SelectedItem.Client.FirstName} " +
                                   $"{SelectedItem.Client.LastName} " +
