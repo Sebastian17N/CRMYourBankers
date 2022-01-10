@@ -617,14 +617,15 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Margin="0,10,0,10">
             <DataGrid
+                MinHeight="100"
                 MaxHeight="250"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding LoanApplicationsForClient}"
                 SelectedItem="{Binding SelectedLoanApplication}">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Wnioski">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button
@@ -649,6 +650,15 @@
                         Binding="{Binding TasksToDo}"
                         Header="Zadania"
                         IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="150"
+                        Binding="{Binding LoanApplicationStatus, Converter={StaticResource EnumDisplayNameConverter}}"
+                        Header="Status"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="100"
+                        Binding="{Binding StartDate, StringFormat=\{0:yyyy.MM.dd\}}"
+                        Header="Data złożenia" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

@@ -198,8 +198,10 @@ namespace CRMYourBankers.ViewModels
 
             LoanApplicationsForClient =
                 Context.LoanApplications
-                    .Include(loan=>loan.LoanTasks)
+                    .Include(loan => loan.LoanTasks)
                     .Where(loan => loan.ClientId == SelectedItem.Id) 
+                    .OrderBy(status => status.LoanApplicationStatus)
+                    .ThenByDescending(startdate => startdate.StartDate)
                     .Join(
                     Context.Banks,
                     loan => loan.BankId,
@@ -210,7 +212,9 @@ namespace CRMYourBankers.ViewModels
                         loan.ClientId,
                         loan.AmountRequested,
                         loan.TasksToDo,
-                        BankName = bank.Name
+                        loan.StartDate,
+                        loan.LoanApplicationStatus,
+                        BankName = bank.Name,
                     })
                 .Join(
                     Context.Clients,
@@ -221,7 +225,9 @@ namespace CRMYourBankers.ViewModels
                         loan.Id,
                         loan.BankName,
                         loan.AmountRequested,
-                        loan.TasksToDo
+                        loan.TasksToDo,
+                        loan.StartDate,
+                        loan.LoanApplicationStatus
                     }).ToList();
         }
         
@@ -409,7 +415,7 @@ namespace CRMYourBankers.ViewModels
 					Client = SelectedItem,
 					BankId = LoanApplicationsProposals[loanProposalIndexValue],
 					Bank = Context.Banks.Single(bank => bank.Id == LoanApplicationsProposals[loanProposalIndexValue]),
-					LoanStartDate = DateTime.Now,
+					LoanStartDate = null,
 					LoanApplicationStatus = LoanApplicationStatus.Submited
 				};
 

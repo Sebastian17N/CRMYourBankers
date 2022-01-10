@@ -69,7 +69,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn
-                    Width="120"
+                    Width="200"
                     Binding="{Binding FullName}"
                     Header="Klient"
                     IsReadOnly="True" />
@@ -77,12 +77,12 @@
                     Width="120"
                     Binding="{Binding BankName}"
                     Header="Bank"
-                    IsReadOnly="True" />
+                    IsReadOnly="False" />
                 <DataGridTextColumn
                     Width="120"
                     Binding="{Binding AmountRequested}"
                     Header="Wnioskowana Kwota"
-                    IsReadOnly="True" />
+                    IsReadOnly="False" />
                 <DataGridTextColumn
                     Width="120"
                     Binding="{Binding LoanApplicationStatus, Converter={StaticResource EnumDisplayNameConverter}}"

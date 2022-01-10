@@ -106,7 +106,8 @@
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding DataGridData}"
                 SelectedItem="{Binding SelectedLoanApplication}"
-                SelectionChanged="DataGrid_SelectionChanged">
+                SelectionChanged="DataGrid_SelectionChanged"
+                VerticalScrollBarVisibility="Auto">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>

@@ -66,7 +66,8 @@
                 MaxHeight="300"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding DataGridData}"
-                SelectedItem="{Binding SelectedLoanApplication}">
+                SelectedItem="{Binding SelectedLoanApplication}"
+                VerticalScrollBarVisibility="Auto">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
@@ -114,7 +115,8 @@
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 ItemsSource="{Binding Clients}"
-                SelectedItem="{Binding SelectedClient}">
+                SelectedItem="{Binding SelectedClient}"
+                VerticalScrollBarVisibility="Auto">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
