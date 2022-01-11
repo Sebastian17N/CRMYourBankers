@@ -23,7 +23,7 @@ namespace CRMYourBankers.Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //var connectionString = "DataSource=" + (File.Exists("CRMYourBankers.csproj") ? "YourBankersConnection.db" : "./../../../YourBankersConnection.db");
-            var connectionString = "DataSource=Database/YourBankersConnection.db";
+            var connectionString = "DataSource=YourBankersConnection.db";
 
             optionsBuilder.UseSqlite(connectionString);
             base.OnConfiguring(optionsBuilder);
@@ -46,16 +46,20 @@ namespace CRMYourBankers.Database
 
         public void DataSeeds()
         {
-            AddClients();
-            AddClientTasks();
             AddBanks();
-            AddLoanApplications();
-            AddLoanTasks();
-            AddMonthSummaries();
             AddBrokers();
-            AddMultiBrokers();
-            AddLoanApplicationsProposals();
+            AddMultiBrokers();            
         }
+
+        public void TestSeeds()
+		{
+			AddClients();
+			AddClientTasks();
+			AddLoanApplications();
+			AddLoanTasks();
+			AddMonthSummaries();
+			AddLoanApplicationsProposals();
+		}
 
         private void AddClients()
         {
