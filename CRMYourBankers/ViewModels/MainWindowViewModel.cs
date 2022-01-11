@@ -74,6 +74,7 @@ namespace CRMYourBankers.ViewModels
 
             Context = new YourBankersContext();
             Context.DataSeeds();
+            //Context.TestSeeds();
 
             RegisterCommands();
             RegisterMessages();
