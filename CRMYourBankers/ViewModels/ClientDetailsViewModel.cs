@@ -243,7 +243,7 @@ namespace CRMYourBankers.ViewModels
                         Id = Context.Clients.Max(client => client.Id) + 1,
                         SortIndex = Context.Clients.Max(client => client.SortIndex) + 1
                     };
-                    Context.Clients.Add(SelectedItem);             
+                    Context.Clients.Add(SelectedItem);          
                 }
 
                 SelectedItem.FirstName = FirstNameText;
@@ -275,14 +275,15 @@ namespace CRMYourBankers.ViewModels
                     return;//nic nie zwraca tylko kończy funkcje/metode SaveButtonCommand (void)
                 }
 
-                if (Context.Clients.Any(item => item.PersonalId == PersonalIdText))
+                if (Context.Clients.Any(item => item.PersonalId == PersonalIdText &&
+                                                item.Id != SelectedItem.Id))
                 {
                     MessageBox.Show("Klient o podanym nr Pesel już istnieje",
                         "Błędy w formularzu",
                         MessageBoxButton.OK,
                         MessageBoxImage.Warning);
                     return;
-                }
+                }              
 
                 if (originalClientStatus == ClientStatus.Active && SelectedItem.ClientStatus != ClientStatus.Active
                     && SelectedItem.ClientTasks.Any(task => task.TaskDate <= System.DateTime.Now && !task.Done))
@@ -325,8 +326,7 @@ namespace CRMYourBankers.ViewModels
 				TabMessenger.Send(new TabChangeMessage
 				{
 					TabName = TabName.LoanApplicationDetails,
-					SelectedObject = Context.LoanApplications.Single(loan => loan.Id == selectedLoanApplicationId),
-					LastTabName = TabName.ClientDetails                    
+					SelectedObject = Context.LoanApplications.Single(loan => loan.Id == selectedLoanApplicationId)                  
 				});
 			});
 
@@ -416,8 +416,7 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 {
                     SelectedObject = newLoanApplicationForClient,
-                    TabName = TabName.LoanApplicationDetails,
-                    LastTabName = TabName.ClientDetails
+                    TabName = TabName.LoanApplicationDetails
                 });
             });
 

@@ -111,8 +111,7 @@ namespace CRMYourBankers.ViewModels
                 TabMessenger.Send(new TabChangeMessage
                 {
                     TabName = TabName.LoanApplicationDetails,
-                    SelectedObject = Context.LoanApplications.Single(loan => loan.Id == selectedLoanApplicationId),
-                    LastTabName = TabName.Result
+                    SelectedObject = Context.LoanApplications.Single(loan => loan.Id == selectedLoanApplicationId)
                 });
             });
             SaveTargetButtonComand = new RelayCommand(() =>
