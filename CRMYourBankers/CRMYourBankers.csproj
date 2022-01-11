@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Database\YourBankersConnection.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\ArrowDown.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
