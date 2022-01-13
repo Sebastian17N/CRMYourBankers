@@ -138,7 +138,7 @@ namespace CRMYourBankers.ViewModels
                 {
                     SelectedItem = new LoanApplication
                     {
-                        Id = Context.LoanApplications.Max(loan => loan.Id) + 1                        
+                        Id = Context.LoanApplications.Any() ? Context.LoanApplications.Max(loan => loan.Id) + 1 : 1
                     };
 
                     Context.LoanApplications.Add(SelectedItem);
