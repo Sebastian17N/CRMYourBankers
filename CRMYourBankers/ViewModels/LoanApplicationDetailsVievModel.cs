@@ -147,7 +147,7 @@ namespace CRMYourBankers.ViewModels
                 SelectedItem.ClientId = ClientId ?? 0;
                 SelectedItem.BankId = BankId ?? 0;
                 SelectedItem.AmountRequested = AmountRequestedText;
-                SelectedItem.AmountRequested = AmountRequestedText;
+                SelectedItem.AmountReceived = AmountReceivedText;
                 SelectedItem.ClientCommission = ParseComission(ClientCommissionText);
                 SelectedItem.BrokerCommission = ParseComission(BrokerCommissionText);
                 SelectedItem.StartDate = StartDate;
