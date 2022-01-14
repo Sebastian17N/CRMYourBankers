@@ -46,7 +46,10 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
                     <Label Content="Wynik zrealizowany w (%):" />
-                    <TextBox Width="200" Text="{Binding RealizedScore, Mode=OneWay}" />
+                    <TextBox
+                        Width="200"
+                        IsReadOnly="True"
+                        Text="{Binding RealizedScore, Mode=OneWay}" />
                 </StackPanel>
             </StackPanel>
         </Border>
@@ -63,6 +66,7 @@
                 FontSize="15" />
             <DataGrid
                 Grid.Row="1"
+                MinHeight="100"
                 MaxHeight="300"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding DataGridData}"
@@ -80,7 +84,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn
-                        Width="120"
+                        Width="200"
                         Binding="{Binding FullName}"
                         Header="Klient"
                         IsReadOnly="True" />
@@ -100,7 +104,7 @@
                         Header="Przyznana Kwota"
                         IsReadOnly="True" />
                     <DataGridTextColumn
-                        Width="200"
+                        Width="903"
                         Binding="{Binding TasksToDo}"
                         Header="Zadania"
                         IsReadOnly="True" />
@@ -128,26 +132,6 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn
-                        Width="80"
-                        Binding="{Binding FirstName}"
-                        Header="Imię"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="80"
-                        Binding="{Binding LastName}"
-                        Header="Nazwisko"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="120"
-                        Binding="{Binding Email}"
-                        Header="Mail"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="200"
-                        Binding="{Binding TasksToDo}"
-                        Header="Zadania"
-                        IsReadOnly="True" />
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -182,6 +166,26 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding FirstName}"
+                        Header="Imię"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="130"
+                        Binding="{Binding LastName}"
+                        Header="Nazwisko"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="180"
+                        Binding="{Binding Email}"
+                        Header="Mail"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="993"
+                        Binding="{Binding TasksToDo}"
+                        Header="Zadania"
+                        IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

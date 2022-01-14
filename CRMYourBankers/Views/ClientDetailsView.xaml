@@ -646,11 +646,6 @@
                         Header="Wnioskowana Kwota"
                         IsReadOnly="True" />
                     <DataGridTextColumn
-                        Width="200"
-                        Binding="{Binding TasksToDo}"
-                        Header="Zadania"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
                         Width="150"
                         Binding="{Binding LoanApplicationStatus, Converter={StaticResource EnumDisplayNameConverter}}"
                         Header="Status"
@@ -659,6 +654,11 @@
                         Width="100"
                         Binding="{Binding StartDate, StringFormat=\{0:yyyy.MM.dd\}}"
                         Header="Data złożenia" />
+                    <DataGridTextColumn
+                        Width="1100"
+                        Binding="{Binding TasksToDo}"
+                        Header="Zadania"
+                        IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -670,7 +670,7 @@
                 ItemsSource="{Binding ClientTasks}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                        Width="300"
+                        Width="500"
                         Binding="{Binding Text}"
                         Header="Zadania" />
                     <DataGridTextColumn

@@ -89,7 +89,7 @@
                     Header="Status Wniosku"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    Width="200"
+                    Width="900"
                     Binding="{Binding TasksToDo}"
                     Header="Zadania"
                     IsReadOnly="True" />

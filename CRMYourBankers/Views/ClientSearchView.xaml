@@ -52,22 +52,22 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn
-                    Width="80"
+                    Width="120"
                     Binding="{Binding FirstName}"
                     Header="Imię"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    Width="80"
+                    Width="120"
                     Binding="{Binding LastName}"
                     Header="Nazwisko"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    Width="120"
+                    Width="180"
                     Binding="{Binding Email}"
                     Header="Mail"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    Width="200"
+                    Width="1042"
                     Binding="{Binding TasksToDo}"
                     Header="Zadania"
                     IsReadOnly="True" />

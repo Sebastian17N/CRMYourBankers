@@ -232,7 +232,7 @@
                 ItemsSource="{Binding LoanTasks}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                        Width="300"
+                        Width="500"
                         Binding="{Binding Text}"
                         Header="Zadania" />
                     <DataGridCheckBoxColumn Binding="{Binding Done}" Header="Zrobione" />
