@@ -147,7 +147,7 @@ namespace CRMYourBankers.ViewModels
                     .Include(client => client.ClientTasks)
                     .Include(client => client.ExistingBankClientBIK)
                     .Include(client => client.LoanApplicationsProposals)
-                    .OrderBy(client => client.SortIndex)
+                    .OrderByDescending(client => client.SortIndex)
                     .ToList();
 
             NotifyPropertyChanged("Clients");

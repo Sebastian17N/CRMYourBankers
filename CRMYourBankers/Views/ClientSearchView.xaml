@@ -66,6 +66,11 @@
                     Header="Nazwisko"
                     IsReadOnly="True" />
                 <DataGridTextColumn
+                    Width="130"
+                    Binding="{Binding PhoneNumber}"
+                    Header="Telefon"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
                     Width="180"
                     Binding="{Binding Email}"
                     Header="Mail"
@@ -76,7 +81,7 @@
                     Header="Status Klienta"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    Width="862"
+                    Width="732"
                     Binding="{Binding TasksToDo}"
                     Header="Zadania"
                     IsReadOnly="True" />
