@@ -5,10 +5,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="clr-namespace:CRMYourBankers.ViewModels"
+    xmlns:converters="clr-namespace:CRMYourBankers.Converters"
     d:DataContext="{d:DesignInstance Type=viewmodels:SummaryViewModel}"
     d:DesignHeight="800"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />       
+    </UserControl.Resources>
     <DockPanel>
         <Border
             Margin="10"
@@ -182,7 +186,12 @@
                         Header="Mail"
                         IsReadOnly="True" />
                     <DataGridTextColumn
-                        Width="993"
+                        Width="180"
+                        Binding="{Binding ClientStatus, Converter={StaticResource EnumDisplayNameConverter}}"
+                        Header="Status Klienta"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="813"
                         Binding="{Binding TasksToDo}"
                         Header="Zadania"
                         IsReadOnly="True" />

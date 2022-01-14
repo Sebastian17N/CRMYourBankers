@@ -141,15 +141,6 @@ namespace CRMYourBankers.ViewModels
             {
                 ActivatedClientStatusBaseOnIncomingTask();
 
-                // 1. Wyciągać lastTabObject z ostatniej otwartej zakładki (o ile istnieje) - czyli np. przechodząc z client details -> dodaj nowy wniosek
-                //    do LastTabObject trafi konkretny klient z poprzedniego widoku.
-                // 1.b Dodać interface, który będzie zawierał definicję obiektu, po którym będą dziedziczyły LoanApplication i Client, i który będzie miał
-                //    uniwersalne pole typu SelectedItem.
-                // 2. Przypisujesz to LastTabObject poniżej w switchu.
-                // 2.a Dodajesz logikę przepisania SelectedObject = LastTabObject jeśli jest to cofnięcie.
-                // 3. Kasujesz przypisywanie LastTabObject ze wszystkich innych miejsc w kodzie.
-                // 4. Jak rozpoznawać, że się cofasz, a nie zagnieżdżasz, może pole w SwitchTabMessage.
-
                 var goFurther = message.GoFurther;
                 IEditable tabObject = null;
                 var tabName = TabName.Summary;

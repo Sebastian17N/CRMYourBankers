@@ -104,7 +104,7 @@ namespace CRMYourBankers.ViewModels
         public string FirstNameText { get; set; }
         public string LastNameText { get; set; }
         public string EmailText { get; set; }
-        public int? PhoneNumberText { get; set; }
+        public string PhoneNumberText { get; set; }
         public long? PersonalIdText { get; set; }
         public long? AmountRequestedText { get; set; }
         public string ClientCommissionText { get; set; }
