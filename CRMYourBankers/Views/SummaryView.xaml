@@ -70,12 +70,12 @@
                 FontSize="15" />
             <DataGrid
                 Grid.Row="1"
-                MinHeight="100"
-                MaxHeight="300"
+                MinHeight="200"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding DataGridData}"
                 SelectedItem="{Binding SelectedLoanApplication}"
-                VerticalScrollBarVisibility="Auto">
+                SelectionChanged="DataGrid_SelectionChanged"
+                VerticalScrollBarVisibility="Visible">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
@@ -108,7 +108,7 @@
                         Header="Przyznana Kwota"
                         IsReadOnly="True" />
                     <DataGridTextColumn
-                        Width="903"
+                        Width="886"
                         Binding="{Binding TasksToDo}"
                         Header="Zadania"
                         IsReadOnly="True" />
@@ -120,11 +120,12 @@
                 FontSize="15" />
             <DataGrid
                 Grid.Row="3"
+                Height="330"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 ItemsSource="{Binding Clients}"
                 SelectedItem="{Binding SelectedClient}"
-                VerticalScrollBarVisibility="Auto">
+                VerticalScrollBarVisibility="Visible">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
@@ -142,7 +143,7 @@
                                 <Button
                                     Width="Auto"
                                     Margin="1"
-                                    Command="{Binding Path=DataContext.MoveClientUpCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                    Command="{Binding Path=DataContext.MoveClientDownCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
                                     <StackPanel>
                                         <Image
                                             Width="10"
@@ -159,7 +160,7 @@
                                 <Button
                                     Width="Auto"
                                     Margin="1"
-                                    Command="{Binding Path=DataContext.MoveClientDownCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                    Command="{Binding Path=DataContext.MoveClientUpCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
                                     <StackPanel>
                                         <Image
                                             Width="10"
@@ -196,7 +197,7 @@
                         Header="Status Klienta"
                         IsReadOnly="True" />
                     <DataGridTextColumn
-                        Width="683"
+                        Width="666"
                         Binding="{Binding TasksToDo}"
                         Header="Zadania"
                         IsReadOnly="True" />

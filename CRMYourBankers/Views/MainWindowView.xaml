@@ -25,7 +25,8 @@
         <Image
             Grid.Row="0"
             Width="295"
-            Height="67"
+            Height="30"
+            Margin="10,0,0,0"
             HorizontalAlignment="Left"
             Source="{Binding LogoPath}" />
         <DockPanel Grid.Row="1">

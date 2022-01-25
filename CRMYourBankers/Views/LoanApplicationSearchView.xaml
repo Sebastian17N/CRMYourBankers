@@ -17,10 +17,11 @@
     </UserControl.Resources>
     <Grid>
         <DataGrid
-            Height="Auto"
+            Height="720"
             AutoGenerateColumns="False"
             ItemsSource="{Binding DataGridData, Converter={StaticResource FromCollectionToListCollectionViewWithDescriptionConverter}, ConverterParameter='StartDate, StartDateString'}"
-            SelectedItem="{Binding SelectedLoanApplication}">
+            SelectedItem="{Binding SelectedLoanApplication}"
+            VerticalScrollBarVisibility="Visible">
             <DataGrid.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
@@ -74,7 +75,7 @@
                     Header="Klient"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    Width="120"
+                    Width="200"
                     Binding="{Binding BankName}"
                     Header="Bank"
                     IsReadOnly="False" />
@@ -89,7 +90,7 @@
                     Header="Status Wniosku"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    Width="900"
+                    Width="780"
                     Binding="{Binding TasksToDo}"
                     Header="Zadania"
                     IsReadOnly="True" />

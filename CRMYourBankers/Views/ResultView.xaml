@@ -102,7 +102,7 @@
         </Border>
         <StackPanel>
             <DataGrid
-                Height="300"
+                Height="550"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding DataGridData}"
                 SelectedItem="{Binding SelectedLoanApplication}"

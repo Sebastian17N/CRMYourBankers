@@ -38,12 +38,12 @@
             </StackPanel>
         </Border>
         <DataGrid
-            Height="Auto"
+            Height="675"
             AutoGenerateColumns="False"
             CanUserAddRows="False"
             ItemsSource="{Binding Clients}"
             SelectedItem="{Binding SelectedClient}"
-            VerticalScrollBarVisibility="Auto">
+            VerticalScrollBarVisibility="Visible">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -81,7 +81,7 @@
                     Header="Status Klienta"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    Width="732"
+                    Width="716"
                     Binding="{Binding TasksToDo}"
                     Header="Zadania"
                     IsReadOnly="True" />
