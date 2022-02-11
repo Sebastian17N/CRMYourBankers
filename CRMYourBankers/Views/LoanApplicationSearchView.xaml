@@ -86,11 +86,16 @@
                     IsReadOnly="False" />
                 <DataGridTextColumn
                     Width="120"
+                    Binding="{Binding AmountReceived}"
+                    Header="Przyznana Kwota"
+                    IsReadOnly="False" />
+                <DataGridTextColumn
+                    Width="120"
                     Binding="{Binding LoanApplicationStatus, Converter={StaticResource EnumDisplayNameConverter}}"
                     Header="Status Wniosku"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    Width="780"
+                    Width="660"
                     Binding="{Binding TasksToDo}"
                     Header="Zadania"
                     IsReadOnly="True" />
