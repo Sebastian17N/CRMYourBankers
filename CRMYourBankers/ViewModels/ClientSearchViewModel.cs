@@ -13,7 +13,7 @@ using CRMYourBankers.Enums;
 
 namespace CRMYourBankers.ViewModels
 {
-    public class ClientSearchViewModel : TabBaseViewModel, IRefreshDataOwner
+    public class ClientSearchViewModel : TabBaseViewModel, IRefreshDataOwner, IClearAllFieldsOwner
     {
         public ICommand SearchButtonCommand { get; set; }
         public ICommand DetailsScreenOpenHandler { get; set; }
@@ -76,6 +76,11 @@ namespace CRMYourBankers.ViewModels
             {
                 RefreshData();
             });
+        }
+
+        public void ClearAllFields()
+        {
+            SearchText = "";
         }
     }
 }

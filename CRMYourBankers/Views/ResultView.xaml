@@ -136,7 +136,7 @@
                         IsReadOnly="True" />
                     <DataGridTextColumn
                         Width="120"
-                        Binding="{Binding AmountReceived}"
+                        Binding="{Binding MultiBroker}"
                         Header="Multibroker"
                         IsReadOnly="True" />
                     <DataGridTextColumn

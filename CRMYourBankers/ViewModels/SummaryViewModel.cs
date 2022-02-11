@@ -110,9 +110,10 @@ namespace CRMYourBankers.ViewModels
                         loan.AmountRequested,
                         loan.AmountReceived,
                         loan.TasksToDo,
-                    })
-                .ToList();
-                   
+                    })                
+                .ToList()
+                .OrderBy(client => client.FullName);
+                
             NotifyPropertyChanged("DataGridData");
 
             RefreshClients();

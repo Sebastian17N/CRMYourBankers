@@ -92,6 +92,7 @@ namespace CRMYourBankers.ViewModels
                                 loan.AmountReceived,
                                 BankName = loan.Bank.Name,
                                 CommissionGet = loan.ClientCommission - loan.BrokerCommission,
+                                MultiBroker = loan.MultiBroker.Name,
                                 Id = loan.Id,
                                 Paid = loan.Paid
                             }

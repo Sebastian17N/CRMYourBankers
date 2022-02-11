@@ -499,6 +499,7 @@ namespace CRMYourBankers.ViewModels
             BIKNoteText = "";
             GeneralNoteText = "";
             BrokerId = 0;
+            NewTaskText = "";
             LoanApplicationsProposals = new List<int> { 0, 0, 0, 0, 0, 0, 0};
         }
     }
