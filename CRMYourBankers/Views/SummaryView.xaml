@@ -70,7 +70,7 @@
                 FontSize="15" />
             <DataGrid
                 Grid.Row="1"
-                MinHeight="200"
+                Height="220"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding DataGridData}"
                 SelectedItem="{Binding SelectedLoanApplication}"
@@ -120,11 +120,12 @@
                 FontSize="15" />
             <DataGrid
                 Grid.Row="3"
-                Height="330"
+                Height="305"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 ItemsSource="{Binding Clients}"
                 SelectedItem="{Binding SelectedClient}"
+                SelectionChanged="DataGrid_SelectionChanged_1"
                 VerticalScrollBarVisibility="Visible">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>

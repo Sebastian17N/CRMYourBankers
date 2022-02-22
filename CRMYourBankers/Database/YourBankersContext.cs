@@ -22,8 +22,8 @@ namespace CRMYourBankers.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = "DataSource=" + (File.Exists("CRMYourBankers.csproj") ? "YourBankersConnection.db" : "./../../../YourBankersConnection.db");
-            //var connectionString = "DataSource=Database/YourBankersConnection.db";
+            //var connectionString = "DataSource=" + (File.Exists("CRMYourBankers.csproj") ? "YourBankersConnection.db" : "./../../../YourBankersConnection.db");
+            var connectionString = "DataSource=Database/YourBankersConnection.db";
 
             optionsBuilder.UseSqlite(connectionString);
             base.OnConfiguring(optionsBuilder);
