@@ -48,7 +48,14 @@ namespace CRMYourBankers.ViewModels
                     BrokerId = _selectedItem.BrokerId ?? 0;
                     ClientTasks = _selectedItem.ClientTasks;
                     LoanApplicationsProposals = _selectedItem.LoanApplicationsProposalsInts;
-                    BIKNoteText = _selectedItem.BIKNote;
+                    BIKProposalNoteText0 = _selectedItem.BIKProposalNote0;
+                    BIKProposalNoteText1 = _selectedItem.BIKProposalNote1;
+                    BIKProposalNoteText2 = _selectedItem.BIKProposalNote2;
+                    BIKProposalNoteText3 = _selectedItem.BIKProposalNote3;
+                    BIKProposalNoteText4 = _selectedItem.BIKProposalNote4;
+                    BIKProposalNoteText5 = _selectedItem.BIKProposalNote5;
+                    BIKProposalNoteText6 = _selectedItem.BIKProposalNote6;
+                    NewTaskText = "";
 
                     ExistingPersonalLoans =
                      new ObservableCollection<BankClientBIK>(
@@ -111,10 +118,16 @@ namespace CRMYourBankers.ViewModels
         public string ContactPersonText { get; set; }
         public string WhatHesJobText { get; set; }
         public string GeneralNoteText { get; set; }
+        public string BIKProposalNoteText0 { get; set; }
+        public string BIKProposalNoteText1 { get; set; }
+        public string BIKProposalNoteText2 { get; set; }
+        public string BIKProposalNoteText3 { get; set; }
+        public string BIKProposalNoteText4 { get; set; }
+        public string BIKProposalNoteText5 { get; set; }
+        public string BIKProposalNoteText6 { get; set; }
         public int BrokerId { get; set; }
         public string NewTaskText { get; set; }
         public DateTime? TaskDate { get; set; }
-        public string BIKNoteText { get; set; }
         public List<int> LoanApplicationsProposals { get; set; }
         public TabName LastTabName { get; set; }
         public IEditable LastTabObject { get; set; }
@@ -270,7 +283,13 @@ namespace CRMYourBankers.ViewModels
                 SelectedItem.ClientStatus = SelectedClientStatus;
                 SelectedItem.BrokerId = BrokerId == 0 ? null : BrokerId;
                 SelectedItem.LoanApplicationsProposalsInts = LoanApplicationsProposals;
-                SelectedItem.BIKNote = BIKNoteText;
+                SelectedItem.BIKProposalNote0 = BIKProposalNoteText0;
+                SelectedItem.BIKProposalNote1 = BIKProposalNoteText1;
+                SelectedItem.BIKProposalNote2 = BIKProposalNoteText2;
+                SelectedItem.BIKProposalNote3 = BIKProposalNoteText3;
+                SelectedItem.BIKProposalNote4 = BIKProposalNoteText4;
+                SelectedItem.BIKProposalNote5 = BIKProposalNoteText5;
+                SelectedItem.BIKProposalNote6 = BIKProposalNoteText6;
 
                 if (!SelectedItem.Validate())
                 {
@@ -428,7 +447,7 @@ namespace CRMYourBankers.ViewModels
 
             ResetBIKButtonCommand = new RelayCommand(() =>
             {
-                var result = MessageBox.Show("Czy na pewno resetować analizę BIK?",
+                var result = MessageBox.Show("Czy na pewno resetować Propozycje BIK?",
                             "potwierdzenie czynności",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Question);
@@ -440,9 +459,15 @@ namespace CRMYourBankers.ViewModels
                 ExistingPersonalLoansQuestions.Clear();
                 ExistingCompanyLoans.Clear();
                 ExistingCompanyLoansQuestions.Clear();
-                BIKNoteText = String.Empty;
+                BIKProposalNoteText0 = String.Empty;
+                BIKProposalNoteText1 = String.Empty;
+                BIKProposalNoteText2 = String.Empty;
+                BIKProposalNoteText3 = String.Empty;
+                BIKProposalNoteText4 = String.Empty;
+                BIKProposalNoteText5 = String.Empty;
+                BIKProposalNoteText6 = String.Empty;
 
-                for(int i = 0; i < LoanApplicationsProposals.Count; i++)
+                for (int i = 0; i < LoanApplicationsProposals.Count; i++)
                 {
                     LoanApplicationsProposals[i] = 0;
                 }
@@ -453,7 +478,13 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("ExistingCompanyLoansQuestions");
                 NotifyPropertyChanged("LoanApplicationsProposals");
                 NotifyPropertyChanged("BIKNoteText");
-
+                NotifyPropertyChanged("BIKProposalNoteText0");
+                NotifyPropertyChanged("BIKProposalNoteText1");
+                NotifyPropertyChanged("BIKProposalNoteText2");
+                NotifyPropertyChanged("BIKProposalNoteText3");
+                NotifyPropertyChanged("BIKProposalNoteText4");
+                NotifyPropertyChanged("BIKProposalNoteText5");
+                NotifyPropertyChanged("BIKProposalNoteText6");
             });
         }
 
@@ -496,7 +527,13 @@ namespace CRMYourBankers.ViewModels
             SelectedSpouse = null;
             SelectedSourceOfIncome = null;
             ClientTasks = new ObservableCollection<ClientTask>();
-            BIKNoteText = "";
+            BIKProposalNoteText0 = "";
+            BIKProposalNoteText1 = "";
+            BIKProposalNoteText2 = "";
+            BIKProposalNoteText3 = "";
+            BIKProposalNoteText4 = "";
+            BIKProposalNoteText5 = "";
+            BIKProposalNoteText6 = "";
             GeneralNoteText = "";
             BrokerId = 0;
             NewTaskText = "";

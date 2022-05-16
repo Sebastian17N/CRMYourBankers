@@ -22,7 +22,13 @@ namespace CRMYourBankers.Models
         public string ContactPerson { get; set; }
         public string WhatHesJob { get; set; }
         public string GeneralNote { get; set; }
-        public string BIKNote { get; set; }
+        public string BIKProposalNote0 { get; set; }
+        public string BIKProposalNote1 { get; set; }
+        public string BIKProposalNote2 { get; set; }
+        public string BIKProposalNote3 { get; set; }
+        public string BIKProposalNote4 { get; set; }
+        public string BIKProposalNote5 { get; set; }
+        public string BIKProposalNote6 { get; set; }
         public ZusUs? ZusUs { get; set; }
         public ZusUs? Us { get; set; }
         public Spouse? Spouse { get; set; }
@@ -69,7 +75,7 @@ namespace CRMYourBankers.Models
 		}
         public Broker Broker { get; set; }
 
-        public string FullName => $"{FirstName} {LastName} {Email}";
+        public string FullName => $"{FirstName} {LastName}";
         public string TasksToDo => string.Join(Environment.NewLine,
             ClientTasks.Where(task => !task.Done)
                        .OrderBy(task => task.TaskDate)

@@ -38,6 +38,16 @@ namespace CRMYourBankers.ViewModels
                 NotifyPropertyChanged("Clients");
             }
         }
+        private List<Client> _urgentClients;
+        public List<Client> UrgentClients
+        {
+            get => _urgentClients;
+            set
+            {
+                _urgentClients = value;
+                NotifyPropertyChanged("UrgentClients");
+            }
+        }
         public Client SelectedClient { get; set; }
         public dynamic DataGridScore { get; set; }
 
@@ -152,6 +162,15 @@ namespace CRMYourBankers.ViewModels
                     .ToList();
 
             NotifyPropertyChanged("Clients");
+
+            UrgentClients =
+                Context
+                    .Clients
+                    .Where(client => client.ClientStatus == ClientStatus.Urgent)
+                    .Include(client => client.ClientTasks)
+                    .OrderByDescending(client => client.SortIndex)
+                    .ToList();
+            NotifyPropertyChanged("UrgentClients");
         }
 
         public void RegisterCommands()

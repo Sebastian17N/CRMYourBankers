@@ -56,38 +56,43 @@
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0">
             <StackPanel
-                Margin="8"
+                Margin="0"
                 HorizontalAlignment="Left"
                 Orientation="Horizontal">
-                <Label
-                    Content="STATUS KLIENTA :   "
-                    FontSize="20"
-                    FontWeight="Bold" />
-                <ComboBox
-                    Width="200"
-                    VerticalAlignment="Center"
-                    ItemsSource="{Binding Source={StaticResource ClientStatusEnumList}}"
-                    SelectedValue="{Binding SelectedClientStatus}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
-            <StackPanel
-                Margin="10"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <Label
-                    Content="ANALIZA BIK    "
-                    FontSize="15"
-                    FontWeight="Bold" />
-                <Button
-                    Width="150"
-                    Height="20"
-                    Command="{Binding ResetBIKButtonCommand}"
-                    Content="Resetuj analize BIK" />
+                <StackPanel
+                    Margin="8"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal">
+                    <Label
+                        Content="STATUS KLIENTA :   "
+                        FontSize="20"
+                        FontWeight="Bold" />
+                    <ComboBox
+                        Width="200"
+                        VerticalAlignment="Center"
+                        ItemsSource="{Binding Source={StaticResource ClientStatusEnumList}}"
+                        SelectedValue="{Binding SelectedClientStatus}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel
+                    Margin="300,10,10,10"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal">
+                    <Label
+                        Content="PROPOZYCJE WNIOSKÓW    "
+                        FontSize="15"
+                        FontWeight="Bold" />
+                    <Button
+                        Width="150"
+                        Height="20"
+                        Command="{Binding ResetBIKButtonCommand}"
+                        Content="Reset BIK" />
+                </StackPanel>
             </StackPanel>
         </DockPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
@@ -298,7 +303,7 @@
                         Content="Dodaj Nowe Zadanie" />
                 </StackPanel>
             </StackPanel>
-            <StackPanel Width="120" Margin="20,0,0,0">
+            <!--<StackPanel Width="120" Margin="20,0,0,0">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock
                         Width="100"
@@ -473,15 +478,16 @@
                         </DataGridComboBoxColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-            </StackPanel>
+            </StackPanel&gt;-->
+
             <StackPanel
                 MaxWidth="1000"
-                Margin="20,0,0,0"
+                Margin="30,-50,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <!--<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <Label Content="Propozycje wniosków" />
-                </StackPanel>
+                </StackPanel>-->
                 <StackPanel
                     Margin="7"
                     HorizontalAlignment="Center"
@@ -492,9 +498,13 @@
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[0]}"
                         SelectedValuePath="Id" />
+                    <TextBox
+                        Width="200"
+                        Margin="10,0,0,0"
+                        Text="{Binding BIKProposalNoteText0}" />
                     <Button
                         Width="100"
-                        Margin="20,0,0,0"
+                        Margin="10,0,0,0"
                         Command="{Binding AddNewLoanApplicationCommand}"
                         CommandParameter="0"
                         Content="Złóż wniosek" />
@@ -509,9 +519,13 @@
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[1]}"
                         SelectedValuePath="Id" />
+                    <TextBox
+                        Width="200"
+                        Margin="10,0,0,0"
+                        Text="{Binding BIKProposalNoteText1}" />
                     <Button
                         Width="100"
-                        Margin="20,0,0,0"
+                        Margin="10,0,0,0"
                         Command="{Binding AddNewLoanApplicationCommand}"
                         CommandParameter="1"
                         Content="Złóż wniosek" />
@@ -526,9 +540,13 @@
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[2]}"
                         SelectedValuePath="Id" />
+                    <TextBox
+                        Width="200"
+                        Margin="10,0,0,0"
+                        Text="{Binding BIKProposalNoteText2}" />
                     <Button
                         Width="100"
-                        Margin="20,0,0,0"
+                        Margin="10,0,0,0"
                         Command="{Binding AddNewLoanApplicationCommand}"
                         CommandParameter="2"
                         Content="Złóż wniosek" />
@@ -543,9 +561,13 @@
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[3]}"
                         SelectedValuePath="Id" />
+                    <TextBox
+                        Width="200"
+                        Margin="10,0,0,0"
+                        Text="{Binding BIKProposalNoteText3}" />
                     <Button
                         Width="100"
-                        Margin="20,0,0,0"
+                        Margin="10,0,0,0"
                         Command="{Binding AddNewLoanApplicationCommand}"
                         CommandParameter="3"
                         Content="Złóż wniosek" />
@@ -560,9 +582,13 @@
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[4]}"
                         SelectedValuePath="Id" />
+                    <TextBox
+                        Width="200"
+                        Margin="10,0,0,0"
+                        Text="{Binding BIKProposalNoteText4}" />
                     <Button
                         Width="100"
-                        Margin="20,0,0,0"
+                        Margin="10,0,0,0"
                         Command="{Binding AddNewLoanApplicationCommand}"
                         CommandParameter="4"
                         Content="Złóż wniosek" />
@@ -577,9 +603,13 @@
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[5]}"
                         SelectedValuePath="Id" />
+                    <TextBox
+                        Width="200"
+                        Margin="10,0,0,0"
+                        Text="{Binding BIKProposalNoteText5}" />
                     <Button
                         Width="100"
-                        Margin="20,0,0,0"
+                        Margin="10,0,0,0"
                         Command="{Binding AddNewLoanApplicationCommand}"
                         CommandParameter="5"
                         Content="Złóż wniosek" />
@@ -594,14 +624,41 @@
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[6]}"
                         SelectedValuePath="Id" />
+                    <TextBox
+                        Width="200"
+                        Margin="10,0,0,0"
+                        Text="{Binding BIKProposalNoteText6}" />
                     <Button
                         Width="100"
-                        Margin="20,0,0,0"
+                        Margin="10,0,0,0"
                         Command="{Binding AddNewLoanApplicationCommand}"
                         CommandParameter="6"
                         Content="Złóż wniosek" />
                 </StackPanel>
                 <StackPanel
+                    Margin="7"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <ComboBox
+                        Width="100"
+                        DisplayMemberPath="Name"
+                        ItemsSource="{Binding Banks}"
+                        SelectedValue="{Binding LoanApplicationsProposals[6]}"
+                        SelectedValuePath="Id" />
+                    <TextBox
+                        Width="200"
+                        Margin="10,0,0,0"
+                        Text="{Binding BIKProposalNoteText6}" />
+                    <Button
+                        Width="100"
+                        Margin="10,0,0,0"
+                        Command="{Binding AddNewLoanApplicationCommand}"
+                        CommandParameter="6"
+                        Content="Złóż wniosek" />
+                </StackPanel>
+                
+
+                <!--<StackPanel
                     Margin="0,0,10,10"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
@@ -611,7 +668,7 @@
                         Height="40"
                         Text="{Binding BIKNoteText}"
                         TextWrapping="Wrap" />
-                </StackPanel>
+                </StackPanel>-->
             </StackPanel>
         </StackPanel>
         <Grid Grid.Row="2" Margin="0,10,0,10">
@@ -661,8 +718,8 @@
         </Grid>
         <Grid Grid.Row="3">
             <DataGrid
-                Height="160"
                 Width="1530"
+                Height="160"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 ItemsSource="{Binding ClientTasks}"

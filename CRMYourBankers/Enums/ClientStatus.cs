@@ -6,6 +6,8 @@ namespace CRMYourBankers.Enums
     {
         [Description("Wstępnie Zainteresowany")]
         InitiallyInterested,
+        [Description("Pilny Temat")]
+        Urgent,
         [Description("Aktywny")]
         Active,
         [Description("Nieaktywny")]

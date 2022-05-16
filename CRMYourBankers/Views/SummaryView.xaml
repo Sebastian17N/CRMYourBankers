@@ -8,7 +8,7 @@
     xmlns:viewmodels="clr-namespace:CRMYourBankers.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:SummaryViewModel}"
     d:DesignHeight="800"
-    d:DesignWidth="800"
+    d:DesignWidth="1450"
     mc:Ignorable="d">
     <UserControl.Resources>
         <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
@@ -64,56 +64,105 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Label
-                Grid.Row="0"
-                Content="Aktywne Wnioski:"
-                FontSize="15" />
-            <DataGrid
-                Grid.Row="1"
-                Height="220"
-                AutoGenerateColumns="False"
-                ItemsSource="{Binding DataGridData}"
-                SelectedItem="{Binding SelectedLoanApplication}"
-                SelectionChanged="DataGrid_SelectionChanged"
-                VerticalScrollBarVisibility="Visible">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button
-                                    Width="Auto"
-                                    Command="{Binding Path=DataContext.LoanApplicationDetailsScreenOpenHandler, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                    Content="Szczegóły" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn
-                        Width="200"
-                        Binding="{Binding FullName}"
-                        Header="Klient"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="120"
-                        Binding="{Binding BankName}"
-                        Header="Bank"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="120"
-                        Binding="{Binding AmountRequested}"
-                        Header="Wnioskowana Kwota"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="120"
-                        Binding="{Binding AmountReceived}"
-                        Header="Przyznana Kwota"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="886"
-                        Binding="{Binding TasksToDo}"
-                        Header="Zadania"
-                        IsReadOnly="True" />
-                </DataGrid.Columns>
-            </DataGrid>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel
+                    Margin="5,0,5,5"
+                    HorizontalAlignment="Right"
+                    Orientation="Vertical">
+                    <Label
+                        Grid.Row="0"
+                        Content="Aktywne Wnioski:"
+                        FontSize="15" />
+                    <DataGrid
+                        Grid.Row="1"
+                        Height="220"
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding DataGridData}"
+                        SelectedItem="{Binding SelectedLoanApplication}"
+                        SelectionChanged="DataGrid_SelectionChanged"
+                        VerticalScrollBarVisibility="Visible">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            Width="Auto"
+                                            Command="{Binding Path=DataContext.LoanApplicationDetailsScreenOpenHandler, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                            Content="Szczegóły" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn
+                                Width="150"
+                                Binding="{Binding FullName}"
+                                Header="Klient"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="100"
+                                Binding="{Binding BankName}"
+                                Header="Bank"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="120"
+                                Binding="{Binding AmountRequested}"
+                                Header="Wnioskowana Kwota"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="120"
+                                Binding="{Binding AmountReceived}"
+                                Header="Przyznana Kwota"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="500"
+                                Binding="{Binding TasksToDo}"
+                                Header="Zadania"
+                                IsReadOnly="True" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+                <StackPanel
+                    Margin="5,0,5,5"
+                    HorizontalAlignment="Right"
+                    Orientation="Vertical">
+                    <Label
+                        Grid.Row="0"
+                        Content="Pilne Tematy:"
+                        FontSize="15" />
+                    <DataGrid
+                        Grid.Row="3"
+                        Height="220"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        ItemsSource="{Binding UrgentClients}"
+                        SelectedItem="{Binding SelectedClient}"
+                        SelectionChanged="DataGrid_SelectionChanged_1"
+                        VerticalScrollBarVisibility="Visible">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            Width="Auto"
+                                            Command="{Binding Path=DataContext.ClientDetailsScreenOpenHandler, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                            Content="Szczegóły" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn
+                                Width="150"
+                                Binding="{Binding FullName}"
+                                Header="Klient"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="200"
+                                Binding="{Binding TasksToDo}"
+                                Header="Zadania"
+                                IsReadOnly="True" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </StackPanel>
+
             <Label
                 Grid.Row="2"
                 Content="Aktywni Klienci:"

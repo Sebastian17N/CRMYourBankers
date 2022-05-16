@@ -41,7 +41,6 @@ namespace CRMYourBankers.Database
             //może być tylko jeden: mBank, Jan Kowalski, Kredyt Osobisty
             modelBuilder.Entity<LoanApplicationsProposal>()
                 .HasKey(prop => new { prop.ClientId, prop.ProposalIndex });
-
         }
 
         public void DataSeeds()
@@ -86,9 +85,7 @@ namespace CRMYourBankers.Database
                             Email = "kowalski@onet.pl",
                             PersonalId = 55443312345
                         }
-                    }
-                );
-
+                    });
                 SaveChanges();
             }
         }
@@ -115,7 +112,6 @@ namespace CRMYourBankers.Database
                             ClientId = 1
                         }
                     });
-
                 SaveChanges();
             }
         }
@@ -188,6 +184,7 @@ namespace CRMYourBankers.Database
                         new Broker{Id = 2, Name = "Jakub Nieroda"},
                         new Broker{Id = 3, Name = "Ola Nieroda"},
                         new Broker{Id = 4, Name = "Anna Borowik"},
+                        new Broker{Id = 5, Name = "Radosław Dominiak"},
                     });
                 SaveChanges();
             }
@@ -204,8 +201,6 @@ namespace CRMYourBankers.Database
                         new MultiBroker{Id = 2, Name = "Open"},
                         new MultiBroker{Id = 3, Name = "Brak"},
                     });
-
-
                 SaveChanges();
             }
         }
@@ -236,9 +231,10 @@ namespace CRMYourBankers.Database
                         new Bank{Id = 17, Name = "NEST"},
                         new Bank{Id = 18, Name = "SANTANDER CONSUMER"},
                         new Bank{Id = 19, Name = "PEKAO"},
-                        new Bank{Id = 20, Name = "PKO BP"}
+                        new Bank{Id = 20, Name = "PKO BP"},
+                        new Bank{Id = 21, Name = "HIPOTEKA"},
+                        new Bank{Id = 22, Name = "UPADŁOŚĆ"}
                     });
-
                 SaveChanges();
             }
         }
@@ -253,7 +249,6 @@ namespace CRMYourBankers.Database
 				new MonthSummary { Month = DateTime.Parse("2021/10/01"), EstimatedTarget = 2024000 },
 				new MonthSummary { Month = DateTime.Parse("2021/11/01"), EstimatedTarget = 3024000 }
 				);
-
 			SaveChanges();
 		}
 
@@ -275,7 +270,6 @@ namespace CRMYourBankers.Database
                         });
                 }
             }
-
             SaveChanges();
 		}
     }

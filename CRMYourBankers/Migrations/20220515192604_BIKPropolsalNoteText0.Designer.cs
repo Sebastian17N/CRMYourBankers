@@ -3,14 +3,16 @@ using System;
 using CRMYourBankers.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRMYourBankers.Migrations
 {
     [DbContext(typeof(YourBankersContext))]
-    partial class YourBankersContextModelSnapshot : ModelSnapshot
+    [Migration("20220515192604_BIKPropolsalNoteText0")]
+    partial class BIKPropolsalNoteText0
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,25 +73,10 @@ namespace CRMYourBankers.Migrations
                     b.Property<string>("AmountRequested")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("BIKNote")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("BIKProposalNote0")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BIKProposalNote1")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BIKProposalNote2")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BIKProposalNote3")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BIKProposalNote4")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BIKProposalNote5")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BIKProposalNote6")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("BrokerId")
