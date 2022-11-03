@@ -3,14 +3,16 @@ using System;
 using CRMYourBankers.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRMYourBankers.Migrations
 {
     [DbContext(typeof(YourBankersContext))]
-    partial class YourBankersContextModelSnapshot : ModelSnapshot
+    [Migration("20221029162002_TaskAddedDate")]
+    partial class TaskAddedDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,7 +161,7 @@ namespace CRMYourBankers.Migrations
                     b.Property<bool>("Done")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("TaskAddedDate")
+                    b.Property<DateTime>("TaskAddedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("TaskDate")
@@ -294,20 +296,6 @@ namespace CRMYourBankers.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MultiBrokers");
-                });
-
-            modelBuilder.Entity("CRMYourBankers.Models.YearSummary", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Year")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("YearSummaries");
                 });
 
             modelBuilder.Entity("CRMYourBankers.Models.BankClientBIK", b =>

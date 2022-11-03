@@ -118,7 +118,7 @@
                     Margin="5"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
-                    <Label Content="Numer Telefonu:" />
+                    <Label Content="Numer telefonu:" />
                     <TextBox Width="200" Text="{Binding PhoneNumberText}" />
                 </StackPanel>
                 <StackPanel
@@ -150,10 +150,7 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
                     <Label Content="Brokerka:" />
-                    <TextBox
-                        Width="200"
-                        Text="{Binding ClientCommissionText}"
-                        TextChanged="TextBox_TextChanged" />
+                    <TextBox Width="200" Text="{Binding ClientCommissionText}" />
                 </StackPanel>
                 <StackPanel
                     Margin="5"
@@ -493,13 +490,13 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
-                        Width="100"
+                        Width="140"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[0]}"
                         SelectedValuePath="Id" />
                     <TextBox
-                        Width="200"
+                        Width="300"
                         Margin="10,0,0,0"
                         Text="{Binding BIKProposalNoteText0}" />
                     <Button
@@ -514,13 +511,13 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
-                        Width="100"
+                        Width="140"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[1]}"
                         SelectedValuePath="Id" />
                     <TextBox
-                        Width="200"
+                        Width="300"
                         Margin="10,0,0,0"
                         Text="{Binding BIKProposalNoteText1}" />
                     <Button
@@ -535,13 +532,13 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
-                        Width="100"
+                        Width="140"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[2]}"
                         SelectedValuePath="Id" />
                     <TextBox
-                        Width="200"
+                        Width="300"
                         Margin="10,0,0,0"
                         Text="{Binding BIKProposalNoteText2}" />
                     <Button
@@ -556,13 +553,13 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
-                        Width="100"
+                        Width="140"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[3]}"
                         SelectedValuePath="Id" />
                     <TextBox
-                        Width="200"
+                        Width="300"
                         Margin="10,0,0,0"
                         Text="{Binding BIKProposalNoteText3}" />
                     <Button
@@ -577,13 +574,13 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
-                        Width="100"
+                        Width="140"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[4]}"
                         SelectedValuePath="Id" />
                     <TextBox
-                        Width="200"
+                        Width="300"
                         Margin="10,0,0,0"
                         Text="{Binding BIKProposalNoteText4}" />
                     <Button
@@ -598,13 +595,13 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
-                        Width="100"
+                        Width="140"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[5]}"
                         SelectedValuePath="Id" />
                     <TextBox
-                        Width="200"
+                        Width="300"
                         Margin="10,0,0,0"
                         Text="{Binding BIKProposalNoteText5}" />
                     <Button
@@ -619,13 +616,13 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
-                        Width="100"
+                        Width="140"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[6]}"
                         SelectedValuePath="Id" />
                     <TextBox
-                        Width="200"
+                        Width="300"
                         Margin="10,0,0,0"
                         Text="{Binding BIKProposalNoteText6}" />
                     <Button
@@ -640,13 +637,13 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <ComboBox
-                        Width="100"
+                        Width="140"
                         DisplayMemberPath="Name"
                         ItemsSource="{Binding Banks}"
                         SelectedValue="{Binding LoanApplicationsProposals[6]}"
                         SelectedValuePath="Id" />
                     <TextBox
-                        Width="200"
+                        Width="300"
                         Margin="10,0,0,0"
                         Text="{Binding BIKProposalNoteText6}" />
                     <Button
@@ -656,7 +653,7 @@
                         CommandParameter="6"
                         Content="Złóż wniosek" />
                 </StackPanel>
-                
+
 
                 <!--<StackPanel
                     Margin="0,0,10,10"
@@ -697,7 +694,12 @@
                     <DataGridTextColumn
                         Width="120"
                         Binding="{Binding AmountRequested}"
-                        Header="Wnioskowana Kwota"
+                        Header="Wnioskowana kwota"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding AmountReceived}"
+                        Header="Otrzymana kwota"
                         IsReadOnly="True" />
                     <DataGridTextColumn
                         Width="150"
@@ -709,7 +711,7 @@
                         Binding="{Binding StartDate, StringFormat=\{0:yyyy.MM.dd\}}"
                         Header="Data złożenia" />
                     <DataGridTextColumn
-                        Width="956"
+                        Width="836"
                         Binding="{Binding TasksToDo}"
                         Header="Zadania"
                         IsReadOnly="True" />
@@ -726,14 +728,18 @@
                 VerticalScrollBarVisibility="Visible">
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                        Width="600"
+                        Width="100"
+                        Binding="{Binding TaskAddedDate, StringFormat=\{0:yyyy.MM.dd\}}"
+                        Header="Data utworzenia " />
+                    <DataGridCheckBoxColumn Binding="{Binding Done}" Header="Zrobione" />
+                    <DataGridTextColumn
+                        Width="100"
+                        Binding="{Binding TaskDate, StringFormat=\{0:yyyy.MM.dd\}}"
+                        Header="Kiedy wykonać?" />
+                    <DataGridTextColumn
+                        Width="1247"
                         Binding="{Binding Text}"
                         Header="Zadania" />
-                    <DataGridTextColumn
-                        Width="80"
-                        Binding="{Binding TaskDate, StringFormat=\{0:yyyy.MM.dd\}}"
-                        Header="Data" />
-                    <DataGridCheckBoxColumn Binding="{Binding Done}" Header="Zrobione" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

@@ -70,17 +70,7 @@
                             z SelectedValuePath, DisplayMemberPath to co się wyświetla
                         -->
                     </StackPanel>
-                    <StackPanel
-                        Margin="5"
-                        HorizontalAlignment="Right"
-                        Orientation="Horizontal">
-                        <Button
-                            Width="300"
-                            Height="25"
-                            HorizontalAlignment="Right"
-                            Command="{Binding GoToSelectedClientButtonCommand}"
-                            Content="Przejdź do klienta" />
-                    </StackPanel>
+
                     <StackPanel
                         Margin="5"
                         HorizontalAlignment="Right"
@@ -97,16 +87,6 @@
                         Margin="5"
                         HorizontalAlignment="Right"
                         Orientation="Horizontal">
-                        <Label Content="Wnioskowana Kwota:" />
-                        <TextBox Width="300" Text="{Binding AmountRequestedText}" />
-                        <!--
-             <toolkit:MaskedTextBox Mask="999999" Text="{Binding AmountRequestedText}" />
-                        -->
-                    </StackPanel>
-                    <StackPanel
-                        Margin="5"
-                        HorizontalAlignment="Right"
-                        Orientation="Horizontal">
                         <Label Content="MultiBroker:" />
                         <ComboBox
                             Width="300"
@@ -114,6 +94,28 @@
                             ItemsSource="{Binding MultiBrokers}"
                             SelectedValue="{Binding MultiBrokerId}"
                             SelectedValuePath="Id" />
+                    </StackPanel>
+                    <StackPanel
+                        Margin="5"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                        <Label Content="Wnioskowana Kwota:" />
+                        <TextBox Width="300" Text="{Binding AmountRequestedText}" />
+                        <!--
+             <toolkit:MaskedTextBox Mask="999999" Text="{Binding AmountRequestedText}" />
+                        -->
+                    </StackPanel>
+
+                    <StackPanel
+                        Margin="5"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                        <Button
+                            Width="300"
+                            Height="25"
+                            HorizontalAlignment="Right"
+                            Command="{Binding GoToSelectedClientButtonCommand}"
+                            Content="Przejdź do klienta" />
                     </StackPanel>
                     <StackPanel
                         Margin="5"

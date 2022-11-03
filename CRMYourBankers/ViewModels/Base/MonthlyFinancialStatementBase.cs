@@ -36,6 +36,16 @@ namespace CRMYourBankers.ViewModels.Base
                 .SingleOrDefault();//wyciągnij pojedynczą wartość albo domyślną jeśli nie znajdziesz wartości
         public double RealizedScore => ActualScoreValue != 0 ?
             Math.Round(ActualScoreValue * 100 / (double)ActualTarget, 2) : 0;
+
+        public string ActualYearScore =>
+            SelectedDateTime != DateTime.MinValue ? ActualYearScoreValue.ToString() : "wybierz rok";
+        public int ActualYearScoreValue =>
+            Context
+               .LoanApplications
+               .Where(loan =>
+                       loan.LoanStartDate.HasValue &&
+                       loan.LoanStartDate.Value.Year == SelectedDateTime.Year)
+               .Sum(loan => loan.AmountReceived).Value;
         public MonthlyFinancialStatementBase(Messenger messenger, TabName tabName, YourBankersContext context)
            : base(messenger, tabName)
         {

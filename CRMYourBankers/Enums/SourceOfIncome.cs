@@ -14,8 +14,14 @@ namespace CRMYourBankers.Enums
         TaxCard,
         [Description("Osoba zatrudniona")]
         EmployedPerson,
-        [Description("Emerytura / renta")]
+        [Description("Emerytura / Renta")]
         Retiring,
+        [Description("Spółka Cywilna z wyłącznością")]
+        PartnershipOnly,
+        [Description("Spółka Cywilna")]
+        Partnership,
+        [Description("Spółka Jawna")]
+        GeneralPartnership,
         [Description("Spółka z o.o.")]
         LTD,
     }

@@ -25,6 +25,7 @@ namespace CRMYourBankers.ViewModels
 
         public dynamic SelectedLoanApplication { get; set; }
         public ObservableCollection<MonthSummary> MonthSummaries { get; set; }
+        public ObservableCollection<YearSummary> YearSummaries { get; set; }
 
         public dynamic DataGridData { get; set; }
 
@@ -250,6 +251,7 @@ namespace CRMYourBankers.ViewModels
         public void RefreshReferenceData()
         {
             MonthSummaries = new ObservableCollection<MonthSummary>(Context.MonthSummaries.ToList());
+            
         }
     }
 }

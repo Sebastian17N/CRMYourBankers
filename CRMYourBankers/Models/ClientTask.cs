@@ -9,6 +9,7 @@ namespace CRMYourBankers.Models
         public bool Done { get; set; }
         public int ClientId { get; set; } 
         public Client Client { get; set; }
+        public DateTime? TaskAddedDate { get; set; }
         public DateTime? TaskDate { get; set; }
     }
 }

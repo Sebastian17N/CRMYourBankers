@@ -127,6 +127,7 @@ namespace CRMYourBankers.ViewModels
         public string BIKProposalNoteText6 { get; set; }
         public int BrokerId { get; set; }
         public string NewTaskText { get; set; }
+        public DateTime? TaskAddedDate { get; set; }
         public DateTime? TaskDate { get; set; }
         public List<int> LoanApplicationsProposals { get; set; }
         public TabName LastTabName { get; set; }
@@ -213,8 +214,8 @@ namespace CRMYourBankers.ViewModels
                 Context.LoanApplications
                     .Include(loan => loan.LoanTasks)
                     .Where(loan => loan.ClientId == SelectedItem.Id) 
-                    .OrderBy(status => status.LoanApplicationStatus)
-                    .ThenByDescending(startdate => startdate.StartDate)
+                    .OrderBy(status => status.StartDate)
+                    .ThenByDescending(startdate => startdate.LoanApplicationStatus)
                     .Join(
                     Context.Banks,
                     loan => loan.BankId,
@@ -224,6 +225,7 @@ namespace CRMYourBankers.ViewModels
                         loan.Id,
                         loan.ClientId,
                         loan.AmountRequested,
+                        loan.AmountReceived,
                         loan.TasksToDo,
                         loan.StartDate,
                         loan.LoanApplicationStatus,
@@ -238,6 +240,7 @@ namespace CRMYourBankers.ViewModels
                         loan.Id,
                         loan.BankName,
                         loan.AmountRequested,
+                        loan.AmountReceived,
                         loan.TasksToDo,
                         loan.StartDate,
                         loan.LoanApplicationStatus
@@ -373,6 +376,7 @@ namespace CRMYourBankers.ViewModels
 					{
                         var newClientTask = new ClientTask
 						{
+                            TaskAddedDate = DateTime.Now,
 							Text = NewTaskText,
 							ClientId = SelectedItem.Id,                            
                             TaskDate = TaskDate
@@ -436,7 +440,10 @@ namespace CRMYourBankers.ViewModels
 					Bank = Context.Banks.Single(bank => bank.Id == LoanApplicationsProposals[loanProposalIndexValue]),
 					LoanStartDate = null,
 					LoanApplicationStatus = LoanApplicationStatus.Submited
+                    
 				};
+
+                SelectedItem.ClientStatus = ClientStatus.Active;
 
                 TabMessenger.Send(new TabChangeMessage
                 {

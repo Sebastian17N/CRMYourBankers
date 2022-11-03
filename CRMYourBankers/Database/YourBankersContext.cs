@@ -17,13 +17,14 @@ namespace CRMYourBankers.Database
         public DbSet<LoanTask> LoanTasks { get; set; }
         public DbSet<ClientTask> ClientTasks { get; set; }
         public DbSet<MonthSummary> MonthSummaries { get; set; }
+        public DbSet<YearSummary> YearSummaries { get; set; }
         public DbSet<BankClientBIK> BankClientBIK { get; set; }
         public DbSet<LoanApplicationsProposal> LoanApplicationsProposals { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //var connectionString = "DataSource=" + (File.Exists("CRMYourBankers.csproj") ? "YourBankersConnection.db" : "./../../../YourBankersConnection.db");
-            var connectionString = "DataSource=Database/YourBankersConnection.db";
+            var connectionString = "DataSource=" + (File.Exists("CRMYourBankers.csproj") ? "YourBankersConnection.db" : "./../../../YourBankersConnection.db");
+            //var connectionString = "DataSource=Database/YourBankersConnection.db";
 
             optionsBuilder.UseSqlite(connectionString);
             base.OnConfiguring(optionsBuilder);
@@ -57,7 +58,8 @@ namespace CRMYourBankers.Database
 			AddLoanApplications();
 			AddLoanTasks();
 			AddMonthSummaries();
-			AddLoanApplicationsProposals();
+            AddYearummaries();
+            AddLoanApplicationsProposals();
 		}
 
         private void AddClients()
@@ -251,8 +253,18 @@ namespace CRMYourBankers.Database
 				);
 			SaveChanges();
 		}
+        private void AddYearummaries()
+        {
+            if (YearSummaries.Any())
+                return;
 
-		private void AddLoanApplicationsProposals()
+            YearSummaries.AddRange(
+                new YearSummary { Year = DateTime.Parse("2021") }
+                );
+            SaveChanges();
+        }
+
+        private void AddLoanApplicationsProposals()
 		{
             if (LoanApplicationsProposals.Any())
                 return;
